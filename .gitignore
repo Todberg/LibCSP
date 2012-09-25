@@ -1,2 +1,11 @@
 # Git ignore these files #
 *.class
+*.tps
+*.tcp
+*.bbl
+*.blg
+*.aux
+*.brf
+*.out
+*.pdfsync
+*.toc
