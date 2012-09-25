@@ -1,0 +1,76 @@
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+
+\graphicspath{{./Images/}}
+
+\newcommand{\img}[3]{
+	\begin{figure}[!htp]
+			\centering
+			\includegraphics[width=#2\textwidth]{#1}
+			\caption{#3}
+			\label{img:#1}
+	\end{figure} 
+}
+
+\newcommand{\imghere}[3]{
+	\begin{figure}[H] 
+			\centering
+			\includegraphics[width=#2\textwidth]{#1}
+			\caption{#3}
+			\label{img:#1}
+	\end{figure} 
+}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{lastpage}
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  language=Octave,                % the language of the code
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+\lstdefinelanguage{cs}
+  {morekeywords={abstract,event,new,struct,as,explicit,null,switch
+    base,extern,object,this,bool,false,operator,throw,
+    break,finally,out,true,byte,fixed,override,try,
+    case,float,params,typeof,catch,for,private,uint,
+    char,foreach,protected,ulong,checked,goto,public,unchecked,
+    class,if,readonly,unsafe,const,implicit,ref,ushort,
+    continue,in,return,using,decimal,int,sbyte,virtual,
+    default,interface,sealed,volatile,delegate,internal,short,void,
+    do,is,sizeof,while,double,lock,stackalloc,
+    else,long,static,enum,namespace,string, },
+    sensitive=false,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+}

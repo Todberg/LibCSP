@@ -1,0 +1,27 @@
+\input{Configuration/Preamble.tex}
+
+\begin{document}
+
+% Front page
+\begin{figure}[!h]
+	\centering
+	\includegraphics{Images/de2-70}
+	\label{fig:front_page}
+\end{figure}
+
+
+\setlength{\parskip}{0mm}
+		
+		% Content
+		\input{Misc/Titlepage.tex}
+		\input{Misc/Preface.tex}
+		\tableofcontents
+		\input{PartI/PartI.tex}
+			\input{PartI/FileOne.tex}
+		\input{PartII/PartII.tex}
+			\input{PartII/FileTwo.tex}
+
+		\appendix
+
+		\input{Configuration/Literature.tex}
+\end{document}
