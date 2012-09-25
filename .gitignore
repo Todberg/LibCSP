@@ -9,3 +9,7 @@
 *.out
 *.pdfsync
 *.toc
+*.dfb_latexmk
+*.fls
+*.log
+*.synctex.gz
