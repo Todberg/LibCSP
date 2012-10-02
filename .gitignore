@@ -16,3 +16,5 @@
 *.fls
 *.log
 *.synctex.gz
+
+/Code/Watchdog/build/
