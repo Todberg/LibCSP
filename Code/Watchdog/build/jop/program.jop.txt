@@ -1448,162 +1448,68 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 5, index = 0:javax.realtime.BoundAsyncEventHandler this)
 LineNumber(0, 32)
 
-com.WatchdogPeriodicEventHandler:<init>(Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[I)V
-Code(max_stack = 6, max_locals = 7, code_length = 20)
+util.DbgSerial:<init>()V
+Code(max_stack = 2, max_locals = 1, code_length = 10)
 0:    aload_0
-1:    aload_1
-2:    aload_2
-3:    aload_3
-4:    lload		%4
-6:    invokespecial	javax.safetycritical.PeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J)V (12)
-9:    aload_0
-10:   aload		%6
-12:   putfield		com.WatchdogPeriodicEventHandler.slaves [I (15)
-15:   aload_0
-16:   invokespecial	com.WatchdogPeriodicEventHandler.initialize ()V (17)
-19:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 20, index = 0:com.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 0, length = 20, index = 1:javax.realtime.PriorityParameters priority)
-LocalVariable(start_pc = 0, length = 20, index = 2:javax.realtime.PeriodicParameters parameters)
-LocalVariable(start_pc = 0, length = 20, index = 3:javax.safetycritical.StorageParameters scp)
-LocalVariable(start_pc = 0, length = 20, index = 4:long scopeSize)
-LocalVariable(start_pc = 0, length = 20, index = 6:int[] slaves)
-LineNumber(0, 22), LineNumber(9, 24), LineNumber(15, 26), LineNumber(19, 27)
-
-
-com.WatchdogPeriodicEventHandler:initialize()V
-Code(max_stack = 2, max_locals = 2, code_length = 22)
-0:    invokestatic	com.jopdesign.io.I2CFactory.getFactory ()Lcom/jopdesign/io/I2CFactory; (33)
-3:    astore_1
+1:    invokespecial	util.Dbg.<init> ()V (10)
 4:    aload_0
-5:    aload_1
-6:    invokevirtual	com.jopdesign.io.I2CFactory.getI2CportA ()Lcom/jopdesign/io/I2Cport; (39)
-9:    putfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-12:   aload_0
-13:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-16:   bipush		15
-18:   invokevirtual	com.jopdesign.io.I2Cport.initConf (I)V (45)
-21:   return
+5:    iconst_0
+6:    putfield		util.DbgSerial.waitHs Z (12)
+9:    return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 22, index = 0:com.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 4, length = 18, index = 1:com.jopdesign.io.I2CFactory fact)
-LineNumber(0, 30), LineNumber(4, 31), LineNumber(12, 32), LineNumber(21, 33)
+LocalVariable(start_pc = 0, length = 10, index = 0:util.DbgSerial this)
+LineNumber(0, 33), LineNumber(4, 34), LineNumber(9, 35)
 
-
-com.WatchdogPeriodicEventHandler:printBuffer([I)V
-Code(max_stack = 2, max_locals = 6, code_length = 42)
-0:    aload_1
-1:    dup
-2:    astore		%5
-4:    arraylength
-5:    istore		%4
-7:    iconst_0
-8:    istore_3
-9:    goto		#29
-12:   aload		%5
-14:   iload_3
-15:   iaload
-16:   istore_2
-17:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-20:   iload_2
-21:   i2c
-22:   invokevirtual	java.io.PrintStream.print (C)V (61)
-25:   iload_3
-26:   iconst_1
-27:   iadd
-28:   istore_3
-29:   iload_3
-30:   iload		%4
-32:   if_icmplt		#12
-35:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-38:   invokevirtual	java.io.PrintStream.println ()V (67)
-41:   return
+util.DbgSerial:<init>(Z)V
+Code(max_stack = 2, max_locals = 2, code_length = 10)
+0:    aload_0
+1:    invokespecial	util.Dbg.<init> ()V (10)
+4:    aload_0
+5:    iload_1
+6:    putfield		util.DbgSerial.waitHs Z (12)
+9:    return
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 ff 00 0c 00 06 07 00 01... (truncated))
-LocalVariable(start_pc = 0, length = 42, index = 0:com.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 0, length = 42, index = 1:int[] buffer)
-LocalVariable(start_pc = 17, length = 9, index = 2:int i)
-LineNumber(0, 36), LineNumber(17, 37), LineNumber(25, 36), LineNumber(35, 39), 
-LineNumber(41, 40)
+LocalVariable(start_pc = 0, length = 10, index = 0:util.DbgSerial this)
+LocalVariable(start_pc = 0, length = 10, index = 1:boolean w)
+LineNumber(0, 36), LineNumber(4, 37), LineNumber(9, 38)
 
-com.WatchdogPeriodicEventHandler:handleAsyncEvent()V
-Code(max_stack = 3, max_locals = 6, code_length = 125)
-0:    getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-3:    ldc		"entering handler" (81)
-5:    invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-8:    aload_0
-9:    getfield		com.WatchdogPeriodicEventHandler.slaves [I (15)
-12:   dup
-13:   astore		%4
-15:   arraylength
-16:   istore_3
-17:   iconst_0
-18:   istore_2
-19:   goto		#111
-22:   aload		%4
-24:   iload_2
-25:   iaload
-26:   istore_1
-27:   aload_0
-28:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-31:   invokevirtual	com.jopdesign.io.I2Cport.masterTX ()V (86)
-34:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-37:   ldc		"writing slave" (89)
-39:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-42:   aload_0
-43:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-46:   iload_1
-47:   bipush		8
-49:   invokevirtual	com.jopdesign.io.I2Cport.write (II)V (91)
-52:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-55:   ldc		"slave written" (95)
-57:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-60:   aload_0
-61:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-64:   invokevirtual	com.jopdesign.io.I2Cport.flushFifo ()V (97)
-67:   aload_0
-68:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-71:   invokevirtual	com.jopdesign.io.I2Cport.masterRX ()V (100)
-74:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-77:   ldc		"reading buffer" (103)
-79:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-82:   aload_0
-83:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-86:   iload_1
-87:   iconst_5
-88:   invokevirtual	com.jopdesign.io.I2Cport.read (II)[I (105)
-91:   astore		%5
-93:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-96:   ldc		"buffer read" (109)
-98:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-101:  aload_0
-102:  aload		%5
-104:  invokespecial	com.WatchdogPeriodicEventHandler.printBuffer ([I)V (111)
-107:  iload_2
-108:  iconst_1
-109:  iadd
-110:  istore_2
-111:  iload_2
-112:  iload_3
-113:  if_icmplt		#22
-116:  getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-119:  ldc		"exiting handler" (113)
-121:  invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-124:  return
+util.DbgSerial:dbgWr(I)V
+Code(max_stack = 2, max_locals = 2, code_length = 30)
+0:    aload_0
+1:    getfield		util.DbgSerial.waitHs Z (12)
+4:    ifeq		#17
+7:    bipush		-112
+9:    invokestatic	com.jopdesign.sys.Native.rd (I)I (22)
+12:   iconst_1
+13:   iand
+14:   ifeq		#7
+17:   iload_1
+18:   bipush		-111
+20:   invokestatic	com.jopdesign.sys.Native.wr (II)V (28)
+23:   iload_1
+24:   bipush		-95
+26:   invokestatic	com.jopdesign.sys.Native.wr (II)V (28)
+29:   return
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 ff 00 16 00 05 07 00 01... (truncated))
-LocalVariable(start_pc = 0, length = 125, index = 0:com.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 27, length = 81, index = 1:int slave)
-LocalVariable(start_pc = 93, length = 15, index = 5:int[] buffer)
-LineNumber(0, 45), LineNumber(8, 46), LineNumber(27, 47), LineNumber(34, 48), 
-LineNumber(42, 49), LineNumber(52, 50), LineNumber(60, 52), LineNumber(67, 53), 
-LineNumber(74, 55), LineNumber(82, 56), LineNumber(93, 57), LineNumber(101, 58), 
-LineNumber(107, 46), LineNumber(116, 61), LineNumber(124, 62)
+(Unknown attribute StackMapTable: 00 02 07 09)
+LocalVariable(start_pc = 0, length = 30, index = 0:util.DbgSerial this)
+LocalVariable(start_pc = 0, length = 30, index = 1:int c)
+LineNumber(0, 42), LineNumber(7, 44), LineNumber(17, 58), LineNumber(23, 59), 
+LineNumber(29, 60)
+
+util.DbgSerial:dbgReadBuffer([II)I
+Code(max_stack = 1, max_locals = 3, code_length = 2)
+0:    iconst_0
+1:    ireturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 2, index = 0:util.DbgSerial this)
+LocalVariable(start_pc = 0, length = 2, index = 1:int[] udpBuf)
+LocalVariable(start_pc = 0, length = 2, index = 2:int pos)
+LineNumber(0, 66)
 
 com.jopdesign.sys.JVM:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -5442,69 +5348,6 @@ Code(max_stack = 0, max_locals = 0, code_length = 4)
 Attribute(s) = 
 LineNumber(0, 1221)
 
-util.DbgSerial:<init>()V
-Code(max_stack = 2, max_locals = 1, code_length = 10)
-0:    aload_0
-1:    invokespecial	util.Dbg.<init> ()V (10)
-4:    aload_0
-5:    iconst_0
-6:    putfield		util.DbgSerial.waitHs Z (12)
-9:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 10, index = 0:util.DbgSerial this)
-LineNumber(0, 33), LineNumber(4, 34), LineNumber(9, 35)
-
-util.DbgSerial:<init>(Z)V
-Code(max_stack = 2, max_locals = 2, code_length = 10)
-0:    aload_0
-1:    invokespecial	util.Dbg.<init> ()V (10)
-4:    aload_0
-5:    iload_1
-6:    putfield		util.DbgSerial.waitHs Z (12)
-9:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 10, index = 0:util.DbgSerial this)
-LocalVariable(start_pc = 0, length = 10, index = 1:boolean w)
-LineNumber(0, 36), LineNumber(4, 37), LineNumber(9, 38)
-
-util.DbgSerial:dbgWr(I)V
-Code(max_stack = 2, max_locals = 2, code_length = 30)
-0:    aload_0
-1:    getfield		util.DbgSerial.waitHs Z (12)
-4:    ifeq		#17
-7:    bipush		-112
-9:    invokestatic	com.jopdesign.sys.Native.rd (I)I (22)
-12:   iconst_1
-13:   iand
-14:   ifeq		#7
-17:   iload_1
-18:   bipush		-111
-20:   invokestatic	com.jopdesign.sys.Native.wr (II)V (28)
-23:   iload_1
-24:   bipush		-95
-26:   invokestatic	com.jopdesign.sys.Native.wr (II)V (28)
-29:   return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 07 09)
-LocalVariable(start_pc = 0, length = 30, index = 0:util.DbgSerial this)
-LocalVariable(start_pc = 0, length = 30, index = 1:int c)
-LineNumber(0, 42), LineNumber(7, 44), LineNumber(17, 58), LineNumber(23, 59), 
-LineNumber(29, 60)
-
-util.DbgSerial:dbgReadBuffer([II)I
-Code(max_stack = 1, max_locals = 3, code_length = 2)
-0:    iconst_0
-1:    ireturn
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 2, index = 0:util.DbgSerial this)
-LocalVariable(start_pc = 0, length = 2, index = 1:int[] udpBuf)
-LocalVariable(start_pc = 0, length = 2, index = 2:int pos)
-LineNumber(0, 66)
-
 java.lang.ArithmeticException:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
@@ -7691,100 +7534,6 @@ Code(max_stack = 1, max_locals = 0, code_length = 4)
 
 Attribute(s) = 
 LineNumber(0, 1)
-
-com.WatchdogMission:<init>()V
-Code(max_stack = 1, max_locals = 1, code_length = 5)
-0:    aload_0
-1:    invokespecial	javax.safetycritical.Mission.<init> ()V (8)
-4:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:com.WatchdogMission this)
-LineNumber(0, 11)
-
-com.WatchdogMission:initialize()V
-Code(max_stack = 9, max_locals = 6, code_length = 90)
-0:    new		<javax.realtime.PriorityParameters> (20)
-3:    dup
-4:    bipush		10
-6:    invokespecial	javax.realtime.PriorityParameters.<init> (I)V (22)
-9:    astore_1
-10:   new		<javax.realtime.PeriodicParameters> (25)
-13:   dup
-14:   new		<javax.realtime.RelativeTime> (27)
-17:   dup
-18:   lconst_0
-19:   iconst_0
-20:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (29)
-23:   new		<javax.realtime.RelativeTime> (27)
-26:   dup
-27:   ldc2_w		1500 (32)
-30:   iconst_0
-31:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (29)
-34:   invokespecial	javax.realtime.PeriodicParameters.<init> (Ljavax/realtime/RelativeTime;Ljavax/realtime/RelativeTime;)V (34)
-37:   astore_2
-38:   new		<javax.safetycritical.StorageParameters> (37)
-41:   dup
-42:   ldc2_w		10000 (39)
-45:   iconst_1
-46:   newarray		<long>
-48:   dup
-49:   iconst_0
-50:   ldc2_w		500 (41)
-53:   lastore
-54:   iconst_0
-55:   iconst_0
-56:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[JII)V (43)
-59:   astore_3
-60:   iconst_1
-61:   newarray		<int>
-63:   dup
-64:   iconst_0
-65:   iconst_1
-66:   iastore
-67:   astore		%4
-69:   new		<com.WatchdogPeriodicEventHandler> (46)
-72:   dup
-73:   aload_1
-74:   aload_2
-75:   aload_3
-76:   lconst_0
-77:   aload		%4
-79:   invokespecial	com.WatchdogPeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[I)V (48)
-82:   astore		%5
-84:   aload		%5
-86:   invokevirtual	com.WatchdogPeriodicEventHandler.register ()V (51)
-89:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 90, index = 0:com.WatchdogMission this)
-LocalVariable(start_pc = 10, length = 80, index = 1:javax.realtime.PriorityParameters priorityParam)
-LocalVariable(start_pc = 38, length = 52, index = 2:javax.realtime.PeriodicParameters releaseParam)
-LocalVariable(start_pc = 60, length = 30, index = 3:javax.safetycritical.StorageParameters storageParam)
-LocalVariable(start_pc = 69, length = 21, index = 4:int[] slaves)
-LocalVariable(start_pc = 84, length = 6, index = 5:com.WatchdogPeriodicEventHandler WDHandler)
-LineNumber(0, 16), LineNumber(10, 17), LineNumber(38, 18), LineNumber(60, 21), 
-LineNumber(69, 23), LineNumber(73, 24), LineNumber(74, 25), LineNumber(75, 26), 
-LineNumber(76, 27), LineNumber(77, 28), LineNumber(79, 23), LineNumber(84, 30), 
-LineNumber(89, 31)
-
-com.WatchdogMission:missionMemorySize()J
-Code(max_stack = 2, max_locals = 1, code_length = 4)
-0:    ldc2_w		100000 (66)
-3:    lreturn
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 4, index = 0:com.WatchdogMission this)
-LineNumber(0, 36)
-
-com.WatchdogMission:start()Ljava/lang/Runnable;
-Code(max_stack = 1, max_locals = 1, code_length = 2)
-0:    aconst_null
-1:    areturn
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 2, index = 0:com.WatchdogMission this)
-LineNumber(0, 42)
 
 java.lang.ArrayStoreException:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -10916,48 +10665,99 @@ LineNumber(25, 361), LineNumber(30, 362), LineNumber(42, 363), LineNumber(47, 36
 LineNumber(54, 361), LineNumber(64, 366), LineNumber(69, 367), LineNumber(77, 366), 
 LineNumber(85, 369), LineNumber(90, 370)
 
-com.WatchdogSafelet:<init>()V
+sw901e12.WatchdogMission:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
-1:    invokespecial	java.lang.Object.<init> ()V (10)
+1:    invokespecial	javax.safetycritical.Mission.<init> ()V (8)
 4:    return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:com.WatchdogSafelet this)
-LineNumber(0, 14)
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 13)
 
-com.WatchdogSafelet:getSequencer()Ljavax/safetycritical/MissionSequencer;
-Code(max_stack = 8, max_locals = 1, code_length = 35)
-0:    new		<javax.safetycritical.LinearMissionSequencer> (29)
+sw901e12.WatchdogMission:initialize()V
+Code(max_stack = 9, max_locals = 6, code_length = 90)
+0:    new		<javax.realtime.PriorityParameters> (20)
 3:    dup
-4:    new		<javax.realtime.PriorityParameters> (31)
-7:    dup
-8:    bipush		11
-10:   invokespecial	javax.realtime.PriorityParameters.<init> (I)V (33)
-13:   new		<javax.safetycritical.StorageParameters> (36)
-16:   dup
-17:   ldc2_w		1000 (38)
-20:   aconst_null
-21:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[J)V (40)
-24:   new		<com.WatchdogMission> (43)
-27:   dup
-28:   invokespecial	com.WatchdogMission.<init> ()V (45)
-31:   invokespecial	javax.safetycritical.LinearMissionSequencer.<init> (Ljavax/realtime/PriorityParameters;Ljavax/safetycritical/StorageParameters;Ljavax/safetycritical/Mission;)V (46)
-34:   areturn
+4:    bipush		10
+6:    invokespecial	javax.realtime.PriorityParameters.<init> (I)V (22)
+9:    astore_1
+10:   new		<javax.realtime.PeriodicParameters> (25)
+13:   dup
+14:   new		<javax.realtime.RelativeTime> (27)
+17:   dup
+18:   lconst_0
+19:   iconst_0
+20:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (29)
+23:   new		<javax.realtime.RelativeTime> (27)
+26:   dup
+27:   ldc2_w		1500 (32)
+30:   iconst_0
+31:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (29)
+34:   invokespecial	javax.realtime.PeriodicParameters.<init> (Ljavax/realtime/RelativeTime;Ljavax/realtime/RelativeTime;)V (34)
+37:   astore_2
+38:   new		<javax.safetycritical.StorageParameters> (37)
+41:   dup
+42:   ldc2_w		10000 (39)
+45:   iconst_1
+46:   newarray		<long>
+48:   dup
+49:   iconst_0
+50:   ldc2_w		500 (41)
+53:   lastore
+54:   iconst_0
+55:   iconst_0
+56:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[JII)V (43)
+59:   astore_3
+60:   iconst_1
+61:   newarray		<int>
+63:   dup
+64:   iconst_0
+65:   iconst_1
+66:   iastore
+67:   astore		%4
+69:   new		<sw901e12.handlers.WatchdogPeriodicEventHandler> (46)
+72:   dup
+73:   aload_1
+74:   aload_2
+75:   aload_3
+76:   lconst_0
+77:   aload		%4
+79:   invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[I)V (48)
+82:   astore		%5
+84:   aload		%5
+86:   invokevirtual	sw901e12.handlers.WatchdogPeriodicEventHandler.register ()V (51)
+89:   return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 35, index = 0:com.WatchdogSafelet this)
-LineNumber(0, 20), LineNumber(4, 21), LineNumber(13, 22), LineNumber(24, 23), 
-LineNumber(31, 20)
+LocalVariable(start_pc = 0, length = 90, index = 0:sw901e12.WatchdogMission this)
+LocalVariable(start_pc = 10, length = 80, index = 1:javax.realtime.PriorityParameters priorityParam)
+LocalVariable(start_pc = 38, length = 52, index = 2:javax.realtime.PeriodicParameters releaseParam)
+LocalVariable(start_pc = 60, length = 30, index = 3:javax.safetycritical.StorageParameters storageParam)
+LocalVariable(start_pc = 69, length = 21, index = 4:int[] slaves)
+LocalVariable(start_pc = 84, length = 6, index = 5:sw901e12.handlers.WatchdogPeriodicEventHandler WDHandler)
+LineNumber(0, 18), LineNumber(10, 19), LineNumber(38, 20), LineNumber(60, 23), 
+LineNumber(69, 25), LineNumber(73, 26), LineNumber(74, 27), LineNumber(75, 28), 
+LineNumber(76, 29), LineNumber(77, 30), LineNumber(79, 25), LineNumber(84, 32), 
+LineNumber(89, 33)
 
-com.WatchdogSafelet:immortalMemorySize()J
+sw901e12.WatchdogMission:missionMemorySize()J
 Code(max_stack = 2, max_locals = 1, code_length = 4)
-0:    ldc2_w		100000 (51)
+0:    ldc2_w		100000 (66)
 3:    lreturn
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 4, index = 0:com.WatchdogSafelet this)
-LineNumber(0, 29)
+LocalVariable(start_pc = 0, length = 4, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 38)
+
+sw901e12.WatchdogMission:start()Ljava/lang/Runnable;
+Code(max_stack = 1, max_locals = 1, code_length = 2)
+0:    aconst_null
+1:    areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 2, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 44)
 
 javax.realtime.AbstractAsyncEventHandler:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -14285,19 +14085,19 @@ Code(max_stack = 1, max_locals = 1, code_length = 5)
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 5, index = 0:system.SCJApplicationMain this)
-LineNumber(0, 7)
+LineNumber(0, 8)
 
 system.SCJApplicationMain:main([Ljava/lang/String;)V
 Code(max_stack = 2, max_locals = 1, code_length = 11)
-0:    new		<com.WatchdogSafelet> (16)
+0:    new		<sw901e12.WatchdogSafelet> (16)
 3:    dup
-4:    invokespecial	com.WatchdogSafelet.<init> ()V (18)
+4:    invokespecial	sw901e12.WatchdogSafelet.<init> ()V (18)
 7:    invokestatic	javax.safetycritical.JopSystem.startMission (Ljavax/safetycritical/Safelet;)V (19)
 10:   return
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 11, index = 0:String[] args)
-LineNumber(0, 11), LineNumber(10, 12)
+LineNumber(0, 12), LineNumber(10, 13)
 
 javax.safetycritical.ManagedSchedulable:register()V
 null
@@ -18298,6 +18098,49 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 40, index = 0:javax.realtime.RelativeTime this)
 LocalVariable(start_pc = 0, length = 40, index = 1:javax.realtime.RelativeTime time)
 LineNumber(0, 244), LineNumber(15, 245), LineNumber(25, 247)
+
+sw901e12.WatchdogSafelet:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (10)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.WatchdogSafelet this)
+LineNumber(0, 14)
+
+sw901e12.WatchdogSafelet:getSequencer()Ljavax/safetycritical/MissionSequencer;
+Code(max_stack = 8, max_locals = 1, code_length = 35)
+0:    new		<javax.safetycritical.LinearMissionSequencer> (29)
+3:    dup
+4:    new		<javax.realtime.PriorityParameters> (31)
+7:    dup
+8:    bipush		11
+10:   invokespecial	javax.realtime.PriorityParameters.<init> (I)V (33)
+13:   new		<javax.safetycritical.StorageParameters> (36)
+16:   dup
+17:   ldc2_w		1000 (38)
+20:   aconst_null
+21:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[J)V (40)
+24:   new		<sw901e12.WatchdogMission> (43)
+27:   dup
+28:   invokespecial	sw901e12.WatchdogMission.<init> ()V (45)
+31:   invokespecial	javax.safetycritical.LinearMissionSequencer.<init> (Ljavax/realtime/PriorityParameters;Ljavax/safetycritical/StorageParameters;Ljavax/safetycritical/Mission;)V (46)
+34:   areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 35, index = 0:sw901e12.WatchdogSafelet this)
+LineNumber(0, 20), LineNumber(4, 21), LineNumber(13, 22), LineNumber(24, 23), 
+LineNumber(31, 20)
+
+sw901e12.WatchdogSafelet:immortalMemorySize()J
+Code(max_stack = 2, max_locals = 1, code_length = 4)
+0:    ldc2_w		100000 (51)
+3:    lreturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 4, index = 0:sw901e12.WatchdogSafelet this)
+LineNumber(0, 29)
 
 javax.realtime.PeriodicParameters:<init>(Ljavax/realtime/RelativeTime;Ljavax/realtime/RelativeTime;)V
 Code(max_stack = 3, max_locals = 3, code_length = 51)
@@ -25002,6 +24845,163 @@ LocalVariable(start_pc = 0, length = 25, index = 1:String str)
 LocalVariable(start_pc = 13, length = 12, index = 2:byte[] bytes)
 LineNumber(0, 316), LineNumber(13, 317), LineNumber(24, 318)
 
+sw901e12.handlers.WatchdogPeriodicEventHandler:<init>(Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[I)V
+Code(max_stack = 6, max_locals = 7, code_length = 20)
+0:    aload_0
+1:    aload_1
+2:    aload_2
+3:    aload_3
+4:    lload		%4
+6:    invokespecial	javax.safetycritical.PeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J)V (12)
+9:    aload_0
+10:   aload		%6
+12:   putfield		sw901e12.handlers.WatchdogPeriodicEventHandler.slaves [I (15)
+15:   aload_0
+16:   invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.initialize ()V (17)
+19:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 20, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 0, length = 20, index = 1:javax.realtime.PriorityParameters priority)
+LocalVariable(start_pc = 0, length = 20, index = 2:javax.realtime.PeriodicParameters parameters)
+LocalVariable(start_pc = 0, length = 20, index = 3:javax.safetycritical.StorageParameters scp)
+LocalVariable(start_pc = 0, length = 20, index = 4:long scopeSize)
+LocalVariable(start_pc = 0, length = 20, index = 6:int[] slaves)
+LineNumber(0, 22), LineNumber(9, 24), LineNumber(15, 26), LineNumber(19, 27)
+
+
+sw901e12.handlers.WatchdogPeriodicEventHandler:initialize()V
+Code(max_stack = 2, max_locals = 2, code_length = 22)
+0:    invokestatic	com.jopdesign.io.I2CFactory.getFactory ()Lcom/jopdesign/io/I2CFactory; (33)
+3:    astore_1
+4:    aload_0
+5:    aload_1
+6:    invokevirtual	com.jopdesign.io.I2CFactory.getI2CportA ()Lcom/jopdesign/io/I2Cport; (39)
+9:    putfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+12:   aload_0
+13:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+16:   bipush		15
+18:   invokevirtual	com.jopdesign.io.I2Cport.initConf (I)V (45)
+21:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 22, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 4, length = 18, index = 1:com.jopdesign.io.I2CFactory fact)
+LineNumber(0, 30), LineNumber(4, 31), LineNumber(12, 32), LineNumber(21, 33)
+
+
+sw901e12.handlers.WatchdogPeriodicEventHandler:printBuffer([I)V
+Code(max_stack = 2, max_locals = 6, code_length = 42)
+0:    aload_1
+1:    dup
+2:    astore		%5
+4:    arraylength
+5:    istore		%4
+7:    iconst_0
+8:    istore_3
+9:    goto		#29
+12:   aload		%5
+14:   iload_3
+15:   iaload
+16:   istore_2
+17:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+20:   iload_2
+21:   i2c
+22:   invokevirtual	java.io.PrintStream.print (C)V (61)
+25:   iload_3
+26:   iconst_1
+27:   iadd
+28:   istore_3
+29:   iload_3
+30:   iload		%4
+32:   if_icmplt		#12
+35:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+38:   invokevirtual	java.io.PrintStream.println ()V (67)
+41:   return
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 02 ff 00 0c 00 06 07 00 01... (truncated))
+LocalVariable(start_pc = 0, length = 42, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 0, length = 42, index = 1:int[] buffer)
+LocalVariable(start_pc = 17, length = 9, index = 2:int i)
+LineNumber(0, 36), LineNumber(17, 37), LineNumber(25, 36), LineNumber(35, 39), 
+LineNumber(41, 40)
+
+sw901e12.handlers.WatchdogPeriodicEventHandler:handleAsyncEvent()V
+Code(max_stack = 3, max_locals = 6, code_length = 125)
+0:    getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+3:    ldc		"entering handler" (81)
+5:    invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
+8:    aload_0
+9:    getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.slaves [I (15)
+12:   dup
+13:   astore		%4
+15:   arraylength
+16:   istore_3
+17:   iconst_0
+18:   istore_2
+19:   goto		#111
+22:   aload		%4
+24:   iload_2
+25:   iaload
+26:   istore_1
+27:   aload_0
+28:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+31:   invokevirtual	com.jopdesign.io.I2Cport.masterTX ()V (86)
+34:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+37:   ldc		"writing slave" (89)
+39:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
+42:   aload_0
+43:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+46:   iload_1
+47:   bipush		8
+49:   invokevirtual	com.jopdesign.io.I2Cport.write (II)V (91)
+52:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+55:   ldc		"slave written" (95)
+57:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
+60:   aload_0
+61:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+64:   invokevirtual	com.jopdesign.io.I2Cport.flushFifo ()V (97)
+67:   aload_0
+68:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+71:   invokevirtual	com.jopdesign.io.I2Cport.masterRX ()V (100)
+74:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+77:   ldc		"reading buffer" (103)
+79:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
+82:   aload_0
+83:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+86:   iload_1
+87:   iconst_5
+88:   invokevirtual	com.jopdesign.io.I2Cport.read (II)[I (105)
+91:   astore		%5
+93:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+96:   ldc		"buffer read" (109)
+98:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
+101:  aload_0
+102:  aload		%5
+104:  invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.printBuffer ([I)V (111)
+107:  iload_2
+108:  iconst_1
+109:  iadd
+110:  istore_2
+111:  iload_2
+112:  iload_3
+113:  if_icmplt		#22
+116:  getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+119:  ldc		"exiting handler" (113)
+121:  invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
+124:  return
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 02 ff 00 16 00 05 07 00 01... (truncated))
+LocalVariable(start_pc = 0, length = 125, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 27, length = 81, index = 1:int slave)
+LocalVariable(start_pc = 93, length = 15, index = 5:int[] buffer)
+LineNumber(0, 45), LineNumber(8, 46), LineNumber(27, 47), LineNumber(34, 48), 
+LineNumber(42, 49), LineNumber(52, 50), LineNumber(60, 52), LineNumber(67, 53), 
+LineNumber(74, 55), LineNumber(82, 56), LineNumber(93, 57), LineNumber(101, 58), 
+LineNumber(107, 46), LineNumber(116, 61), LineNumber(124, 62)
+
 com.jopdesign.sys.SoftFloat64:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
@@ -28580,16 +28580,4 @@ Code(max_stack = 1, max_locals = 1, code_length = 5)
 1:    invokespecial	java.lang.Throwable.<init> ()V (13)
 4:    return
 
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:Exception this)
-LineNumber(0, 66), LineNumber(4, 68)
-
-java.lang.Exception:<init>(Ljava/lang/String;)V
-Code(max_stack = 2, max_locals = 2, code_length = 6)
-0:    aload_0
-1:    aload_1
-2:    invokespecial	java.lang.Throwable.<init> (Ljava/lang/String;)V (20)
-5:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 6, index = 0:Exception th
+Attri
