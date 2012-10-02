@@ -3,8 +3,6 @@ package sw901e12.comm;
 import com.jopdesign.io.I2CFactory;
 import com.jopdesign.io.I2Cport;
 
-import csp.Conf;
-
 import sw901e12.comm.modules.TwoWayDirectionPinger;
 import sw901e12.sys.Config;
 

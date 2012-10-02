@@ -3,7 +3,6 @@ package sw901e12.comm;
 import javax.realtime.AbsoluteTime;
 import javax.realtime.Clock;
 
-import com.jopdesign.io.I2CFactory;
 import com.jopdesign.io.I2Cport;
 
 import sw901e12.sys.Config;
@@ -23,17 +22,18 @@ public abstract class ModulePinger {
 		this.clock = Clock.getRealtimeClock();
 	}
 	
-	private boolean IsTimeout() {		
-		AbsoluteTime timeout = clock.getTime().add(Config.timeout);		
+	private boolean IsTimeout(AbsoluteTime timeout) {		
 		return (clock.getTime().compareTo(timeout) < 0 ? false : true);
 	}
 	
 	private boolean IsDataAvailable() {
-		return ((i2cPort.status & I2Cport.DATA_VALID) == 0);
+		return ((i2cPort.status & I2Cport.DATA_VALID) == 1);
 	}
 	
 	protected void TimeoutBasedWaitForModuleResponse() {
-		while(!IsTimeout()) {
+		AbsoluteTime timeout = clock.getTime().add(Config.timeout);
+		
+		while(!IsTimeout(timeout)) {
 			if(IsDataAvailable())
 				break;
 		}

@@ -16,7 +16,8 @@ public class PEHModulePinger extends PeriodicEventHandler {
 	private SimplePrintStream console;
 	
 	public PEHModulePinger(PriorityParameters priority,
-			PeriodicParameters parameters, StorageParameters scp, long scopeSize, Module[] slaves, SimplePrintStream console) {
+			PeriodicParameters parameters, StorageParameters scp, long scopeSize, 
+				Module[] slaves, SimplePrintStream console) {
 		super(priority, parameters, scp, scopeSize);
 		
 		this.slaves = slaves;
@@ -28,8 +29,7 @@ public class PEHModulePinger extends PeriodicEventHandler {
 	public void handleAsyncEvent() {
 		console.println("Pinging modules");
 		
-		for(Module slave : slaves) {
+		for(Module slave : slaves)
 			slave.getModulePinger().Ping();
-		}
 	}
 }
