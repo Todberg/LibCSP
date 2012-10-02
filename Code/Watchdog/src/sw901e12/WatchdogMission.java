@@ -32,7 +32,7 @@ public class WatchdogMission extends Mission {
 		initializeSlaveModules();
         SimplePrintStream console = initializeConsole();
         
-		PEHModulePinger modulePingHandler = new PEHModulePinger(
+		PEHModulePinger modulePingerHandler = new PEHModulePinger(
 				priorityParam,
 				releaseParam, 
 				storageParam, 
@@ -40,7 +40,7 @@ public class WatchdogMission extends Mission {
 				slaveModules,
 				console);
 		
-		modulePingHandler.register();	
+		modulePingerHandler.register();	
 	}
 	
 	@SCJAllowed(Level.SUPPORT)
