@@ -8,6 +8,9 @@
 *.brf
 *.out
 *.pdfsync
+*.jop
+*.jop.link.txt
+*.jop.txt
 *.toc
 *.dfb_latexmk
 *.fls

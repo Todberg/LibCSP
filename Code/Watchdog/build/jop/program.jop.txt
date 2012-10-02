@@ -397,6 +397,65 @@ LineNumber(0, 71), LineNumber(17, 72), LineNumber(22, 73), LineNumber(25, 75),
 LineNumber(28, 76), LineNumber(50, 77), LineNumber(55, 78), LineNumber(58, 79), 
 LineNumber(64, 75), LineNumber(70, 82)
 
+sw901e12.comm.modules.DummySimulatorModule:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	sw901e12.comm.ModulePinger.<init> ()V (8)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.comm.modules.DummySimulatorModule this)
+LineNumber(0, 6)
+
+sw901e12.comm.modules.DummySimulatorModule:Ping()V
+Code(max_stack = 2, max_locals = 1, code_length = 10)
+0:    iconst_5
+1:    invokestatic	joprt.RtThread.sleepMs (I)V (15)
+4:    aload_0
+5:    iconst_1
+6:    putfield		sw901e12.comm.modules.DummySimulatorModule.receivedResponseOnLastPing Z (21)
+9:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:sw901e12.comm.modules.DummySimulatorModule this)
+LineNumber(0, 9), LineNumber(4, 10), LineNumber(9, 11)
+
+sw901e12.comm.ModulePinger:<init>()V
+Code(max_stack = 2, max_locals = 1, code_length = 10)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (10)
+4:    aload_0
+5:    iconst_0
+6:    putfield		sw901e12.comm.ModulePinger.receivedResponseOnLastPing Z (12)
+9:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:sw901e12.comm.ModulePinger this)
+LineNumber(0, 6), LineNumber(4, 7), LineNumber(9, 8)
+
+sw901e12.comm.ModulePinger:Ping()V
+null
+sw901e12.comm.ModulePinger:ResetDidReceiveResponseFlag()V
+Code(max_stack = 2, max_locals = 1, code_length = 6)
+0:    aload_0
+1:    iconst_0
+2:    putfield		sw901e12.comm.ModulePinger.receivedResponseOnLastPing Z (12)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:sw901e12.comm.ModulePinger this)
+LineNumber(0, 13), LineNumber(5, 14)
+
+sw901e12.comm.ModulePinger:DidReceiveResponseFromModule()Z
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    getfield		sw901e12.comm.ModulePinger.receivedResponseOnLastPing Z (12)
+4:    ireturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.comm.ModulePinger this)
+LineNumber(0, 16)
+
 java.lang.StackOverflowError:<init>()V
 Code(max_stack = 2, max_locals = 1, code_length = 7)
 0:    aload_0
@@ -419,6 +478,28 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 6, index = 0:StackOverflowError this)
 LocalVariable(start_pc = 0, length = 6, index = 1:String s)
 LineNumber(0, 71), LineNumber(5, 72)
+
+sw901e12.comm.modules.TwoWayDirectionPinger:<init>(I)V
+Code(max_stack = 2, max_locals = 2, code_length = 10)
+0:    aload_0
+1:    invokespecial	sw901e12.comm.ModulePinger.<init> ()V (10)
+4:    aload_0
+5:    iload_1
+6:    putfield		sw901e12.comm.modules.TwoWayDirectionPinger.memoryAddressOnDeviceToRequest I (13)
+9:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:sw901e12.comm.modules.TwoWayDirectionPinger this)
+LocalVariable(start_pc = 0, length = 10, index = 1:int memoryAddressOnDeviceToRequest)
+LineNumber(0, 8), LineNumber(4, 9), LineNumber(9, 10)
+
+sw901e12.comm.modules.TwoWayDirectionPinger:Ping()V
+Code(max_stack = 0, max_locals = 1, code_length = 1)
+0:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 0, index = 0:sw901e12.comm.modules.TwoWayDirectionPinger this)
+LineNumber(0, 16)
 
 java.lang.Float:<init>(F)V
 Code(max_stack = 2, max_locals = 2, code_length = 10)
@@ -1448,163 +1529,6 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 5, index = 0:javax.realtime.BoundAsyncEventHandler this)
 LineNumber(0, 32)
 
-com.WatchdogPeriodicEventHandler:<init>(Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[I)V
-Code(max_stack = 6, max_locals = 7, code_length = 20)
-0:    aload_0
-1:    aload_1
-2:    aload_2
-3:    aload_3
-4:    lload		%4
-6:    invokespecial	javax.safetycritical.PeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J)V (12)
-9:    aload_0
-10:   aload		%6
-12:   putfield		com.WatchdogPeriodicEventHandler.slaves [I (15)
-15:   aload_0
-16:   invokespecial	com.WatchdogPeriodicEventHandler.initialize ()V (17)
-19:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 20, index = 0:com.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 0, length = 20, index = 1:javax.realtime.PriorityParameters priority)
-LocalVariable(start_pc = 0, length = 20, index = 2:javax.realtime.PeriodicParameters parameters)
-LocalVariable(start_pc = 0, length = 20, index = 3:javax.safetycritical.StorageParameters scp)
-LocalVariable(start_pc = 0, length = 20, index = 4:long scopeSize)
-LocalVariable(start_pc = 0, length = 20, index = 6:int[] slaves)
-LineNumber(0, 22), LineNumber(9, 24), LineNumber(15, 26), LineNumber(19, 27)
-
-
-com.WatchdogPeriodicEventHandler:initialize()V
-Code(max_stack = 2, max_locals = 2, code_length = 22)
-0:    invokestatic	com.jopdesign.io.I2CFactory.getFactory ()Lcom/jopdesign/io/I2CFactory; (33)
-3:    astore_1
-4:    aload_0
-5:    aload_1
-6:    invokevirtual	com.jopdesign.io.I2CFactory.getI2CportA ()Lcom/jopdesign/io/I2Cport; (39)
-9:    putfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-12:   aload_0
-13:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-16:   bipush		15
-18:   invokevirtual	com.jopdesign.io.I2Cport.initConf (I)V (45)
-21:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 22, index = 0:com.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 4, length = 18, index = 1:com.jopdesign.io.I2CFactory fact)
-LineNumber(0, 30), LineNumber(4, 31), LineNumber(12, 32), LineNumber(21, 33)
-
-
-com.WatchdogPeriodicEventHandler:printBuffer([I)V
-Code(max_stack = 2, max_locals = 6, code_length = 42)
-0:    aload_1
-1:    dup
-2:    astore		%5
-4:    arraylength
-5:    istore		%4
-7:    iconst_0
-8:    istore_3
-9:    goto		#29
-12:   aload		%5
-14:   iload_3
-15:   iaload
-16:   istore_2
-17:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-20:   iload_2
-21:   i2c
-22:   invokevirtual	java.io.PrintStream.print (C)V (61)
-25:   iload_3
-26:   iconst_1
-27:   iadd
-28:   istore_3
-29:   iload_3
-30:   iload		%4
-32:   if_icmplt		#12
-35:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-38:   invokevirtual	java.io.PrintStream.println ()V (67)
-41:   return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 ff 00 0c 00 06 07 00 01... (truncated))
-LocalVariable(start_pc = 0, length = 42, index = 0:com.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 0, length = 42, index = 1:int[] buffer)
-LocalVariable(start_pc = 17, length = 9, index = 2:int i)
-LineNumber(0, 36), LineNumber(17, 37), LineNumber(25, 36), LineNumber(35, 39), 
-LineNumber(41, 40)
-
-com.WatchdogPeriodicEventHandler:handleAsyncEvent()V
-Code(max_stack = 3, max_locals = 6, code_length = 125)
-0:    getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-3:    ldc		"entering handler" (81)
-5:    invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-8:    aload_0
-9:    getfield		com.WatchdogPeriodicEventHandler.slaves [I (15)
-12:   dup
-13:   astore		%4
-15:   arraylength
-16:   istore_3
-17:   iconst_0
-18:   istore_2
-19:   goto		#111
-22:   aload		%4
-24:   iload_2
-25:   iaload
-26:   istore_1
-27:   aload_0
-28:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-31:   invokevirtual	com.jopdesign.io.I2Cport.masterTX ()V (86)
-34:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-37:   ldc		"writing slave" (89)
-39:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-42:   aload_0
-43:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-46:   iload_1
-47:   bipush		8
-49:   invokevirtual	com.jopdesign.io.I2Cport.write (II)V (91)
-52:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-55:   ldc		"slave written" (95)
-57:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-60:   aload_0
-61:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-64:   invokevirtual	com.jopdesign.io.I2Cport.flushFifo ()V (97)
-67:   aload_0
-68:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-71:   invokevirtual	com.jopdesign.io.I2Cport.masterRX ()V (100)
-74:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-77:   ldc		"reading buffer" (103)
-79:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-82:   aload_0
-83:   getfield		com.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-86:   iload_1
-87:   iconst_5
-88:   invokevirtual	com.jopdesign.io.I2Cport.read (II)[I (105)
-91:   astore		%5
-93:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-96:   ldc		"buffer read" (109)
-98:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-101:  aload_0
-102:  aload		%5
-104:  invokespecial	com.WatchdogPeriodicEventHandler.printBuffer ([I)V (111)
-107:  iload_2
-108:  iconst_1
-109:  iadd
-110:  istore_2
-111:  iload_2
-112:  iload_3
-113:  if_icmplt		#22
-116:  getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-119:  ldc		"exiting handler" (113)
-121:  invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-124:  return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 ff 00 16 00 05 07 00 01... (truncated))
-LocalVariable(start_pc = 0, length = 125, index = 0:com.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 27, length = 81, index = 1:int slave)
-LocalVariable(start_pc = 93, length = 15, index = 5:int[] buffer)
-LineNumber(0, 45), LineNumber(8, 46), LineNumber(27, 47), LineNumber(34, 48), 
-LineNumber(42, 49), LineNumber(52, 50), LineNumber(60, 52), LineNumber(67, 53), 
-LineNumber(74, 55), LineNumber(82, 56), LineNumber(93, 57), LineNumber(101, 58), 
-LineNumber(107, 46), LineNumber(116, 61), LineNumber(124, 62)
-
 com.jopdesign.sys.JVM:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
@@ -2280,52 +2204,34 @@ Attribute(s) =
 LineNumber(0, 115)
 
 com.jopdesign.sys.JVM:f_aastore(III)V
-Code(max_stack = 3, max_locals = 6, code_length = 49)
+Code(max_stack = 3, max_locals = 4, code_length = 21)
 0:    getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (112)
 3:    dup
 4:    astore_3
 5:    monitorenter
 6:    iload_0
-7:    iconst_2
-8:    iadd
-9:    invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
-12:   istore		%4
-14:   iload_2
-15:   iconst_2
-16:   iadd
-17:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
-20:   istore		%5
-22:   iload		%5
-24:   iload		%4
-26:   if_icmple		#34
-29:   ldc		"Illegal array reference" (124)
-31:   invokestatic	com.jopdesign.sys.GC.log (Ljava/lang/String;)V (126)
-34:   iload_0
-35:   iload_1
-36:   iload_2
-37:   invokestatic	com.jopdesign.sys.Native.arrayStore (III)V (130)
-40:   aload_3
-41:   monitorexit
-42:   goto		#48
-45:   aload_3
-46:   monitorexit
-47:   athrow
-48:   return
+7:    iload_1
+8:    iload_2
+9:    invokestatic	com.jopdesign.sys.Native.arrayStore (III)V (118)
+12:   aload_3
+13:   monitorexit
+14:   goto		#20
+17:   aload_3
+18:   monitorexit
+19:   athrow
+20:   return
 
 Exception handler(s) = 
 From	To	Handler	Type
-6	42	45	<Any exception>(0)
-45	47	45	<Any exception>(0)
+6	14	17	<Any exception>(0)
+17	19	17	<Any exception>(0)
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 03 fc 00 22 07 00 03 4a 07... (truncated))
-LocalVariable(start_pc = 0, length = 49, index = 0:int ref)
-LocalVariable(start_pc = 0, length = 49, index = 1:int index)
-LocalVariable(start_pc = 0, length = 49, index = 2:int value)
-LocalVariable(start_pc = 14, length = 21, index = 4:int ref_level)
-LocalVariable(start_pc = 22, length = 13, index = 5:int val_level)
-LineNumber(0, 118), LineNumber(6, 131), LineNumber(14, 132), LineNumber(22, 133), 
-LineNumber(29, 134), LineNumber(34, 151), LineNumber(40, 118), LineNumber(48, 153)
+(Unknown attribute StackMapTable: 00 02 ff 00 11 00 04 01 01 01... (truncated))
+LocalVariable(start_pc = 0, length = 21, index = 0:int ref)
+LocalVariable(start_pc = 0, length = 21, index = 1:int index)
+LocalVariable(start_pc = 0, length = 21, index = 2:int value)
+LineNumber(0, 118), LineNumber(6, 151), LineNumber(12, 118), LineNumber(20, 153)
 
 
 com.jopdesign.sys.JVM:f_bastore()V
@@ -2458,7 +2364,7 @@ Code(max_stack = 3, max_locals = 5, code_length = 31)
 24:   iload_1
 25:   iload_3
 26:   iadd
-27:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+27:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 30:   lreturn
 
 Attribute(s) = 
@@ -2473,7 +2379,7 @@ com.jopdesign.sys.JVM:f_fadd(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iload_1
-2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_add (II)I (167)
+2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_add (II)I (155)
 5:    ireturn
 
 Attribute(s) = 
@@ -2485,7 +2391,7 @@ com.jopdesign.sys.JVM:f_dadd(JJ)J
 Code(max_stack = 4, max_locals = 4, code_length = 6)
 0:    lload_0
 1:    lload_2
-2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_add (JJ)J (176)
+2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_add (JJ)J (164)
 5:    lreturn
 
 Attribute(s) = 
@@ -2505,7 +2411,7 @@ com.jopdesign.sys.JVM:f_lsub(JJ)J
 Code(max_stack = 6, max_locals = 4, code_length = 10)
 0:    lload_0
 1:    lload_2
-2:    ldc2_w		-1 (184)
+2:    ldc2_w		-1 (172)
 5:    lxor
 6:    ladd
 7:    lconst_1
@@ -2521,7 +2427,7 @@ com.jopdesign.sys.JVM:f_fsub(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iload_1
-2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_sub (II)I (187)
+2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_sub (II)I (175)
 5:    ireturn
 
 Attribute(s) = 
@@ -2533,7 +2439,7 @@ com.jopdesign.sys.JVM:f_dsub(JJ)J
 Code(max_stack = 4, max_locals = 4, code_length = 6)
 0:    lload_0
 1:    lload_2
-2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_sub (JJ)J (191)
+2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_sub (JJ)J (179)
 5:    lreturn
 
 Attribute(s) = 
@@ -2608,7 +2514,7 @@ Code(max_stack = 4, max_locals = 17, code_length = 167)
 89:   iload		%12
 91:   iload		%14
 93:   imul
-94:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+94:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 97:   iload		%9
 99:   iload		%13
 101:  iadd
@@ -2672,7 +2578,7 @@ com.jopdesign.sys.JVM:f_fmul(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iload_1
-2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_mul (II)I (207)
+2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_mul (II)I (195)
 5:    ireturn
 
 Attribute(s) = 
@@ -2684,7 +2590,7 @@ com.jopdesign.sys.JVM:f_dmul(JJ)J
 Code(max_stack = 4, max_locals = 4, code_length = 6)
 0:    lload_0
 1:    lload_2
-2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_mul (JJ)J (211)
+2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_mul (JJ)J (199)
 5:    lreturn
 
 Attribute(s) = 
@@ -2698,14 +2604,14 @@ Code(max_stack = 2, max_locals = 6, code_length = 130)
 1:    ifne		#13
 4:    bipush		8
 6:    bipush		-124
-8:    invokestatic	com.jopdesign.sys.Native.wrMem (II)V (215)
+8:    invokestatic	com.jopdesign.sys.Native.wrMem (II)V (203)
 11:   iconst_0
 12:   ireturn
 13:   iload_1
-14:   ldc		-2147483648 (219)
+14:   ldc		-2147483648 (207)
 16:   if_icmpne		#29
 19:   iload_0
-20:   ldc		-2147483648 (219)
+20:   ldc		-2147483648 (207)
 22:   if_icmpne		#27
 25:   iconst_1
 26:   ireturn
@@ -2807,15 +2713,15 @@ Code(max_stack = 6, max_locals = 10, code_length = 160)
 3:    ifne		#15
 6:    bipush		8
 8:    bipush		-124
-10:   invokestatic	com.jopdesign.sys.Native.wrMem (II)V (215)
+10:   invokestatic	com.jopdesign.sys.Native.wrMem (II)V (203)
 13:   lconst_0
 14:   lreturn
 15:   lload_2
-16:   ldc2_w		-9223372036854775808 (224)
+16:   ldc2_w		-9223372036854775808 (212)
 19:   lcmp
 20:   ifne		#35
 23:   lload_0
-24:   ldc2_w		-9223372036854775808 (224)
+24:   ldc2_w		-9223372036854775808 (212)
 27:   lcmp
 28:   ifne		#33
 31:   lconst_1
@@ -2925,7 +2831,7 @@ com.jopdesign.sys.JVM:f_fdiv(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iload_1
-2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_div (II)I (227)
+2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_div (II)I (215)
 5:    ireturn
 
 Attribute(s) = 
@@ -2937,7 +2843,7 @@ com.jopdesign.sys.JVM:f_ddiv(JJ)J
 Code(max_stack = 4, max_locals = 4, code_length = 6)
 0:    lload_0
 1:    lload_2
-2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_div (JJ)J (231)
+2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_div (JJ)J (219)
 5:    lreturn
 
 Attribute(s) = 
@@ -2951,14 +2857,14 @@ Code(max_stack = 2, max_locals = 5, code_length = 102)
 1:    ifne		#13
 4:    bipush		8
 6:    bipush		-124
-8:    invokestatic	com.jopdesign.sys.Native.wrMem (II)V (215)
+8:    invokestatic	com.jopdesign.sys.Native.wrMem (II)V (203)
 11:   iconst_0
 12:   ireturn
 13:   iload_1
-14:   ldc		-2147483648 (219)
+14:   ldc		-2147483648 (207)
 16:   if_icmpne		#29
 19:   iload_0
-20:   ldc		-2147483648 (219)
+20:   ldc		-2147483648 (207)
 22:   if_icmpne		#27
 25:   iconst_0
 26:   ireturn
@@ -3042,15 +2948,15 @@ Code(max_stack = 4, max_locals = 8, code_length = 129)
 3:    ifne		#15
 6:    bipush		8
 8:    bipush		-124
-10:   invokestatic	com.jopdesign.sys.Native.wrMem (II)V (215)
+10:   invokestatic	com.jopdesign.sys.Native.wrMem (II)V (203)
 13:   lconst_0
 14:   lreturn
 15:   lload_2
-16:   ldc2_w		-9223372036854775808 (224)
+16:   ldc2_w		-9223372036854775808 (212)
 19:   lcmp
 20:   ifne		#35
 23:   lload_0
-24:   ldc2_w		-9223372036854775808 (224)
+24:   ldc2_w		-9223372036854775808 (212)
 27:   lcmp
 28:   ifne		#33
 31:   lconst_0
@@ -3138,7 +3044,7 @@ com.jopdesign.sys.JVM:f_frem(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iload_1
-2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_rem (II)I (237)
+2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_rem (II)I (225)
 5:    ireturn
 
 Attribute(s) = 
@@ -3150,7 +3056,7 @@ com.jopdesign.sys.JVM:f_drem(JJ)J
 Code(max_stack = 4, max_locals = 4, code_length = 6)
 0:    lload_0
 1:    lload_2
-2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_rem (JJ)J (241)
+2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_rem (JJ)J (229)
 5:    lreturn
 
 Attribute(s) = 
@@ -3169,7 +3075,7 @@ LineNumber(0, 478)
 com.jopdesign.sys.JVM:f_lneg(J)J
 Code(max_stack = 4, max_locals = 2, code_length = 8)
 0:    lload_0
-1:    ldc2_w		-1 (184)
+1:    ldc2_w		-1 (172)
 4:    lxor
 5:    lconst_1
 6:    ladd
@@ -3182,7 +3088,7 @@ LineNumber(0, 480)
 com.jopdesign.sys.JVM:f_fneg(I)I
 Code(max_stack = 2, max_locals = 1, code_length = 5)
 0:    iload_0
-1:    ldc		-2147483648 (219)
+1:    ldc		-2147483648 (207)
 3:    ixor
 4:    ireturn
 
@@ -3193,7 +3099,7 @@ LineNumber(0, 483)
 com.jopdesign.sys.JVM:f_dneg(J)J
 Code(max_stack = 4, max_locals = 2, code_length = 6)
 0:    lload_0
-1:    ldc2_w		-9223372036854775808 (224)
+1:    ldc2_w		-9223372036854775808 (212)
 4:    lxor
 5:    lreturn
 
@@ -3219,7 +3125,7 @@ Code(max_stack = 4, max_locals = 3, code_length = 56)
 6:    ifne		#15
 9:    iload_0
 10:   iload_1
-11:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+11:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 14:   lreturn
 15:   iload_2
 16:   bipush		31
@@ -3251,7 +3157,7 @@ Code(max_stack = 4, max_locals = 3, code_length = 56)
 49:   istore_1
 50:   iload_0
 51:   iload_1
-52:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+52:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 55:   lreturn
 
 Attribute(s) = 
@@ -3281,7 +3187,7 @@ Code(max_stack = 4, max_locals = 3, code_length = 65)
 6:    ifne		#15
 9:    iload_0
 10:   iload_1
-11:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+11:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 14:   lreturn
 15:   iload_2
 16:   bipush		31
@@ -3318,7 +3224,7 @@ Code(max_stack = 4, max_locals = 3, code_length = 65)
 58:   istore_0
 59:   iload_0
 60:   iload_1
-61:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+61:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 64:   lreturn
 
 Attribute(s) = 
@@ -3348,7 +3254,7 @@ Code(max_stack = 4, max_locals = 3, code_length = 56)
 6:    ifne		#15
 9:    iload_0
 10:   iload_1
-11:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+11:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 14:   lreturn
 15:   iload_2
 16:   bipush		31
@@ -3380,7 +3286,7 @@ Code(max_stack = 4, max_locals = 3, code_length = 56)
 49:   istore_0
 50:   iload_0
 51:   iload_1
-52:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+52:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 55:   lreturn
 
 Attribute(s) = 
@@ -3412,7 +3318,7 @@ Code(max_stack = 2, max_locals = 4, code_length = 14)
 7:    istore_1
 8:    iload_0
 9:    iload_1
-10:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+10:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 13:   lreturn
 
 Attribute(s) = 
@@ -3442,7 +3348,7 @@ Code(max_stack = 2, max_locals = 4, code_length = 14)
 7:    istore_1
 8:    iload_0
 9:    iload_1
-10:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+10:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 13:   lreturn
 
 Attribute(s) = 
@@ -3472,7 +3378,7 @@ Code(max_stack = 2, max_locals = 4, code_length = 14)
 7:    istore_1
 8:    iload_0
 9:    iload_1
-10:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+10:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 13:   lreturn
 
 Attribute(s) = 
@@ -3496,7 +3402,7 @@ Code(max_stack = 2, max_locals = 1, code_length = 9)
 1:    bipush		31
 3:    ishr
 4:    iload_0
-5:    invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+5:    invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 8:    lreturn
 
 Attribute(s) = 
@@ -3506,7 +3412,7 @@ LineNumber(0, 559)
 com.jopdesign.sys.JVM:f_i2f(I)I
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    iload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat32.intToFloat (I)I (267)
+1:    invokestatic	com.jopdesign.sys.SoftFloat32.intToFloat (I)I (256)
 4:    ireturn
 
 Attribute(s) = 
@@ -3516,7 +3422,7 @@ LineNumber(0, 563)
 com.jopdesign.sys.JVM:f_i2d(I)J
 Code(max_stack = 2, max_locals = 1, code_length = 5)
 0:    iload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat64.intToDouble (I)J (271)
+1:    invokestatic	com.jopdesign.sys.SoftFloat64.intToDouble (I)J (260)
 4:    lreturn
 
 Attribute(s) = 
@@ -3534,7 +3440,7 @@ LineNumber(0, 577)
 com.jopdesign.sys.JVM:f_l2f(J)I
 Code(max_stack = 2, max_locals = 2, code_length = 5)
 0:    lload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat32.longToFloat (J)I (277)
+1:    invokestatic	com.jopdesign.sys.SoftFloat32.longToFloat (J)I (266)
 4:    ireturn
 
 Attribute(s) = 
@@ -3544,7 +3450,7 @@ LineNumber(0, 580)
 com.jopdesign.sys.JVM:f_l2d(J)J
 Code(max_stack = 2, max_locals = 2, code_length = 5)
 0:    lload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat64.longToDouble (J)J (281)
+1:    invokestatic	com.jopdesign.sys.SoftFloat64.longToDouble (J)J (270)
 4:    lreturn
 
 Attribute(s) = 
@@ -3554,7 +3460,7 @@ LineNumber(0, 588)
 com.jopdesign.sys.JVM:f_f2i(I)I
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    iload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat32.intValue (I)I (285)
+1:    invokestatic	com.jopdesign.sys.SoftFloat32.intValue (I)I (274)
 4:    ireturn
 
 Attribute(s) = 
@@ -3564,7 +3470,7 @@ LineNumber(0, 596)
 com.jopdesign.sys.JVM:f_f2l(I)J
 Code(max_stack = 2, max_locals = 1, code_length = 5)
 0:    iload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat32.longValue (I)J (289)
+1:    invokestatic	com.jopdesign.sys.SoftFloat32.longValue (I)J (278)
 4:    lreturn
 
 Attribute(s) = 
@@ -3574,7 +3480,7 @@ LineNumber(0, 604)
 com.jopdesign.sys.JVM:f_f2d(I)J
 Code(max_stack = 2, max_locals = 1, code_length = 5)
 0:    iload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat64.floatToDouble (I)J (293)
+1:    invokestatic	com.jopdesign.sys.SoftFloat64.floatToDouble (I)J (282)
 4:    lreturn
 
 Attribute(s) = 
@@ -3584,7 +3490,7 @@ LineNumber(0, 612)
 com.jopdesign.sys.JVM:f_d2i(J)I
 Code(max_stack = 2, max_locals = 2, code_length = 5)
 0:    lload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat64.intValue (J)I (298)
+1:    invokestatic	com.jopdesign.sys.SoftFloat64.intValue (J)I (287)
 4:    ireturn
 
 Attribute(s) = 
@@ -3594,7 +3500,7 @@ LineNumber(0, 620)
 com.jopdesign.sys.JVM:f_d2l(J)J
 Code(max_stack = 2, max_locals = 2, code_length = 5)
 0:    lload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat64.longValue (J)J (302)
+1:    invokestatic	com.jopdesign.sys.SoftFloat64.longValue (J)J (291)
 4:    lreturn
 
 Attribute(s) = 
@@ -3604,7 +3510,7 @@ LineNumber(0, 628)
 com.jopdesign.sys.JVM:f_d2f(J)I
 Code(max_stack = 2, max_locals = 2, code_length = 5)
 0:    lload_0
-1:    invokestatic	com.jopdesign.sys.SoftFloat32.doubleToFloat (J)I (305)
+1:    invokestatic	com.jopdesign.sys.SoftFloat32.doubleToFloat (J)I (294)
 4:    ireturn
 
 Attribute(s) = 
@@ -3645,15 +3551,15 @@ LineNumber(0, 653)
 com.jopdesign.sys.JVM:f_i2s(I)I
 Code(max_stack = 2, max_locals = 1, code_length = 22)
 0:    iload_0
-1:    ldc_w		65535 (311)
+1:    ldc_w		65535 (300)
 4:    iand
 5:    istore_0
 6:    iload_0
-7:    ldc_w		32768 (312)
+7:    ldc_w		32768 (301)
 10:   iand
 11:   ifeq		#20
 14:   iload_0
-15:   ldc_w		-65536 (313)
+15:   ldc_w		-65536 (302)
 18:   ior
 19:   istore_0
 20:   iload_0
@@ -3681,10 +3587,10 @@ Code(max_stack = 4, max_locals = 6, code_length = 60)
 19:   ireturn
 20:   iload_0
 21:   iload_1
-22:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+22:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 25:   iload_2
 26:   iload_3
-27:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (156)
+27:   invokestatic	com.jopdesign.sys.Native.makeLong (II)J (144)
 30:   lsub
 31:   lstore		%4
 33:   lload		%4
@@ -3723,7 +3629,7 @@ com.jopdesign.sys.JVM:f_fcmpl(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iload_1
-2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_cmpl (II)I (317)
+2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_cmpl (II)I (306)
 5:    ireturn
 
 Attribute(s) = 
@@ -3735,7 +3641,7 @@ com.jopdesign.sys.JVM:f_fcmpg(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iload_1
-2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_cmpg (II)I (321)
+2:    invokestatic	com.jopdesign.sys.SoftFloat32.float_cmpg (II)I (310)
 5:    ireturn
 
 Attribute(s) = 
@@ -3747,7 +3653,7 @@ com.jopdesign.sys.JVM:f_dcmpl(JJ)I
 Code(max_stack = 4, max_locals = 4, code_length = 6)
 0:    lload_0
 1:    lload_2
-2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_cmpl (JJ)I (326)
+2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_cmpl (JJ)I (315)
 5:    ireturn
 
 Attribute(s) = 
@@ -3759,7 +3665,7 @@ com.jopdesign.sys.JVM:f_dcmpg(JJ)I
 Code(max_stack = 4, max_locals = 4, code_length = 6)
 0:    lload_0
 1:    lload_2
-2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_cmpg (JJ)I (330)
+2:    invokestatic	com.jopdesign.sys.SoftFloat64.double_cmpg (JJ)I (319)
 5:    ireturn
 
 Attribute(s) = 
@@ -3905,20 +3811,20 @@ LineNumber(0, 736)
 
 com.jopdesign.sys.JVM:f_tableswitch(I)V
 Code(max_stack = 3, max_locals = 6, code_length = 92)
-0:    invokestatic	com.jopdesign.sys.Native.getSP ()I (352)
+0:    invokestatic	com.jopdesign.sys.Native.getSP ()I (341)
 3:    istore_2
 4:    iload_2
 5:    iconst_3
 6:    isub
-7:    invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+7:    invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 10:   iconst_1
 11:   isub
 12:   istore_3
 13:   iload_2
-14:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+14:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 17:   istore_1
 18:   iload_1
-19:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+19:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 22:   bipush		10
 24:   iushr
 25:   istore		%4
@@ -3933,7 +3839,7 @@ Code(max_stack = 3, max_locals = 6, code_length = 92)
 36:   iload_1
 37:   iconst_1
 38:   iadd
-39:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+39:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 42:   istore		%5
 44:   iload_0
 45:   iload		%5
@@ -3942,11 +3848,11 @@ Code(max_stack = 3, max_locals = 6, code_length = 92)
 51:   iload_1
 52:   iconst_2
 53:   iadd
-54:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+54:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 57:   if_icmple		#70
 60:   iload_3
 61:   iload_1
-62:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+62:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 65:   iadd
 66:   istore_3
 67:   goto		#84
@@ -3958,14 +3864,14 @@ Code(max_stack = 3, max_locals = 6, code_length = 92)
 75:   iadd
 76:   iload		%5
 78:   isub
-79:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+79:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 82:   iadd
 83:   istore_3
 84:   iload_3
 85:   iload_2
 86:   iconst_3
 87:   isub
-88:   invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (358)
+88:   invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (350)
 91:   return
 
 Attribute(s) = 
@@ -3982,20 +3888,20 @@ LineNumber(70, 755), LineNumber(84, 757), LineNumber(91, 758)
 
 com.jopdesign.sys.JVM:f_lookupswitch(I)V
 Code(max_stack = 3, max_locals = 8, code_length = 110)
-0:    invokestatic	com.jopdesign.sys.Native.getSP ()I (352)
+0:    invokestatic	com.jopdesign.sys.Native.getSP ()I (341)
 3:    istore_3
 4:    iload_3
 5:    iconst_3
 6:    isub
-7:    invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+7:    invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 10:   iconst_1
 11:   isub
 12:   istore		%4
 14:   iload_3
-15:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+15:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 18:   istore_1
 19:   iload_1
-20:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+20:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 23:   bipush		10
 25:   iushr
 26:   istore		%5
@@ -4008,12 +3914,12 @@ Code(max_stack = 3, max_locals = 8, code_length = 110)
 36:   iadd
 37:   istore_1
 38:   iload_1
-39:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+39:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 42:   istore		%6
 44:   iload_1
 45:   iconst_1
 46:   iadd
-47:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+47:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 50:   istore		%7
 52:   iload_1
 53:   iconst_2
@@ -4027,7 +3933,7 @@ Code(max_stack = 3, max_locals = 8, code_length = 110)
 63:   iconst_1
 64:   ishl
 65:   iadd
-66:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+66:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 69:   iload_0
 70:   if_icmpne		#88
 73:   iload_1
@@ -4037,7 +3943,7 @@ Code(max_stack = 3, max_locals = 8, code_length = 110)
 77:   iadd
 78:   iconst_1
 79:   iadd
-80:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+80:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 83:   istore		%6
 85:   goto		#98
 88:   iload_2
@@ -4053,7 +3959,7 @@ Code(max_stack = 3, max_locals = 8, code_length = 110)
 103:  iload_3
 104:  iconst_3
 105:  isub
-106:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (358)
+106:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (350)
 109:  return
 
 Attribute(s) = 
@@ -4194,7 +4100,7 @@ LineNumber(0, 799)
 com.jopdesign.sys.JVM:f_new(I)I
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    iload_0
-1:    invokestatic	com.jopdesign.sys.GC.newObject (I)I (385)
+1:    invokestatic	com.jopdesign.sys.GC.newObject (I)I (377)
 4:    ireturn
 
 Attribute(s) = 
@@ -4205,7 +4111,7 @@ com.jopdesign.sys.JVM:f_newarray(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iload_1
-2:    invokestatic	com.jopdesign.sys.GC.newArray (II)I (390)
+2:    invokestatic	com.jopdesign.sys.GC.newArray (II)I (382)
 5:    ireturn
 
 Attribute(s) = 
@@ -4217,7 +4123,7 @@ com.jopdesign.sys.JVM:f_anewarray(II)I
 Code(max_stack = 2, max_locals = 2, code_length = 6)
 0:    iload_0
 1:    iconst_1
-2:    invokestatic	com.jopdesign.sys.GC.newArray (II)I (390)
+2:    invokestatic	com.jopdesign.sys.GC.newArray (II)I (382)
 5:    ireturn
 
 Attribute(s) = 
@@ -4235,7 +4141,7 @@ LineNumber(0, 822)
 
 com.jopdesign.sys.JVM:f_athrow(Ljava/lang/Throwable;)Ljava/lang/Throwable;
 Code(max_stack = 4, max_locals = 16, code_length = 316)
-0:    invokestatic	com.jopdesign.sys.Native.getSP ()I (352)
+0:    invokestatic	com.jopdesign.sys.Native.getSP ()I (341)
 3:    iconst_4
 4:    isub
 5:    istore_3
@@ -4243,27 +4149,27 @@ Code(max_stack = 4, max_locals = 16, code_length = 316)
 9:    iload_3
 10:   iconst_1
 11:   iadd
-12:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+12:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 15:   iconst_1
 16:   isub
 17:   istore		%4
 19:   iload_3
 20:   iconst_2
 21:   iadd
-22:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+22:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 25:   istore		%5
 27:   iload_3
 28:   iconst_3
 29:   iadd
-30:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+30:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 33:   istore		%6
 35:   iload_3
 36:   iconst_4
 37:   iadd
-38:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+38:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 41:   istore		%7
 43:   iload		%7
-45:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+45:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 48:   istore_1
 49:   iload_1
 50:   bipush		10
@@ -4274,14 +4180,14 @@ Code(max_stack = 4, max_locals = 16, code_length = 316)
 58:   iadd
 59:   istore		%8
 61:   iload		%8
-63:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+63:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 66:   istore_1
 67:   iload_1
-68:   ldc_w		65535 (311)
+68:   ldc_w		65535 (300)
 71:   iand
 72:   istore		%9
 74:   iload_1
-75:   ldc_w		65536 (399)
+75:   ldc_w		65536 (391)
 78:   iand
 79:   istore		%10
 81:   iload		%8
@@ -4290,27 +4196,27 @@ Code(max_stack = 4, max_locals = 16, code_length = 316)
 85:   istore_2
 86:   goto		#218
 89:   iload_2
-90:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+90:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 93:   istore_1
 94:   iload_1
 95:   bipush		16
 97:   ishr
 98:   istore		%11
 100:  iload_1
-101:  ldc_w		65535 (311)
+101:  ldc_w		65535 (300)
 104:  iand
 105:  istore		%12
 107:  iload_2
 108:  iconst_1
 109:  iadd
-110:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+110:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 113:  istore_1
 114:  iload_1
 115:  bipush		16
 117:  ishr
 118:  istore		%13
 120:  iload_1
-121:  ldc_w		65535 (311)
+121:  ldc_w		65535 (300)
 124:  iand
 125:  istore		%14
 127:  iload		%4
@@ -4322,17 +4228,17 @@ Code(max_stack = 4, max_locals = 16, code_length = 316)
 141:  iload		%14
 143:  ifeq		#164
 146:  aload_0
-147:  invokestatic	com.jopdesign.sys.Native.toInt (Ljava/lang/Object;)I (400)
+147:  invokestatic	com.jopdesign.sys.Native.toInt (Ljava/lang/Object;)I (392)
 150:  iload		%6
 152:  iload		%14
 154:  iadd
-155:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
-158:  invokestatic	com.jopdesign.sys.JVM.f_instanceof (II)I (404)
+155:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
+158:  invokestatic	com.jopdesign.sys.JVM.f_instanceof (II)I (396)
 161:  ifeq		#214
 164:  iload		%7
 166:  iconst_1
 167:  iadd
-168:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+168:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 171:  istore_1
 172:  iload		%5
 174:  iload_1
@@ -4352,16 +4258,16 @@ Code(max_stack = 4, max_locals = 16, code_length = 316)
 192:  iload_3
 193:  iconst_0
 194:  iadd
-195:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (358)
+195:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (350)
 198:  iload		%13
 200:  iload_3
 201:  iconst_1
 202:  iadd
-203:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (358)
+203:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (350)
 206:  iload_3
 207:  iconst_4
 208:  iadd
-209:  invokestatic	com.jopdesign.sys.Native.setSP (I)V (407)
+209:  invokestatic	com.jopdesign.sys.Native.setSP (I)V (399)
 212:  aload_0
 213:  areturn
 214:  iload_2
@@ -4382,14 +4288,14 @@ Code(max_stack = 4, max_locals = 16, code_length = 316)
 236:  iload_3
 237:  iconst_5
 238:  iadd
-239:  invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+239:  invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 242:  istore_1
 243:  iload_1
-244:  invokestatic	com.jopdesign.sys.Native.monitorExit (I)V (410)
+244:  invokestatic	com.jopdesign.sys.Native.monitorExit (I)V (402)
 247:  iload		%7
 249:  iconst_1
 250:  iadd
-251:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+251:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 254:  istore_1
 255:  iload		%5
 257:  iload_1
@@ -4406,26 +4312,26 @@ Code(max_stack = 4, max_locals = 16, code_length = 316)
 270:  iload_3
 271:  bipush		69
 273:  if_icmpgt		#9
-276:  ldc_w		"Uncaught exception: " (413)
-279:  invokestatic	com.jopdesign.sys.JVMHelp.wr (Ljava/lang/String;)V (415)
+276:  ldc_w		"Uncaught exception: " (405)
+279:  invokestatic	com.jopdesign.sys.JVMHelp.wr (Ljava/lang/String;)V (407)
 282:  aload_0
-283:  invokevirtual	java.lang.Throwable.getMessage ()Ljava/lang/String; (418)
+283:  invokevirtual	java.lang.Throwable.getMessage ()Ljava/lang/String; (411)
 286:  astore		%4
 288:  aload		%4
 290:  ifnull		#298
 293:  aload		%4
-295:  invokestatic	com.jopdesign.sys.JVMHelp.wr (Ljava/lang/String;)V (415)
-298:  ldc_w		"\n" (422)
-301:  invokestatic	com.jopdesign.sys.JVMHelp.wr (Ljava/lang/String;)V (415)
-304:  invokestatic	com.jopdesign.sys.Native.getSP ()I (352)
-307:  invokestatic	com.jopdesign.sys.JVMHelp.trace (I)V (424)
+295:  invokestatic	com.jopdesign.sys.JVMHelp.wr (Ljava/lang/String;)V (407)
+298:  ldc_w		"\n" (415)
+301:  invokestatic	com.jopdesign.sys.JVMHelp.wr (Ljava/lang/String;)V (407)
+304:  invokestatic	com.jopdesign.sys.Native.getSP ()I (341)
+307:  invokestatic	com.jopdesign.sys.JVMHelp.trace (I)V (417)
 310:  iconst_1
-311:  invokestatic	java.lang.System.exit (I)V (427)
+311:  invokestatic	java.lang.System.exit (I)V (420)
 314:  aload_0
 315:  areturn
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 08 ff 00 09 00 04 07 00 8b... (truncated))
+(Unknown attribute StackMapTable: 00 08 ff 00 09 00 04 07 00 7f... (truncated))
 LocalVariable(start_pc = 0, length = 316, index = 0:Throwable t)
 LocalVariable(start_pc = 49, length = 222, index = 1:int i)
 LocalVariable(start_pc = 86, length = 185, index = 2:int j)
@@ -4464,7 +4370,7 @@ Code(max_stack = 3, max_locals = 6, code_length = 103)
 6:    iload_0
 7:    iconst_1
 8:    iadd
-9:    invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+9:    invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 12:   istore_2
 13:   iload_2
 14:   bipush		-5
@@ -4473,18 +4379,18 @@ Code(max_stack = 3, max_locals = 6, code_length = 103)
 18:   iload_1
 19:   iconst_3
 20:   iadd
-21:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+21:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 24:   istore_3
 25:   iload_3
 26:   ifge		#81
 29:   iload_2
 30:   iconst_4
 31:   iadd
-32:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+32:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 35:   istore		%4
 37:   iload		%4
 39:   ifne		#46
-42:   getstatic		com.jopdesign.sys.JVMHelp.CCExc Ljava/lang/ClassCastException; (449)
+42:   getstatic		com.jopdesign.sys.JVMHelp.CCExc Ljava/lang/ClassCastException; (442)
 45:   athrow
 46:   iload		%4
 48:   iload_3
@@ -4494,7 +4400,7 @@ Code(max_stack = 3, max_locals = 6, code_length = 103)
 53:   iconst_5
 54:   iushr
 55:   isub
-56:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+56:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 59:   istore		%5
 61:   iload		%5
 63:   iload_3
@@ -4508,7 +4414,7 @@ Code(max_stack = 3, max_locals = 6, code_length = 103)
 72:   ifeq		#77
 75:   iload_0
 76:   ireturn
-77:   getstatic		com.jopdesign.sys.JVMHelp.CCExc Ljava/lang/ClassCastException; (449)
+77:   getstatic		com.jopdesign.sys.JVMHelp.CCExc Ljava/lang/ClassCastException; (442)
 80:   athrow
 81:   iload_2
 82:   iload_1
@@ -4518,11 +4424,11 @@ Code(max_stack = 3, max_locals = 6, code_length = 103)
 88:   iload_2
 89:   iconst_3
 90:   iadd
-91:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+91:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 94:   istore_2
 95:   iload_2
 96:   ifne		#81
-99:   getstatic		com.jopdesign.sys.JVMHelp.CCExc Ljava/lang/ClassCastException; (449)
+99:   getstatic		com.jopdesign.sys.JVMHelp.CCExc Ljava/lang/ClassCastException; (442)
 102:  athrow
 
 Attribute(s) = 
@@ -4548,7 +4454,7 @@ Code(max_stack = 3, max_locals = 6, code_length = 91)
 6:    iload_0
 7:    iconst_1
 8:    iadd
-9:    invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+9:    invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 12:   istore_2
 13:   iload_2
 14:   bipush		-5
@@ -4557,14 +4463,14 @@ Code(max_stack = 3, max_locals = 6, code_length = 91)
 18:   iload_1
 19:   iconst_3
 20:   iadd
-21:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+21:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 24:   istore_3
 25:   iload_3
 26:   ifge		#71
 29:   iload_2
 30:   iconst_4
 31:   iadd
-32:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+32:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 35:   istore		%4
 37:   iload		%4
 39:   ifne		#44
@@ -4578,7 +4484,7 @@ Code(max_stack = 3, max_locals = 6, code_length = 91)
 51:   iconst_5
 52:   iushr
 53:   isub
-54:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+54:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 57:   istore		%5
 59:   iload		%5
 61:   iload_3
@@ -4598,7 +4504,7 @@ Code(max_stack = 3, max_locals = 6, code_length = 91)
 78:   iload_2
 79:   iconst_3
 80:   iadd
-81:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+81:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 84:   istore_2
 85:   iload_2
 86:   ifne		#71
@@ -4622,11 +4528,11 @@ com.jopdesign.sys.JVM:f_monitorenter(I)V
 Code(max_stack = 2, max_locals = 1, code_length = 15)
 0:    iconst_0
 1:    bipush		-128
-3:    invokestatic	com.jopdesign.sys.Native.wr (II)V (458)
-6:    getstatic		com.jopdesign.sys.JVM.enterCnt I (460)
+3:    invokestatic	com.jopdesign.sys.Native.wr (II)V (451)
+6:    getstatic		com.jopdesign.sys.JVM.enterCnt I (453)
 9:    iconst_1
 10:   iadd
-11:   putstatic		com.jopdesign.sys.JVM.enterCnt I (460)
+11:   putstatic		com.jopdesign.sys.JVM.enterCnt I (453)
 14:   return
 
 Attribute(s) = 
@@ -4635,20 +4541,20 @@ LineNumber(0, 989), LineNumber(6, 990), LineNumber(14, 992)
 
 com.jopdesign.sys.JVM:f_monitorexit(I)V
 Code(max_stack = 2, max_locals = 1, code_length = 35)
-0:    getstatic		com.jopdesign.sys.JVM.enterCnt I (460)
+0:    getstatic		com.jopdesign.sys.JVM.enterCnt I (453)
 3:    iconst_1
 4:    isub
-5:    putstatic		com.jopdesign.sys.JVM.enterCnt I (460)
-8:    getstatic		com.jopdesign.sys.JVM.enterCnt I (460)
+5:    putstatic		com.jopdesign.sys.JVM.enterCnt I (453)
+8:    getstatic		com.jopdesign.sys.JVM.enterCnt I (453)
 11:   ifge		#22
 14:   bipush		94
-16:   invokestatic	com.jopdesign.sys.JVMHelp.wr (I)V (464)
+16:   invokestatic	com.jopdesign.sys.JVMHelp.wr (I)V (457)
 19:   goto		#19
-22:   getstatic		com.jopdesign.sys.JVM.enterCnt I (460)
+22:   getstatic		com.jopdesign.sys.JVM.enterCnt I (453)
 25:   ifne		#34
 28:   iconst_1
 29:   bipush		-128
-31:   invokestatic	com.jopdesign.sys.Native.wr (II)V (458)
+31:   invokestatic	com.jopdesign.sys.Native.wr (II)V (451)
 34:   return
 
 Attribute(s) = 
@@ -4669,7 +4575,7 @@ com.jopdesign.sys.JVM:f_multianewarray()I
 Code(max_stack = 3, max_locals = 15, code_length = 343)
 0:    iconst_0
 1:    istore_0
-2:    invokestatic	com.jopdesign.sys.Native.getSP ()I (352)
+2:    invokestatic	com.jopdesign.sys.Native.getSP ()I (341)
 5:    istore_3
 6:    iload_3
 7:    iconst_4
@@ -4678,20 +4584,20 @@ Code(max_stack = 3, max_locals = 15, code_length = 343)
 11:   iload		%4
 13:   iconst_1
 14:   iadd
-15:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+15:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 18:   istore		%5
 20:   iload		%4
 22:   iconst_3
 23:   iadd
-24:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+24:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 27:   istore		%6
 29:   iload		%4
 31:   iconst_4
 32:   iadd
-33:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+33:   invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 36:   istore		%7
 38:   iload		%7
-40:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+40:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 43:   bipush		10
 45:   iushr
 46:   istore		%8
@@ -4700,7 +4606,7 @@ Code(max_stack = 3, max_locals = 15, code_length = 343)
 52:   iconst_2
 53:   ishr
 54:   iadd
-55:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+55:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 58:   istore_2
 59:   iload		%5
 61:   iconst_3
@@ -4735,7 +4641,7 @@ Code(max_stack = 3, max_locals = 15, code_length = 343)
 102:  iconst_2
 103:  ishr
 104:  iadd
-105:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+105:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 108:  istore		%9
 110:  iload		%5
 112:  iconst_3
@@ -4766,7 +4672,7 @@ Code(max_stack = 3, max_locals = 15, code_length = 343)
 152:  iadd
 153:  istore		%9
 155:  iload		%9
-157:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+157:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 160:  istore		%9
 162:  iload		%5
 164:  iconst_1
@@ -4777,7 +4683,7 @@ Code(max_stack = 3, max_locals = 15, code_length = 343)
 172:  iconst_2
 173:  ishr
 174:  iadd
-175:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+175:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 178:  istore		%10
 180:  iload		%5
 182:  iconst_3
@@ -4805,9 +4711,9 @@ Code(max_stack = 3, max_locals = 15, code_length = 343)
 216:  iload		%4
 218:  iconst_1
 219:  iadd
-220:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (358)
+220:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (350)
 223:  iload		%4
-225:  invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+225:  invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 228:  istore_3
 229:  iload_3
 230:  iload		%10
@@ -4815,37 +4721,37 @@ Code(max_stack = 3, max_locals = 15, code_length = 343)
 233:  istore_3
 234:  iload_3
 235:  iload		%4
-237:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (358)
+237:  invokestatic	com.jopdesign.sys.Native.wrIntMem (II)V (350)
 240:  iload		%10
 242:  iconst_2
 243:  if_icmpeq		#266
-246:  getstatic		java.lang.System.out Ljava/io/PrintStream; (468)
+246:  getstatic		java.lang.System.out Ljava/io/PrintStream; (461)
 249:  iload		%10
-251:  invokevirtual	java.io.PrintStream.print (I)V (472)
-254:  getstatic		java.lang.System.out Ljava/io/PrintStream; (468)
-257:  ldc_w		"dimensions not supported" (477)
-260:  invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (479)
+251:  invokevirtual	java.io.PrintStream.print (I)V (465)
+254:  getstatic		java.lang.System.out Ljava/io/PrintStream; (461)
+257:  ldc_w		"dimensions not supported" (470)
+260:  invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (472)
 263:  invokestatic	com.jopdesign.sys.JVMHelp.noim ()V (17)
 266:  iload_3
 267:  iconst_1
 268:  iadd
-269:  invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+269:  invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 272:  istore		%11
 274:  iload_3
 275:  iconst_2
 276:  iadd
-277:  invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (355)
+277:  invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (344)
 280:  istore		%12
 282:  iload		%11
 284:  iconst_0
-285:  invokestatic	com.jopdesign.sys.JVM.f_anewarray (II)I (482)
+285:  invokestatic	com.jopdesign.sys.JVM.f_anewarray (II)I (475)
 288:  istore_0
 289:  iconst_0
 290:  istore_1
 291:  goto		#335
 294:  iload		%12
 296:  iload		%9
-298:  invokestatic	com.jopdesign.sys.JVM.f_newarray (II)I (484)
+298:  invokestatic	com.jopdesign.sys.JVM.f_newarray (II)I (477)
 301:  istore		%13
 303:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (112)
 306:  dup
@@ -4853,10 +4759,10 @@ Code(max_stack = 3, max_locals = 15, code_length = 343)
 309:  monitorenter
 310:  iload		%13
 312:  iload_0
-313:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
+313:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (347)
 316:  iload_1
 317:  iadd
-318:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (215)
+318:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (203)
 321:  aload		%14
 323:  monitorexit
 324:  goto		#331
@@ -5123,43 +5029,33 @@ Attribute(s) =
 LineNumber(0, 1117)
 
 com.jopdesign.sys.JVM:f_putstatic_ref(II)V
-Code(max_stack = 2, max_locals = 4, code_length = 37)
+Code(max_stack = 2, max_locals = 3, code_length = 20)
 0:    getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (112)
 3:    dup
 4:    astore_2
 5:    monitorenter
 6:    iload_0
-7:    iconst_2
-8:    iadd
-9:    invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
-12:   istore_3
-13:   iload_3
-14:   ifeq		#23
-17:   ldc_w		"Illegal static reference" (518)
-20:   invokestatic	com.jopdesign.sys.GC.log (Ljava/lang/String;)V (126)
-23:   iload_0
-24:   iload_1
-25:   invokestatic	com.jopdesign.sys.Native.putStatic (II)V (520)
-28:   aload_2
-29:   monitorexit
-30:   goto		#36
-33:   aload_2
-34:   monitorexit
-35:   athrow
-36:   return
+7:    iload_1
+8:    invokestatic	com.jopdesign.sys.Native.putStatic (II)V (511)
+11:   aload_2
+12:   monitorexit
+13:   goto		#19
+16:   aload_2
+17:   monitorexit
+18:   athrow
+19:   return
 
 Exception handler(s) = 
 From	To	Handler	Type
-6	30	33	<Any exception>(0)
-33	35	33	<Any exception>(0)
+6	13	16	<Any exception>(0)
+16	18	16	<Any exception>(0)
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 03 fc 00 17 07 00 03 49 07... (truncated))
-LocalVariable(start_pc = 0, length = 37, index = 0:int val)
-LocalVariable(start_pc = 0, length = 37, index = 1:int addr)
-LocalVariable(start_pc = 13, length = 11, index = 3:int val_level)
-LineNumber(0, 1120), LineNumber(6, 1131), LineNumber(13, 1132), LineNumber(17, 1133), 
-LineNumber(23, 1151), LineNumber(28, 1120), LineNumber(36, 1153)
+(Unknown attribute StackMapTable: 00 02 ff 00 10 00 03 01 01 07... (truncated))
+LocalVariable(start_pc = 0, length = 20, index = 0:int val)
+LocalVariable(start_pc = 0, length = 20, index = 1:int addr)
+LineNumber(0, 1120), LineNumber(6, 1151), LineNumber(11, 1120), LineNumber(19, 1153)
+
 
 com.jopdesign.sys.JVM:f_resE2()V
 Code(max_stack = 0, max_locals = 0, code_length = 4)
@@ -5170,52 +5066,34 @@ Attribute(s) =
 LineNumber(0, 1154)
 
 com.jopdesign.sys.JVM:f_putfield_ref(III)V
-Code(max_stack = 3, max_locals = 6, code_length = 50)
+Code(max_stack = 3, max_locals = 4, code_length = 21)
 0:    getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (112)
 3:    dup
 4:    astore_3
 5:    monitorenter
 6:    iload_0
-7:    iconst_2
-8:    iadd
-9:    invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
-12:   istore		%4
-14:   iload_1
-15:   iconst_2
-16:   iadd
-17:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
-20:   istore		%5
-22:   iload		%5
-24:   iload		%4
-26:   if_icmple		#35
-29:   ldc_w		"Illegal field reference" (527)
-32:   invokestatic	com.jopdesign.sys.GC.log (Ljava/lang/String;)V (126)
-35:   iload_0
-36:   iload_2
-37:   iload_1
-38:   invokestatic	com.jopdesign.sys.Native.putField (III)V (529)
-41:   aload_3
-42:   monitorexit
-43:   goto		#49
-46:   aload_3
-47:   monitorexit
-48:   athrow
-49:   return
+7:    iload_2
+8:    iload_1
+9:    invokestatic	com.jopdesign.sys.Native.putField (III)V (518)
+12:   aload_3
+13:   monitorexit
+14:   goto		#20
+17:   aload_3
+18:   monitorexit
+19:   athrow
+20:   return
 
 Exception handler(s) = 
 From	To	Handler	Type
-6	43	46	<Any exception>(0)
-46	48	46	<Any exception>(0)
+6	14	17	<Any exception>(0)
+17	19	17	<Any exception>(0)
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 03 fc 00 23 07 00 03 4a 07... (truncated))
-LocalVariable(start_pc = 0, length = 50, index = 0:int ref)
-LocalVariable(start_pc = 0, length = 50, index = 1:int value)
-LocalVariable(start_pc = 0, length = 50, index = 2:int index)
-LocalVariable(start_pc = 14, length = 22, index = 4:int ref_level)
-LocalVariable(start_pc = 22, length = 14, index = 5:int val_level)
-LineNumber(0, 1157), LineNumber(6, 1171), LineNumber(14, 1172), LineNumber(22, 1173), 
-LineNumber(29, 1174), LineNumber(35, 1191), LineNumber(41, 1157), LineNumber(49, 1193)
+(Unknown attribute StackMapTable: 00 02 ff 00 11 00 04 01 01 01... (truncated))
+LocalVariable(start_pc = 0, length = 21, index = 0:int ref)
+LocalVariable(start_pc = 0, length = 21, index = 1:int value)
+LocalVariable(start_pc = 0, length = 21, index = 2:int index)
+LineNumber(0, 1157), LineNumber(6, 1191), LineNumber(12, 1157), LineNumber(20, 1193)
 
 
 com.jopdesign.sys.JVM:f_resE4()V
@@ -5577,12 +5455,20 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 20, index = 0:Object this)
 LineNumber(0, 228)
 
+java.lang.Object:finalize()V
+Code(max_stack = 0, max_locals = 1, code_length = 1)
+0:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 0, index = 0:Object this)
+LineNumber(0, 280)
+
 java.lang.Object:clone()Ljava/lang/Object;
 Code(max_stack = 3, max_locals = 1, code_length = 10)
-0:    new		<java.lang.CloneNotSupportedException> (42)
+0:    new		<java.lang.CloneNotSupportedException> (45)
 3:    dup
-4:    ldc		"Object not cloneable" (44)
-6:    invokespecial	java.lang.CloneNotSupportedException.<init> (Ljava/lang/String;)V (46)
+4:    ldc		"Object not cloneable" (47)
+6:    invokespecial	java.lang.CloneNotSupportedException.<init> (Ljava/lang/String;)V (49)
 9:    athrow
 
 Attribute(s) = 
@@ -5591,10 +5477,10 @@ LineNumber(0, 344)
 
 java.lang.Object:getClass()Ljava/lang/Class;
 Code(max_stack = 3, max_locals = 1, code_length = 10)
-0:    new		<java.lang.Error> (49)
+0:    new		<java.lang.Error> (52)
 3:    dup
-4:    ldc		"getClass() NYI" (51)
-6:    invokespecial	java.lang.Error.<init> (Ljava/lang/String;)V (53)
+4:    ldc		"getClass() NYI" (54)
+6:    invokespecial	java.lang.Error.<init> (Ljava/lang/String;)V (56)
 9:    athrow
 
 Attribute(s) = 
@@ -7692,99 +7578,77 @@ Code(max_stack = 1, max_locals = 0, code_length = 4)
 Attribute(s) = 
 LineNumber(0, 1)
 
-com.WatchdogMission:<init>()V
+sw901e12.comm.ModulePingerFactory:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
-1:    invokespecial	javax.safetycritical.Mission.<init> ()V (8)
+1:    invokespecial	java.lang.Object.<init> ()V (8)
 4:    return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:com.WatchdogMission this)
-LineNumber(0, 11)
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.comm.ModulePingerFactory this)
+LineNumber(0, 3)
 
-com.WatchdogMission:initialize()V
-Code(max_stack = 9, max_locals = 6, code_length = 90)
-0:    new		<javax.realtime.PriorityParameters> (20)
-3:    dup
-4:    bipush		10
-6:    invokespecial	javax.realtime.PriorityParameters.<init> (I)V (22)
-9:    astore_1
-10:   new		<javax.realtime.PeriodicParameters> (25)
-13:   dup
-14:   new		<javax.realtime.RelativeTime> (27)
+sw901e12.comm.ModulePingerFactory:CreateModulePingerOnI2CAddress(I)Lsw901e12/comm/ModulePinger;
+null
+sw901e12.comm.ModulePingerFactory:CreateEnvironmentSpecificModuleFactory()Lsw901e12/comm/ModulePingerFactory;
+Code(max_stack = 2, max_locals = 0, code_length = 22)
+0:    invokestatic	sw901e12.comm.ModulePingerFactory.isApplicationRunningInSimulator ()Z (18)
+3:    ifeq		#14
+6:    new		<sw901e12.comm.SimulatorModulePingerFactory> (22)
+9:    dup
+10:   invokespecial	sw901e12.comm.SimulatorModulePingerFactory.<init> ()V (24)
+13:   areturn
+14:   new		<sw901e12.comm.BoardModulePingerFactory> (25)
 17:   dup
-18:   lconst_0
-19:   iconst_0
-20:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (29)
-23:   new		<javax.realtime.RelativeTime> (27)
-26:   dup
-27:   ldc2_w		1500 (32)
-30:   iconst_0
-31:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (29)
-34:   invokespecial	javax.realtime.PeriodicParameters.<init> (Ljavax/realtime/RelativeTime;Ljavax/realtime/RelativeTime;)V (34)
-37:   astore_2
-38:   new		<javax.safetycritical.StorageParameters> (37)
-41:   dup
-42:   ldc2_w		10000 (39)
-45:   iconst_1
-46:   newarray		<long>
-48:   dup
-49:   iconst_0
-50:   ldc2_w		500 (41)
-53:   lastore
-54:   iconst_0
-55:   iconst_0
-56:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[JII)V (43)
-59:   astore_3
-60:   iconst_1
-61:   newarray		<int>
-63:   dup
-64:   iconst_0
-65:   iconst_1
-66:   iastore
-67:   astore		%4
-69:   new		<com.WatchdogPeriodicEventHandler> (46)
-72:   dup
-73:   aload_1
-74:   aload_2
-75:   aload_3
-76:   lconst_0
-77:   aload		%4
-79:   invokespecial	com.WatchdogPeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[I)V (48)
-82:   astore		%5
-84:   aload		%5
-86:   invokevirtual	com.WatchdogPeriodicEventHandler.register ()V (51)
-89:   return
+18:   invokespecial	sw901e12.comm.BoardModulePingerFactory.<init> ()V (27)
+21:   areturn
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 90, index = 0:com.WatchdogMission this)
-LocalVariable(start_pc = 10, length = 80, index = 1:javax.realtime.PriorityParameters priorityParam)
-LocalVariable(start_pc = 38, length = 52, index = 2:javax.realtime.PeriodicParameters releaseParam)
-LocalVariable(start_pc = 60, length = 30, index = 3:javax.safetycritical.StorageParameters storageParam)
-LocalVariable(start_pc = 69, length = 21, index = 4:int[] slaves)
-LocalVariable(start_pc = 84, length = 6, index = 5:com.WatchdogPeriodicEventHandler WDHandler)
-LineNumber(0, 16), LineNumber(10, 17), LineNumber(38, 18), LineNumber(60, 21), 
-LineNumber(69, 23), LineNumber(73, 24), LineNumber(74, 25), LineNumber(75, 26), 
-LineNumber(76, 27), LineNumber(77, 28), LineNumber(79, 23), LineNumber(84, 30), 
-LineNumber(89, 31)
+(Unknown attribute StackMapTable: 00 01 0e)
+LineNumber(0, 8), LineNumber(6, 9), LineNumber(14, 11)
 
-com.WatchdogMission:missionMemorySize()J
-Code(max_stack = 2, max_locals = 1, code_length = 4)
-0:    ldc2_w		100000 (66)
-3:    lreturn
+sw901e12.comm.ModulePingerFactory:isApplicationRunningInSimulator()Z
+Code(max_stack = 1, max_locals = 0, code_length = 2)
+0:    iconst_0
+1:    ireturn
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 4, index = 0:com.WatchdogMission this)
-LineNumber(0, 36)
+LineNumber(0, 16)
 
-com.WatchdogMission:start()Ljava/lang/Runnable;
-Code(max_stack = 1, max_locals = 1, code_length = 2)
-0:    aconst_null
-1:    areturn
+sw901e12.comm.BoardModulePingerFactory:<init>()V
+Code(max_stack = 2, max_locals = 1, code_length = 15)
+0:    aload_0
+1:    invokespecial	sw901e12.comm.ModulePingerFactory.<init> ()V (14)
+4:    aload_0
+5:    iconst_1
+6:    putfield		sw901e12.comm.BoardModulePingerFactory.UltraSonicSensorI2CAddress I (16)
+9:    aload_0
+10:   iconst_0
+11:   putfield		sw901e12.comm.BoardModulePingerFactory.UltraSonicSensorMemoryAddress I (18)
+14:   return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 2, index = 0:com.WatchdogMission this)
-LineNumber(0, 42)
+LocalVariable(start_pc = 0, length = 15, index = 0:sw901e12.comm.BoardModulePingerFactory this)
+LineNumber(0, 6), LineNumber(4, 7), LineNumber(9, 8), LineNumber(14, 6)
+
+sw901e12.comm.BoardModulePingerFactory:CreateModulePingerOnI2CAddress(I)Lsw901e12/comm/ModulePinger;
+Code(max_stack = 3, max_locals = 2, code_length = 16)
+0:    iload_1
+1:    iconst_1
+2:    if_icmpne		#14
+5:    new		<sw901e12.comm.modules.TwoWayDirectionPinger> (26)
+8:    dup
+9:    iconst_0
+10:   invokespecial	sw901e12.comm.modules.TwoWayDirectionPinger.<init> (I)V (28)
+13:   areturn
+14:   aconst_null
+15:   areturn
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 01 0e)
+LocalVariable(start_pc = 0, length = 16, index = 0:sw901e12.comm.BoardModulePingerFactory this)
+LocalVariable(start_pc = 0, length = 16, index = 1:int moduleAddressOnBus)
+LineNumber(0, 12), LineNumber(5, 13), LineNumber(14, 16)
 
 java.lang.ArrayStoreException:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -8416,8 +8280,6 @@ Code(max_stack = 1, max_locals = 0, code_length = 4)
 Attribute(s) = 
 LineNumber(0, 91)
 
-javax.safetycritical.Mission:start()Ljava/lang/Runnable;
-null
 com.jopdesign.io.SerialPort:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
@@ -10916,58 +10778,120 @@ LineNumber(25, 361), LineNumber(30, 362), LineNumber(42, 363), LineNumber(47, 36
 LineNumber(54, 361), LineNumber(64, 366), LineNumber(69, 367), LineNumber(77, 366), 
 LineNumber(85, 369), LineNumber(90, 370)
 
-com.WatchdogSafelet:<init>()V
+sw901e12.WatchdogMission:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
-1:    invokespecial	java.lang.Object.<init> ()V (10)
+1:    invokespecial	javax.safetycritical.Mission.<init> ()V (12)
 4:    return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:com.WatchdogSafelet this)
-LineNumber(0, 14)
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 16)
 
-com.WatchdogSafelet:getSequencer()Ljavax/safetycritical/MissionSequencer;
-Code(max_stack = 8, max_locals = 1, code_length = 35)
-0:    new		<javax.safetycritical.LinearMissionSequencer> (29)
+sw901e12.WatchdogMission:initialize()V
+Code(max_stack = 9, max_locals = 5, code_length = 91)
+0:    new		<javax.realtime.PriorityParameters> (24)
 3:    dup
-4:    new		<javax.realtime.PriorityParameters> (31)
-7:    dup
-8:    bipush		11
-10:   invokespecial	javax.realtime.PriorityParameters.<init> (I)V (33)
-13:   new		<javax.safetycritical.StorageParameters> (36)
-16:   dup
-17:   ldc2_w		1000 (38)
-20:   aconst_null
-21:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[J)V (40)
-24:   new		<com.WatchdogMission> (43)
-27:   dup
-28:   invokespecial	com.WatchdogMission.<init> ()V (45)
-31:   invokespecial	javax.safetycritical.LinearMissionSequencer.<init> (Ljavax/realtime/PriorityParameters;Ljavax/safetycritical/StorageParameters;Ljavax/safetycritical/Mission;)V (46)
-34:   areturn
+4:    bipush		10
+6:    invokespecial	javax.realtime.PriorityParameters.<init> (I)V (26)
+9:    astore_1
+10:   new		<javax.realtime.PeriodicParameters> (29)
+13:   dup
+14:   new		<javax.realtime.RelativeTime> (31)
+17:   dup
+18:   lconst_0
+19:   iconst_0
+20:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (33)
+23:   new		<javax.realtime.RelativeTime> (31)
+26:   dup
+27:   ldc2_w		1500 (36)
+30:   iconst_0
+31:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (33)
+34:   invokespecial	javax.realtime.PeriodicParameters.<init> (Ljavax/realtime/RelativeTime;Ljavax/realtime/RelativeTime;)V (38)
+37:   astore_2
+38:   new		<javax.safetycritical.StorageParameters> (41)
+41:   dup
+42:   ldc2_w		10000 (43)
+45:   iconst_1
+46:   newarray		<long>
+48:   dup
+49:   iconst_0
+50:   ldc2_w		500 (45)
+53:   lastore
+54:   iconst_0
+55:   iconst_0
+56:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[JII)V (47)
+59:   astore_3
+60:   aload_0
+61:   invokevirtual	sw901e12.WatchdogMission.initializeModulePingerFactory ()V (50)
+64:   aload_0
+65:   invokevirtual	sw901e12.WatchdogMission.initializeSlaveModules ()V (53)
+68:   new		<sw901e12.handlers.WatchdogPeriodicEventHandler> (56)
+71:   dup
+72:   aload_1
+73:   aload_2
+74:   aload_3
+75:   lconst_0
+76:   aload_0
+77:   getfield		sw901e12.WatchdogMission.slaveModules [Lsw901e12/Module; (58)
+80:   invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[Lsw901e12/Module;)V (60)
+83:   astore		%4
+85:   aload		%4
+87:   invokevirtual	sw901e12.handlers.WatchdogPeriodicEventHandler.register ()V (63)
+90:   return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 35, index = 0:com.WatchdogSafelet this)
-LineNumber(0, 20), LineNumber(4, 21), LineNumber(13, 22), LineNumber(24, 23), 
-LineNumber(31, 20)
+LocalVariable(start_pc = 0, length = 91, index = 0:sw901e12.WatchdogMission this)
+LocalVariable(start_pc = 10, length = 81, index = 1:javax.realtime.PriorityParameters priorityParam)
+LocalVariable(start_pc = 38, length = 53, index = 2:javax.realtime.PeriodicParameters releaseParam)
+LocalVariable(start_pc = 60, length = 31, index = 3:javax.safetycritical.StorageParameters storageParam)
+LocalVariable(start_pc = 85, length = 6, index = 4:sw901e12.handlers.WatchdogPeriodicEventHandler WDHandler)
+LineNumber(0, 24), LineNumber(10, 25), LineNumber(38, 26), LineNumber(60, 28), 
+LineNumber(64, 29), LineNumber(68, 31), LineNumber(72, 32), LineNumber(73, 33), 
+LineNumber(74, 34), LineNumber(75, 35), LineNumber(76, 36), LineNumber(80, 31), 
+LineNumber(85, 38), LineNumber(90, 39)
 
-com.WatchdogSafelet:immortalMemorySize()J
+sw901e12.WatchdogMission:initializeModulePingerFactory()V
+Code(max_stack = 2, max_locals = 1, code_length = 8)
+0:    aload_0
+1:    invokestatic	sw901e12.comm.ModulePingerFactory.CreateEnvironmentSpecificModuleFactory ()Lsw901e12/comm/ModulePingerFactory; (74)
+4:    putfield		sw901e12.WatchdogMission.modulePingerFactory Lsw901e12/comm/ModulePingerFactory; (80)
+7:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 8, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 43), LineNumber(7, 44)
+
+sw901e12.WatchdogMission:initializeSlaveModules()V
+Code(max_stack = 5, max_locals = 1, code_length = 27)
+0:    aload_0
+1:    iconst_1
+2:    anewarray		<sw901e12.Module> (82)
+5:    putfield		sw901e12.WatchdogMission.slaveModules [Lsw901e12/Module; (58)
+8:    aload_0
+9:    getfield		sw901e12.WatchdogMission.slaveModules [Lsw901e12/Module; (58)
+12:   iconst_0
+13:   iconst_1
+14:   aload_0
+15:   getfield		sw901e12.WatchdogMission.modulePingerFactory Lsw901e12/comm/ModulePingerFactory; (80)
+18:   iconst_1
+19:   invokevirtual	sw901e12.comm.ModulePingerFactory.CreateModulePingerOnI2CAddress (I)Lsw901e12/comm/ModulePinger; (84)
+22:   invokestatic	sw901e12.Module.ModuleWithAddressAndPinger (ILsw901e12/comm/ModulePinger;)Lsw901e12/Module; (88)
+25:   aastore
+26:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 27, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 48), LineNumber(8, 50), LineNumber(26, 51)
+
+sw901e12.WatchdogMission:missionMemorySize()J
 Code(max_stack = 2, max_locals = 1, code_length = 4)
-0:    ldc2_w		100000 (51)
+0:    ldc2_w		100000 (94)
 3:    lreturn
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 4, index = 0:com.WatchdogSafelet this)
-LineNumber(0, 29)
-
-javax.realtime.AbstractAsyncEventHandler:<init>()V
-Code(max_stack = 1, max_locals = 1, code_length = 5)
-0:    aload_0
-1:    invokespecial	java.lang.Object.<init> ()V (10)
-4:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:javax.realtime.AbstractAsyncEventHandler this)
-LineNumber(0, 36)
+LocalVariable(start_pc = 0, length = 4, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 56)
 
 javax.safetycritical.JopSystem:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -11003,39 +10927,43 @@ LineNumber(0, 38), LineNumber(7, 48), LineNumber(12, 50), LineNumber(16, 53),
 LineNumber(24, 54), LineNumber(27, 55)
 
 javax.safetycritical.JopSystem:runMission(Ljavax/safetycritical/Safelet;)V
-Code(max_stack = 3, max_locals = 5, code_length = 44)
+Code(max_stack = 2, max_locals = 5, code_length = 32)
 0:    aload_0
 1:    invokeinterface	javax.safetycritical.Safelet.getSequencer ()Ljavax/safetycritical/MissionSequencer; (16)	1	0
 6:    astore_1
 7:    aload_1
 8:    invokevirtual	javax.safetycritical.MissionSequencer.getNextMission ()Ljavax/safetycritical/Mission; (22)
 11:   astore_3
-12:   goto		#39
+12:   goto		#27
 15:   aload_3
 16:   invokevirtual	javax.safetycritical.Mission.missionMemorySize ()J (56)
 19:   l2i
 20:   istore		%4
-22:   invokestatic	com.jopdesign.sys.Memory.getCurrentMemory ()Lcom/jopdesign/sys/Memory; (60)
-25:   iload		%4
+22:   aload_1
+23:   invokevirtual	javax.safetycritical.MissionSequencer.getNextMission ()Ljavax/safetycritical/Mission; (22)
+26:   astore_3
 27:   aload_3
-28:   invokevirtual	javax.safetycritical.Mission.start ()Ljava/lang/Runnable; (66)
-31:   invokevirtual	com.jopdesign.sys.Memory.enterPrivateMemory (ILjava/lang/Runnable;)V (70)
-34:   aload_1
-35:   invokevirtual	javax.safetycritical.MissionSequencer.getNextMission ()Ljavax/safetycritical/Mission; (22)
-38:   astore_3
-39:   aload_3
-40:   ifnonnull		#15
-43:   return
+28:   ifnonnull		#15
+31:   return
 
 Attribute(s) = 
 (Unknown attribute StackMapTable: 00 02 ff 00 0f 00 04 07 00 11... (truncated))
-LocalVariable(start_pc = 0, length = 44, index = 0:javax.safetycritical.Safelet scj)
-LocalVariable(start_pc = 7, length = 37, index = 1:javax.safetycritical.MissionSequencer ms)
-LocalVariable(start_pc = 12, length = 32, index = 3:javax.safetycritical.Mission m)
-LocalVariable(start_pc = 22, length = 18, index = 4:int x)
+LocalVariable(start_pc = 0, length = 32, index = 0:javax.safetycritical.Safelet scj)
+LocalVariable(start_pc = 7, length = 25, index = 1:javax.safetycritical.MissionSequencer ms)
+LocalVariable(start_pc = 12, length = 20, index = 3:javax.safetycritical.Mission m)
+LocalVariable(start_pc = 22, length = 6, index = 4:int x)
 LineNumber(0, 59), LineNumber(7, 65), LineNumber(12, 67), LineNumber(15, 69), 
-LineNumber(22, 72), LineNumber(34, 75), LineNumber(39, 67), LineNumber(43, 77)
+LineNumber(22, 75), LineNumber(27, 67), LineNumber(31, 77)
 
+javax.realtime.AbstractAsyncEventHandler:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (10)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:javax.realtime.AbstractAsyncEventHandler this)
+LineNumber(0, 36)
 
 javax.safetycritical.StorageParameters:<init>(J[JII)V
 Code(max_stack = 3, max_locals = 6, code_length = 21)
@@ -13585,7 +13513,7 @@ Attribute(s) =
 LineNumber(0, 541)
 
 com.jopdesign.sys.GC:newObject(I)I
-Code(max_stack = 4, max_locals = 5, code_length = 295)
+Code(max_stack = 4, max_locals = 5, code_length = 285)
 0:    iload_0
 1:    invokestatic	com.jopdesign.sys.Native.rdMem (I)I (65)
 4:    istore_1
@@ -13599,7 +13527,7 @@ Code(max_stack = 4, max_locals = 5, code_length = 295)
 20:   iadd
 21:   iadd
 22:   putstatic		com.jopdesign.sys.GC.allocationPointer I (73)
-25:   goto		#126
+25:   goto		#116
 28:   aconst_null
 29:   astore_3
 30:   getstatic		com.jopdesign.sys.RtThreadImpl.mission Z (210)
@@ -13641,159 +13569,151 @@ Code(max_stack = 4, max_locals = 5, code_length = 295)
 101:  iadd
 102:  iadd
 103:  putfield		com.jopdesign.sys.Memory.allocPtr I (237)
-106:  iload_2
-107:  aload_3
-108:  getfield		com.jopdesign.sys.Memory.level I (241)
-111:  bipush		25
-113:  ishl
-114:  ior
-115:  istore_2
-116:  aload_3
-117:  getfield		com.jopdesign.sys.Memory.level I (241)
-120:  iload_2
-121:  iconst_2
-122:  iadd
-123:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-126:  iload_2
-127:  iconst_4
-128:  iadd
-129:  iload_2
-130:  iconst_0
-131:  iadd
-132:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-135:  iload_0
-136:  iconst_5
+106:  aload_3
+107:  getfield		com.jopdesign.sys.Memory.level I (241)
+110:  iload_2
+111:  iconst_2
+112:  iadd
+113:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+116:  iload_2
+117:  iconst_4
+118:  iadd
+119:  iload_2
+120:  iconst_0
+121:  iadd
+122:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+125:  iload_0
+126:  iconst_5
+127:  iadd
+128:  iload_2
+129:  iconst_1
+130:  iadd
+131:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+134:  iconst_0
+135:  iload_2
+136:  iconst_3
 137:  iadd
-138:  iload_2
-139:  iconst_1
-140:  iadd
-141:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-144:  iconst_0
-145:  iload_2
-146:  iconst_3
-147:  iadd
-148:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-151:  iload_2
-152:  ireturn
-153:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
-156:  dup
-157:  astore_2
-158:  monitorenter
-159:  getstatic		com.jopdesign.sys.GC.copyPtr I (125)
-162:  iload_1
-163:  iadd
-164:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
-167:  if_icmplt		#174
-170:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
-173:  athrow
-174:  aload_2
-175:  monitorexit
-176:  goto		#182
-179:  aload_2
-180:  monitorexit
-181:  athrow
-182:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
-185:  dup
-186:  astore_2
-187:  monitorenter
-188:  getstatic		com.jopdesign.sys.GC.freeList I (180)
-191:  ifne		#198
-194:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
-197:  athrow
-198:  aload_2
-199:  monitorexit
-200:  goto		#206
-203:  aload_2
-204:  monitorexit
-205:  athrow
-206:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
-209:  dup
-210:  astore_3
-211:  monitorenter
-212:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
-215:  iload_1
-216:  isub
-217:  putstatic		com.jopdesign.sys.GC.allocPtr I (133)
-220:  getstatic		com.jopdesign.sys.GC.freeList I (180)
-223:  istore_2
-224:  iload_2
-225:  iconst_4
-226:  iadd
-227:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (65)
-230:  putstatic		com.jopdesign.sys.GC.freeList I (180)
-233:  getstatic		com.jopdesign.sys.GC.useList I (178)
-236:  iload_2
-237:  iconst_4
-238:  iadd
-239:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-242:  iload_2
-243:  putstatic		com.jopdesign.sys.GC.useList I (178)
-246:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
-249:  iload_2
-250:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-253:  getstatic		com.jopdesign.sys.GC.toSpace I (107)
-256:  iload_2
-257:  iconst_2
-258:  iadd
-259:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-262:  iconst_0
-263:  iload_2
-264:  iconst_5
-265:  iadd
-266:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-269:  iconst_0
-270:  iload_2
-271:  iconst_3
-272:  iadd
-273:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-276:  iload_0
-277:  iconst_5
-278:  iadd
-279:  iload_2
-280:  iconst_1
-281:  iadd
-282:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-285:  aload_3
-286:  monitorexit
-287:  goto		#293
-290:  aload_3
-291:  monitorexit
-292:  athrow
-293:  iload_2
-294:  ireturn
+138:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+141:  iload_2
+142:  ireturn
+143:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
+146:  dup
+147:  astore_2
+148:  monitorenter
+149:  getstatic		com.jopdesign.sys.GC.copyPtr I (125)
+152:  iload_1
+153:  iadd
+154:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
+157:  if_icmplt		#164
+160:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
+163:  athrow
+164:  aload_2
+165:  monitorexit
+166:  goto		#172
+169:  aload_2
+170:  monitorexit
+171:  athrow
+172:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
+175:  dup
+176:  astore_2
+177:  monitorenter
+178:  getstatic		com.jopdesign.sys.GC.freeList I (180)
+181:  ifne		#188
+184:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
+187:  athrow
+188:  aload_2
+189:  monitorexit
+190:  goto		#196
+193:  aload_2
+194:  monitorexit
+195:  athrow
+196:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
+199:  dup
+200:  astore_3
+201:  monitorenter
+202:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
+205:  iload_1
+206:  isub
+207:  putstatic		com.jopdesign.sys.GC.allocPtr I (133)
+210:  getstatic		com.jopdesign.sys.GC.freeList I (180)
+213:  istore_2
+214:  iload_2
+215:  iconst_4
+216:  iadd
+217:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (65)
+220:  putstatic		com.jopdesign.sys.GC.freeList I (180)
+223:  getstatic		com.jopdesign.sys.GC.useList I (178)
+226:  iload_2
+227:  iconst_4
+228:  iadd
+229:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+232:  iload_2
+233:  putstatic		com.jopdesign.sys.GC.useList I (178)
+236:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
+239:  iload_2
+240:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+243:  getstatic		com.jopdesign.sys.GC.toSpace I (107)
+246:  iload_2
+247:  iconst_2
+248:  iadd
+249:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+252:  iconst_0
+253:  iload_2
+254:  iconst_5
+255:  iadd
+256:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+259:  iconst_0
+260:  iload_2
+261:  iconst_3
+262:  iadd
+263:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+266:  iload_0
+267:  iconst_5
+268:  iadd
+269:  iload_2
+270:  iconst_1
+271:  iadd
+272:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+275:  aload_3
+276:  monitorexit
+277:  goto		#283
+280:  aload_3
+281:  monitorexit
+282:  athrow
+283:  iload_2
+284:  ireturn
 
 Exception handler(s) = 
 From	To	Handler	Type
-159	176	179	<Any exception>(0)
-179	181	179	<Any exception>(0)
-188	200	203	<Any exception>(0)
-203	205	203	<Any exception>(0)
-212	287	290	<Any exception>(0)
-290	292	290	<Any exception>(0)
+149	166	169	<Any exception>(0)
+169	171	169	<Any exception>(0)
+178	190	193	<Any exception>(0)
+193	195	193	<Any exception>(0)
+202	277	280	<Any exception>(0)
+280	282	280	<Any exception>(0)
 
 Attribute(s) = 
 (Unknown attribute StackMapTable: 00 0e fd 00 1c 01 01 fc 00 25... (truncated))
-LocalVariable(start_pc = 0, length = 295, index = 0:int cons)
-LocalVariable(start_pc = 5, length = 290, index = 1:int size)
-LocalVariable(start_pc = 224, length = 67, index = 2:int ref)
-LocalVariable(start_pc = 293, length = 2, index = 2:int ref)
-LocalVariable(start_pc = 9, length = 147, index = 2:int ptr)
-LocalVariable(start_pc = 30, length = 97, index = 3:com.jopdesign.sys.Memory sc)
+LocalVariable(start_pc = 0, length = 285, index = 0:int cons)
+LocalVariable(start_pc = 5, length = 280, index = 1:int size)
+LocalVariable(start_pc = 214, length = 67, index = 2:int ref)
+LocalVariable(start_pc = 283, length = 2, index = 2:int ref)
+LocalVariable(start_pc = 9, length = 137, index = 2:int ptr)
+LocalVariable(start_pc = 30, length = 87, index = 3:com.jopdesign.sys.Memory sc)
 LocalVariable(start_pc = 48, length = 21, index = 4:com.jopdesign.sys.Scheduler s)
 LineNumber(0, 550), LineNumber(5, 554), LineNumber(9, 555), LineNumber(15, 557), 
 LineNumber(28, 561), LineNumber(30, 562), LineNumber(36, 563), LineNumber(48, 564), 
 LineNumber(66, 568), LineNumber(70, 570), LineNumber(85, 572), LineNumber(89, 574), 
-LineNumber(94, 575), LineNumber(106, 579), LineNumber(116, 583), LineNumber(126, 589), 
-LineNumber(135, 590), LineNumber(144, 591), LineNumber(151, 594), LineNumber(153, 598), 
-LineNumber(159, 599), LineNumber(170, 603), LineNumber(174, 598), LineNumber(182, 614), 
-LineNumber(188, 615), LineNumber(194, 619), LineNumber(198, 614), LineNumber(206, 633), 
-LineNumber(212, 635), LineNumber(220, 637), LineNumber(224, 644), LineNumber(233, 646), 
-LineNumber(242, 647), LineNumber(246, 649), LineNumber(253, 651), LineNumber(262, 653), 
-LineNumber(269, 657), LineNumber(276, 659), LineNumber(285, 633), LineNumber(293, 662)
-
+LineNumber(94, 575), LineNumber(106, 583), LineNumber(116, 589), LineNumber(125, 590), 
+LineNumber(134, 591), LineNumber(141, 594), LineNumber(143, 598), LineNumber(149, 599), 
+LineNumber(160, 603), LineNumber(164, 598), LineNumber(172, 614), LineNumber(178, 615), 
+LineNumber(184, 619), LineNumber(188, 614), LineNumber(196, 633), LineNumber(202, 635), 
+LineNumber(210, 637), LineNumber(214, 644), LineNumber(223, 646), LineNumber(232, 647), 
+LineNumber(236, 649), LineNumber(243, 651), LineNumber(252, 653), LineNumber(259, 657), 
+LineNumber(266, 659), LineNumber(275, 633), LineNumber(283, 662)
 
 com.jopdesign.sys.GC:newArray(II)I
-Code(max_stack = 4, max_locals = 6, code_length = 343)
+Code(max_stack = 4, max_locals = 6, code_length = 332)
 0:    iload_0
 1:    ifge		#12
 4:    new		<java.lang.NegativeArraySizeException> (251)
@@ -13822,7 +13742,7 @@ Code(max_stack = 4, max_locals = 6, code_length = 343)
 45:   iadd
 46:   iadd
 47:   putstatic		com.jopdesign.sys.GC.allocationPointer I (73)
-50:   goto		#160
+50:   goto		#149
 53:   aconst_null
 54:   astore		%4
 56:   getstatic		com.jopdesign.sys.RtThreadImpl.mission Z (210)
@@ -13864,161 +13784,154 @@ Code(max_stack = 4, max_locals = 6, code_length = 343)
 133:  iadd
 134:  iadd
 135:  putfield		com.jopdesign.sys.Memory.allocPtr I (237)
-138:  iload_3
-139:  aload		%4
-141:  getfield		com.jopdesign.sys.Memory.level I (241)
-144:  bipush		25
-146:  ishl
-147:  ior
-148:  istore_3
-149:  aload		%4
-151:  getfield		com.jopdesign.sys.Memory.level I (241)
-154:  iload_3
-155:  iconst_2
-156:  iadd
-157:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-160:  iload_3
-161:  iconst_4
-162:  iadd
-163:  iload_3
-164:  iconst_0
-165:  iadd
-166:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-169:  iload_2
-170:  iload_3
-171:  iconst_1
-172:  iadd
-173:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-176:  iload_1
-177:  iload_3
-178:  iconst_3
-179:  iadd
-180:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-183:  iload_3
-184:  ireturn
-185:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
-188:  dup
-189:  astore_3
-190:  monitorenter
-191:  getstatic		com.jopdesign.sys.GC.copyPtr I (125)
-194:  iload_0
-195:  iadd
-196:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
-199:  if_icmplt		#221
-202:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
-205:  athrow
-206:  getstatic		com.jopdesign.sys.GC.copyPtr I (125)
-209:  iload_0
-210:  iadd
-211:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
-214:  if_icmplt		#221
-217:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
-220:  athrow
-221:  aload_3
-222:  monitorexit
-223:  goto		#229
-226:  aload_3
-227:  monitorexit
-228:  athrow
-229:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
-232:  dup
-233:  astore_3
-234:  monitorenter
-235:  getstatic		com.jopdesign.sys.GC.freeList I (180)
-238:  ifne		#245
-241:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
-244:  athrow
-245:  aload_3
-246:  monitorexit
-247:  goto		#253
-250:  aload_3
-251:  monitorexit
-252:  athrow
-253:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
-256:  dup
-257:  astore		%4
-259:  monitorenter
-260:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
-263:  iload_0
-264:  isub
-265:  putstatic		com.jopdesign.sys.GC.allocPtr I (133)
-268:  getstatic		com.jopdesign.sys.GC.freeList I (180)
-271:  istore_3
-272:  iload_3
-273:  iconst_4
-274:  iadd
-275:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (65)
-278:  putstatic		com.jopdesign.sys.GC.freeList I (180)
-281:  getstatic		com.jopdesign.sys.GC.useList I (178)
-284:  iload_3
-285:  iconst_4
-286:  iadd
+138:  aload		%4
+140:  getfield		com.jopdesign.sys.Memory.level I (241)
+143:  iload_3
+144:  iconst_2
+145:  iadd
+146:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+149:  iload_3
+150:  iconst_4
+151:  iadd
+152:  iload_3
+153:  iconst_0
+154:  iadd
+155:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+158:  iload_2
+159:  iload_3
+160:  iconst_1
+161:  iadd
+162:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+165:  iload_1
+166:  iload_3
+167:  iconst_3
+168:  iadd
+169:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+172:  iload_3
+173:  ireturn
+174:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
+177:  dup
+178:  astore_3
+179:  monitorenter
+180:  getstatic		com.jopdesign.sys.GC.copyPtr I (125)
+183:  iload_0
+184:  iadd
+185:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
+188:  if_icmplt		#210
+191:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
+194:  athrow
+195:  getstatic		com.jopdesign.sys.GC.copyPtr I (125)
+198:  iload_0
+199:  iadd
+200:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
+203:  if_icmplt		#210
+206:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
+209:  athrow
+210:  aload_3
+211:  monitorexit
+212:  goto		#218
+215:  aload_3
+216:  monitorexit
+217:  athrow
+218:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
+221:  dup
+222:  astore_3
+223:  monitorenter
+224:  getstatic		com.jopdesign.sys.GC.freeList I (180)
+227:  ifne		#234
+230:  getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (95)
+233:  athrow
+234:  aload_3
+235:  monitorexit
+236:  goto		#242
+239:  aload_3
+240:  monitorexit
+241:  athrow
+242:  getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (90)
+245:  dup
+246:  astore		%4
+248:  monitorenter
+249:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
+252:  iload_0
+253:  isub
+254:  putstatic		com.jopdesign.sys.GC.allocPtr I (133)
+257:  getstatic		com.jopdesign.sys.GC.freeList I (180)
+260:  istore_3
+261:  iload_3
+262:  iconst_4
+263:  iadd
+264:  invokestatic	com.jopdesign.sys.Native.rdMem (I)I (65)
+267:  putstatic		com.jopdesign.sys.GC.freeList I (180)
+270:  getstatic		com.jopdesign.sys.GC.useList I (178)
+273:  iload_3
+274:  iconst_4
+275:  iadd
+276:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+279:  iload_3
+280:  putstatic		com.jopdesign.sys.GC.useList I (178)
+283:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
+286:  iload_3
 287:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-290:  iload_3
-291:  putstatic		com.jopdesign.sys.GC.useList I (178)
-294:  getstatic		com.jopdesign.sys.GC.allocPtr I (133)
-297:  iload_3
-298:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-301:  getstatic		com.jopdesign.sys.GC.toSpace I (107)
-304:  iload_3
-305:  iconst_2
-306:  iadd
-307:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-310:  iconst_0
-311:  iload_3
-312:  iconst_5
-313:  iadd
-314:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-317:  iload_1
-318:  iload_3
-319:  iconst_3
-320:  iadd
-321:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-324:  iload_2
-325:  iload_3
-326:  iconst_1
-327:  iadd
-328:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
-331:  aload		%4
-333:  monitorexit
-334:  goto		#341
-337:  aload		%4
-339:  monitorexit
-340:  athrow
-341:  iload_3
-342:  ireturn
+290:  getstatic		com.jopdesign.sys.GC.toSpace I (107)
+293:  iload_3
+294:  iconst_2
+295:  iadd
+296:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+299:  iconst_0
+300:  iload_3
+301:  iconst_5
+302:  iadd
+303:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+306:  iload_1
+307:  iload_3
+308:  iconst_3
+309:  iadd
+310:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+313:  iload_2
+314:  iload_3
+315:  iconst_1
+316:  iadd
+317:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (75)
+320:  aload		%4
+322:  monitorexit
+323:  goto		#330
+326:  aload		%4
+328:  monitorexit
+329:  athrow
+330:  iload_3
+331:  ireturn
 
 Exception handler(s) = 
 From	To	Handler	Type
-191	223	226	<Any exception>(0)
-226	228	226	<Any exception>(0)
-235	247	250	<Any exception>(0)
-250	252	250	<Any exception>(0)
-260	334	337	<Any exception>(0)
-337	340	337	<Any exception>(0)
+180	212	215	<Any exception>(0)
+215	217	215	<Any exception>(0)
+224	236	239	<Any exception>(0)
+239	241	239	<Any exception>(0)
+249	323	326	<Any exception>(0)
+326	329	326	<Any exception>(0)
 
 Attribute(s) = 
 (Unknown attribute StackMapTable: 00 12 0c fc 00 0d 01 03 fc 00... (truncated))
-LocalVariable(start_pc = 0, length = 343, index = 0:int size)
-LocalVariable(start_pc = 0, length = 343, index = 1:int type)
-LocalVariable(start_pc = 14, length = 329, index = 2:int arrayLength)
-LocalVariable(start_pc = 272, length = 67, index = 3:int ref)
-LocalVariable(start_pc = 341, length = 2, index = 3:int ref)
-LocalVariable(start_pc = 34, length = 154, index = 3:int ptr)
-LocalVariable(start_pc = 56, length = 105, index = 4:com.jopdesign.sys.Memory sc)
+LocalVariable(start_pc = 0, length = 332, index = 0:int size)
+LocalVariable(start_pc = 0, length = 332, index = 1:int type)
+LocalVariable(start_pc = 14, length = 318, index = 2:int arrayLength)
+LocalVariable(start_pc = 261, length = 67, index = 3:int ref)
+LocalVariable(start_pc = 330, length = 2, index = 3:int ref)
+LocalVariable(start_pc = 34, length = 143, index = 3:int ptr)
+LocalVariable(start_pc = 56, length = 94, index = 4:com.jopdesign.sys.Memory sc)
 LocalVariable(start_pc = 74, length = 22, index = 5:com.jopdesign.sys.Scheduler s)
 LineNumber(0, 666), LineNumber(4, 667), LineNumber(12, 670), LineNumber(14, 673), 
 LineNumber(30, 678), LineNumber(34, 679), LineNumber(40, 681), LineNumber(53, 685), 
 LineNumber(56, 686), LineNumber(62, 687), LineNumber(74, 688), LineNumber(93, 692), 
 LineNumber(98, 694), LineNumber(115, 696), LineNumber(119, 698), LineNumber(125, 699), 
-LineNumber(138, 703), LineNumber(149, 707), LineNumber(160, 713), LineNumber(169, 714), 
-LineNumber(176, 715), LineNumber(183, 716), LineNumber(185, 719), LineNumber(191, 720), 
-LineNumber(202, 724), LineNumber(206, 728), LineNumber(217, 731), LineNumber(221, 719), 
-LineNumber(229, 735), LineNumber(235, 736), LineNumber(241, 740), LineNumber(245, 735), 
-LineNumber(253, 753), LineNumber(260, 755), LineNumber(268, 757), LineNumber(272, 764), 
-LineNumber(281, 766), LineNumber(290, 767), LineNumber(294, 769), LineNumber(301, 771), 
-LineNumber(310, 773), LineNumber(317, 775), LineNumber(324, 777), LineNumber(331, 753), 
-LineNumber(341, 779)
+LineNumber(138, 707), LineNumber(149, 713), LineNumber(158, 714), LineNumber(165, 715), 
+LineNumber(172, 716), LineNumber(174, 719), LineNumber(180, 720), LineNumber(191, 724), 
+LineNumber(195, 728), LineNumber(206, 731), LineNumber(210, 719), LineNumber(218, 735), 
+LineNumber(224, 736), LineNumber(230, 740), LineNumber(234, 735), LineNumber(242, 753), 
+LineNumber(249, 755), LineNumber(257, 757), LineNumber(261, 764), LineNumber(270, 766), 
+LineNumber(279, 767), LineNumber(283, 769), LineNumber(290, 771), LineNumber(299, 773), 
+LineNumber(306, 775), LineNumber(313, 777), LineNumber(320, 753), LineNumber(330, 779)
+
 
 com.jopdesign.sys.GC:freeMemory()I
 Code(max_stack = 2, max_locals = 0, code_length = 6)
@@ -14285,19 +14198,19 @@ Code(max_stack = 1, max_locals = 1, code_length = 5)
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 5, index = 0:system.SCJApplicationMain this)
-LineNumber(0, 7)
+LineNumber(0, 8)
 
 system.SCJApplicationMain:main([Ljava/lang/String;)V
 Code(max_stack = 2, max_locals = 1, code_length = 11)
-0:    new		<com.WatchdogSafelet> (16)
+0:    new		<sw901e12.WatchdogSafelet> (16)
 3:    dup
-4:    invokespecial	com.WatchdogSafelet.<init> ()V (18)
+4:    invokespecial	sw901e12.WatchdogSafelet.<init> ()V (18)
 7:    invokestatic	javax.safetycritical.JopSystem.startMission (Ljavax/safetycritical/Safelet;)V (19)
 10:   return
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 11, index = 0:String[] args)
-LineNumber(0, 11), LineNumber(10, 12)
+LineNumber(0, 12), LineNumber(10, 13)
 
 javax.safetycritical.ManagedSchedulable:register()V
 null
@@ -15305,7 +15218,7 @@ LocalVariable(start_pc = 0, length = 8, index = 1:String string)
 LineNumber(0, 173), LineNumber(7, 174)
 
 com.jopdesign.io.I2Cport:write(II)V
-Code(max_stack = 3, max_locals = 3, code_length = 68)
+Code(max_stack = 3, max_locals = 3, code_length = 42)
 0:    aload_0
 1:    iload_1
 2:    iconst_2
@@ -15315,44 +15228,34 @@ Code(max_stack = 3, max_locals = 3, code_length = 68)
 8:    iload_2
 9:    putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
 12:   aload_0
-13:   sipush		131
-16:   putfield		com.jopdesign.io.I2Cport.control I (81)
-19:   getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-22:   ldc		"Started transmitting" (128)
-24:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-27:   aload_0
-28:   getfield		com.jopdesign.io.I2Cport.status I (87)
-31:   iconst_1
-32:   iand
-33:   ifeq		#27
-36:   getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-39:   ldc		"Transmit in progress" (130)
-41:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-44:   aload_0
-45:   iconst_1
-46:   putfield		com.jopdesign.io.I2Cport.control I (81)
-49:   aload_0
-50:   getfield		com.jopdesign.io.I2Cport.status I (87)
-53:   iconst_1
-54:   iand
-55:   iconst_1
-56:   if_icmpeq		#49
-59:   getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-62:   ldc		"Done transmitting" (132)
-64:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-67:   return
+13:   iconst_3
+14:   putfield		com.jopdesign.io.I2Cport.control I (81)
+17:   aload_0
+18:   getfield		com.jopdesign.io.I2Cport.status I (87)
+21:   iconst_1
+22:   iand
+23:   ifeq		#17
+26:   aload_0
+27:   iconst_1
+28:   putfield		com.jopdesign.io.I2Cport.control I (81)
+31:   aload_0
+32:   getfield		com.jopdesign.io.I2Cport.status I (87)
+35:   iconst_1
+36:   iand
+37:   iconst_1
+38:   if_icmpeq		#31
+41:   return
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 1b 15)
-LocalVariable(start_pc = 0, length = 68, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 68, index = 1:int slAddress)
-LocalVariable(start_pc = 0, length = 68, index = 2:int data)
-LineNumber(0, 189), LineNumber(7, 192), LineNumber(12, 196), LineNumber(19, 199), 
-LineNumber(27, 200), LineNumber(36, 204), LineNumber(44, 207), LineNumber(49, 209), 
-LineNumber(59, 213), LineNumber(67, 214)
+(Unknown attribute StackMapTable: 00 02 11 0d)
+LocalVariable(start_pc = 0, length = 42, index = 0:com.jopdesign.io.I2Cport this)
+LocalVariable(start_pc = 0, length = 42, index = 1:int slAddress)
+LocalVariable(start_pc = 0, length = 42, index = 2:int data)
+LineNumber(0, 189), LineNumber(7, 192), LineNumber(12, 195), LineNumber(17, 197), 
+LineNumber(26, 200), LineNumber(31, 202), LineNumber(41, 205)
 
 com.jopdesign.io.I2Cport:read(II)[I
-Code(max_stack = 4, max_locals = 5, code_length = 104)
+Code(max_stack = 4, max_locals = 5, code_length = 79)
 0:    iload_2
 1:    newarray		<int>
 3:    astore_3
@@ -15390,42 +15293,32 @@ Code(max_stack = 4, max_locals = 5, code_length = 104)
 48:   if_icmpeq		#41
 51:   iconst_0
 52:   istore		%4
-54:   goto		#96
+54:   goto		#71
 57:   aload_3
 58:   iload		%4
 60:   aload_0
-61:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
+61:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (131)
 64:   iastore
-65:   getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-68:   new		<java.lang.StringBuilder> (139)
-71:   dup
-72:   ldc		"data " (141)
-74:   invokespecial	java.lang.StringBuilder.<init> (Ljava/lang/String;)V (143)
-77:   aload_0
-78:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
-81:   invokevirtual	java.lang.StringBuilder.append (I)Ljava/lang/StringBuilder; (145)
-84:   invokevirtual	java.lang.StringBuilder.toString ()Ljava/lang/String; (149)
-87:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-90:   iload		%4
-92:   iconst_1
-93:   iadd
-94:   istore		%4
-96:   iload		%4
-98:   iload_2
-99:   if_icmplt		#57
-102:  aload_3
-103:  areturn
+65:   iload		%4
+67:   iconst_1
+68:   iadd
+69:   istore		%4
+71:   iload		%4
+73:   iload_2
+74:   if_icmplt		#57
+77:   aload_3
+78:   areturn
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 04 fc 00 17 07 00 9a 11 fc... (truncated))
-LocalVariable(start_pc = 0, length = 104, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 104, index = 1:int slAddress)
-LocalVariable(start_pc = 0, length = 104, index = 2:int readSize)
-LocalVariable(start_pc = 4, length = 100, index = 3:int[] data)
-LocalVariable(start_pc = 54, length = 49, index = 4:int i)
-LineNumber(0, 225), LineNumber(4, 229), LineNumber(13, 232), LineNumber(23, 234), 
-LineNumber(32, 237), LineNumber(41, 238), LineNumber(51, 244), LineNumber(57, 245), 
-LineNumber(65, 246), LineNumber(90, 244), LineNumber(102, 249)
+(Unknown attribute StackMapTable: 00 04 fc 00 17 07 00 86 11 fc... (truncated))
+LocalVariable(start_pc = 0, length = 79, index = 0:com.jopdesign.io.I2Cport this)
+LocalVariable(start_pc = 0, length = 79, index = 1:int slAddress)
+LocalVariable(start_pc = 0, length = 79, index = 2:int readSize)
+LocalVariable(start_pc = 4, length = 75, index = 3:int[] data)
+LocalVariable(start_pc = 54, length = 24, index = 4:int i)
+LineNumber(0, 216), LineNumber(4, 220), LineNumber(13, 222), LineNumber(23, 224), 
+LineNumber(32, 227), LineNumber(41, 228), LineNumber(51, 234), LineNumber(57, 235), 
+LineNumber(65, 234), LineNumber(77, 238)
 
 com.jopdesign.io.I2Cport:slaveMode()V
 Code(max_stack = 3, max_locals = 1, code_length = 30)
@@ -15448,7 +15341,7 @@ Code(max_stack = 3, max_locals = 1, code_length = 30)
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 30, index = 0:com.jopdesign.io.I2Cport this)
-LineNumber(0, 254), LineNumber(12, 255), LineNumber(24, 256), LineNumber(29, 257)
+LineNumber(0, 243), LineNumber(12, 244), LineNumber(24, 245), LineNumber(29, 246)
 
 
 com.jopdesign.io.I2Cport:masterTX()V
@@ -15472,7 +15365,7 @@ Code(max_stack = 3, max_locals = 1, code_length = 30)
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 30, index = 0:com.jopdesign.io.I2Cport this)
-LineNumber(0, 260), LineNumber(12, 261), LineNumber(24, 262), LineNumber(29, 263)
+LineNumber(0, 249), LineNumber(12, 250), LineNumber(24, 251), LineNumber(29, 252)
 
 
 com.jopdesign.io.I2Cport:masterRX()V
@@ -15484,7 +15377,7 @@ Code(max_stack = 2, max_locals = 1, code_length = 6)
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 6, index = 0:com.jopdesign.io.I2Cport this)
-LineNumber(0, 266), LineNumber(5, 267)
+LineNumber(0, 255), LineNumber(5, 256)
 
 com.jopdesign.io.I2Cport:readBuffer([I)V
 Code(max_stack = 3, max_locals = 3, code_length = 23)
@@ -15494,7 +15387,7 @@ Code(max_stack = 3, max_locals = 3, code_length = 23)
 5:    aload_1
 6:    iload_2
 7:    aload_0
-8:    getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
+8:    getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (131)
 11:   iastore
 12:   iload_2
 13:   iconst_1
@@ -15510,7 +15403,7 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 23, index = 0:com.jopdesign.io.I2Cport this)
 LocalVariable(start_pc = 0, length = 23, index = 1:int[] data)
 LocalVariable(start_pc = 2, length = 21, index = 2:int i)
-LineNumber(0, 274), LineNumber(5, 275), LineNumber(12, 274), LineNumber(22, 280)
+LineNumber(0, 263), LineNumber(5, 264), LineNumber(12, 263), LineNumber(22, 269)
 
 
 com.jopdesign.io.I2Cport:CSPreadBuffer(Lcsp/CSPbuffer;)V
@@ -15522,7 +15415,7 @@ Code(max_stack = 3, max_locals = 4, code_length = 61)
 6:    getfield		csp.CSPbuffer.header [I (110)
 9:    iload_2
 10:   aload_0
-11:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
+11:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (131)
 14:   iastore
 15:   iload_2
 16:   iconst_1
@@ -15544,7 +15437,7 @@ Code(max_stack = 3, max_locals = 4, code_length = 61)
 42:   getfield		csp.CSPbuffer.data [I (115)
 45:   iload_3
 46:   aload_0
-47:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
+47:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (131)
 50:   iastore
 51:   iload_3
 52:   iconst_1
@@ -15562,9 +15455,9 @@ LocalVariable(start_pc = 0, length = 61, index = 1:csp.CSPbuffer buffer)
 LocalVariable(start_pc = 32, length = 29, index = 2:int data)
 LocalVariable(start_pc = 2, length = 29, index = 2:int i)
 LocalVariable(start_pc = 38, length = 23, index = 3:int i)
-LineNumber(0, 298), LineNumber(5, 299), LineNumber(15, 298), LineNumber(28, 305), 
-LineNumber(32, 306), LineNumber(36, 307), LineNumber(41, 308), LineNumber(51, 307), 
-LineNumber(60, 314)
+LineNumber(0, 287), LineNumber(5, 288), LineNumber(15, 287), LineNumber(28, 294), 
+LineNumber(32, 295), LineNumber(36, 296), LineNumber(41, 297), LineNumber(51, 296), 
+LineNumber(60, 303)
 
 java.lang.System:<clinit>()V
 Code(max_stack = 2, max_locals = 0, code_length = 27)
@@ -16614,6 +16507,83 @@ LineNumber(0, 55), LineNumber(6, 56), LineNumber(12, 60), LineNumber(23, 61),
 LineNumber(28, 62), LineNumber(37, 61), LineNumber(49, 65), LineNumber(60, 67), 
 LineNumber(65, 70), LineNumber(71, 72), LineNumber(79, 73), LineNumber(85, 76), 
 LineNumber(91, 77), LineNumber(97, 80)
+
+sw901e12.Module:<init>(ILsw901e12/comm/ModulePinger;)V
+Code(max_stack = 2, max_locals = 3, code_length = 15)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (12)
+4:    aload_0
+5:    iload_1
+6:    invokevirtual	sw901e12.Module.setAddressOnBus (I)V (15)
+9:    aload_0
+10:   aload_2
+11:   invokevirtual	sw901e12.Module.setModulePinger (Lsw901e12/comm/ModulePinger;)V (19)
+14:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 15, index = 0:sw901e12.Module this)
+LocalVariable(start_pc = 0, length = 15, index = 1:int addressOnBus)
+LocalVariable(start_pc = 0, length = 15, index = 2:sw901e12.comm.ModulePinger modulePinger)
+LineNumber(0, 9), LineNumber(4, 10), LineNumber(9, 11), LineNumber(14, 12)
+
+
+sw901e12.Module:ModuleWithAddressAndPinger(ILsw901e12/comm/ModulePinger;)Lsw901e12/Module;
+Code(max_stack = 4, max_locals = 2, code_length = 10)
+0:    new		<sw901e12.Module> (1)
+3:    dup
+4:    iload_0
+5:    aload_1
+6:    invokespecial	sw901e12.Module.<init> (ILsw901e12/comm/ModulePinger;)V (29)
+9:    areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:int addressOnBus)
+LocalVariable(start_pc = 0, length = 10, index = 1:sw901e12.comm.ModulePinger modulePinger)
+LineNumber(0, 15)
+
+sw901e12.Module:getAddressOnBus()I
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    getfield		sw901e12.Module.addressOnBus I (33)
+4:    ireturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.Module this)
+LineNumber(0, 19)
+
+sw901e12.Module:setAddressOnBus(I)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    iload_1
+2:    putfield		sw901e12.Module.addressOnBus I (33)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:sw901e12.Module this)
+LocalVariable(start_pc = 0, length = 6, index = 1:int addressOnBus)
+LineNumber(0, 23), LineNumber(5, 24)
+
+sw901e12.Module:getModulePinger()Lsw901e12/comm/ModulePinger;
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    getfield		sw901e12.Module.modulePinger Lsw901e12/comm/ModulePinger; (37)
+4:    areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.Module this)
+LineNumber(0, 27)
+
+sw901e12.Module:setModulePinger(Lsw901e12/comm/ModulePinger;)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    aload_1
+2:    putfield		sw901e12.Module.modulePinger Lsw901e12/comm/ModulePinger; (37)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:sw901e12.Module this)
+LocalVariable(start_pc = 0, length = 6, index = 1:sw901e12.comm.ModulePinger modulePinger)
+LineNumber(0, 31), LineNumber(5, 32)
 
 java.lang.ArrayIndexOutOfBoundsException:<init>()V
 Code(max_stack = 2, max_locals = 1, code_length = 7)
@@ -18299,6 +18269,49 @@ LocalVariable(start_pc = 0, length = 40, index = 0:javax.realtime.RelativeTime t
 LocalVariable(start_pc = 0, length = 40, index = 1:javax.realtime.RelativeTime time)
 LineNumber(0, 244), LineNumber(15, 245), LineNumber(25, 247)
 
+sw901e12.WatchdogSafelet:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (10)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.WatchdogSafelet this)
+LineNumber(0, 14)
+
+sw901e12.WatchdogSafelet:getSequencer()Ljavax/safetycritical/MissionSequencer;
+Code(max_stack = 8, max_locals = 1, code_length = 35)
+0:    new		<javax.safetycritical.LinearMissionSequencer> (29)
+3:    dup
+4:    new		<javax.realtime.PriorityParameters> (31)
+7:    dup
+8:    bipush		11
+10:   invokespecial	javax.realtime.PriorityParameters.<init> (I)V (33)
+13:   new		<javax.safetycritical.StorageParameters> (36)
+16:   dup
+17:   ldc2_w		1000 (38)
+20:   aconst_null
+21:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[J)V (40)
+24:   new		<sw901e12.WatchdogMission> (43)
+27:   dup
+28:   invokespecial	sw901e12.WatchdogMission.<init> ()V (45)
+31:   invokespecial	javax.safetycritical.LinearMissionSequencer.<init> (Ljavax/realtime/PriorityParameters;Ljavax/safetycritical/StorageParameters;Ljavax/safetycritical/Mission;)V (46)
+34:   areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 35, index = 0:sw901e12.WatchdogSafelet this)
+LineNumber(0, 20), LineNumber(4, 21), LineNumber(13, 22), LineNumber(24, 23), 
+LineNumber(31, 20)
+
+sw901e12.WatchdogSafelet:immortalMemorySize()J
+Code(max_stack = 2, max_locals = 1, code_length = 4)
+0:    ldc2_w		100000 (51)
+3:    lreturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 4, index = 0:sw901e12.WatchdogSafelet this)
+LineNumber(0, 29)
+
 javax.realtime.PeriodicParameters:<init>(Ljavax/realtime/RelativeTime;Ljavax/realtime/RelativeTime;)V
 Code(max_stack = 3, max_locals = 3, code_length = 51)
 0:    aload_0
@@ -18618,6 +18631,28 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 8, index = 0:javax.safetycritical.Terminal this)
 LocalVariable(start_pc = 0, length = 8, index = 1:byte b)
 LineNumber(0, 95), LineNumber(7, 96)
+
+sw901e12.comm.SimulatorModulePingerFactory:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	sw901e12.comm.ModulePingerFactory.<init> ()V (8)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.comm.SimulatorModulePingerFactory this)
+LineNumber(0, 5)
+
+sw901e12.comm.SimulatorModulePingerFactory:CreateModulePingerOnI2CAddress(I)Lsw901e12/comm/ModulePinger;
+Code(max_stack = 2, max_locals = 2, code_length = 8)
+0:    new		<sw901e12.comm.modules.DummySimulatorModule> (16)
+3:    dup
+4:    invokespecial	sw901e12.comm.modules.DummySimulatorModule.<init> ()V (18)
+7:    areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 8, index = 0:sw901e12.comm.SimulatorModulePingerFactory this)
+LocalVariable(start_pc = 0, length = 8, index = 1:int moduleAddressOnBus)
+LineNumber(0, 9)
 
 java.lang.Integer:<clinit>()V
 Code(max_stack = 4, max_locals = 0, code_length = 218)
@@ -19675,7 +19710,7 @@ LocalVariable(start_pc = 0, length = 7, index = 1:int size)
 LineNumber(0, 140), LineNumber(6, 141)
 
 com.jopdesign.sys.Memory:enter(Ljava/lang/Runnable;)V
-Code(max_stack = 3, max_locals = 6, code_length = 169)
+Code(max_stack = 3, max_locals = 6, code_length = 177)
 0:    aload_0
 1:    dup
 2:    astore_2
@@ -19746,26 +19781,29 @@ Code(max_stack = 3, max_locals = 6, code_length = 169)
 125:  aload_0
 126:  getfield		com.jopdesign.sys.Memory.startPtr I (33)
 129:  istore		%4
-131:  goto		#146
-134:  iconst_0
-135:  iload		%4
-137:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (117)
-140:  iload		%4
-142:  iconst_1
-143:  iadd
-144:  istore		%4
-146:  iload		%4
-148:  aload_0
-149:  getfield		com.jopdesign.sys.Memory.allocPtr I (46)
-152:  if_icmplt		#134
-155:  aload_0
-156:  aconst_null
-157:  putfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
-160:  aload_0
-161:  aload_0
-162:  getfield		com.jopdesign.sys.Memory.startPtr I (33)
-165:  putfield		com.jopdesign.sys.Memory.allocPtr I (46)
-168:  return
+131:  goto		#154
+134:  getstatic		java.lang.System.out Ljava/io/PrintStream; (117)
+137:  ldc		"cleaned" (123)
+139:  invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (125)
+142:  iconst_0
+143:  iload		%4
+145:  invokestatic	com.jopdesign.sys.Native.wrMem (II)V (130)
+148:  iload		%4
+150:  iconst_1
+151:  iadd
+152:  istore		%4
+154:  iload		%4
+156:  aload_0
+157:  getfield		com.jopdesign.sys.Memory.allocPtr I (46)
+160:  if_icmplt		#134
+163:  aload_0
+164:  aconst_null
+165:  putfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
+168:  aload_0
+169:  aload_0
+170:  getfield		com.jopdesign.sys.Memory.startPtr I (33)
+173:  putfield		com.jopdesign.sys.Memory.allocPtr I (46)
+176:  return
 
 Exception handler(s) = 
 From	To	Handler	Type
@@ -19774,11 +19812,11 @@ From	To	Handler	Type
 
 Attribute(s) = 
 (Unknown attribute StackMapTable: 00 07 ff 00 13 00 03 07 00 01... (truncated))
-LocalVariable(start_pc = 0, length = 169, index = 0:com.jopdesign.sys.Memory this)
-LocalVariable(start_pc = 0, length = 169, index = 1:Runnable logic)
-LocalVariable(start_pc = 42, length = 127, index = 2:com.jopdesign.sys.RtThreadImpl rtt)
-LocalVariable(start_pc = 44, length = 125, index = 3:com.jopdesign.sys.Memory outer)
-LocalVariable(start_pc = 131, length = 25, index = 4:int i)
+LocalVariable(start_pc = 0, length = 177, index = 0:com.jopdesign.sys.Memory this)
+LocalVariable(start_pc = 0, length = 177, index = 1:Runnable logic)
+LocalVariable(start_pc = 42, length = 135, index = 2:com.jopdesign.sys.RtThreadImpl rtt)
+LocalVariable(start_pc = 44, length = 133, index = 3:com.jopdesign.sys.Memory outer)
+LocalVariable(start_pc = 131, length = 33, index = 4:int i)
 LocalVariable(start_pc = 62, length = 43, index = 4:com.jopdesign.sys.Scheduler s)
 LocalVariable(start_pc = 69, length = 36, index = 5:int nr)
 LineNumber(0, 161), LineNumber(4, 162), LineNumber(14, 161), LineNumber(22, 164), 
@@ -19786,8 +19824,8 @@ LineNumber(30, 165), LineNumber(40, 174), LineNumber(42, 175), LineNumber(44, 17
 LineNumber(50, 179), LineNumber(62, 180), LineNumber(69, 181), LineNumber(78, 182), 
 LineNumber(83, 184), LineNumber(88, 185), LineNumber(94, 187), LineNumber(102, 190), 
 LineNumber(106, 191), LineNumber(110, 192), LineNumber(116, 193), LineNumber(120, 195), 
-LineNumber(125, 197), LineNumber(134, 198), LineNumber(140, 197), LineNumber(155, 200), 
-LineNumber(160, 201), LineNumber(168, 202)
+LineNumber(125, 197), LineNumber(134, 198), LineNumber(142, 199), LineNumber(148, 197), 
+LineNumber(163, 201), LineNumber(168, 202), LineNumber(176, 203)
 
 com.jopdesign.sys.Memory:executeInArea(Ljava/lang/Runnable;)V
 Code(max_stack = 2, max_locals = 6, code_length = 81)
@@ -19840,10 +19878,10 @@ LocalVariable(start_pc = 2, length = 79, index = 2:com.jopdesign.sys.RtThreadImp
 LocalVariable(start_pc = 4, length = 77, index = 3:com.jopdesign.sys.Memory outer)
 LocalVariable(start_pc = 22, length = 43, index = 4:com.jopdesign.sys.Scheduler s)
 LocalVariable(start_pc = 29, length = 36, index = 5:int nr)
-LineNumber(0, 209), LineNumber(2, 210), LineNumber(4, 211), LineNumber(10, 214), 
-LineNumber(22, 215), LineNumber(29, 216), LineNumber(38, 217), LineNumber(43, 218), 
-LineNumber(48, 219), LineNumber(54, 224), LineNumber(62, 227), LineNumber(66, 228), 
-LineNumber(70, 229), LineNumber(76, 230), LineNumber(80, 232)
+LineNumber(0, 210), LineNumber(2, 211), LineNumber(4, 212), LineNumber(10, 215), 
+LineNumber(22, 216), LineNumber(29, 217), LineNumber(38, 218), LineNumber(43, 219), 
+LineNumber(48, 220), LineNumber(54, 225), LineNumber(62, 228), LineNumber(66, 229), 
+LineNumber(70, 230), LineNumber(76, 231), LineNumber(80, 233)
 
 com.jopdesign.sys.Memory:getCurrentMemory()Lcom/jopdesign/sys/Memory;
 Code(max_stack = 2, max_locals = 2, code_length = 39)
@@ -19872,21 +19910,21 @@ Attribute(s) =
 LocalVariable(start_pc = 37, length = 2, index = 0:com.jopdesign.sys.Memory m)
 LocalVariable(start_pc = 30, length = 6, index = 0:com.jopdesign.sys.Memory m)
 LocalVariable(start_pc = 17, length = 19, index = 1:com.jopdesign.sys.Scheduler s)
-LineNumber(0, 239), LineNumber(6, 240), LineNumber(17, 241), LineNumber(33, 243), 
-LineNumber(37, 245)
+LineNumber(0, 240), LineNumber(6, 241), LineNumber(17, 242), LineNumber(33, 244), 
+LineNumber(37, 246)
 
 com.jopdesign.sys.Memory:enterPrivateMemory(ILjava/lang/Runnable;)V
 Code(max_stack = 3, max_locals = 4, code_length = 160)
 0:    aload_0
-1:    getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+1:    getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 4:    ifnonnull		#18
 7:    aload_0
 8:    new		<com.jopdesign.sys.Memory> (1)
 11:   dup
 12:   invokespecial	com.jopdesign.sys.Memory.<init> ()V (32)
-15:   putfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+15:   putfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 18:   aload_0
-19:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+19:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 22:   aload_0
 23:   putfield		com.jopdesign.sys.Memory.parent Lcom/jopdesign/sys/Memory; (48)
 26:   aload_0
@@ -19901,12 +19939,12 @@ Code(max_stack = 3, max_locals = 4, code_length = 160)
 41:   getstatic		com.jopdesign.sys.GC.OOMError Ljava/lang/OutOfMemoryError; (92)
 44:   athrow
 45:   aload_0
-46:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+46:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 49:   aload_0
 50:   getfield		com.jopdesign.sys.Memory.allocBsPtr I (39)
 53:   putfield		com.jopdesign.sys.Memory.startPtr I (33)
 56:   aload_0
-57:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+57:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 60:   aload_0
 61:   getfield		com.jopdesign.sys.Memory.endBsPtr I (35)
 64:   putfield		com.jopdesign.sys.Memory.endBsPtr I (35)
@@ -19915,21 +19953,21 @@ Code(max_stack = 3, max_locals = 4, code_length = 160)
 71:   istore_3
 72:   aload_0
 73:   aload_0
-74:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+74:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 77:   getfield		com.jopdesign.sys.Memory.endBsPtr I (35)
 80:   iconst_1
 81:   iadd
 82:   putfield		com.jopdesign.sys.Memory.allocBsPtr I (39)
 85:   aload_0
-86:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+86:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 89:   aload_0
-90:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+90:   getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 93:   getfield		com.jopdesign.sys.Memory.startPtr I (33)
 96:   putfield		com.jopdesign.sys.Memory.allocPtr I (46)
 99:   aload_0
-100:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+100:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 103:  aload_0
-104:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+104:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 107:  getfield		com.jopdesign.sys.Memory.startPtr I (33)
 110:  iload_1
 111:  iadd
@@ -19937,24 +19975,24 @@ Code(max_stack = 3, max_locals = 4, code_length = 160)
 113:  isub
 114:  putfield		com.jopdesign.sys.Memory.endLocalPtr I (37)
 117:  aload_0
-118:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+118:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 121:  aload_0
-122:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+122:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 125:  getfield		com.jopdesign.sys.Memory.endLocalPtr I (37)
 128:  iconst_1
 129:  iadd
 130:  putfield		com.jopdesign.sys.Memory.allocBsPtr I (39)
 133:  aload_0
-134:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+134:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 137:  aload_0
 138:  getfield		com.jopdesign.sys.Memory.level I (50)
 141:  iconst_1
 142:  iadd
 143:  putfield		com.jopdesign.sys.Memory.level I (50)
 146:  aload_0
-147:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (122)
+147:  getfield		com.jopdesign.sys.Memory.inner Lcom/jopdesign/sys/Memory; (135)
 150:  aload_2
-151:  invokevirtual	com.jopdesign.sys.Memory.enter (Ljava/lang/Runnable;)V (139)
+151:  invokevirtual	com.jopdesign.sys.Memory.enter (Ljava/lang/Runnable;)V (152)
 154:  aload_0
 155:  iload_3
 156:  putfield		com.jopdesign.sys.Memory.allocBsPtr I (39)
@@ -19966,10 +20004,10 @@ LocalVariable(start_pc = 0, length = 160, index = 0:com.jopdesign.sys.Memory thi
 LocalVariable(start_pc = 0, length = 160, index = 1:int size)
 LocalVariable(start_pc = 0, length = 160, index = 2:Runnable logic)
 LocalVariable(start_pc = 72, length = 88, index = 3:int bsPtr)
-LineNumber(0, 263), LineNumber(7, 265), LineNumber(18, 268), LineNumber(26, 270), 
-LineNumber(41, 271), LineNumber(45, 273), LineNumber(56, 276), LineNumber(67, 278), 
-LineNumber(72, 280), LineNumber(85, 281), LineNumber(99, 282), LineNumber(117, 285), 
-LineNumber(133, 286), LineNumber(146, 287), LineNumber(154, 289), LineNumber(159, 290)
+LineNumber(0, 264), LineNumber(7, 266), LineNumber(18, 269), LineNumber(26, 271), 
+LineNumber(41, 272), LineNumber(45, 274), LineNumber(56, 277), LineNumber(67, 279), 
+LineNumber(72, 281), LineNumber(85, 282), LineNumber(99, 283), LineNumber(117, 286), 
+LineNumber(133, 287), LineNumber(146, 288), LineNumber(154, 290), LineNumber(159, 291)
 
 
 java.lang.IllegalStateException:<init>()V
@@ -25002,6 +25040,128 @@ LocalVariable(start_pc = 0, length = 25, index = 1:String str)
 LocalVariable(start_pc = 13, length = 12, index = 2:byte[] bytes)
 LineNumber(0, 316), LineNumber(13, 317), LineNumber(24, 318)
 
+sw901e12.handlers.WatchdogPeriodicEventHandler:<init>(Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[Lsw901e12/Module;)V
+Code(max_stack = 6, max_locals = 7, code_length = 20)
+0:    aload_0
+1:    aload_1
+2:    aload_2
+3:    aload_3
+4:    lload		%4
+6:    invokespecial	javax.safetycritical.PeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J)V (12)
+9:    aload_0
+10:   aload		%6
+12:   putfield		sw901e12.handlers.WatchdogPeriodicEventHandler.slaves [Lsw901e12/Module; (15)
+15:   aload_0
+16:   invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.initialize ()V (17)
+19:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 20, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 0, length = 20, index = 1:javax.realtime.PriorityParameters priority)
+LocalVariable(start_pc = 0, length = 20, index = 2:javax.realtime.PeriodicParameters parameters)
+LocalVariable(start_pc = 0, length = 20, index = 3:javax.safetycritical.StorageParameters scp)
+LocalVariable(start_pc = 0, length = 20, index = 4:long scopeSize)
+LocalVariable(start_pc = 0, length = 20, index = 6:sw901e12.Module[] slaves)
+LineNumber(0, 22), LineNumber(9, 24), LineNumber(15, 26), LineNumber(19, 27)
+
+
+sw901e12.handlers.WatchdogPeriodicEventHandler:initialize()V
+Code(max_stack = 2, max_locals = 2, code_length = 22)
+0:    invokestatic	com.jopdesign.io.I2CFactory.getFactory ()Lcom/jopdesign/io/I2CFactory; (33)
+3:    astore_1
+4:    aload_0
+5:    aload_1
+6:    invokevirtual	com.jopdesign.io.I2CFactory.getI2CportA ()Lcom/jopdesign/io/I2Cport; (39)
+9:    putfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+12:   aload_0
+13:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
+16:   bipush		15
+18:   invokevirtual	com.jopdesign.io.I2Cport.initConf (I)V (45)
+21:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 22, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 4, length = 18, index = 1:com.jopdesign.io.I2CFactory fact)
+LineNumber(0, 30), LineNumber(4, 31), LineNumber(12, 32), LineNumber(21, 33)
+
+
+sw901e12.handlers.WatchdogPeriodicEventHandler:printBuffer([I)V
+Code(max_stack = 2, max_locals = 6, code_length = 42)
+0:    aload_1
+1:    dup
+2:    astore		%5
+4:    arraylength
+5:    istore		%4
+7:    iconst_0
+8:    istore_3
+9:    goto		#29
+12:   aload		%5
+14:   iload_3
+15:   iaload
+16:   istore_2
+17:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+20:   iload_2
+21:   i2c
+22:   invokevirtual	java.io.PrintStream.print (C)V (61)
+25:   iload_3
+26:   iconst_1
+27:   iadd
+28:   istore_3
+29:   iload_3
+30:   iload		%4
+32:   if_icmplt		#12
+35:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+38:   invokevirtual	java.io.PrintStream.println ()V (67)
+41:   return
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 02 ff 00 0c 00 06 07 00 01... (truncated))
+LocalVariable(start_pc = 0, length = 42, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 0, length = 42, index = 1:int[] buffer)
+LocalVariable(start_pc = 17, length = 9, index = 2:int i)
+LineNumber(0, 36), LineNumber(17, 37), LineNumber(25, 36), LineNumber(35, 39), 
+LineNumber(41, 40)
+
+sw901e12.handlers.WatchdogPeriodicEventHandler:handleAsyncEvent()V
+Code(max_stack = 2, max_locals = 5, code_length = 52)
+0:    getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+3:    ldc		"New round" (82)
+5:    invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (84)
+8:    aload_0
+9:    getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.slaves [Lsw901e12/Module; (15)
+12:   dup
+13:   astore		%4
+15:   arraylength
+16:   istore_3
+17:   iconst_0
+18:   istore_2
+19:   goto		#46
+22:   aload		%4
+24:   iload_2
+25:   aaload
+26:   astore_1
+27:   aload_1
+28:   invokevirtual	sw901e12.Module.getModulePinger ()Lsw901e12/comm/ModulePinger; (87)
+31:   invokevirtual	sw901e12.comm.ModulePinger.Ping ()V (93)
+34:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
+37:   ldc		"I did a ping!" (98)
+39:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (84)
+42:   iload_2
+43:   iconst_1
+44:   iadd
+45:   istore_2
+46:   iload_2
+47:   iload_3
+48:   if_icmplt		#22
+51:   return
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 02 ff 00 16 00 05 07 00 01... (truncated))
+LocalVariable(start_pc = 0, length = 52, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 27, length = 16, index = 1:sw901e12.Module slave)
+LineNumber(0, 45), LineNumber(8, 47), LineNumber(27, 48), LineNumber(34, 49), 
+LineNumber(42, 47), LineNumber(51, 51)
+
 com.jopdesign.sys.SoftFloat64:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
@@ -26497,6 +26657,284 @@ javax.realtime.Clock:registerCallBack(Ljavax/realtime/AbsoluteTime;Ljavax/realti
 null
 javax.realtime.Clock:resetTargetTime(Ljavax/realtime/AbsoluteTime;)Z
 null
+com.jopdesign.sys.BitUtils:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (8)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:com.jopdesign.sys.BitUtils this)
+LineNumber(0, 29), LineNumber(4, 30)
+
+com.jopdesign.sys.BitUtils:countLeadingZeros(I)I
+Code(max_stack = 2, max_locals = 2, code_length = 64)
+0:    iload_0
+1:    ifgt		#13
+4:    iload_0
+5:    ifne		#11
+8:    bipush		32
+10:   ireturn
+11:   iconst_0
+12:   ireturn
+13:   iconst_0
+14:   istore_1
+15:   iload_0
+16:   ldc		-65536 (16)
+18:   iand
+19:   ifne		#30
+22:   iload_0
+23:   bipush		16
+25:   ishl
+26:   istore_0
+27:   bipush		16
+29:   istore_1
+30:   iload_0
+31:   ldc		-16777216 (17)
+33:   iand
+34:   ifne		#58
+37:   iload_0
+38:   bipush		8
+40:   ishl
+41:   istore_0
+42:   iload_1
+43:   bipush		8
+45:   iadd
+46:   istore_1
+47:   goto		#58
+50:   iload_1
+51:   iconst_1
+52:   iadd
+53:   istore_1
+54:   iload_0
+55:   iconst_1
+56:   ishl
+57:   istore_0
+58:   iload_0
+59:   ifgt		#50
+62:   iload_1
+63:   ireturn
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 06 0b 01 fc 00 10 01 0e 02... (truncated))
+LocalVariable(start_pc = 0, length = 64, index = 0:int x)
+LocalVariable(start_pc = 15, length = 49, index = 1:int count)
+LineNumber(0, 37), LineNumber(4, 38), LineNumber(8, 39), LineNumber(11, 41), 
+LineNumber(13, 43), LineNumber(15, 44), LineNumber(22, 45), LineNumber(27, 46), 
+LineNumber(30, 48), LineNumber(37, 49), LineNumber(42, 50), LineNumber(47, 52), 
+LineNumber(50, 53), LineNumber(54, 54), LineNumber(58, 52), LineNumber(62, 56)
+
+
+com.jopdesign.sys.BitUtils:countLeadingZeros(J)I
+Code(max_stack = 3, max_locals = 3, code_length = 26)
+0:    lload_0
+1:    bipush		32
+3:    lshr
+4:    l2i
+5:    invokestatic	com.jopdesign.sys.BitUtils.countLeadingZeros (I)I (23)
+8:    istore_2
+9:    iload_2
+10:   bipush		32
+12:   if_icmpne		#24
+15:   lload_0
+16:   l2i
+17:   invokestatic	com.jopdesign.sys.BitUtils.countLeadingZeros (I)I (23)
+20:   bipush		32
+22:   iadd
+23:   ireturn
+24:   iload_2
+25:   ireturn
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 01 fc 00 18 01)
+LocalVariable(start_pc = 0, length = 26, index = 0:long x)
+LocalVariable(start_pc = 9, length = 17, index = 2:int c)
+LineNumber(0, 64), LineNumber(9, 65), LineNumber(15, 66), LineNumber(24, 68)
+
+
+com.jopdesign.sys.BitUtils:stickyRightShift(II)I
+Code(max_stack = 3, max_locals = 2, code_length = 35)
+0:    iload_1
+1:    bipush		32
+3:    if_icmplt		#16
+6:    iload_0
+7:    ifne		#14
+10:   iconst_0
+11:   goto		#15
+14:   iconst_1
+15:   ireturn
+16:   iload_0
+17:   bipush		32
+19:   iload_1
+20:   isub
+21:   ishl
+22:   ifne		#29
+25:   iload_0
+26:   iload_1
+27:   iushr
+28:   ireturn
+29:   iload_0
+30:   iload_1
+31:   iushr
+32:   iconst_1
+33:   ior
+34:   ireturn
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 04 0e 40 01 00 0c)
+LocalVariable(start_pc = 0, length = 35, index = 0:int x)
+LocalVariable(start_pc = 0, length = 35, index = 1:int count)
+LineNumber(0, 76), LineNumber(6, 77), LineNumber(16, 78), LineNumber(25, 79), 
+LineNumber(29, 81)
+
+com.jopdesign.sys.BitUtils:stickyRightShift(JI)J
+Code(max_stack = 4, max_locals = 3, code_length = 40)
+0:    iload_2
+1:    bipush		64
+3:    if_icmplt		#19
+6:    lload_0
+7:    lconst_0
+8:    lcmp
+9:    ifne		#16
+12:   iconst_0
+13:   goto		#17
+16:   iconst_1
+17:   i2l
+18:   lreturn
+19:   lload_0
+20:   bipush		64
+22:   iload_2
+23:   isub
+24:   lshl
+25:   lconst_0
+26:   lcmp
+27:   ifne		#34
+30:   lload_0
+31:   iload_2
+32:   lushr
+33:   lreturn
+34:   lload_0
+35:   iload_2
+36:   lushr
+37:   lconst_1
+38:   lor
+39:   lreturn
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 04 10 40 01 01 0e)
+LocalVariable(start_pc = 0, length = 40, index = 0:long x)
+LocalVariable(start_pc = 0, length = 40, index = 2:int count)
+LineNumber(0, 90), LineNumber(6, 91), LineNumber(19, 92), LineNumber(30, 93), 
+LineNumber(34, 95)
+
+com.jopdesign.sys.BitUtils:roundingRightShift(II)I
+Code(max_stack = 3, max_locals = 3, code_length = 55)
+0:    iload_1
+1:    bipush		32
+3:    if_icmple		#8
+6:    iconst_0
+7:    ireturn
+8:    iload_1
+9:    bipush		32
+11:   if_icmpne		#21
+14:   iload_0
+15:   istore_2
+16:   iconst_0
+17:   istore_0
+18:   goto		#32
+21:   iload_0
+22:   bipush		32
+24:   iload_1
+25:   isub
+26:   ishl
+27:   istore_2
+28:   iload_0
+29:   iload_1
+30:   iushr
+31:   istore_0
+32:   iload_2
+33:   ifge		#53
+36:   iload_2
+37:   ldc		-2147483648 (31)
+39:   if_icmpne		#49
+42:   iload_0
+43:   iconst_1
+44:   iand
+45:   iconst_1
+46:   if_icmpne		#53
+49:   iload_0
+50:   iconst_1
+51:   iadd
+52:   ireturn
+53:   iload_0
+54:   ireturn
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 05 08 0c fc 00 0a 01 10 03)
+LocalVariable(start_pc = 0, length = 55, index = 0:int x)
+LocalVariable(start_pc = 0, length = 55, index = 1:int count)
+LocalVariable(start_pc = 28, length = 27, index = 2:int remainder)
+LocalVariable(start_pc = 16, length = 6, index = 2:int remainder)
+LineNumber(0, 104), LineNumber(6, 105), LineNumber(8, 106), LineNumber(14, 107), 
+LineNumber(16, 108), LineNumber(21, 110), LineNumber(28, 111), LineNumber(32, 113), 
+LineNumber(49, 114), LineNumber(53, 116)
+
+com.jopdesign.sys.BitUtils:roundingRightShift(JI)J
+Code(max_stack = 4, max_locals = 5, code_length = 60)
+0:    iload_2
+1:    bipush		64
+3:    if_icmple		#8
+6:    lconst_0
+7:    lreturn
+8:    iload_2
+9:    bipush		64
+11:   if_icmpne		#21
+14:   lload_0
+15:   lstore_3
+16:   lconst_0
+17:   lstore_0
+18:   goto		#32
+21:   lload_0
+22:   bipush		64
+24:   iload_2
+25:   isub
+26:   lshl
+27:   lstore_3
+28:   lload_0
+29:   iload_2
+30:   lushr
+31:   lstore_0
+32:   lload_3
+33:   lconst_0
+34:   lcmp
+35:   ifge		#58
+38:   lload_3
+39:   ldc2_w		-9223372036854775808 (33)
+42:   lcmp
+43:   ifne		#54
+46:   lload_0
+47:   lconst_1
+48:   land
+49:   lconst_1
+50:   lcmp
+51:   ifne		#58
+54:   lload_0
+55:   lconst_1
+56:   ladd
+57:   lreturn
+58:   lload_0
+59:   lreturn
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 05 08 0c fc 00 0a 04 15 03)
+LocalVariable(start_pc = 0, length = 60, index = 0:long x)
+LocalVariable(start_pc = 0, length = 60, index = 2:int count)
+LocalVariable(start_pc = 28, length = 32, index = 3:long remainder)
+LocalVariable(start_pc = 16, length = 6, index = 3:long remainder)
+LineNumber(0, 124), LineNumber(6, 125), LineNumber(8, 126), LineNumber(14, 127), 
+LineNumber(16, 128), LineNumber(21, 130), LineNumber(28, 131), LineNumber(32, 133), 
+LineNumber(38, 134), LineNumber(54, 135), LineNumber(58, 137)
+
 java.lang.StringBuffer:<clinit>()V
 Code(max_stack = 1, max_locals = 0, code_length = 8)
 0:    bipush		32
@@ -27942,284 +28380,6 @@ LocalVariable(start_pc = 6, length = 48, index = 3:int len)
 LineNumber(2, 415), LineNumber(6, 416), LineNumber(23, 417), LineNumber(31, 418), 
 LineNumber(35, 419), LineNumber(40, 421)
 
-com.jopdesign.sys.BitUtils:<init>()V
-Code(max_stack = 1, max_locals = 1, code_length = 5)
-0:    aload_0
-1:    invokespecial	java.lang.Object.<init> ()V (8)
-4:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:com.jopdesign.sys.BitUtils this)
-LineNumber(0, 29), LineNumber(4, 30)
-
-com.jopdesign.sys.BitUtils:countLeadingZeros(I)I
-Code(max_stack = 2, max_locals = 2, code_length = 64)
-0:    iload_0
-1:    ifgt		#13
-4:    iload_0
-5:    ifne		#11
-8:    bipush		32
-10:   ireturn
-11:   iconst_0
-12:   ireturn
-13:   iconst_0
-14:   istore_1
-15:   iload_0
-16:   ldc		-65536 (16)
-18:   iand
-19:   ifne		#30
-22:   iload_0
-23:   bipush		16
-25:   ishl
-26:   istore_0
-27:   bipush		16
-29:   istore_1
-30:   iload_0
-31:   ldc		-16777216 (17)
-33:   iand
-34:   ifne		#58
-37:   iload_0
-38:   bipush		8
-40:   ishl
-41:   istore_0
-42:   iload_1
-43:   bipush		8
-45:   iadd
-46:   istore_1
-47:   goto		#58
-50:   iload_1
-51:   iconst_1
-52:   iadd
-53:   istore_1
-54:   iload_0
-55:   iconst_1
-56:   ishl
-57:   istore_0
-58:   iload_0
-59:   ifgt		#50
-62:   iload_1
-63:   ireturn
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 06 0b 01 fc 00 10 01 0e 02... (truncated))
-LocalVariable(start_pc = 0, length = 64, index = 0:int x)
-LocalVariable(start_pc = 15, length = 49, index = 1:int count)
-LineNumber(0, 37), LineNumber(4, 38), LineNumber(8, 39), LineNumber(11, 41), 
-LineNumber(13, 43), LineNumber(15, 44), LineNumber(22, 45), LineNumber(27, 46), 
-LineNumber(30, 48), LineNumber(37, 49), LineNumber(42, 50), LineNumber(47, 52), 
-LineNumber(50, 53), LineNumber(54, 54), LineNumber(58, 52), LineNumber(62, 56)
-
-
-com.jopdesign.sys.BitUtils:countLeadingZeros(J)I
-Code(max_stack = 3, max_locals = 3, code_length = 26)
-0:    lload_0
-1:    bipush		32
-3:    lshr
-4:    l2i
-5:    invokestatic	com.jopdesign.sys.BitUtils.countLeadingZeros (I)I (23)
-8:    istore_2
-9:    iload_2
-10:   bipush		32
-12:   if_icmpne		#24
-15:   lload_0
-16:   l2i
-17:   invokestatic	com.jopdesign.sys.BitUtils.countLeadingZeros (I)I (23)
-20:   bipush		32
-22:   iadd
-23:   ireturn
-24:   iload_2
-25:   ireturn
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 01 fc 00 18 01)
-LocalVariable(start_pc = 0, length = 26, index = 0:long x)
-LocalVariable(start_pc = 9, length = 17, index = 2:int c)
-LineNumber(0, 64), LineNumber(9, 65), LineNumber(15, 66), LineNumber(24, 68)
-
-
-com.jopdesign.sys.BitUtils:stickyRightShift(II)I
-Code(max_stack = 3, max_locals = 2, code_length = 35)
-0:    iload_1
-1:    bipush		32
-3:    if_icmplt		#16
-6:    iload_0
-7:    ifne		#14
-10:   iconst_0
-11:   goto		#15
-14:   iconst_1
-15:   ireturn
-16:   iload_0
-17:   bipush		32
-19:   iload_1
-20:   isub
-21:   ishl
-22:   ifne		#29
-25:   iload_0
-26:   iload_1
-27:   iushr
-28:   ireturn
-29:   iload_0
-30:   iload_1
-31:   iushr
-32:   iconst_1
-33:   ior
-34:   ireturn
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 04 0e 40 01 00 0c)
-LocalVariable(start_pc = 0, length = 35, index = 0:int x)
-LocalVariable(start_pc = 0, length = 35, index = 1:int count)
-LineNumber(0, 76), LineNumber(6, 77), LineNumber(16, 78), LineNumber(25, 79), 
-LineNumber(29, 81)
-
-com.jopdesign.sys.BitUtils:stickyRightShift(JI)J
-Code(max_stack = 4, max_locals = 3, code_length = 40)
-0:    iload_2
-1:    bipush		64
-3:    if_icmplt		#19
-6:    lload_0
-7:    lconst_0
-8:    lcmp
-9:    ifne		#16
-12:   iconst_0
-13:   goto		#17
-16:   iconst_1
-17:   i2l
-18:   lreturn
-19:   lload_0
-20:   bipush		64
-22:   iload_2
-23:   isub
-24:   lshl
-25:   lconst_0
-26:   lcmp
-27:   ifne		#34
-30:   lload_0
-31:   iload_2
-32:   lushr
-33:   lreturn
-34:   lload_0
-35:   iload_2
-36:   lushr
-37:   lconst_1
-38:   lor
-39:   lreturn
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 04 10 40 01 01 0e)
-LocalVariable(start_pc = 0, length = 40, index = 0:long x)
-LocalVariable(start_pc = 0, length = 40, index = 2:int count)
-LineNumber(0, 90), LineNumber(6, 91), LineNumber(19, 92), LineNumber(30, 93), 
-LineNumber(34, 95)
-
-com.jopdesign.sys.BitUtils:roundingRightShift(II)I
-Code(max_stack = 3, max_locals = 3, code_length = 55)
-0:    iload_1
-1:    bipush		32
-3:    if_icmple		#8
-6:    iconst_0
-7:    ireturn
-8:    iload_1
-9:    bipush		32
-11:   if_icmpne		#21
-14:   iload_0
-15:   istore_2
-16:   iconst_0
-17:   istore_0
-18:   goto		#32
-21:   iload_0
-22:   bipush		32
-24:   iload_1
-25:   isub
-26:   ishl
-27:   istore_2
-28:   iload_0
-29:   iload_1
-30:   iushr
-31:   istore_0
-32:   iload_2
-33:   ifge		#53
-36:   iload_2
-37:   ldc		-2147483648 (31)
-39:   if_icmpne		#49
-42:   iload_0
-43:   iconst_1
-44:   iand
-45:   iconst_1
-46:   if_icmpne		#53
-49:   iload_0
-50:   iconst_1
-51:   iadd
-52:   ireturn
-53:   iload_0
-54:   ireturn
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 05 08 0c fc 00 0a 01 10 03)
-LocalVariable(start_pc = 0, length = 55, index = 0:int x)
-LocalVariable(start_pc = 0, length = 55, index = 1:int count)
-LocalVariable(start_pc = 28, length = 27, index = 2:int remainder)
-LocalVariable(start_pc = 16, length = 6, index = 2:int remainder)
-LineNumber(0, 104), LineNumber(6, 105), LineNumber(8, 106), LineNumber(14, 107), 
-LineNumber(16, 108), LineNumber(21, 110), LineNumber(28, 111), LineNumber(32, 113), 
-LineNumber(49, 114), LineNumber(53, 116)
-
-com.jopdesign.sys.BitUtils:roundingRightShift(JI)J
-Code(max_stack = 4, max_locals = 5, code_length = 60)
-0:    iload_2
-1:    bipush		64
-3:    if_icmple		#8
-6:    lconst_0
-7:    lreturn
-8:    iload_2
-9:    bipush		64
-11:   if_icmpne		#21
-14:   lload_0
-15:   lstore_3
-16:   lconst_0
-17:   lstore_0
-18:   goto		#32
-21:   lload_0
-22:   bipush		64
-24:   iload_2
-25:   isub
-26:   lshl
-27:   lstore_3
-28:   lload_0
-29:   iload_2
-30:   lushr
-31:   lstore_0
-32:   lload_3
-33:   lconst_0
-34:   lcmp
-35:   ifge		#58
-38:   lload_3
-39:   ldc2_w		-9223372036854775808 (33)
-42:   lcmp
-43:   ifne		#54
-46:   lload_0
-47:   lconst_1
-48:   land
-49:   lconst_1
-50:   lcmp
-51:   ifne		#58
-54:   lload_0
-55:   lconst_1
-56:   ladd
-57:   lreturn
-58:   lload_0
-59:   lreturn
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 05 08 0c fc 00 0a 04 15 03)
-LocalVariable(start_pc = 0, length = 60, index = 0:long x)
-LocalVariable(start_pc = 0, length = 60, index = 2:int count)
-LocalVariable(start_pc = 28, length = 32, index = 3:long remainder)
-LocalVariable(start_pc = 16, length = 6, index = 3:long remainder)
-LineNumber(0, 124), LineNumber(6, 125), LineNumber(8, 126), LineNumber(14, 127), 
-LineNumber(16, 128), LineNumber(21, 130), LineNumber(28, 131), LineNumber(32, 133), 
-LineNumber(38, 134), LineNumber(54, 135), LineNumber(58, 137)
-
 com.jopdesign.sys.Scheduler:<clinit>()V
 Code(max_stack = 2, max_locals = 1, code_length = 48)
 0:    invokestatic	com.jopdesign.io.IOFactory.getFactory ()Lcom/jopdesign/io/IOFactory; (38)
@@ -28592,4 +28752,71 @@ Code(max_stack = 2, max_locals = 2, code_length = 6)
 5:    return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 6, index = 0:Exception th
+LocalVariable(start_pc = 0, length = 6, index = 0:Exception this)
+LocalVariable(start_pc = 0, length = 6, index = 1:String s)
+LineNumber(0, 78), LineNumber(5, 79)
+
+java.lang.Exception:<init>(Ljava/lang/String;Ljava/lang/Throwable;)V
+Code(max_stack = 3, max_locals = 3, code_length = 7)
+0:    aload_0
+1:    aload_1
+2:    aload_2
+3:    invokespecial	java.lang.Throwable.<init> (Ljava/lang/String;Ljava/lang/Throwable;)V (25)
+6:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 7, index = 0:Exception this)
+LocalVariable(start_pc = 0, length = 7, index = 1:String s)
+LocalVariable(start_pc = 0, length = 7, index = 2:Throwable cause)
+LineNumber(0, 90), LineNumber(6, 91)
+
+java.lang.Exception:<init>(Ljava/lang/Throwable;)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    aload_1
+2:    invokespecial	java.lang.Throwable.<init> (Ljava/lang/Throwable;)V (30)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:Exception this)
+LocalVariable(start_pc = 0, length = 6, index = 1:Throwable cause)
+LineNumber(0, 102), LineNumber(5, 103)
+
+java.lang.RuntimeException:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	java.lang.Exception.<init> ()V (13)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:RuntimeException this)
+LineNumber(0, 64), LineNumber(4, 66)
+
+java.lang.RuntimeException:<init>(Ljava/lang/String;)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    aload_1
+2:    invokespecial	java.lang.Exception.<init> (Ljava/lang/String;)V (20)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:RuntimeException this)
+LocalVariable(start_pc = 0, length = 6, index = 1:String s)
+LineNumber(0, 76), LineNumber(5, 77)
+
+java.lang.RuntimeException:<init>(Ljava/lang/String;Ljava/lang/Throwable;)V
+Code(max_stack = 3, max_locals = 3, code_length = 7)
+0:    aload_0
+1:    aload_1
+2:    aload_2
+3:    invokespecial	java.lang.Exception.<init> (Ljava/lang/String;Ljava/lang/Throwable;)V (25)
+6:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 7, index = 0:RuntimeException this)
+LocalVariable(start_pc = 0, length = 7, index = 1:String s)
+LocalVariable(start_pc = 0, length = 7, index = 2:Throwable cause)
+LineNumber(0, 88), LineNumber(6, 89)
+
+java.lang.RuntimeException:<init>(Ljava/lang/Throwable;)V
+Code(max_stack = 2, max_locals = 2, code_lengt
