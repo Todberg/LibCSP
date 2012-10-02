@@ -11,6 +11,10 @@ public abstract class ModulePinger {
 		this.receivedResponseOnLastPing = false;
 	}
 	
+	protected void Timeout() {
+		
+	}
+	
 	public abstract void Ping();
 	
 	public void ResetDidReceiveResponseFlag() {

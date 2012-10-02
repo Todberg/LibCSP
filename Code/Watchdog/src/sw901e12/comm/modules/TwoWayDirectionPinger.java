@@ -12,7 +12,7 @@ public class TwoWayDirectionPinger extends ModulePinger {
 	@Override
 	public void Ping() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

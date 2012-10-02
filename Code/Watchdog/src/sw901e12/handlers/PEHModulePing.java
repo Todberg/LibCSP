@@ -10,40 +10,40 @@ import javax.safetycritical.PeriodicEventHandler;
 import javax.safetycritical.StorageParameters;
 import javax.safetycritical.annotate.Level;
 import javax.safetycritical.annotate.SCJAllowed;
+import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.Module;
 import sw901e12.sys.Config;
 
-import com.jopdesign.io.I2CFactory;
-import com.jopdesign.io.I2Cport;
-
-public class PingPeriodicEventHandler extends PeriodicEventHandler {
+public class PEHModulePing extends PeriodicEventHandler {
 
 	private Module[] slaves;
+	private SimplePrintStream console;
 	private Clock clock;
 	
-	public PingPeriodicEventHandler(PriorityParameters priority,
-			PeriodicParameters parameters, StorageParameters scp, long scopeSize, Module[] slaves) {
+	public PEHModulePing(PriorityParameters priority,
+			PeriodicParameters parameters, StorageParameters scp, long scopeSize, Module[] slaves, SimplePrintStream console) {
 		super(priority, parameters, scp, scopeSize);
 		
 		this.slaves = slaves;
+		this.console = console;
+		
 		clock = Clock.getRealtimeClock();
 	}
 	
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		System.out.println("New round");
+		console.println("Pinging modules");
 		
 		for(Module slave : slaves) {
-			
-			AbsoluteTime currentTime = clock.getTime();
-			AbsoluteTime deadline = currentTime.add(Config.timeout);
-			
-			//System.out.println(deadline.compareTo(clock.getTime()));
-			
 			slave.getModulePinger().Ping();
-			System.out.println("I did a ping!");
+			
+			AbsoluteTime timeout = clock.getTime().add(Config.timeout);
+			
+			while(clock.getTime().compareTo(timeout) < 0 || true) {
+				
+			}
 		}
 	}
 }
