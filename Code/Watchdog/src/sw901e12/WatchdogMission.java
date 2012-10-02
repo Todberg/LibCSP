@@ -1,7 +1,5 @@
 package sw901e12;
 
-import java.util.Vector;
-
 import javax.realtime.PeriodicParameters;
 import javax.realtime.PriorityParameters;
 import javax.realtime.RelativeTime;
@@ -11,7 +9,7 @@ import javax.safetycritical.annotate.Level;
 import javax.safetycritical.annotate.SCJAllowed;
 
 import sw901e12.comm.ModulePingerFactory;
-import sw901e12.handlers.WatchdogPeriodicEventHandler;
+import sw901e12.handlers.PingPeriodicEventHandler;
 
 public class WatchdogMission extends Mission {
 
@@ -28,14 +26,14 @@ public class WatchdogMission extends Mission {
 		initializeModulePingerFactory();
 		initializeSlaveModules();
 		
-		WatchdogPeriodicEventHandler WDHandler = new WatchdogPeriodicEventHandler(
+		PingPeriodicEventHandler pingHandler = new PingPeriodicEventHandler(
 				priorityParam,
 				releaseParam, 
 				storageParam, 
 				0,
 				slaveModules);
 		
-		WDHandler.register();	
+		pingHandler.register();	
 	}
 	
 	@SCJAllowed(Level.SUPPORT)

@@ -397,6 +397,65 @@ LineNumber(0, 71), LineNumber(17, 72), LineNumber(22, 73), LineNumber(25, 75),
 LineNumber(28, 76), LineNumber(50, 77), LineNumber(55, 78), LineNumber(58, 79), 
 LineNumber(64, 75), LineNumber(70, 82)
 
+sw901e12.comm.modules.DummySimulatorModule:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	sw901e12.comm.ModulePinger.<init> ()V (8)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.comm.modules.DummySimulatorModule this)
+LineNumber(0, 6)
+
+sw901e12.comm.modules.DummySimulatorModule:Ping()V
+Code(max_stack = 2, max_locals = 1, code_length = 10)
+0:    iconst_5
+1:    invokestatic	joprt.RtThread.sleepMs (I)V (15)
+4:    aload_0
+5:    iconst_1
+6:    putfield		sw901e12.comm.modules.DummySimulatorModule.receivedResponseOnLastPing Z (21)
+9:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:sw901e12.comm.modules.DummySimulatorModule this)
+LineNumber(0, 9), LineNumber(4, 10), LineNumber(9, 11)
+
+sw901e12.comm.ModulePinger:<init>()V
+Code(max_stack = 2, max_locals = 1, code_length = 10)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (10)
+4:    aload_0
+5:    iconst_0
+6:    putfield		sw901e12.comm.ModulePinger.receivedResponseOnLastPing Z (12)
+9:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:sw901e12.comm.ModulePinger this)
+LineNumber(0, 6), LineNumber(4, 7), LineNumber(9, 8)
+
+sw901e12.comm.ModulePinger:Ping()V
+null
+sw901e12.comm.ModulePinger:ResetDidReceiveResponseFlag()V
+Code(max_stack = 2, max_locals = 1, code_length = 6)
+0:    aload_0
+1:    iconst_0
+2:    putfield		sw901e12.comm.ModulePinger.receivedResponseOnLastPing Z (12)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:sw901e12.comm.ModulePinger this)
+LineNumber(0, 13), LineNumber(5, 14)
+
+sw901e12.comm.ModulePinger:DidReceiveResponseFromModule()Z
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    getfield		sw901e12.comm.ModulePinger.receivedResponseOnLastPing Z (12)
+4:    ireturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.comm.ModulePinger this)
+LineNumber(0, 16)
+
 java.lang.StackOverflowError:<init>()V
 Code(max_stack = 2, max_locals = 1, code_length = 7)
 0:    aload_0
@@ -419,6 +478,28 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 6, index = 0:StackOverflowError this)
 LocalVariable(start_pc = 0, length = 6, index = 1:String s)
 LineNumber(0, 71), LineNumber(5, 72)
+
+sw901e12.comm.modules.TwoWayDirectionPinger:<init>(I)V
+Code(max_stack = 2, max_locals = 2, code_length = 10)
+0:    aload_0
+1:    invokespecial	sw901e12.comm.ModulePinger.<init> ()V (10)
+4:    aload_0
+5:    iload_1
+6:    putfield		sw901e12.comm.modules.TwoWayDirectionPinger.memoryAddressOnDeviceToRequest I (13)
+9:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:sw901e12.comm.modules.TwoWayDirectionPinger this)
+LocalVariable(start_pc = 0, length = 10, index = 1:int memoryAddressOnDeviceToRequest)
+LineNumber(0, 8), LineNumber(4, 9), LineNumber(9, 10)
+
+sw901e12.comm.modules.TwoWayDirectionPinger:Ping()V
+Code(max_stack = 0, max_locals = 1, code_length = 1)
+0:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 0, index = 0:sw901e12.comm.modules.TwoWayDirectionPinger this)
+LineNumber(0, 16)
 
 java.lang.Float:<init>(F)V
 Code(max_stack = 2, max_locals = 2, code_length = 10)
@@ -1447,69 +1528,6 @@ Code(max_stack = 1, max_locals = 1, code_length = 5)
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 5, index = 0:javax.realtime.BoundAsyncEventHandler this)
 LineNumber(0, 32)
-
-util.DbgSerial:<init>()V
-Code(max_stack = 2, max_locals = 1, code_length = 10)
-0:    aload_0
-1:    invokespecial	util.Dbg.<init> ()V (10)
-4:    aload_0
-5:    iconst_0
-6:    putfield		util.DbgSerial.waitHs Z (12)
-9:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 10, index = 0:util.DbgSerial this)
-LineNumber(0, 33), LineNumber(4, 34), LineNumber(9, 35)
-
-util.DbgSerial:<init>(Z)V
-Code(max_stack = 2, max_locals = 2, code_length = 10)
-0:    aload_0
-1:    invokespecial	util.Dbg.<init> ()V (10)
-4:    aload_0
-5:    iload_1
-6:    putfield		util.DbgSerial.waitHs Z (12)
-9:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 10, index = 0:util.DbgSerial this)
-LocalVariable(start_pc = 0, length = 10, index = 1:boolean w)
-LineNumber(0, 36), LineNumber(4, 37), LineNumber(9, 38)
-
-util.DbgSerial:dbgWr(I)V
-Code(max_stack = 2, max_locals = 2, code_length = 30)
-0:    aload_0
-1:    getfield		util.DbgSerial.waitHs Z (12)
-4:    ifeq		#17
-7:    bipush		-112
-9:    invokestatic	com.jopdesign.sys.Native.rd (I)I (22)
-12:   iconst_1
-13:   iand
-14:   ifeq		#7
-17:   iload_1
-18:   bipush		-111
-20:   invokestatic	com.jopdesign.sys.Native.wr (II)V (28)
-23:   iload_1
-24:   bipush		-95
-26:   invokestatic	com.jopdesign.sys.Native.wr (II)V (28)
-29:   return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 07 09)
-LocalVariable(start_pc = 0, length = 30, index = 0:util.DbgSerial this)
-LocalVariable(start_pc = 0, length = 30, index = 1:int c)
-LineNumber(0, 42), LineNumber(7, 44), LineNumber(17, 58), LineNumber(23, 59), 
-LineNumber(29, 60)
-
-util.DbgSerial:dbgReadBuffer([II)I
-Code(max_stack = 1, max_locals = 3, code_length = 2)
-0:    iconst_0
-1:    ireturn
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 2, index = 0:util.DbgSerial this)
-LocalVariable(start_pc = 0, length = 2, index = 1:int[] udpBuf)
-LocalVariable(start_pc = 0, length = 2, index = 2:int pos)
-LineNumber(0, 66)
 
 com.jopdesign.sys.JVM:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -5076,7 +5094,7 @@ Attribute(s) =
 LineNumber(0, 1154)
 
 com.jopdesign.sys.JVM:f_putfield_ref(III)V
-Code(max_stack = 3, max_locals = 6, code_length = 50)
+Code(max_stack = 3, max_locals = 6, code_length = 37)
 0:    getstatic		com.jopdesign.sys.GC.mutex Ljava/lang/Object; (112)
 3:    dup
 4:    astore_3
@@ -5091,38 +5109,31 @@ Code(max_stack = 3, max_locals = 6, code_length = 50)
 16:   iadd
 17:   invokestatic	com.jopdesign.sys.Native.rdMem (I)I (118)
 20:   istore		%5
-22:   iload		%5
-24:   iload		%4
-26:   if_icmple		#35
-29:   ldc_w		"Illegal field reference" (527)
-32:   invokestatic	com.jopdesign.sys.GC.log (Ljava/lang/String;)V (126)
-35:   iload_0
-36:   iload_2
-37:   iload_1
-38:   invokestatic	com.jopdesign.sys.Native.putField (III)V (529)
-41:   aload_3
-42:   monitorexit
-43:   goto		#49
-46:   aload_3
-47:   monitorexit
-48:   athrow
-49:   return
+22:   iload_0
+23:   iload_2
+24:   iload_1
+25:   invokestatic	com.jopdesign.sys.Native.putField (III)V (527)
+28:   aload_3
+29:   monitorexit
+30:   goto		#36
+33:   aload_3
+34:   monitorexit
+35:   athrow
+36:   return
 
 Exception handler(s) = 
 From	To	Handler	Type
-6	43	46	<Any exception>(0)
-46	48	46	<Any exception>(0)
+6	30	33	<Any exception>(0)
+33	35	33	<Any exception>(0)
 
 Attribute(s) = 
-(Unknown attribute StackMapTable: 00 03 fc 00 23 07 00 03 4a 07... (truncated))
-LocalVariable(start_pc = 0, length = 50, index = 0:int ref)
-LocalVariable(start_pc = 0, length = 50, index = 1:int value)
-LocalVariable(start_pc = 0, length = 50, index = 2:int index)
-LocalVariable(start_pc = 14, length = 22, index = 4:int ref_level)
-LocalVariable(start_pc = 22, length = 14, index = 5:int val_level)
-LineNumber(0, 1157), LineNumber(6, 1171), LineNumber(14, 1172), LineNumber(22, 1173), 
-LineNumber(29, 1174), LineNumber(35, 1191), LineNumber(41, 1157), LineNumber(49, 1193)
-
+(Unknown attribute StackMapTable: 00 02 ff 00 21 00 04 01 01 01... (truncated))
+LocalVariable(start_pc = 0, length = 37, index = 0:int ref)
+LocalVariable(start_pc = 0, length = 37, index = 1:int value)
+LocalVariable(start_pc = 0, length = 37, index = 2:int index)
+LocalVariable(start_pc = 14, length = 9, index = 4:int ref_level)
+LineNumber(0, 1157), LineNumber(6, 1171), LineNumber(14, 1172), LineNumber(22, 1191), 
+LineNumber(28, 1157), LineNumber(36, 1193)
 
 com.jopdesign.sys.JVM:f_resE4()V
 Code(max_stack = 0, max_locals = 0, code_length = 4)
@@ -5347,6 +5358,69 @@ Code(max_stack = 0, max_locals = 0, code_length = 4)
 
 Attribute(s) = 
 LineNumber(0, 1221)
+
+util.DbgSerial:<init>()V
+Code(max_stack = 2, max_locals = 1, code_length = 10)
+0:    aload_0
+1:    invokespecial	util.Dbg.<init> ()V (10)
+4:    aload_0
+5:    iconst_0
+6:    putfield		util.DbgSerial.waitHs Z (12)
+9:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:util.DbgSerial this)
+LineNumber(0, 33), LineNumber(4, 34), LineNumber(9, 35)
+
+util.DbgSerial:<init>(Z)V
+Code(max_stack = 2, max_locals = 2, code_length = 10)
+0:    aload_0
+1:    invokespecial	util.Dbg.<init> ()V (10)
+4:    aload_0
+5:    iload_1
+6:    putfield		util.DbgSerial.waitHs Z (12)
+9:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:util.DbgSerial this)
+LocalVariable(start_pc = 0, length = 10, index = 1:boolean w)
+LineNumber(0, 36), LineNumber(4, 37), LineNumber(9, 38)
+
+util.DbgSerial:dbgWr(I)V
+Code(max_stack = 2, max_locals = 2, code_length = 30)
+0:    aload_0
+1:    getfield		util.DbgSerial.waitHs Z (12)
+4:    ifeq		#17
+7:    bipush		-112
+9:    invokestatic	com.jopdesign.sys.Native.rd (I)I (22)
+12:   iconst_1
+13:   iand
+14:   ifeq		#7
+17:   iload_1
+18:   bipush		-111
+20:   invokestatic	com.jopdesign.sys.Native.wr (II)V (28)
+23:   iload_1
+24:   bipush		-95
+26:   invokestatic	com.jopdesign.sys.Native.wr (II)V (28)
+29:   return
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 02 07 09)
+LocalVariable(start_pc = 0, length = 30, index = 0:util.DbgSerial this)
+LocalVariable(start_pc = 0, length = 30, index = 1:int c)
+LineNumber(0, 42), LineNumber(7, 44), LineNumber(17, 58), LineNumber(23, 59), 
+LineNumber(29, 60)
+
+util.DbgSerial:dbgReadBuffer([II)I
+Code(max_stack = 1, max_locals = 3, code_length = 2)
+0:    iconst_0
+1:    ireturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 2, index = 0:util.DbgSerial this)
+LocalVariable(start_pc = 0, length = 2, index = 1:int[] udpBuf)
+LocalVariable(start_pc = 0, length = 2, index = 2:int pos)
+LineNumber(0, 66)
 
 java.lang.ArithmeticException:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -7460,80 +7534,83 @@ LineNumber(513, 300), LineNumber(516, 301), LineNumber(518, 300)
 
 java.lang.Runnable:run()V
 null
-com.jopdesign.io.I2CFactory:<clinit>()V
-Code(max_stack = 2, max_locals = 0, code_length = 11)
-0:    new		<com.jopdesign.io.I2CFactory> (1)
-3:    dup
-4:    invokespecial	com.jopdesign.io.I2CFactory.<init> ()V (16)
-7:    putstatic		com.jopdesign.io.I2CFactory.single Lcom/jopdesign/io/I2CFactory; (19)
-10:   return
-
-Attribute(s) = 
-LineNumber(0, 31), LineNumber(10, 7)
-
-com.jopdesign.io.I2CFactory:<init>()V
-Code(max_stack = 4, max_locals = 1, code_length = 25)
+sw901e12.comm.BoardModulePingerFactory:<init>()V
+Code(max_stack = 2, max_locals = 1, code_length = 15)
 0:    aload_0
-1:    invokespecial	com.jopdesign.io.IOFactory.<init> ()V (23)
+1:    invokespecial	sw901e12.comm.ModulePingerFactory.<init> ()V (14)
 4:    aload_0
-5:    new		<com.jopdesign.io.I2Cport> (24)
+5:    iconst_1
+6:    putfield		sw901e12.comm.BoardModulePingerFactory.UltraSonicSensorI2CAddress I (16)
+9:    aload_0
+10:   iconst_0
+11:   putfield		sw901e12.comm.BoardModulePingerFactory.UltraSonicSensorMemoryAddress I (18)
+14:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 15, index = 0:sw901e12.comm.BoardModulePingerFactory this)
+LineNumber(0, 6), LineNumber(4, 7), LineNumber(9, 8), LineNumber(14, 6)
+
+sw901e12.comm.BoardModulePingerFactory:CreateModulePingerOnI2CAddress(I)Lsw901e12/comm/ModulePinger;
+Code(max_stack = 3, max_locals = 2, code_length = 16)
+0:    iload_1
+1:    iconst_1
+2:    if_icmpne		#14
+5:    new		<sw901e12.comm.modules.TwoWayDirectionPinger> (26)
 8:    dup
-9:    invokespecial	com.jopdesign.io.I2Cport.<init> ()V (26)
-12:   bipush		-80
-14:   iconst_0
-15:   invokestatic	com.jopdesign.io.I2CFactory.makeHWObject (Ljava/lang/Object;II)Ljava/lang/Object; (27)
-18:   checkcast		<com.jopdesign.io.I2Cport> (24)
-21:   putfield		com.jopdesign.io.I2CFactory.iic_A Lcom/jopdesign/io/I2Cport; (31)
-24:   return
+9:    iconst_0
+10:   invokespecial	sw901e12.comm.modules.TwoWayDirectionPinger.<init> (I)V (28)
+13:   areturn
+14:   aconst_null
+15:   areturn
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 25, index = 0:com.jopdesign.io.I2CFactory this)
-LineNumber(0, 19), LineNumber(4, 20), LineNumber(24, 23)
+(Unknown attribute StackMapTable: 00 01 0e)
+LocalVariable(start_pc = 0, length = 16, index = 0:sw901e12.comm.BoardModulePingerFactory this)
+LocalVariable(start_pc = 0, length = 16, index = 1:int moduleAddressOnBus)
+LineNumber(0, 12), LineNumber(5, 13), LineNumber(14, 16)
 
-com.jopdesign.io.I2CFactory:makeHWObject(Ljava/lang/Object;II)Ljava/lang/Object;
-Code(max_stack = 4, max_locals = 4, code_length = 13)
-0:    iconst_1
-1:    invokestatic	com.jopdesign.sys.Native.rdIntMem (I)I (34)
-4:    istore_3
-5:    aload_0
-6:    iload_1
-7:    iload_2
-8:    iload_3
-9:    invokestatic	com.jopdesign.sys.JVMHelp.makeHWObject (Ljava/lang/Object;III)Ljava/lang/Object; (40)
-12:   areturn
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 13, index = 0:Object o)
-LocalVariable(start_pc = 0, length = 13, index = 1:int address)
-LocalVariable(start_pc = 0, length = 13, index = 2:int idx)
-LocalVariable(start_pc = 5, length = 8, index = 3:int cp)
-LineNumber(0, 27), LineNumber(5, 28)
-
-com.jopdesign.io.I2CFactory:getFactory()Lcom/jopdesign/io/I2CFactory;
-Code(max_stack = 1, max_locals = 0, code_length = 4)
-0:    getstatic		com.jopdesign.io.I2CFactory.single Lcom/jopdesign/io/I2CFactory; (19)
-3:    areturn
-
-Attribute(s) = 
-LineNumber(0, 34)
-
-com.jopdesign.io.I2CFactory:getI2CportA()Lcom/jopdesign/io/I2Cport;
+sw901e12.comm.ModulePingerFactory:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
-1:    getfield		com.jopdesign.io.I2CFactory.iic_A Lcom/jopdesign/io/I2Cport; (31)
-4:    areturn
+1:    invokespecial	java.lang.Object.<init> ()V (8)
+4:    return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:com.jopdesign.io.I2CFactory this)
-LineNumber(0, 37)
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.comm.ModulePingerFactory this)
+LineNumber(0, 6)
 
-com.jopdesign.io.I2CFactory:getFactory()Lcom/jopdesign/io/IOFactory;
-Code(max_stack = 1, max_locals = 0, code_length = 4)
-0:    invokestatic	com.jopdesign.io.I2CFactory.getFactory ()Lcom/jopdesign/io/I2CFactory; (55)
-3:    areturn
+sw901e12.comm.ModulePingerFactory:CreateModulePingerOnI2CAddress(I)Lsw901e12/comm/ModulePinger;
+null
+sw901e12.comm.ModulePingerFactory:CreateEnvironmentSpecificModuleFactory()Lsw901e12/comm/ModulePingerFactory;
+Code(max_stack = 2, max_locals = 0, code_length = 22)
+0:    invokestatic	sw901e12.comm.ModulePingerFactory.isApplicationRunningInSimulator ()Z (18)
+3:    ifeq		#14
+6:    new		<sw901e12.comm.SimulatorModulePingerFactory> (22)
+9:    dup
+10:   invokespecial	sw901e12.comm.SimulatorModulePingerFactory.<init> ()V (24)
+13:   areturn
+14:   new		<sw901e12.comm.BoardModulePingerFactory> (25)
+17:   dup
+18:   invokespecial	sw901e12.comm.BoardModulePingerFactory.<init> ()V (27)
+21:   areturn
 
 Attribute(s) = 
-LineNumber(0, 1)
+(Unknown attribute StackMapTable: 00 01 0e)
+LineNumber(0, 11), LineNumber(6, 12), LineNumber(14, 14)
+
+sw901e12.comm.ModulePingerFactory:isApplicationRunningInSimulator()Z
+Code(max_stack = 1, max_locals = 0, code_length = 12)
+0:    bipush		-118
+2:    invokestatic	com.jopdesign.sys.Native.rd (I)I (29)
+5:    ifne		#10
+8:    iconst_1
+9:    ireturn
+10:   iconst_0
+11:   ireturn
+
+Attribute(s) = 
+(Unknown attribute StackMapTable: 00 01 0a)
+LineNumber(0, 19)
 
 java.lang.ArrayStoreException:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -8165,8 +8242,6 @@ Code(max_stack = 1, max_locals = 0, code_length = 4)
 Attribute(s) = 
 LineNumber(0, 91)
 
-javax.safetycritical.Mission:start()Ljava/lang/Runnable;
-null
 com.jopdesign.io.SerialPort:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
@@ -10668,106 +10743,117 @@ LineNumber(85, 369), LineNumber(90, 370)
 sw901e12.WatchdogMission:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
 0:    aload_0
-1:    invokespecial	javax.safetycritical.Mission.<init> ()V (8)
+1:    invokespecial	javax.safetycritical.Mission.<init> ()V (12)
 4:    return
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.WatchdogMission this)
-LineNumber(0, 13)
+LineNumber(0, 14)
 
 sw901e12.WatchdogMission:initialize()V
-Code(max_stack = 9, max_locals = 6, code_length = 90)
-0:    new		<javax.realtime.PriorityParameters> (20)
+Code(max_stack = 9, max_locals = 5, code_length = 91)
+0:    new		<javax.realtime.PriorityParameters> (24)
 3:    dup
 4:    bipush		10
-6:    invokespecial	javax.realtime.PriorityParameters.<init> (I)V (22)
+6:    invokespecial	javax.realtime.PriorityParameters.<init> (I)V (26)
 9:    astore_1
-10:   new		<javax.realtime.PeriodicParameters> (25)
+10:   new		<javax.realtime.PeriodicParameters> (29)
 13:   dup
-14:   new		<javax.realtime.RelativeTime> (27)
+14:   new		<javax.realtime.RelativeTime> (31)
 17:   dup
 18:   lconst_0
 19:   iconst_0
-20:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (29)
-23:   new		<javax.realtime.RelativeTime> (27)
+20:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (33)
+23:   new		<javax.realtime.RelativeTime> (31)
 26:   dup
-27:   ldc2_w		1500 (32)
+27:   ldc2_w		1500 (36)
 30:   iconst_0
-31:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (29)
-34:   invokespecial	javax.realtime.PeriodicParameters.<init> (Ljavax/realtime/RelativeTime;Ljavax/realtime/RelativeTime;)V (34)
+31:   invokespecial	javax.realtime.RelativeTime.<init> (JI)V (33)
+34:   invokespecial	javax.realtime.PeriodicParameters.<init> (Ljavax/realtime/RelativeTime;Ljavax/realtime/RelativeTime;)V (38)
 37:   astore_2
-38:   new		<javax.safetycritical.StorageParameters> (37)
+38:   new		<javax.safetycritical.StorageParameters> (41)
 41:   dup
-42:   ldc2_w		10000 (39)
+42:   ldc2_w		10000 (43)
 45:   iconst_1
 46:   newarray		<long>
 48:   dup
 49:   iconst_0
-50:   ldc2_w		500 (41)
+50:   ldc2_w		500 (45)
 53:   lastore
 54:   iconst_0
 55:   iconst_0
-56:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[JII)V (43)
+56:   invokespecial	javax.safetycritical.StorageParameters.<init> (J[JII)V (47)
 59:   astore_3
-60:   iconst_1
-61:   newarray		<int>
-63:   dup
-64:   iconst_0
-65:   iconst_1
-66:   iastore
-67:   astore		%4
-69:   new		<sw901e12.handlers.WatchdogPeriodicEventHandler> (46)
-72:   dup
-73:   aload_1
-74:   aload_2
-75:   aload_3
-76:   lconst_0
-77:   aload		%4
-79:   invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[I)V (48)
-82:   astore		%5
-84:   aload		%5
-86:   invokevirtual	sw901e12.handlers.WatchdogPeriodicEventHandler.register ()V (51)
-89:   return
+60:   aload_0
+61:   invokevirtual	sw901e12.WatchdogMission.initializeModulePingerFactory ()V (50)
+64:   aload_0
+65:   invokevirtual	sw901e12.WatchdogMission.initializeSlaveModules ()V (53)
+68:   new		<sw901e12.handlers.WatchdogPeriodicEventHandler> (56)
+71:   dup
+72:   aload_1
+73:   aload_2
+74:   aload_3
+75:   lconst_0
+76:   aload_0
+77:   getfield		sw901e12.WatchdogMission.slaveModules [Lsw901e12/Module; (58)
+80:   invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[Lsw901e12/Module;)V (60)
+83:   astore		%4
+85:   aload		%4
+87:   invokevirtual	sw901e12.handlers.WatchdogPeriodicEventHandler.register ()V (63)
+90:   return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 90, index = 0:sw901e12.WatchdogMission this)
-LocalVariable(start_pc = 10, length = 80, index = 1:javax.realtime.PriorityParameters priorityParam)
-LocalVariable(start_pc = 38, length = 52, index = 2:javax.realtime.PeriodicParameters releaseParam)
-LocalVariable(start_pc = 60, length = 30, index = 3:javax.safetycritical.StorageParameters storageParam)
-LocalVariable(start_pc = 69, length = 21, index = 4:int[] slaves)
-LocalVariable(start_pc = 84, length = 6, index = 5:sw901e12.handlers.WatchdogPeriodicEventHandler WDHandler)
-LineNumber(0, 18), LineNumber(10, 19), LineNumber(38, 20), LineNumber(60, 23), 
-LineNumber(69, 25), LineNumber(73, 26), LineNumber(74, 27), LineNumber(75, 28), 
-LineNumber(76, 29), LineNumber(77, 30), LineNumber(79, 25), LineNumber(84, 32), 
-LineNumber(89, 33)
+LocalVariable(start_pc = 0, length = 91, index = 0:sw901e12.WatchdogMission this)
+LocalVariable(start_pc = 10, length = 81, index = 1:javax.realtime.PriorityParameters priorityParam)
+LocalVariable(start_pc = 38, length = 53, index = 2:javax.realtime.PeriodicParameters releaseParam)
+LocalVariable(start_pc = 60, length = 31, index = 3:javax.safetycritical.StorageParameters storageParam)
+LocalVariable(start_pc = 85, length = 6, index = 4:sw901e12.handlers.WatchdogPeriodicEventHandler WDHandler)
+LineNumber(0, 22), LineNumber(10, 23), LineNumber(38, 24), LineNumber(60, 26), 
+LineNumber(64, 27), LineNumber(68, 29), LineNumber(72, 30), LineNumber(73, 31), 
+LineNumber(74, 32), LineNumber(75, 33), LineNumber(76, 34), LineNumber(80, 29), 
+LineNumber(85, 36), LineNumber(90, 37)
+
+sw901e12.WatchdogMission:initializeModulePingerFactory()V
+Code(max_stack = 2, max_locals = 1, code_length = 8)
+0:    aload_0
+1:    invokestatic	sw901e12.comm.ModulePingerFactory.CreateEnvironmentSpecificModuleFactory ()Lsw901e12/comm/ModulePingerFactory; (74)
+4:    putfield		sw901e12.WatchdogMission.modulePingerFactory Lsw901e12/comm/ModulePingerFactory; (80)
+7:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 8, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 41), LineNumber(7, 42)
+
+sw901e12.WatchdogMission:initializeSlaveModules()V
+Code(max_stack = 5, max_locals = 1, code_length = 27)
+0:    aload_0
+1:    iconst_1
+2:    anewarray		<sw901e12.Module> (82)
+5:    putfield		sw901e12.WatchdogMission.slaveModules [Lsw901e12/Module; (58)
+8:    aload_0
+9:    getfield		sw901e12.WatchdogMission.slaveModules [Lsw901e12/Module; (58)
+12:   iconst_0
+13:   iconst_1
+14:   aload_0
+15:   getfield		sw901e12.WatchdogMission.modulePingerFactory Lsw901e12/comm/ModulePingerFactory; (80)
+18:   iconst_1
+19:   invokevirtual	sw901e12.comm.ModulePingerFactory.CreateModulePingerOnI2CAddress (I)Lsw901e12/comm/ModulePinger; (84)
+22:   invokestatic	sw901e12.Module.ModuleWithAddressAndPinger (ILsw901e12/comm/ModulePinger;)Lsw901e12/Module; (88)
+25:   aastore
+26:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 27, index = 0:sw901e12.WatchdogMission this)
+LineNumber(0, 46), LineNumber(8, 48), LineNumber(26, 49)
 
 sw901e12.WatchdogMission:missionMemorySize()J
 Code(max_stack = 2, max_locals = 1, code_length = 4)
-0:    ldc2_w		100000 (66)
+0:    ldc2_w		100000 (94)
 3:    lreturn
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 4, index = 0:sw901e12.WatchdogMission this)
-LineNumber(0, 38)
-
-sw901e12.WatchdogMission:start()Ljava/lang/Runnable;
-Code(max_stack = 1, max_locals = 1, code_length = 2)
-0:    aconst_null
-1:    areturn
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 2, index = 0:sw901e12.WatchdogMission this)
-LineNumber(0, 44)
-
-javax.realtime.AbstractAsyncEventHandler:<init>()V
-Code(max_stack = 1, max_locals = 1, code_length = 5)
-0:    aload_0
-1:    invokespecial	java.lang.Object.<init> ()V (10)
-4:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:javax.realtime.AbstractAsyncEventHandler this)
-LineNumber(0, 36)
+LineNumber(0, 54)
 
 javax.safetycritical.JopSystem:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -10803,39 +10889,43 @@ LineNumber(0, 38), LineNumber(7, 48), LineNumber(12, 50), LineNumber(16, 53),
 LineNumber(24, 54), LineNumber(27, 55)
 
 javax.safetycritical.JopSystem:runMission(Ljavax/safetycritical/Safelet;)V
-Code(max_stack = 3, max_locals = 5, code_length = 44)
+Code(max_stack = 2, max_locals = 5, code_length = 32)
 0:    aload_0
 1:    invokeinterface	javax.safetycritical.Safelet.getSequencer ()Ljavax/safetycritical/MissionSequencer; (16)	1	0
 6:    astore_1
 7:    aload_1
 8:    invokevirtual	javax.safetycritical.MissionSequencer.getNextMission ()Ljavax/safetycritical/Mission; (22)
 11:   astore_3
-12:   goto		#39
+12:   goto		#27
 15:   aload_3
 16:   invokevirtual	javax.safetycritical.Mission.missionMemorySize ()J (56)
 19:   l2i
 20:   istore		%4
-22:   invokestatic	com.jopdesign.sys.Memory.getCurrentMemory ()Lcom/jopdesign/sys/Memory; (60)
-25:   iload		%4
+22:   aload_1
+23:   invokevirtual	javax.safetycritical.MissionSequencer.getNextMission ()Ljavax/safetycritical/Mission; (22)
+26:   astore_3
 27:   aload_3
-28:   invokevirtual	javax.safetycritical.Mission.start ()Ljava/lang/Runnable; (66)
-31:   invokevirtual	com.jopdesign.sys.Memory.enterPrivateMemory (ILjava/lang/Runnable;)V (70)
-34:   aload_1
-35:   invokevirtual	javax.safetycritical.MissionSequencer.getNextMission ()Ljavax/safetycritical/Mission; (22)
-38:   astore_3
-39:   aload_3
-40:   ifnonnull		#15
-43:   return
+28:   ifnonnull		#15
+31:   return
 
 Attribute(s) = 
 (Unknown attribute StackMapTable: 00 02 ff 00 0f 00 04 07 00 11... (truncated))
-LocalVariable(start_pc = 0, length = 44, index = 0:javax.safetycritical.Safelet scj)
-LocalVariable(start_pc = 7, length = 37, index = 1:javax.safetycritical.MissionSequencer ms)
-LocalVariable(start_pc = 12, length = 32, index = 3:javax.safetycritical.Mission m)
-LocalVariable(start_pc = 22, length = 18, index = 4:int x)
+LocalVariable(start_pc = 0, length = 32, index = 0:javax.safetycritical.Safelet scj)
+LocalVariable(start_pc = 7, length = 25, index = 1:javax.safetycritical.MissionSequencer ms)
+LocalVariable(start_pc = 12, length = 20, index = 3:javax.safetycritical.Mission m)
+LocalVariable(start_pc = 22, length = 6, index = 4:int x)
 LineNumber(0, 59), LineNumber(7, 65), LineNumber(12, 67), LineNumber(15, 69), 
-LineNumber(22, 72), LineNumber(34, 75), LineNumber(39, 67), LineNumber(43, 77)
+LineNumber(22, 75), LineNumber(27, 67), LineNumber(31, 77)
 
+javax.realtime.AbstractAsyncEventHandler:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (10)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:javax.realtime.AbstractAsyncEventHandler this)
+LineNumber(0, 36)
 
 javax.safetycritical.StorageParameters:<init>(J[JII)V
 Code(max_stack = 3, max_locals = 6, code_length = 21)
@@ -14085,7 +14175,7 @@ Code(max_stack = 1, max_locals = 1, code_length = 5)
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 5, index = 0:system.SCJApplicationMain this)
-LineNumber(0, 8)
+LineNumber(0, 12)
 
 system.SCJApplicationMain:main([Ljava/lang/String;)V
 Code(max_stack = 2, max_locals = 1, code_length = 11)
@@ -14097,7 +14187,7 @@ Code(max_stack = 2, max_locals = 1, code_length = 11)
 
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 11, index = 0:String[] args)
-LineNumber(0, 12), LineNumber(10, 13)
+LineNumber(0, 16), LineNumber(10, 17)
 
 javax.safetycritical.ManagedSchedulable:register()V
 null
@@ -14865,506 +14955,6 @@ Code(max_stack = 3, max_locals = 2, code_length = 6)
 Attribute(s) = 
 LocalVariable(start_pc = 0, length = 6, index = 0:long i)
 LineNumber(0, 310)
-
-com.jopdesign.io.I2Cport:<init>()V
-Code(max_stack = 1, max_locals = 1, code_length = 5)
-0:    aload_0
-1:    invokespecial	com.jopdesign.io.HardwareObject.<init> ()V (65)
-4:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 5, index = 0:com.jopdesign.io.I2Cport this)
-LineNumber(0, 6)
-
-com.jopdesign.io.I2Cport:initConf(I)V
-Code(max_stack = 2, max_locals = 3, code_length = 14)
-0:    aload_0
-1:    iload_1
-2:    putfield		com.jopdesign.io.I2Cport.sladd I (73)
-5:    ldc		-126980469 (75)
-7:    istore_2
-8:    aload_0
-9:    iload_2
-10:   putfield		com.jopdesign.io.I2Cport.t_const_int I (76)
-13:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 14, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 14, index = 1:int slave_add)
-LocalVariable(start_pc = 8, length = 6, index = 2:int temp)
-LineNumber(0, 70), LineNumber(5, 71), LineNumber(8, 72), LineNumber(13, 73)
-
-
-com.jopdesign.io.I2Cport:flushFifo()V
-Code(max_stack = 3, max_locals = 1, code_length = 25)
-0:    aload_0
-1:    dup
-2:    getfield		com.jopdesign.io.I2Cport.control I (81)
-5:    sipush		256
-8:    ior
-9:    putfield		com.jopdesign.io.I2Cport.control I (81)
-12:   aload_0
-13:   dup
-14:   getfield		com.jopdesign.io.I2Cport.control I (81)
-17:   sipush		-257
-20:   iand
-21:   putfield		com.jopdesign.io.I2Cport.control I (81)
-24:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 25, index = 0:com.jopdesign.io.I2Cport this)
-LineNumber(0, 77), LineNumber(12, 78), LineNumber(24, 80)
-
-com.jopdesign.io.I2Cport:write([I)V
-Code(max_stack = 3, max_locals = 4, code_length = 132)
-0:    bipush		15
-2:    istore_2
-3:    aload_0
-4:    aload_1
-5:    iconst_0
-6:    iaload
-7:    putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-10:   aload_1
-11:   arraylength
-12:   bipush		15
-14:   if_icmpgt		#61
-17:   iconst_1
-18:   istore_3
-19:   goto		#33
-22:   aload_0
-23:   aload_1
-24:   iload_3
-25:   iaload
-26:   putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-29:   iload_3
-30:   iconst_1
-31:   iadd
-32:   istore_3
-33:   iload_3
-34:   aload_1
-35:   arraylength
-36:   if_icmplt		#22
-39:   aload_0
-40:   iconst_3
-41:   putfield		com.jopdesign.io.I2Cport.control I (81)
-44:   aload_0
-45:   getfield		com.jopdesign.io.I2Cport.status I (87)
-48:   iconst_1
-49:   iand
-50:   ifeq		#44
-53:   aload_0
-54:   iconst_1
-55:   putfield		com.jopdesign.io.I2Cport.control I (81)
-58:   goto		#131
-61:   iconst_1
-62:   istore_3
-63:   goto		#77
-66:   aload_0
-67:   aload_1
-68:   iload_3
-69:   iaload
-70:   putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-73:   iload_3
-74:   iconst_1
-75:   iadd
-76:   istore_3
-77:   iload_3
-78:   bipush		16
-80:   if_icmplt		#66
-83:   aload_0
-84:   iconst_3
-85:   putfield		com.jopdesign.io.I2Cport.control I (81)
-88:   aload_0
-89:   getfield		com.jopdesign.io.I2Cport.status I (87)
-92:   iconst_1
-93:   iand
-94:   ifeq		#88
-97:   aload_0
-98:   iconst_1
-99:   putfield		com.jopdesign.io.I2Cport.control I (81)
-102:  goto		#125
-105:  aload_0
-106:  aload_1
-107:  iload_2
-108:  iaload
-109:  putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-112:  iload_2
-113:  iconst_1
-114:  iadd
-115:  istore_2
-116:  aload_0
-117:  getfield		com.jopdesign.io.I2Cport.status I (87)
-120:  iconst_2
-121:  iand
-122:  ifeq		#105
-125:  iload_2
-126:  aload_1
-127:  arraylength
-128:  if_icmplt		#116
-131:  return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 0b fd 00 16 01 01 09 fa 00... (truncated))
-LocalVariable(start_pc = 0, length = 132, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 132, index = 1:int[] data)
-LocalVariable(start_pc = 3, length = 129, index = 2:int j)
-LocalVariable(start_pc = 63, length = 21, index = 3:int i)
-LocalVariable(start_pc = 19, length = 21, index = 3:int i)
-LineNumber(0, 86), LineNumber(3, 92), LineNumber(10, 95), LineNumber(17, 96), 
-LineNumber(22, 97), LineNumber(29, 96), LineNumber(39, 100), LineNumber(44, 101), 
-LineNumber(53, 106), LineNumber(61, 109), LineNumber(66, 110), LineNumber(73, 109), 
-LineNumber(83, 112), LineNumber(88, 113), LineNumber(97, 116), LineNumber(102, 118), 
-LineNumber(105, 120), LineNumber(112, 121), LineNumber(116, 119), LineNumber(125, 118), 
-LineNumber(131, 126)
-
-com.jopdesign.io.I2Cport:CSPwrite(ILcsp/CSPbuffer;)V
-Code(max_stack = 3, max_locals = 4, code_length = 102)
-0:    aload_0
-1:    iload_1
-2:    putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-5:    getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-8:    ldc		"Writing header to buffer..." (102)
-10:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-13:   iconst_0
-14:   istore_3
-15:   goto		#32
-18:   aload_0
-19:   aload_2
-20:   getfield		csp.CSPbuffer.header [I (110)
-23:   iload_3
-24:   iaload
-25:   putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-28:   iload_3
-29:   iconst_1
-30:   iadd
-31:   istore_3
-32:   iload_3
-33:   aload_2
-34:   getfield		csp.CSPbuffer.header [I (110)
-37:   arraylength
-38:   if_icmplt		#18
-41:   aload_2
-42:   getfield		csp.CSPbuffer.data [I (115)
-45:   ifnull		#82
-48:   aload_0
-49:   ldc		"Writing data to buffer..." (117)
-51:   invokespecial	com.jopdesign.io.I2Cport.debug_msg (Ljava/lang/String;)V (119)
-54:   iconst_0
-55:   istore_3
-56:   goto		#73
-59:   aload_0
-60:   aload_2
-61:   getfield		csp.CSPbuffer.data [I (115)
-64:   iload_3
-65:   iaload
-66:   putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-69:   iload_3
-70:   iconst_1
-71:   iadd
-72:   istore_3
-73:   iload_3
-74:   aload_2
-75:   getfield		csp.CSPbuffer.data [I (115)
-78:   arraylength
-79:   if_icmplt		#59
-82:   aload_0
-83:   iconst_3
-84:   putfield		com.jopdesign.io.I2Cport.control I (81)
-87:   aload_0
-88:   getfield		com.jopdesign.io.I2Cport.status I (87)
-91:   iconst_1
-92:   iand
-93:   ifeq		#87
-96:   aload_0
-97:   iconst_1
-98:   putfield		com.jopdesign.io.I2Cport.control I (81)
-101:  return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 06 fc 00 12 01 0c 1a 0c fa... (truncated))
-LocalVariable(start_pc = 0, length = 102, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 102, index = 1:int slave)
-LocalVariable(start_pc = 0, length = 102, index = 2:csp.CSPbuffer buffer)
-LocalVariable(start_pc = 56, length = 27, index = 3:int i)
-LocalVariable(start_pc = 15, length = 27, index = 3:int i)
-LineNumber(0, 130), LineNumber(5, 143), LineNumber(13, 144), LineNumber(18, 145), 
-LineNumber(28, 144), LineNumber(41, 148), LineNumber(48, 149), LineNumber(54, 150), 
-LineNumber(59, 151), LineNumber(69, 150), LineNumber(82, 156), LineNumber(87, 158), 
-LineNumber(96, 164), LineNumber(101, 168)
-
-com.jopdesign.io.I2Cport:debug_msg(Ljava/lang/String;)V
-Code(max_stack = 2, max_locals = 2, code_length = 8)
-0:    getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-3:    aload_1
-4:    invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-7:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 8, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 8, index = 1:String string)
-LineNumber(0, 173), LineNumber(7, 174)
-
-com.jopdesign.io.I2Cport:write(II)V
-Code(max_stack = 3, max_locals = 3, code_length = 68)
-0:    aload_0
-1:    iload_1
-2:    iconst_2
-3:    imul
-4:    putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-7:    aload_0
-8:    iload_2
-9:    putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-12:   aload_0
-13:   sipush		131
-16:   putfield		com.jopdesign.io.I2Cport.control I (81)
-19:   getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-22:   ldc		"Started transmitting" (128)
-24:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-27:   aload_0
-28:   getfield		com.jopdesign.io.I2Cport.status I (87)
-31:   iconst_1
-32:   iand
-33:   ifeq		#27
-36:   getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-39:   ldc		"Transmit in progress" (130)
-41:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-44:   aload_0
-45:   iconst_1
-46:   putfield		com.jopdesign.io.I2Cport.control I (81)
-49:   aload_0
-50:   getfield		com.jopdesign.io.I2Cport.status I (87)
-53:   iconst_1
-54:   iand
-55:   iconst_1
-56:   if_icmpeq		#49
-59:   getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-62:   ldc		"Done transmitting" (132)
-64:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-67:   return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 1b 15)
-LocalVariable(start_pc = 0, length = 68, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 68, index = 1:int slAddress)
-LocalVariable(start_pc = 0, length = 68, index = 2:int data)
-LineNumber(0, 189), LineNumber(7, 192), LineNumber(12, 196), LineNumber(19, 199), 
-LineNumber(27, 200), LineNumber(36, 204), LineNumber(44, 207), LineNumber(49, 209), 
-LineNumber(59, 213), LineNumber(67, 214)
-
-com.jopdesign.io.I2Cport:read(II)[I
-Code(max_stack = 4, max_locals = 5, code_length = 104)
-0:    iload_2
-1:    newarray		<int>
-3:    astore_3
-4:    aload_0
-5:    iload_1
-6:    iconst_2
-7:    imul
-8:    iconst_1
-9:    iadd
-10:   putfield		com.jopdesign.io.I2Cport.tx_fifo_data I (85)
-13:   aload_0
-14:   bipush		7
-16:   iload_2
-17:   iconst_3
-18:   ishl
-19:   ior
-20:   putfield		com.jopdesign.io.I2Cport.control I (81)
-23:   aload_0
-24:   getfield		com.jopdesign.io.I2Cport.status I (87)
-27:   iconst_1
-28:   iand
-29:   ifeq		#23
-32:   aload_0
-33:   iconst_5
-34:   iload_2
-35:   iconst_3
-36:   ishl
-37:   ior
-38:   putfield		com.jopdesign.io.I2Cport.control I (81)
-41:   aload_0
-42:   getfield		com.jopdesign.io.I2Cport.status I (87)
-45:   iconst_1
-46:   iand
-47:   iconst_1
-48:   if_icmpeq		#41
-51:   iconst_0
-52:   istore		%4
-54:   goto		#96
-57:   aload_3
-58:   iload		%4
-60:   aload_0
-61:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
-64:   iastore
-65:   getstatic		java.lang.System.out Ljava/io/PrintStream; (96)
-68:   new		<java.lang.StringBuilder> (139)
-71:   dup
-72:   ldc		"data " (141)
-74:   invokespecial	java.lang.StringBuilder.<init> (Ljava/lang/String;)V (143)
-77:   aload_0
-78:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
-81:   invokevirtual	java.lang.StringBuilder.append (I)Ljava/lang/StringBuilder; (145)
-84:   invokevirtual	java.lang.StringBuilder.toString ()Ljava/lang/String; (149)
-87:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (104)
-90:   iload		%4
-92:   iconst_1
-93:   iadd
-94:   istore		%4
-96:   iload		%4
-98:   iload_2
-99:   if_icmplt		#57
-102:  aload_3
-103:  areturn
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 04 fc 00 17 07 00 9a 11 fc... (truncated))
-LocalVariable(start_pc = 0, length = 104, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 104, index = 1:int slAddress)
-LocalVariable(start_pc = 0, length = 104, index = 2:int readSize)
-LocalVariable(start_pc = 4, length = 100, index = 3:int[] data)
-LocalVariable(start_pc = 54, length = 49, index = 4:int i)
-LineNumber(0, 225), LineNumber(4, 229), LineNumber(13, 232), LineNumber(23, 234), 
-LineNumber(32, 237), LineNumber(41, 238), LineNumber(51, 244), LineNumber(57, 245), 
-LineNumber(65, 246), LineNumber(90, 244), LineNumber(102, 249)
-
-com.jopdesign.io.I2Cport:slaveMode()V
-Code(max_stack = 3, max_locals = 1, code_length = 30)
-0:    aload_0
-1:    dup
-2:    getfield		com.jopdesign.io.I2Cport.control I (81)
-5:    sipush		256
-8:    ior
-9:    putfield		com.jopdesign.io.I2Cport.control I (81)
-12:   aload_0
-13:   dup
-14:   getfield		com.jopdesign.io.I2Cport.control I (81)
-17:   sipush		-257
-20:   iand
-21:   putfield		com.jopdesign.io.I2Cport.control I (81)
-24:   aload_0
-25:   iconst_0
-26:   putfield		com.jopdesign.io.I2Cport.control I (81)
-29:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 30, index = 0:com.jopdesign.io.I2Cport this)
-LineNumber(0, 254), LineNumber(12, 255), LineNumber(24, 256), LineNumber(29, 257)
-
-
-com.jopdesign.io.I2Cport:masterTX()V
-Code(max_stack = 3, max_locals = 1, code_length = 30)
-0:    aload_0
-1:    dup
-2:    getfield		com.jopdesign.io.I2Cport.control I (81)
-5:    sipush		256
-8:    ior
-9:    putfield		com.jopdesign.io.I2Cport.control I (81)
-12:   aload_0
-13:   dup
-14:   getfield		com.jopdesign.io.I2Cport.control I (81)
-17:   sipush		-257
-20:   iand
-21:   putfield		com.jopdesign.io.I2Cport.control I (81)
-24:   aload_0
-25:   iconst_1
-26:   putfield		com.jopdesign.io.I2Cport.control I (81)
-29:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 30, index = 0:com.jopdesign.io.I2Cport this)
-LineNumber(0, 260), LineNumber(12, 261), LineNumber(24, 262), LineNumber(29, 263)
-
-
-com.jopdesign.io.I2Cport:masterRX()V
-Code(max_stack = 2, max_locals = 1, code_length = 6)
-0:    aload_0
-1:    iconst_5
-2:    putfield		com.jopdesign.io.I2Cport.control I (81)
-5:    return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 6, index = 0:com.jopdesign.io.I2Cport this)
-LineNumber(0, 266), LineNumber(5, 267)
-
-com.jopdesign.io.I2Cport:readBuffer([I)V
-Code(max_stack = 3, max_locals = 3, code_length = 23)
-0:    iconst_0
-1:    istore_2
-2:    goto		#16
-5:    aload_1
-6:    iload_2
-7:    aload_0
-8:    getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
-11:   iastore
-12:   iload_2
-13:   iconst_1
-14:   iadd
-15:   istore_2
-16:   iload_2
-17:   bipush		15
-19:   if_icmplt		#5
-22:   return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 fc 00 05 01 09)
-LocalVariable(start_pc = 0, length = 23, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 23, index = 1:int[] data)
-LocalVariable(start_pc = 2, length = 21, index = 2:int i)
-LineNumber(0, 274), LineNumber(5, 275), LineNumber(12, 274), LineNumber(22, 280)
-
-
-com.jopdesign.io.I2Cport:CSPreadBuffer(Lcsp/CSPbuffer;)V
-Code(max_stack = 3, max_locals = 4, code_length = 61)
-0:    iconst_0
-1:    istore_2
-2:    goto		#19
-5:    aload_1
-6:    getfield		csp.CSPbuffer.header [I (110)
-9:    iload_2
-10:   aload_0
-11:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
-14:   iastore
-15:   iload_2
-16:   iconst_1
-17:   iadd
-18:   istore_2
-19:   iload_2
-20:   aload_1
-21:   getfield		csp.CSPbuffer.header [I (110)
-24:   arraylength
-25:   if_icmplt		#5
-28:   sipush		30720
-31:   istore_2
-32:   iload_2
-33:   ifeq		#60
-36:   iconst_0
-37:   istore_3
-38:   goto		#55
-41:   aload_1
-42:   getfield		csp.CSPbuffer.data [I (115)
-45:   iload_3
-46:   aload_0
-47:   getfield		com.jopdesign.io.I2Cport.rx_fifo_data I (137)
-50:   iastore
-51:   iload_3
-52:   iconst_1
-53:   iadd
-54:   istore_3
-55:   iload_3
-56:   iload_2
-57:   if_icmplt		#41
-60:   return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 05 fc 00 05 01 0c fc 00 15... (truncated))
-LocalVariable(start_pc = 0, length = 61, index = 0:com.jopdesign.io.I2Cport this)
-LocalVariable(start_pc = 0, length = 61, index = 1:csp.CSPbuffer buffer)
-LocalVariable(start_pc = 32, length = 29, index = 2:int data)
-LocalVariable(start_pc = 2, length = 29, index = 2:int i)
-LocalVariable(start_pc = 38, length = 23, index = 3:int i)
-LineNumber(0, 298), LineNumber(5, 299), LineNumber(15, 298), LineNumber(28, 305), 
-LineNumber(32, 306), LineNumber(36, 307), LineNumber(41, 308), LineNumber(51, 307), 
-LineNumber(60, 314)
 
 java.lang.System:<clinit>()V
 Code(max_stack = 2, max_locals = 0, code_length = 27)
@@ -16414,6 +16004,83 @@ LineNumber(0, 55), LineNumber(6, 56), LineNumber(12, 60), LineNumber(23, 61),
 LineNumber(28, 62), LineNumber(37, 61), LineNumber(49, 65), LineNumber(60, 67), 
 LineNumber(65, 70), LineNumber(71, 72), LineNumber(79, 73), LineNumber(85, 76), 
 LineNumber(91, 77), LineNumber(97, 80)
+
+sw901e12.Module:<init>(ILsw901e12/comm/ModulePinger;)V
+Code(max_stack = 2, max_locals = 3, code_length = 15)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (12)
+4:    aload_0
+5:    iload_1
+6:    invokevirtual	sw901e12.Module.setAddressOnBus (I)V (15)
+9:    aload_0
+10:   aload_2
+11:   invokevirtual	sw901e12.Module.setModulePinger (Lsw901e12/comm/ModulePinger;)V (19)
+14:   return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 15, index = 0:sw901e12.Module this)
+LocalVariable(start_pc = 0, length = 15, index = 1:int addressOnBus)
+LocalVariable(start_pc = 0, length = 15, index = 2:sw901e12.comm.ModulePinger modulePinger)
+LineNumber(0, 9), LineNumber(4, 10), LineNumber(9, 11), LineNumber(14, 12)
+
+
+sw901e12.Module:ModuleWithAddressAndPinger(ILsw901e12/comm/ModulePinger;)Lsw901e12/Module;
+Code(max_stack = 4, max_locals = 2, code_length = 10)
+0:    new		<sw901e12.Module> (1)
+3:    dup
+4:    iload_0
+5:    aload_1
+6:    invokespecial	sw901e12.Module.<init> (ILsw901e12/comm/ModulePinger;)V (29)
+9:    areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 10, index = 0:int addressOnBus)
+LocalVariable(start_pc = 0, length = 10, index = 1:sw901e12.comm.ModulePinger modulePinger)
+LineNumber(0, 15)
+
+sw901e12.Module:getAddressOnBus()I
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    getfield		sw901e12.Module.addressOnBus I (33)
+4:    ireturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.Module this)
+LineNumber(0, 19)
+
+sw901e12.Module:setAddressOnBus(I)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    iload_1
+2:    putfield		sw901e12.Module.addressOnBus I (33)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:sw901e12.Module this)
+LocalVariable(start_pc = 0, length = 6, index = 1:int addressOnBus)
+LineNumber(0, 23), LineNumber(5, 24)
+
+sw901e12.Module:getModulePinger()Lsw901e12/comm/ModulePinger;
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    getfield		sw901e12.Module.modulePinger Lsw901e12/comm/ModulePinger; (37)
+4:    areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.Module this)
+LineNumber(0, 27)
+
+sw901e12.Module:setModulePinger(Lsw901e12/comm/ModulePinger;)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    aload_1
+2:    putfield		sw901e12.Module.modulePinger Lsw901e12/comm/ModulePinger; (37)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:sw901e12.Module this)
+LocalVariable(start_pc = 0, length = 6, index = 1:sw901e12.comm.ModulePinger modulePinger)
+LineNumber(0, 31), LineNumber(5, 32)
 
 java.lang.ArrayIndexOutOfBoundsException:<init>()V
 Code(max_stack = 2, max_locals = 1, code_length = 7)
@@ -18461,6 +18128,28 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 8, index = 0:javax.safetycritical.Terminal this)
 LocalVariable(start_pc = 0, length = 8, index = 1:byte b)
 LineNumber(0, 95), LineNumber(7, 96)
+
+sw901e12.comm.SimulatorModulePingerFactory:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	sw901e12.comm.ModulePingerFactory.<init> ()V (8)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.comm.SimulatorModulePingerFactory this)
+LineNumber(0, 5)
+
+sw901e12.comm.SimulatorModulePingerFactory:CreateModulePingerOnI2CAddress(I)Lsw901e12/comm/ModulePinger;
+Code(max_stack = 2, max_locals = 2, code_length = 8)
+0:    new		<sw901e12.comm.modules.DummySimulatorModule> (16)
+3:    dup
+4:    invokespecial	sw901e12.comm.modules.DummySimulatorModule.<init> ()V (18)
+7:    areturn
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 8, index = 0:sw901e12.comm.SimulatorModulePingerFactory this)
+LocalVariable(start_pc = 0, length = 8, index = 1:int moduleAddressOnBus)
+LineNumber(0, 9)
 
 java.lang.Integer:<clinit>()V
 Code(max_stack = 4, max_locals = 0, code_length = 218)
@@ -21377,32 +21066,6 @@ Attribute(s) =
 LocalVariable(start_pc = 0, length = 6, index = 0:NumberFormatException this)
 LocalVariable(start_pc = 0, length = 6, index = 1:String s)
 LineNumber(0, 71), LineNumber(5, 72)
-
-csp.CSPbuffer:<init>()V
-Code(max_stack = 2, max_locals = 1, code_length = 32)
-0:    aload_0
-1:    invokespecial	java.lang.Object.<init> ()V (15)
-4:    aload_0
-5:    iconst_2
-6:    newarray		<int>
-8:    putfield		csp.CSPbuffer.length [I (17)
-11:   aload_0
-12:   iconst_4
-13:   newarray		<int>
-15:   putfield		csp.CSPbuffer.header [I (19)
-18:   aload_0
-19:   bipush		11
-21:   newarray		<int>
-23:   putfield		csp.CSPbuffer.data [I (21)
-26:   aload_0
-27:   iconst_1
-28:   putfield		csp.CSPbuffer.free Z (23)
-31:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 32, index = 0:csp.CSPbuffer this)
-LineNumber(0, 25), LineNumber(4, 27), LineNumber(11, 33), LineNumber(18, 35), 
-LineNumber(26, 37), LineNumber(31, 39)
 
 java.io.UnsupportedEncodingException:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -24845,8 +24508,8 @@ LocalVariable(start_pc = 0, length = 25, index = 1:String str)
 LocalVariable(start_pc = 13, length = 12, index = 2:byte[] bytes)
 LineNumber(0, 316), LineNumber(13, 317), LineNumber(24, 318)
 
-sw901e12.handlers.WatchdogPeriodicEventHandler:<init>(Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[I)V
-Code(max_stack = 6, max_locals = 7, code_length = 20)
+sw901e12.handlers.WatchdogPeriodicEventHandler:<init>(Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J[Lsw901e12/Module;)V
+Code(max_stack = 6, max_locals = 7, code_length = 23)
 0:    aload_0
 1:    aload_1
 2:    aload_2
@@ -24855,152 +24518,72 @@ Code(max_stack = 6, max_locals = 7, code_length = 20)
 6:    invokespecial	javax.safetycritical.PeriodicEventHandler.<init> (Ljavax/realtime/PriorityParameters;Ljavax/realtime/PeriodicParameters;Ljavax/safetycritical/StorageParameters;J)V (12)
 9:    aload_0
 10:   aload		%6
-12:   putfield		sw901e12.handlers.WatchdogPeriodicEventHandler.slaves [I (15)
+12:   putfield		sw901e12.handlers.WatchdogPeriodicEventHandler.slaves [Lsw901e12/Module; (15)
 15:   aload_0
-16:   invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.initialize ()V (17)
-19:   return
+16:   invokestatic	javax.realtime.Clock.getRealtimeClock ()Ljavax/realtime/Clock; (17)
+19:   putfield		sw901e12.handlers.WatchdogPeriodicEventHandler.clock Ljavax/realtime/Clock; (23)
+22:   return
 
 Attribute(s) = 
-LocalVariable(start_pc = 0, length = 20, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 0, length = 20, index = 1:javax.realtime.PriorityParameters priority)
-LocalVariable(start_pc = 0, length = 20, index = 2:javax.realtime.PeriodicParameters parameters)
-LocalVariable(start_pc = 0, length = 20, index = 3:javax.safetycritical.StorageParameters scp)
-LocalVariable(start_pc = 0, length = 20, index = 4:long scopeSize)
-LocalVariable(start_pc = 0, length = 20, index = 6:int[] slaves)
-LineNumber(0, 22), LineNumber(9, 24), LineNumber(15, 26), LineNumber(19, 27)
+LocalVariable(start_pc = 0, length = 23, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 0, length = 23, index = 1:javax.realtime.PriorityParameters priority)
+LocalVariable(start_pc = 0, length = 23, index = 2:javax.realtime.PeriodicParameters parameters)
+LocalVariable(start_pc = 0, length = 23, index = 3:javax.safetycritical.StorageParameters scp)
+LocalVariable(start_pc = 0, length = 23, index = 4:long scopeSize)
+LocalVariable(start_pc = 0, length = 23, index = 6:sw901e12.Module[] slaves)
+LineNumber(0, 27), LineNumber(9, 29), LineNumber(15, 30), LineNumber(22, 31)
 
-
-sw901e12.handlers.WatchdogPeriodicEventHandler:initialize()V
-Code(max_stack = 2, max_locals = 2, code_length = 22)
-0:    invokestatic	com.jopdesign.io.I2CFactory.getFactory ()Lcom/jopdesign/io/I2CFactory; (33)
-3:    astore_1
-4:    aload_0
-5:    aload_1
-6:    invokevirtual	com.jopdesign.io.I2CFactory.getI2CportA ()Lcom/jopdesign/io/I2Cport; (39)
-9:    putfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-12:   aload_0
-13:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-16:   bipush		15
-18:   invokevirtual	com.jopdesign.io.I2Cport.initConf (I)V (45)
-21:   return
-
-Attribute(s) = 
-LocalVariable(start_pc = 0, length = 22, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 4, length = 18, index = 1:com.jopdesign.io.I2CFactory fact)
-LineNumber(0, 30), LineNumber(4, 31), LineNumber(12, 32), LineNumber(21, 33)
-
-
-sw901e12.handlers.WatchdogPeriodicEventHandler:printBuffer([I)V
-Code(max_stack = 2, max_locals = 6, code_length = 42)
-0:    aload_1
-1:    dup
-2:    astore		%5
-4:    arraylength
-5:    istore		%4
-7:    iconst_0
-8:    istore_3
-9:    goto		#29
-12:   aload		%5
-14:   iload_3
-15:   iaload
-16:   istore_2
-17:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-20:   iload_2
-21:   i2c
-22:   invokevirtual	java.io.PrintStream.print (C)V (61)
-25:   iload_3
-26:   iconst_1
-27:   iadd
-28:   istore_3
-29:   iload_3
-30:   iload		%4
-32:   if_icmplt		#12
-35:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-38:   invokevirtual	java.io.PrintStream.println ()V (67)
-41:   return
-
-Attribute(s) = 
-(Unknown attribute StackMapTable: 00 02 ff 00 0c 00 06 07 00 01... (truncated))
-LocalVariable(start_pc = 0, length = 42, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 0, length = 42, index = 1:int[] buffer)
-LocalVariable(start_pc = 17, length = 9, index = 2:int i)
-LineNumber(0, 36), LineNumber(17, 37), LineNumber(25, 36), LineNumber(35, 39), 
-LineNumber(41, 40)
 
 sw901e12.handlers.WatchdogPeriodicEventHandler:handleAsyncEvent()V
-Code(max_stack = 3, max_locals = 6, code_length = 125)
-0:    getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-3:    ldc		"entering handler" (81)
-5:    invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
+Code(max_stack = 2, max_locals = 7, code_length = 71)
+0:    getstatic		java.lang.System.out Ljava/io/PrintStream; (44)
+3:    ldc		"New round" (50)
+5:    invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (52)
 8:    aload_0
-9:    getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.slaves [I (15)
+9:    getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.slaves [Lsw901e12/Module; (15)
 12:   dup
 13:   astore		%4
 15:   arraylength
 16:   istore_3
 17:   iconst_0
 18:   istore_2
-19:   goto		#111
+19:   goto		#65
 22:   aload		%4
 24:   iload_2
-25:   iaload
-26:   istore_1
+25:   aaload
+26:   astore_1
 27:   aload_0
-28:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-31:   invokevirtual	com.jopdesign.io.I2Cport.masterTX ()V (86)
-34:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-37:   ldc		"writing slave" (89)
-39:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-42:   aload_0
-43:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-46:   iload_1
-47:   bipush		8
-49:   invokevirtual	com.jopdesign.io.I2Cport.write (II)V (91)
-52:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-55:   ldc		"slave written" (95)
-57:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-60:   aload_0
-61:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-64:   invokevirtual	com.jopdesign.io.I2Cport.flushFifo ()V (97)
-67:   aload_0
-68:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-71:   invokevirtual	com.jopdesign.io.I2Cport.masterRX ()V (100)
-74:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-77:   ldc		"reading buffer" (103)
-79:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-82:   aload_0
-83:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.i2cPort Lcom/jopdesign/io/I2Cport; (43)
-86:   iload_1
-87:   iconst_5
-88:   invokevirtual	com.jopdesign.io.I2Cport.read (II)[I (105)
-91:   astore		%5
-93:   getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-96:   ldc		"buffer read" (109)
-98:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-101:  aload_0
-102:  aload		%5
-104:  invokespecial	sw901e12.handlers.WatchdogPeriodicEventHandler.printBuffer ([I)V (111)
-107:  iload_2
-108:  iconst_1
-109:  iadd
-110:  istore_2
-111:  iload_2
-112:  iload_3
-113:  if_icmplt		#22
-116:  getstatic		java.lang.System.out Ljava/io/PrintStream; (55)
-119:  ldc		"exiting handler" (113)
-121:  invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (83)
-124:  return
+28:   getfield		sw901e12.handlers.WatchdogPeriodicEventHandler.clock Ljavax/realtime/Clock; (23)
+31:   invokevirtual	javax.realtime.Clock.getTime ()Ljavax/realtime/AbsoluteTime; (58)
+34:   astore		%5
+36:   aload		%5
+38:   getstatic		sw901e12.sys.Config.timeout Ljavax/realtime/RelativeTime; (62)
+41:   invokevirtual	javax.realtime.AbsoluteTime.add (Ljavax/realtime/RelativeTime;)Ljavax/realtime/AbsoluteTime; (68)
+44:   astore		%6
+46:   aload_1
+47:   invokevirtual	sw901e12.Module.getModulePinger ()Lsw901e12/comm/ModulePinger; (74)
+50:   invokevirtual	sw901e12.comm.ModulePinger.Ping ()V (80)
+53:   getstatic		java.lang.System.out Ljava/io/PrintStream; (44)
+56:   ldc		"I did a ping!" (85)
+58:   invokevirtual	java.io.PrintStream.println (Ljava/lang/String;)V (52)
+61:   iload_2
+62:   iconst_1
+63:   iadd
+64:   istore_2
+65:   iload_2
+66:   iload_3
+67:   if_icmplt		#22
+70:   return
 
 Attribute(s) = 
 (Unknown attribute StackMapTable: 00 02 ff 00 16 00 05 07 00 01... (truncated))
-LocalVariable(start_pc = 0, length = 125, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
-LocalVariable(start_pc = 27, length = 81, index = 1:int slave)
-LocalVariable(start_pc = 93, length = 15, index = 5:int[] buffer)
-LineNumber(0, 45), LineNumber(8, 46), LineNumber(27, 47), LineNumber(34, 48), 
-LineNumber(42, 49), LineNumber(52, 50), LineNumber(60, 52), LineNumber(67, 53), 
-LineNumber(74, 55), LineNumber(82, 56), LineNumber(93, 57), LineNumber(101, 58), 
-LineNumber(107, 46), LineNumber(116, 61), LineNumber(124, 62)
+LocalVariable(start_pc = 0, length = 71, index = 0:sw901e12.handlers.WatchdogPeriodicEventHandler this)
+LocalVariable(start_pc = 27, length = 35, index = 1:sw901e12.Module slave)
+LocalVariable(start_pc = 36, length = 26, index = 5:javax.realtime.AbsoluteTime currentTime)
+LocalVariable(start_pc = 46, length = 16, index = 6:javax.realtime.AbsoluteTime deadline)
+LineNumber(0, 36), LineNumber(8, 38), LineNumber(27, 40), LineNumber(36, 41), 
+LineNumber(46, 45), LineNumber(53, 46), LineNumber(61, 38), LineNumber(70, 48)
+
 
 com.jopdesign.sys.SoftFloat64:<init>()V
 Code(max_stack = 1, max_locals = 1, code_length = 5)
@@ -26497,6 +26080,29 @@ javax.realtime.Clock:registerCallBack(Ljavax/realtime/AbsoluteTime;Ljavax/realti
 null
 javax.realtime.Clock:resetTargetTime(Ljavax/realtime/AbsoluteTime;)Z
 null
+sw901e12.sys.Config:<clinit>()V
+Code(max_stack = 5, max_locals = 0, code_length = 15)
+0:    new		<javax.realtime.RelativeTime> (10)
+3:    dup
+4:    ldc2_w		3000 (12)
+7:    iconst_0
+8:    invokespecial	javax.realtime.RelativeTime.<init> (JI)V (14)
+11:   putstatic		sw901e12.sys.Config.timeout Ljavax/realtime/RelativeTime; (18)
+14:   return
+
+Attribute(s) = 
+LineNumber(0, 8), LineNumber(14, 5)
+
+sw901e12.sys.Config:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	java.lang.Object.<init> ()V (22)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:sw901e12.sys.Config this)
+LineNumber(0, 5)
+
 java.lang.StringBuffer:<clinit>()V
 Code(max_stack = 1, max_locals = 0, code_length = 8)
 0:    bipush		32
@@ -28580,4 +28186,89 @@ Code(max_stack = 1, max_locals = 1, code_length = 5)
 1:    invokespecial	java.lang.Throwable.<init> ()V (13)
 4:    return
 
-Attri
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:Exception this)
+LineNumber(0, 66), LineNumber(4, 68)
+
+java.lang.Exception:<init>(Ljava/lang/String;)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    aload_1
+2:    invokespecial	java.lang.Throwable.<init> (Ljava/lang/String;)V (20)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:Exception this)
+LocalVariable(start_pc = 0, length = 6, index = 1:String s)
+LineNumber(0, 78), LineNumber(5, 79)
+
+java.lang.Exception:<init>(Ljava/lang/String;Ljava/lang/Throwable;)V
+Code(max_stack = 3, max_locals = 3, code_length = 7)
+0:    aload_0
+1:    aload_1
+2:    aload_2
+3:    invokespecial	java.lang.Throwable.<init> (Ljava/lang/String;Ljava/lang/Throwable;)V (25)
+6:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 7, index = 0:Exception this)
+LocalVariable(start_pc = 0, length = 7, index = 1:String s)
+LocalVariable(start_pc = 0, length = 7, index = 2:Throwable cause)
+LineNumber(0, 90), LineNumber(6, 91)
+
+java.lang.Exception:<init>(Ljava/lang/Throwable;)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    aload_1
+2:    invokespecial	java.lang.Throwable.<init> (Ljava/lang/Throwable;)V (30)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:Exception this)
+LocalVariable(start_pc = 0, length = 6, index = 1:Throwable cause)
+LineNumber(0, 102), LineNumber(5, 103)
+
+java.lang.RuntimeException:<init>()V
+Code(max_stack = 1, max_locals = 1, code_length = 5)
+0:    aload_0
+1:    invokespecial	java.lang.Exception.<init> ()V (13)
+4:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 5, index = 0:RuntimeException this)
+LineNumber(0, 64), LineNumber(4, 66)
+
+java.lang.RuntimeException:<init>(Ljava/lang/String;)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    aload_1
+2:    invokespecial	java.lang.Exception.<init> (Ljava/lang/String;)V (20)
+5:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 6, index = 0:RuntimeException this)
+LocalVariable(start_pc = 0, length = 6, index = 1:String s)
+LineNumber(0, 76), LineNumber(5, 77)
+
+java.lang.RuntimeException:<init>(Ljava/lang/String;Ljava/lang/Throwable;)V
+Code(max_stack = 3, max_locals = 3, code_length = 7)
+0:    aload_0
+1:    aload_1
+2:    aload_2
+3:    invokespecial	java.lang.Exception.<init> (Ljava/lang/String;Ljava/lang/Throwable;)V (25)
+6:    return
+
+Attribute(s) = 
+LocalVariable(start_pc = 0, length = 7, index = 0:RuntimeException this)
+LocalVariable(start_pc = 0, length = 7, index = 1:String s)
+LocalVariable(start_pc = 0, length = 7, index = 2:Throwable cause)
+LineNumber(0, 88), LineNumber(6, 89)
+
+java.lang.RuntimeException:<init>(Ljava/lang/Throwable;)V
+Code(max_stack = 2, max_locals = 2, code_length = 6)
+0:    aload_0
+1:    aload_1
+2:    invokespecial	java.lang.Exception.<init> (Ljava/lang/Throwable;)V (30)
+5:    return
+
+Attribute(s) 
