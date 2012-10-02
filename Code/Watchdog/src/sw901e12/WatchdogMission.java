@@ -30,13 +30,13 @@ public class WatchdogMission extends Mission {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	protected void initialize() {
-	
 		initializeModulePingerFactory();
 		initializeSlaveModules();
         initializeConsole();
         
-        initializePeriodicModulePingHandler();
         initializeAperiodicFailedModuleRoutineHandler();
+        initializePeriodicModulePingerHandler();
+        initializePeriodicModuleResponseCheckHandler();
 	}
 	
 	@SCJAllowed(Level.SUPPORT)
@@ -62,15 +62,21 @@ public class WatchdogMission extends Mission {
         console = new SimplePrintStream(os);
 	}
 
-	private void initializePeriodicModulePingHandler() {
-		PriorityParameters priorityParam = new PriorityParameters(10);
-		PeriodicParameters releaseParam = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(1500, 0));
-		StorageParameters storageParam = new StorageParameters(10000, new long[] { 500 }, 0, 0);
+	private void initializePeriodicModulePingerHandler() {
+		final int ModulePingHandlerPriority = 10;
+		final int ModulePingHandlerBackingStoreSizeInBytes = 1024;
+		final int ModulePingHandlerScopeSizeInBytes = 512;
+		final int ModulePingHandlerReleasePeriodInMs = 1500;
+		
+		PriorityParameters modulePingPriority = new PriorityParameters(ModulePingHandlerPriority);
+		PeriodicParameters modulePingParams = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(ModulePingHandlerReleasePeriodInMs, 0));
+		StorageParameters modulePingStorage = new StorageParameters(ModulePingHandlerBackingStoreSizeInBytes,
+															   new long[] { ModulePingHandlerScopeSizeInBytes }, 0, 0);
 		
 		modulePingHandler = new PEHModulePinger(
-				priorityParam,
-				releaseParam, 
-				storageParam, 
+				modulePingPriority,
+				modulePingParams, 
+				modulePingStorage, 
 				0,
 				slaveModules,
 				console);
@@ -80,14 +86,20 @@ public class WatchdogMission extends Mission {
 	
 	private void initializeAperiodicFailedModuleRoutineHandler() {
 		final int ModuleFailHandlerPriority = 14;
+		final int ModuleFailHandlerBackingStoreSizeInBytes = 1024;
+		final int ModuleFailHandlerScopeSizeInBytes = 512;
 		
+		PriorityParameters moduleFailPriority = new PriorityParameters(ModuleFailHandlerPriority);
+		AperiodicParameters moduleFailParams = new AperiodicParameters(null, null);
+		StorageParameters moduleFailStorage = new StorageParameters(ModuleFailHandlerBackingStoreSizeInBytes,
+															  new long[] { ModuleFailHandlerScopeSizeInBytes }, 0, 0);
 		
-		PriorityParameters eh1_prio = new PriorityParameters(14);
-		AperiodicParameters eh1_pparams = new AperiodicParameters(null, null);
-		
-		StorageParameters eh1_storage = new StorageParameters(1024, new long[] { 512 }, 0, 0);
-		moduleFailHandler = new APEHFailedModuleRoutine(eh1_prio, eh1_pparams, eh1_storage);
+		moduleFailHandler = new APEHFailedModuleRoutine(moduleFailPriority, moduleFailParams, moduleFailStorage);
 		moduleFailHandler.register();
+	}
+	
+	private void initializePeriodicModuleResponseCheckHandler() {
+	
 	}
 	
 	@Override
