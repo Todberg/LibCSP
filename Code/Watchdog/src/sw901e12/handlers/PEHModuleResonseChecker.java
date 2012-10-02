@@ -15,13 +15,15 @@ public class PEHModuleResonseChecker extends PeriodicEventHandler {
 
 	private Module[] slaves;
 	private SimplePrintStream console;
+	private APEHFailedModuleRoutine noModuleResponseHandler;
 	
 	public PEHModuleResonseChecker(PriorityParameters priority,
-			PeriodicParameters parameters, StorageParameters scp, long scopeSize, Module[] slaves, SimplePrintStream console) {
+			PeriodicParameters parameters, StorageParameters scp, long scopeSize, Module[] slaves, SimplePrintStream console, APEHFailedModuleRoutine noModuleResponseHandler) {
 		super(priority, parameters, scp, scopeSize);
 		
 		this.slaves = slaves;
 		this.console = console;
+		this.noModuleResponseHandler = noModuleResponseHandler;
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class PEHModuleResonseChecker extends PeriodicEventHandler {
 			if(slaveModulePinger.DidReceiveResponseFromModule()) {
 				slaveModulePinger.ResetDidReceiveResponseFlag();
 			} else {
-				
+				noModuleResponseHandler.release();
 			}
 			
 		}
