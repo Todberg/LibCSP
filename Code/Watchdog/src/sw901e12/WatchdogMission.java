@@ -38,9 +38,4 @@ public class WatchdogMission extends Mission {
 		return 100000;
 	}
 
-	@Override
-	@SCJAllowed(Level.SUPPORT)
-	protected Runnable start() {
-		return null;
-	}
 }
