@@ -1,5 +1,6 @@
 package sw901e12.handlers;
 
+import javax.realtime.AbsoluteTime;
 import javax.realtime.PeriodicParameters;
 import javax.realtime.PriorityParameters;
 import javax.safetycritical.PeriodicEventHandler;
@@ -47,6 +48,10 @@ public class WatchdogPeriodicEventHandler extends PeriodicEventHandler {
 		for(Module slave : slaves) {
 			slave.getModulePinger().Ping();
 			System.out.println("I did a ping!");
+			
+
+			
+			System.out.println();
 		}
 	}
 }
