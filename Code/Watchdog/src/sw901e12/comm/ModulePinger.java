@@ -1,18 +1,42 @@
 package sw901e12.comm;
 
+import javax.realtime.AbsoluteTime;
+import javax.realtime.Clock;
+
+import com.jopdesign.io.I2CFactory;
+import com.jopdesign.io.I2Cport;
+
+import sw901e12.sys.Config;
+
 /*
  * Pinging each module via. I2C is done differently depending on the device
  * Therefore each module will have its own pinger that knows how to communicate with that particular device
  */
 public abstract class ModulePinger {
 	protected boolean receivedResponseOnLastPing;
-
-	public ModulePinger() {
+	protected Clock clock;
+	protected I2Cport i2cPort;
+	
+	public ModulePinger(I2Cport i2cPort) {
 		this.receivedResponseOnLastPing = false;
+		this.i2cPort = i2cPort;
+		this.clock = Clock.getRealtimeClock();
 	}
 	
-	protected void Timeout() {
-		
+	private boolean IsTimeout() {		
+		AbsoluteTime timeout = clock.getTime().add(Config.timeout);		
+		return (clock.getTime().compareTo(timeout) < 0 ? false : true);
+	}
+	
+	private boolean IsDataAvailable() {
+		return ((i2cPort.status & I2Cport.DATA_VALID) == 0);
+	}
+	
+	protected void TimeoutBasedWaitForModuleResponse() {
+		while(!IsTimeout()) {
+			if(IsDataAvailable())
+				break;
+		}
 	}
 	
 	public abstract void Ping();
@@ -20,6 +44,7 @@ public abstract class ModulePinger {
 	public void ResetDidReceiveResponseFlag() {
 		receivedResponseOnLastPing = false;
 	}
+	
 	public boolean DidReceiveResponseFromModule() {
 		return receivedResponseOnLastPing;
 	}

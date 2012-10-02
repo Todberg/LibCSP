@@ -14,7 +14,7 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.comm.ModulePingerFactory;
-import sw901e12.handlers.PEHModulePing;
+import sw901e12.handlers.PEHModulePinger;
 
 public class WatchdogMission extends Mission {
 
@@ -32,7 +32,7 @@ public class WatchdogMission extends Mission {
 		initializeSlaveModules();
         SimplePrintStream console = initializeConsole();
         
-		PEHModulePing pingHandler = new PEHModulePing(
+		PEHModulePinger modulePingHandler = new PEHModulePinger(
 				priorityParam,
 				releaseParam, 
 				storageParam, 
@@ -40,7 +40,7 @@ public class WatchdogMission extends Mission {
 				slaveModules,
 				console);
 		
-		pingHandler.register();	
+		modulePingHandler.register();	
 	}
 	
 	@SCJAllowed(Level.SUPPORT)
