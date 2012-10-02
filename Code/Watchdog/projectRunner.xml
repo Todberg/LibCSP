@@ -20,7 +20,9 @@
 	<target name="alteradownload" description="Download JOP application to Altera DE2-70 board">
 		<echo>Downloading to Altera DE2-70 on ${altera.comport}</echo>
 		
-		<exec executable="${jop.root}/down.exe">
+		<exec executable="cmd">
+			<arg value="/c"/>
+			<arg file="${jop.root}/down.exe"/>
 			<arg value="-e"/>
 			<arg file="${basedir}/build/jop/program.jop"/>	
 			<arg value="${altera.comport}"/>
