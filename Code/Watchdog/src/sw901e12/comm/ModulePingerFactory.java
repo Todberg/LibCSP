@@ -1,5 +1,8 @@
 package sw901e12.comm;
 
+import com.jopdesign.sys.Const;
+import com.jopdesign.sys.Native;
+
 public abstract class ModulePingerFactory {
 	
 	public abstract ModulePinger CreateModulePingerOnI2CAddress(int moduleAddressOnBus);
@@ -13,6 +16,6 @@ public abstract class ModulePingerFactory {
 	}
 	
 	private final static boolean isApplicationRunningInSimulator() {
-		return false;
+		return (Native.rd(Const.IO_RAMCNT) == 0);
 	}
 }
