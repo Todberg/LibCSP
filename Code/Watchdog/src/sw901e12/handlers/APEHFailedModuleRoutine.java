@@ -5,9 +5,9 @@ import javax.realtime.PriorityParameters;
 import javax.safetycritical.AperiodicEventHandler;
 import javax.safetycritical.StorageParameters;
 
-public class APEHNoModuleResponseRoutine extends AperiodicEventHandler {
+public class APEHFailedModuleRoutine extends AperiodicEventHandler {
 
-	public APEHNoModuleResponseRoutine(PriorityParameters priority,
+	public APEHFailedModuleRoutine(PriorityParameters priority,
 			AperiodicParameters release, StorageParameters scp) {
 		super(priority, release, scp);
 
