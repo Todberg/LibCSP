@@ -7,7 +7,7 @@ import javax.safetycritical.StorageParameters;
 import javax.safetycritical.annotate.Level;
 import javax.safetycritical.annotate.SCJAllowed;
 
-import joprt.RtThread;
+import sw901e12.Module;
 
 import com.jopdesign.io.I2CFactory;
 import com.jopdesign.io.I2Cport;
@@ -15,10 +15,10 @@ import com.jopdesign.io.I2Cport;
 public class WatchdogPeriodicEventHandler extends PeriodicEventHandler {
 
 	private I2Cport i2cPort;
-	private int[] slaves;
+	private Module[] slaves;
 	
 	public WatchdogPeriodicEventHandler(PriorityParameters priority,
-			PeriodicParameters parameters, StorageParameters scp, long scopeSize, int[] slaves) {
+			PeriodicParameters parameters, StorageParameters scp, long scopeSize, Module[] slaves) {
 		super(priority, parameters, scp, scopeSize);
 		
 		this.slaves = slaves;
@@ -42,22 +42,11 @@ public class WatchdogPeriodicEventHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		System.out.println("entering handler");
-		for(int slave : slaves) {
-			i2cPort.masterTX();
-			System.out.println("writing slave");
-			i2cPort.write(slave, 0x08); // 0
-			System.out.println("slave written");
-			
-			i2cPort.flushFifo();
-			i2cPort.masterRX();
-
-			System.out.println("reading buffer");
-			int[] buffer = i2cPort.read(slave, 0x05); // Read 5 bytes into buffer
-			System.out.println("buffer read");
-			printBuffer(buffer);
-						
+		System.out.println("New round");
+		
+		for(Module slave : slaves) {
+			slave.getModulePinger().Ping();
+			System.out.println("I did a ping!");
 		}
-		System.out.println("exiting handler");
 	}
 }
