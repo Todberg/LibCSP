@@ -17,6 +17,7 @@ import javax.safetycritical.io.SimplePrintStream;
 import sw901e12.comm.ModulePingerFactory;
 import sw901e12.handlers.APEHFailedModuleRoutine;
 import sw901e12.handlers.PEHModulePinger;
+import sw901e12.handlers.PEHModuleResponseChecker;
 
 public class WatchdogMission extends Mission {
 
@@ -25,7 +26,8 @@ public class WatchdogMission extends Mission {
 	private SimplePrintStream console;
 	
 	private APEHFailedModuleRoutine moduleFailHandler;
-	private PEHModulePinger modulePingHandler;	
+	private PEHModulePinger modulePingHandler;
+	private PEHModuleResponseChecker moduleResponseChecker;
 	
 	@Override
 	@SCJAllowed(Level.SUPPORT)
@@ -41,7 +43,7 @@ public class WatchdogMission extends Mission {
 	
 	@SCJAllowed(Level.SUPPORT)
 	protected void initializeModulePingerFactory() {
-		this.modulePingerFactory = ModulePingerFactory.CreateEnvironmentSpecificModuleFactory();
+		modulePingerFactory = ModulePingerFactory.CreateEnvironmentSpecificModuleFactory();
 	}
 	
 	@SCJAllowed(Level.SUPPORT)
@@ -63,15 +65,15 @@ public class WatchdogMission extends Mission {
 	}
 
 	private void initializePeriodicModulePingerHandler() {
-		final int ModulePingHandlerPriority = 10;
-		final int ModulePingHandlerBackingStoreSizeInBytes = 1024;
-		final int ModulePingHandlerScopeSizeInBytes = 512;
-		final int ModulePingHandlerReleasePeriodInMs = 1500;
+		final int PING_HANDLER_PRIORITY = 10;
+		final int PING_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
+		final int PING_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
+		final int PING_HANDLER_RELEASE_PERIOD_IN_MS = 1500;
 		
-		PriorityParameters modulePingPriority = new PriorityParameters(ModulePingHandlerPriority);
-		PeriodicParameters modulePingParams = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(ModulePingHandlerReleasePeriodInMs, 0));
-		StorageParameters modulePingStorage = new StorageParameters(ModulePingHandlerBackingStoreSizeInBytes,
-															   new long[] { ModulePingHandlerScopeSizeInBytes }, 0, 0);
+		PriorityParameters modulePingPriority = new PriorityParameters(PING_HANDLER_PRIORITY);
+		PeriodicParameters modulePingParams = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(PING_HANDLER_RELEASE_PERIOD_IN_MS, 0));
+		StorageParameters modulePingStorage = new StorageParameters(PING_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
+															   new long[] { PING_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 		
 		modulePingHandler = new PEHModulePinger(
 				modulePingPriority,
@@ -85,21 +87,41 @@ public class WatchdogMission extends Mission {
 	}
 	
 	private void initializeAperiodicFailedModuleRoutineHandler() {
-		final int ModuleFailHandlerPriority = 14;
-		final int ModuleFailHandlerBackingStoreSizeInBytes = 1024;
-		final int ModuleFailHandlerScopeSizeInBytes = 512;
+		final int FAILED_MODULE_HANDLER_PRIORITY = 14;
+		final int FAILED_MODULE_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
+		final int FAILED_MODULE_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
 		
-		PriorityParameters moduleFailPriority = new PriorityParameters(ModuleFailHandlerPriority);
+		PriorityParameters moduleFailPriority = new PriorityParameters(FAILED_MODULE_HANDLER_PRIORITY);
 		AperiodicParameters moduleFailParams = new AperiodicParameters(null, null);
-		StorageParameters moduleFailStorage = new StorageParameters(ModuleFailHandlerBackingStoreSizeInBytes,
-															  new long[] { ModuleFailHandlerScopeSizeInBytes }, 0, 0);
+		StorageParameters moduleFailStorage = new StorageParameters(FAILED_MODULE_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
+															  new long[] { FAILED_MODULE_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 		
 		moduleFailHandler = new APEHFailedModuleRoutine(moduleFailPriority, moduleFailParams, moduleFailStorage);
 		moduleFailHandler.register();
 	}
 	
 	private void initializePeriodicModuleResponseCheckHandler() {
-	
+		final int RESPONSE_CHECK_HANDLER_PRIORITY = 10;
+		final int RESPONSE_CHECK_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
+		final int RESPONSE_CHECK_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
+		final int RESPONSE_CHECK_HANDLER_RELEASE_PERIOD_IN_MS = 1500;
+		
+		PriorityParameters moduleResponseCheckPriority = new PriorityParameters(RESPONSE_CHECK_HANDLER_PRIORITY);
+		PeriodicParameters moduleResponseCheckParams = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(RESPONSE_CHECK_HANDLER_RELEASE_PERIOD_IN_MS, 0));
+		StorageParameters moduleResponseCheckStorage = new StorageParameters(RESPONSE_CHECK_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
+																		new long[] { RESPONSE_CHECK_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
+		
+		moduleResponseChecker = new PEHModuleResponseChecker(
+				moduleResponseCheckPriority,
+				moduleResponseCheckParams,
+				moduleResponseCheckStorage,
+				0,
+				slaveModules,
+				console,
+				moduleFailHandler);
+		
+		moduleResponseChecker.register();
+		
 	}
 	
 	@Override

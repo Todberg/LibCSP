@@ -11,13 +11,13 @@ import javax.safetycritical.io.SimplePrintStream;
 import sw901e12.Module;
 import sw901e12.comm.ModulePinger;
 
-public class PEHModuleResonseChecker extends PeriodicEventHandler {
+public class PEHModuleResponseChecker extends PeriodicEventHandler {
 
 	private Module[] slaves;
 	private SimplePrintStream console;
 	private APEHFailedModuleRoutine noModuleResponseHandler;
 	
-	public PEHModuleResonseChecker(PriorityParameters priority,
+	public PEHModuleResponseChecker(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp, long scopeSize, 
 				Module[] slaves, SimplePrintStream console, APEHFailedModuleRoutine noModuleResponseHandler) {
 		super(priority, parameters, scp, scopeSize);
