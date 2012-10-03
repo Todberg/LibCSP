@@ -15,12 +15,12 @@ public class PEHModuleResponseChecker extends PeriodicEventHandler {
 
 	private Module[] slaves;
 	private SimplePrintStream console;
-	private APEHFailedModuleRoutine noModuleResponseHandler;
+	private APEHModuleFailedRoutine noModuleResponseHandler;
 
 	public PEHModuleResponseChecker(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp,
 			long scopeSize, Module[] slaves, SimplePrintStream console,
-			APEHFailedModuleRoutine noModuleResponseHandler) {
+			APEHModuleFailedRoutine noModuleResponseHandler) {
 		super(priority, parameters, scp, scopeSize);
 
 		this.slaves = slaves;

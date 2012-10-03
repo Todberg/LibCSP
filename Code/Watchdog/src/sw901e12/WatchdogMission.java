@@ -15,7 +15,7 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.comm.ModulePingerFactory;
-import sw901e12.handlers.APEHFailedModuleRoutine;
+import sw901e12.handlers.APEHModuleFailedRoutine;
 import sw901e12.handlers.PEHModulePinger;
 import sw901e12.handlers.PEHModuleResponseChecker;
 
@@ -25,29 +25,29 @@ public class WatchdogMission extends Mission {
 	private Module[] slaves;
 	private SimplePrintStream console;
 	
-	private APEHFailedModuleRoutine moduleFailHandler;
-	private PEHModulePinger modulePingHandler;
-	private PEHModuleResponseChecker moduleResponseChecker;
+	private APEHModuleFailedRoutine moduleFailedRoutineHandler;
+	private PEHModulePinger modulePingerHandler;
+	private PEHModuleResponseChecker moduleResponseCheckerHandler;
 	
 	@Override
 	@SCJAllowed(Level.SUPPORT)
-	protected void initialize() {
+	public void initialize() {
 		initializeModulePingerFactory();
 		initializeSlaveModules();
         initializeConsole();
         
-        initializeAperiodicFailedModuleRoutineHandler();
-        initializePeriodicModulePingerHandler();
-        initializePeriodicModuleResponseCheckHandler();
+        initializeAPEHModuleFailedRoutine();
+        initializePEHModulePinger();
+        initializePEHModuleResponseChecker();
 	}
 	
 	@SCJAllowed(Level.SUPPORT)
-	protected void initializeModulePingerFactory() {
+	private void initializeModulePingerFactory() {
 		modulePingerFactory = ModulePingerFactory.CreateEnvironmentSpecificModuleFactory();
 	}
 	
 	@SCJAllowed(Level.SUPPORT)
-	protected void initializeSlaveModules() {
+	private void initializeSlaveModules() {
 		slaves = new Module[1];
 		
 		slaves[0] = Module.CreateWithNameAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.CreateModulePingerOnI2CAddress(0x01));
@@ -64,7 +64,7 @@ public class WatchdogMission extends Mission {
         console = new SimplePrintStream(os);
 	}
 
-	private void initializePeriodicModulePingerHandler() {
+	private void initializePEHModulePinger() {
 		final int PING_HANDLER_PRIORITY = 10;
 		final int PING_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
 		final int PING_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
@@ -75,7 +75,7 @@ public class WatchdogMission extends Mission {
 		StorageParameters modulePingStorage = new StorageParameters(PING_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
 															   new long[] { PING_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 		
-		modulePingHandler = new PEHModulePinger(
+		modulePingerHandler = new PEHModulePinger(
 				modulePingPriority,
 				modulePingParams, 
 				modulePingStorage, 
@@ -83,10 +83,10 @@ public class WatchdogMission extends Mission {
 				slaves,
 				console);
 		
-		modulePingHandler.register();	
+		modulePingerHandler.register();	
 	}
 	
-	private void initializeAperiodicFailedModuleRoutineHandler() {
+	private void initializeAPEHModuleFailedRoutine() {
 		final int FAILED_MODULE_HANDLER_PRIORITY = 14;
 		final int FAILED_MODULE_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
 		final int FAILED_MODULE_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
@@ -96,11 +96,11 @@ public class WatchdogMission extends Mission {
 		StorageParameters moduleFailStorage = new StorageParameters(FAILED_MODULE_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
 															  new long[] { FAILED_MODULE_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 		
-		moduleFailHandler = new APEHFailedModuleRoutine(moduleFailPriority, moduleFailParams, moduleFailStorage);
-		moduleFailHandler.register();
+		moduleFailedRoutineHandler = new APEHModuleFailedRoutine(moduleFailPriority, moduleFailParams, moduleFailStorage);
+		moduleFailedRoutineHandler.register();
 	}
 	
-	private void initializePeriodicModuleResponseCheckHandler() {
+	private void initializePEHModuleResponseChecker() {
 		final int RESPONSE_CHECK_HANDLER_PRIORITY = 10;
 		final int RESPONSE_CHECK_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
 		final int RESPONSE_CHECK_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
@@ -111,17 +111,16 @@ public class WatchdogMission extends Mission {
 		StorageParameters moduleResponseCheckStorage = new StorageParameters(RESPONSE_CHECK_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
 																		new long[] { RESPONSE_CHECK_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 		
-		moduleResponseChecker = new PEHModuleResponseChecker(
+		moduleResponseCheckerHandler = new PEHModuleResponseChecker(
 				moduleResponseCheckPriority,
 				moduleResponseCheckParams,
 				moduleResponseCheckStorage,
 				0,
 				slaves,
 				console,
-				moduleFailHandler);
+				moduleFailedRoutineHandler);
 		
-		moduleResponseChecker.register();
-		
+		moduleResponseCheckerHandler.register();
 	}
 	
 	@Override
@@ -129,5 +128,4 @@ public class WatchdogMission extends Mission {
 	public long missionMemorySize() {
 		return 100000;
 	}
-
 }

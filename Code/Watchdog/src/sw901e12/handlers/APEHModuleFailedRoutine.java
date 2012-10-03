@@ -5,12 +5,11 @@ import javax.realtime.PriorityParameters;
 import javax.safetycritical.AperiodicEventHandler;
 import javax.safetycritical.StorageParameters;
 
-public class APEHFailedModuleRoutine extends AperiodicEventHandler {
+public class APEHModuleFailedRoutine extends AperiodicEventHandler {
 
-	public APEHFailedModuleRoutine(PriorityParameters priority,
+	public APEHModuleFailedRoutine(PriorityParameters priority,
 			AperiodicParameters release, StorageParameters scp) {
 		super(priority, release, scp);
-
 	}
 
 	@Override
@@ -18,5 +17,4 @@ public class APEHFailedModuleRoutine extends AperiodicEventHandler {
 		System.out.println("APEH fired!!!");
 
 	}
-
 }
