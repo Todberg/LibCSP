@@ -11,9 +11,9 @@ public class TwoWayDirectionPinger extends ModulePinger {
 	}
 	
 	@Override
-	public final void Ping() {
+	public final void ping() {
 		// write		
-		TimeoutBasedWaitForModuleResponse();
+		timeoutBasedWaitForModuleResponse();
 		// read
 	}
 }

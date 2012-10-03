@@ -12,9 +12,9 @@ import com.jopdesign.sys.Native;
  */
 public abstract class ModulePingerFactory {
 	
-	public abstract ModulePinger CreateModulePingerOnI2CAddress(int moduleAddressOnBus);
+	public abstract ModulePinger createModulePingerOnI2CAddress(int moduleAddressOnBus);
 	
-	public final static ModulePingerFactory CreateEnvironmentSpecificModuleFactory() {
+	public final static ModulePingerFactory createEnvironmentSpecificModuleFactory() {
 		if (isApplicationRunningInSimulator()) {
 			return new SimulatorModulePingerFactory();
 		} else {

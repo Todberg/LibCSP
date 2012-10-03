@@ -11,7 +11,7 @@ public class OneWayDirectionPinger extends ModulePinger {
 	}
 
 	@Override
-	public final void Ping() {
+	public final void ping() {
 		
 	}
 }

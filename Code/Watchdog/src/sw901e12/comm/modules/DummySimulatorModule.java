@@ -12,7 +12,7 @@ public class DummySimulatorModule extends ModulePinger {
 	}
 	
 	@Override
-	public void Ping() {
+	public void ping() {
 		RtThread.sleepMs(5);
 		this.receivedResponseOnLastPing = true;
 	}

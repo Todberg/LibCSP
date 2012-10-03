@@ -13,11 +13,11 @@ public class Module {
 		this.setModulePinger(modulePinger);
 	}
 	
-	public static Module CreateWithNameAddressAndPinger(String name, int addressOnBus, ModulePinger modulePinger) {
+	public static Module createWithNameAddressAndPinger(String name, int addressOnBus, ModulePinger modulePinger) {
 		return new Module(name, addressOnBus, modulePinger);
 	}
 	
-	public static Module ModuleWithAddressAndPinger(int addressOnBus, ModulePinger modulePinger) {
+	public static Module createWithAddressAndPinger(int addressOnBus, ModulePinger modulePinger) {
 		return new Module("", addressOnBus, modulePinger);
 	}
 	

@@ -43,14 +43,14 @@ public class WatchdogMission extends Mission {
 	
 	@SCJAllowed(Level.SUPPORT)
 	private void initializeModulePingerFactory() {
-		modulePingerFactory = ModulePingerFactory.CreateEnvironmentSpecificModuleFactory();
+		modulePingerFactory = ModulePingerFactory.createEnvironmentSpecificModuleFactory();
 	}
 	
 	@SCJAllowed(Level.SUPPORT)
 	private void initializeSlaveModules() {
 		slaves = new Module[1];
 		
-		slaves[0] = Module.CreateWithNameAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.CreateModulePingerOnI2CAddress(0x01));
+		slaves[0] = Module.createWithNameAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.createModulePingerOnI2CAddress(0x01));
 	}
 	
 	private void initializeConsole() {

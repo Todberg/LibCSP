@@ -37,8 +37,8 @@ public class PEHModuleResponseChecker extends PeriodicEventHandler {
 		for (Module slave : slaves) {
 			slaveModulePinger = slave.getModulePinger();
 
-			if (slaveModulePinger.DidReceiveResponseFromModule())
-				slaveModulePinger.ResetDidReceiveResponseFlag();
+			if (slaveModulePinger.didReceiveResponseFromModule())
+				slaveModulePinger.resetDidReceiveResponseFlag();
 			else
 				noModuleResponseHandler.release();
 		}

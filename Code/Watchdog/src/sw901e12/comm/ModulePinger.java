@@ -24,30 +24,30 @@ public abstract class ModulePinger {
 		this.clock = Clock.getRealtimeClock();
 	}
 	
-	private boolean IsTimeout(AbsoluteTime timeout) {		
+	private boolean isTimeout(AbsoluteTime timeout) {		
 		return (clock.getTime().compareTo(timeout) < 0 ? false : true);
 	}
 	
-	private boolean IsDataAvailable() {
+	private boolean isDataAvailable() {
 		return ((i2cPort.status & I2Cport.DATA_VALID) == 1);
 	}
 	
-	protected final void TimeoutBasedWaitForModuleResponse() {
+	protected final void timeoutBasedWaitForModuleResponse() {
 		AbsoluteTime timeout = clock.getTime().add(Config.WD_MODULE_RESPONSE_TIMEOUT);
 		
-		while(!IsTimeout(timeout)) {
-			if(IsDataAvailable())
+		while(!isTimeout(timeout)) {
+			if(isDataAvailable())
 				break;
 		}
 	}
 	
-	public abstract void Ping();
+	public abstract void ping();
 	
-	public final void ResetDidReceiveResponseFlag() {
+	public final void resetDidReceiveResponseFlag() {
 		receivedResponseOnLastPing = false;
 	}
 	
-	public final boolean DidReceiveResponseFromModule() {
+	public final boolean didReceiveResponseFromModule() {
 		return receivedResponseOnLastPing;
 	}
 }

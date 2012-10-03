@@ -30,6 +30,6 @@ public class PEHModulePinger extends PeriodicEventHandler {
 		console.println("Pinging modules");
 
 		for (Module slave : slaves)
-			slave.getModulePinger().Ping();
+			slave.getModulePinger().ping();
 	}
 }

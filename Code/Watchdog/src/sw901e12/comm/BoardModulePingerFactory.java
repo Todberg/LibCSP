@@ -17,7 +17,7 @@ public class BoardModulePingerFactory extends ModulePingerFactory {
 	}
 	
 	@Override
-	public ModulePinger CreateModulePingerOnI2CAddress(int moduleAddressOnBus) {
+	public ModulePinger createModulePingerOnI2CAddress(int moduleAddressOnBus) {
 		if (moduleAddressOnBus == UltraSonicSensorI2CAddress) {
 			return new TwoWayDirectionPinger(UltraSonicSensorMemoryAddress, i2cPort);
 		}
