@@ -33,7 +33,7 @@ public abstract class ModulePinger {
 	}
 	
 	protected void TimeoutBasedWaitForModuleResponse() {
-		AbsoluteTime timeout = clock.getTime().add(Config.timeout);
+		AbsoluteTime timeout = clock.getTime().add(Config.WD_MODULE_RESPONSE_TIMEOUT);
 		
 		while(!IsTimeout(timeout)) {
 			if(IsDataAvailable())

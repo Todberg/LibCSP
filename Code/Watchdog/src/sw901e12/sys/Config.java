@@ -3,13 +3,8 @@ package sw901e12.sys;
 import javax.realtime.RelativeTime;
 
 public class Config {
+	public static final RelativeTime WD_MODULE_RESPONSE_TIMEOUT
+		= new RelativeTime(3000, 0);
 	
-	// Timeout
-	public static final RelativeTime timeout = new RelativeTime(3000, 0);
-	
-	// I2C address of master
-	public static final int MasterI2CAddress = 0x000F;
-	
-	// Type of recovery
-	
+	public static final int WD_MASTER_I2C_ADDRESS = 0x000F;
 }

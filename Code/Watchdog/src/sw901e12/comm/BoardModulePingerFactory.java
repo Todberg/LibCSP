@@ -13,7 +13,7 @@ public class BoardModulePingerFactory extends ModulePingerFactory {
 	
 	public BoardModulePingerFactory() {
 		this.i2cPort = I2CFactory.getFactory().getI2CportA();
-		this.i2cPort.initConf(Config.MasterI2CAddress);
+		this.i2cPort.initConf(Config.WD_MASTER_I2C_ADDRESS);
 	}
 	
 	@Override
