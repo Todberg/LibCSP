@@ -15,10 +15,12 @@ public abstract class ModulePinger {
 	protected boolean receivedResponseOnLastPing;
 	protected Clock clock;
 	protected I2Cport i2cPort;
+	protected int memoryAddressOnDeviceToRequest;
 	
-	public ModulePinger(I2Cport i2cPort) {
-		this.receivedResponseOnLastPing = false;
+	public ModulePinger(int memoryAddressOnDeviceToRequest, I2Cport i2cPort) {
+		this.memoryAddressOnDeviceToRequest = memoryAddressOnDeviceToRequest;
 		this.i2cPort = i2cPort;
+		this.receivedResponseOnLastPing = false;
 		this.clock = Clock.getRealtimeClock();
 	}
 	

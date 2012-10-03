@@ -6,6 +6,6 @@ public class SimulatorModulePingerFactory extends ModulePingerFactory {
 
 	@Override
 	public ModulePinger CreateModulePingerOnI2CAddress(int moduleAddressOnBus) {
-		return new DummySimulatorModule(null);
+		return new DummySimulatorModule(0, null);
 	}
 }

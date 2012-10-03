@@ -6,8 +6,8 @@ import sw901e12.comm.ModulePinger;
 
 public class OneWayDirectionPinger extends ModulePinger {
 	
-	public OneWayDirectionPinger(I2Cport i2cPort) {
-		super(i2cPort);
+	public OneWayDirectionPinger(int memoryAddressOnDeviceToRequest, I2Cport i2cPort) {
+		super(memoryAddressOnDeviceToRequest, i2cPort);
 	}
 
 	@Override

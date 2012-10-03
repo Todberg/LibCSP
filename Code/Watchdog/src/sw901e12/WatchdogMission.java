@@ -22,7 +22,7 @@ import sw901e12.handlers.PEHModuleResponseChecker;
 public class WatchdogMission extends Mission {
 
 	private ModulePingerFactory modulePingerFactory;
-	private Module[] slaveModules;
+	private Module[] slaves;
 	private SimplePrintStream console;
 	
 	private APEHFailedModuleRoutine moduleFailHandler;
@@ -48,9 +48,9 @@ public class WatchdogMission extends Mission {
 	
 	@SCJAllowed(Level.SUPPORT)
 	protected void initializeSlaveModules() {
-		slaveModules = new Module[1];
+		slaves = new Module[1];
 		
-		slaveModules[0] = Module.ModuleWithAddressAndPinger(0x01, modulePingerFactory.CreateModulePingerOnI2CAddress(0x01));
+		slaves[0] = Module.ModuleWithAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.CreateModulePingerOnI2CAddress(0x01));
 	}
 	
 	private void initializeConsole() {
@@ -80,7 +80,7 @@ public class WatchdogMission extends Mission {
 				modulePingParams, 
 				modulePingStorage, 
 				0,
-				slaveModules,
+				slaves,
 				console);
 		
 		modulePingHandler.register();	
@@ -116,7 +116,7 @@ public class WatchdogMission extends Mission {
 				moduleResponseCheckParams,
 				moduleResponseCheckStorage,
 				0,
-				slaveModules,
+				slaves,
 				console,
 				moduleFailHandler);
 		
