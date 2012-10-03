@@ -14,22 +14,22 @@ public class PEHModulePinger extends PeriodicEventHandler {
 
 	private Module[] slaves;
 	private SimplePrintStream console;
-	
+
 	public PEHModulePinger(PriorityParameters priority,
-			PeriodicParameters parameters, StorageParameters scp, long scopeSize, 
-				Module[] slaves, SimplePrintStream console) {
+			PeriodicParameters parameters, StorageParameters scp,
+			long scopeSize, Module[] slaves, SimplePrintStream console) {
 		super(priority, parameters, scp, scopeSize);
-		
+
 		this.slaves = slaves;
 		this.console = console;
 	}
-	
+
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
 		console.println("Pinging modules");
-		
-		for(Module slave : slaves)
+
+		for (Module slave : slaves)
 			slave.getModulePinger().Ping();
 	}
 }

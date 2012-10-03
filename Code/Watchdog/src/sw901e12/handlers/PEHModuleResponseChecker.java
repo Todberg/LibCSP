@@ -16,12 +16,13 @@ public class PEHModuleResponseChecker extends PeriodicEventHandler {
 	private Module[] slaves;
 	private SimplePrintStream console;
 	private APEHFailedModuleRoutine noModuleResponseHandler;
-	
+
 	public PEHModuleResponseChecker(PriorityParameters priority,
-			PeriodicParameters parameters, StorageParameters scp, long scopeSize, 
-				Module[] slaves, SimplePrintStream console, APEHFailedModuleRoutine noModuleResponseHandler) {
+			PeriodicParameters parameters, StorageParameters scp,
+			long scopeSize, Module[] slaves, SimplePrintStream console,
+			APEHFailedModuleRoutine noModuleResponseHandler) {
 		super(priority, parameters, scp, scopeSize);
-		
+
 		this.slaves = slaves;
 		this.console = console;
 		this.noModuleResponseHandler = noModuleResponseHandler;
@@ -32,11 +33,11 @@ public class PEHModuleResponseChecker extends PeriodicEventHandler {
 	public void handleAsyncEvent() {
 		console.println("Checking module responses");
 		ModulePinger slaveModulePinger;
-		
-		for(Module slave : slaves) {
+
+		for (Module slave : slaves) {
 			slaveModulePinger = slave.getModulePinger();
-			
-			if(slaveModulePinger.DidReceiveResponseFromModule())
+
+			if (slaveModulePinger.DidReceiveResponseFromModule())
 				slaveModulePinger.ResetDidReceiveResponseFlag();
 			else
 				noModuleResponseHandler.release();
