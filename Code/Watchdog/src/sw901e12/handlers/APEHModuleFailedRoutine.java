@@ -5,6 +5,8 @@ import javax.realtime.PriorityParameters;
 import javax.safetycritical.AperiodicEventHandler;
 import javax.safetycritical.StorageParameters;
 
+import sw901e12.sys.Config;
+
 public class APEHModuleFailedRoutine extends AperiodicEventHandler {
 
 	public APEHModuleFailedRoutine(PriorityParameters priority,
@@ -14,7 +16,10 @@ public class APEHModuleFailedRoutine extends AperiodicEventHandler {
 
 	@Override
 	public void handleAsyncEvent() {
-		System.out.println("APEH fired!!!");
-
+		if(Config.DEBUG) {
+			System.out.println("APEH fired!!!");
+		}
+		
+		int x = 2 + 2;
 	}
 }

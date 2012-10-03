@@ -29,7 +29,7 @@ public class PEHModulePinger extends PeriodicEventHandler {
 	public void handleAsyncEvent() {
 		console.println("Pinging modules");
 
-		for (Module slave : slaves)
+		for (Module slave : slaves) // @WCA loop<=10 
 			slave.getModulePinger().ping();
 	}
 }

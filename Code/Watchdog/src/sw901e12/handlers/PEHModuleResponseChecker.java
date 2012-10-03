@@ -31,16 +31,22 @@ public class PEHModuleResponseChecker extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		console.println("Checking module responses");
+		//console.println("Checking module responses");
+		boolean invokeModuleFailedRoutine = false;
 		ModulePinger slaveModulePinger;
-
-		for (Module slave : slaves) {
+		
+		for (Module slave : slaves) { // @WCA loop<=10
 			slaveModulePinger = slave.getModulePinger();
-
-			if (slaveModulePinger.didReceiveResponseFromModule())
+			if (slaveModulePinger.didReceiveResponseFromModule()) {
 				slaveModulePinger.resetDidReceiveResponseFlag();
-			else
-				noModuleResponseHandler.release();
+			}	
+			else {
+				invokeModuleFailedRoutine = true;
+				break;
+			}
 		}
+		
+		if(invokeModuleFailedRoutine)
+			noModuleResponseHandler.release();
 	}
 }
