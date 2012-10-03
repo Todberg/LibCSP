@@ -32,7 +32,7 @@ public abstract class ModulePinger {
 		return ((i2cPort.status & I2Cport.DATA_VALID) == 1);
 	}
 	
-	protected void TimeoutBasedWaitForModuleResponse() {
+	protected final void TimeoutBasedWaitForModuleResponse() {
 		AbsoluteTime timeout = clock.getTime().add(Config.WD_MODULE_RESPONSE_TIMEOUT);
 		
 		while(!IsTimeout(timeout)) {
@@ -43,11 +43,11 @@ public abstract class ModulePinger {
 	
 	public abstract void Ping();
 	
-	public void ResetDidReceiveResponseFlag() {
+	public final void ResetDidReceiveResponseFlag() {
 		receivedResponseOnLastPing = false;
 	}
 	
-	public boolean DidReceiveResponseFromModule() {
+	public final boolean DidReceiveResponseFromModule() {
 		return receivedResponseOnLastPing;
 	}
 }
