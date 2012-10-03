@@ -50,7 +50,7 @@ public class WatchdogMission extends Mission {
 	protected void initializeSlaveModules() {
 		slaves = new Module[1];
 		
-		slaves[0] = Module.ModuleWithAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.CreateModulePingerOnI2CAddress(0x01));
+		slaves[0] = Module.ModuleWithNameAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.CreateModulePingerOnI2CAddress(0x01));
 	}
 	
 	private void initializeConsole() {
