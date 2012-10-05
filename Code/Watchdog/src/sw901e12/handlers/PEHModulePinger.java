@@ -13,8 +13,8 @@ import sw901e12.sys.Config;
 
 public class PEHModulePinger extends PeriodicEventHandler {
 
-	private Module[] slaves;
-	private SimplePrintStream console;
+	protected Module[] slaves;
+	protected SimplePrintStream console;
 
 	public PEHModulePinger(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp,
@@ -32,7 +32,8 @@ public class PEHModulePinger extends PeriodicEventHandler {
 			console.println("Pinging modules");
 		}
 
-		for (Module slave : slaves) // @WCA loop<=10 
+		for (Module slave : slaves) { // @WCA loop<=10
 			slave.getModulePinger().ping();
+		}
 	}
 }

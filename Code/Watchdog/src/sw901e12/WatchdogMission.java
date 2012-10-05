@@ -18,6 +18,8 @@ import sw901e12.comm.ModulePingerFactory;
 import sw901e12.handlers.APEHModuleFailedRoutine;
 import sw901e12.handlers.PEHModulePinger;
 import sw901e12.handlers.PEHModuleResponseChecker;
+import sw901e12.sys.Config;
+import sw901e12.wcet.PEHModulePingerMeasure;
 
 public class WatchdogMission extends Mission {
 
@@ -75,13 +77,24 @@ public class WatchdogMission extends Mission {
 		StorageParameters modulePingStorage = new StorageParameters(PING_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
 															   new long[] { PING_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 		
-		modulePingerHandler = new PEHModulePinger(
+		if (Config.MEASURE_WCET) {
+			modulePingerHandler = new PEHModulePingerMeasure(
+					modulePingPriority,
+					modulePingParams, 
+					modulePingStorage, 
+					0,
+					slaves,
+					console,
+					modulePingerFactory);
+		} else {
+			modulePingerHandler = new PEHModulePinger(
 				modulePingPriority,
 				modulePingParams, 
 				modulePingStorage, 
 				0,
 				slaves,
 				console);
+		}
 		
 		modulePingerHandler.register();	
 	}

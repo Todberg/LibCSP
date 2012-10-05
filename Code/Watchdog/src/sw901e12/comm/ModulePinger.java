@@ -25,7 +25,7 @@ public abstract class ModulePinger {
 	}
 	
 	private boolean isTimeout(AbsoluteTime timeout) {		
-		return (clock.getTime().compareTo(timeout) < 0 ? false : true);
+		return (clock.getTime().compareTo(timeout) > 0 ? true : false);
 	}
 	
 	private boolean isDataAvailable() {
@@ -33,9 +33,15 @@ public abstract class ModulePinger {
 	}
 	
 	protected final void timeoutBasedWaitForModuleResponse() {
-		AbsoluteTime timeout = clock.getTime().add(Config.WD_MODULE_RESPONSE_TIMEOUT);
+		System.out.println("Getting clock");
+		AbsoluteTime timeout = clock.getTime();
 		
+		System.out.println("adding timeout");
+		timeout = timeout.add(Config.WD_MODULE_RESPONSE_TIMEOUT);
+		
+		System.out.println("lol");
 		while(!isTimeout(timeout)) {
+			System.out.println("hehe");
 			if(isDataAvailable())
 				break;
 		}

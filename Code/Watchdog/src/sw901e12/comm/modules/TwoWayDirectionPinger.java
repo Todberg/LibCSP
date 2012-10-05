@@ -12,7 +12,7 @@ public class TwoWayDirectionPinger extends ModulePinger {
 	
 	@Override
 	public final void ping() {
-		// write		
+		// write
 		timeoutBasedWaitForModuleResponse();
 		// read
 	}
