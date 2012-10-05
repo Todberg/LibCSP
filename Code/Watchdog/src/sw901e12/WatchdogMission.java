@@ -96,7 +96,7 @@ public class WatchdogMission extends Mission {
 		StorageParameters moduleFailStorage = new StorageParameters(FAILED_MODULE_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
 															  new long[] { FAILED_MODULE_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 		
-		moduleFailedRoutineHandler = new APEHModuleFailedRoutine(moduleFailPriority, moduleFailParams, moduleFailStorage);
+		moduleFailedRoutineHandler = new APEHModuleFailedRoutine(moduleFailPriority, moduleFailParams, moduleFailStorage, null);
 		moduleFailedRoutineHandler.register();
 	}
 	

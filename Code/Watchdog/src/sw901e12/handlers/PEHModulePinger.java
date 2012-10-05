@@ -9,6 +9,7 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.Module;
+import sw901e12.sys.Config;
 
 public class PEHModulePinger extends PeriodicEventHandler {
 
@@ -27,7 +28,9 @@ public class PEHModulePinger extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		console.println("Pinging modules");
+		if (Config.DEBUG) {
+			console.println("Pinging modules");
+		}
 
 		for (Module slave : slaves) // @WCA loop<=10 
 			slave.getModulePinger().ping();
