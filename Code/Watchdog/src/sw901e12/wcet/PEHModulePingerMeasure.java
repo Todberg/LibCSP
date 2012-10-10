@@ -13,7 +13,6 @@ import sw901e12.handlers.PEHModulePinger;
 import com.jopdesign.sys.Const;
 import com.jopdesign.sys.Native;
 
-
 public class PEHModulePingerMeasure extends PEHModulePinger {
 
 	private int instructionCountBegin;
@@ -25,14 +24,15 @@ public class PEHModulePingerMeasure extends PEHModulePinger {
 	
 	public PEHModulePingerMeasure(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp,
-			long scopeSize, Module[] slaves, SimplePrintStream console, ModulePingerFactory modulePingerFactory) {
-		super(priority, parameters, scp, scopeSize, slaves, console);
+			long scopeSize, SimplePrintStream console, Module[] slaves, ModulePingerFactory modulePingerFactory) {
+		super(priority, parameters, scp, scopeSize, console, slaves);
 		
 		this.modulePingerFactory = modulePingerFactory;
-		initMeasureTest();
+		
+		initialize();
 	}
 	
-	private void initMeasureTest() {
+	private void initialize() {
 		
 		modulePingerFactory = ModulePingerFactory.createEnvironmentSpecificModuleFactory();
 		
@@ -51,7 +51,6 @@ public class PEHModulePingerMeasure extends PEHModulePinger {
 		slaves[7] = Module.createWithNameAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.createModulePingerOnI2CAddress(0x01));
 		slaves[8] = Module.createWithNameAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.createModulePingerOnI2CAddress(0x01));
 		slaves[9] = Module.createWithNameAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.createModulePingerOnI2CAddress(0x01));
-		
 	}
 	
 	@Override
@@ -60,9 +59,9 @@ public class PEHModulePingerMeasure extends PEHModulePinger {
 		instructionCountBegin = Native.rdMem(Const.IO_CNT);
 		super.handleAsyncEvent();
 		instructionCountEnd = Native.rdMem(Const.IO_CNT);
+		
 		instructionCountResultForHandler = instructionCountEnd - instructionCountBegin - instructionCountForNativeReads;
 		
-		System.out.println("Result: " + instructionCountResultForHandler);
+		console.println("Instructions: " + instructionCountResultForHandler);
 	}
-
 }

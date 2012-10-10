@@ -13,7 +13,7 @@ public abstract class ModulePingerFactory {
 	public abstract ModulePinger createModulePingerOnI2CAddress(int moduleAddressOnBus);
 	
 	public final static ModulePingerFactory createEnvironmentSpecificModuleFactory() {
-		if (!isApplicationRunningInSimulator() && 1 == 2) {
+		if (isApplicationRunningInSimulator()) {
 			return new SimulatorModulePingerFactory();
 		} else {
 			return new BoardModulePingerFactory();

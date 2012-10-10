@@ -12,6 +12,9 @@ public class OneWayDirectionPinger extends ModulePinger {
 
 	@Override
 	public final void ping() {
-		
+		// write
+		timeoutBasedWaitForModuleResponse();
+		// read
+		this.receivedResponseOnLastPing = true;
 	}
 }

@@ -18,21 +18,22 @@ public class PEHModulePinger extends PeriodicEventHandler {
 
 	public PEHModulePinger(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp,
-			long scopeSize, Module[] slaves, SimplePrintStream console) {
+			long scopeSize, SimplePrintStream console, Module[] slaves) {
+		
 		super(priority, parameters, scp, scopeSize);
 
-		this.slaves = slaves;
 		this.console = console;
+		this.slaves = slaves;
 	}
 
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
 		if (Config.DEBUG) {
-			console.println("Pinging modules");
+			console.println("PEHModulePinger");
 		}
-
-		for (Module slave : slaves) { // @WCA loop<=10
+		
+		for (Module slave : slaves) {
 			slave.getModulePinger().ping();
 		}
 	}

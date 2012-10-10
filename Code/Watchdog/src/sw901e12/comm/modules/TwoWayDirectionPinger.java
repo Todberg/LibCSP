@@ -15,5 +15,6 @@ public class TwoWayDirectionPinger extends ModulePinger {
 		// write
 		timeoutBasedWaitForModuleResponse();
 		// read
+		this.receivedResponseOnLastPing = true;
 	}
 }

@@ -9,44 +9,45 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.Module;
+import sw901e12.Recovery;
 import sw901e12.comm.ModulePinger;
+import sw901e12.sys.Config;
 
 public class PEHModuleResponseChecker extends PeriodicEventHandler {
 
-	private Module[] slaves;
 	private SimplePrintStream console;
-	private APEHModuleFailedRoutine noModuleResponseHandler;
+	private Module[] slaves;
+	private Recovery recovery;
 
 	public PEHModuleResponseChecker(PriorityParameters priority,
-			PeriodicParameters parameters, StorageParameters scp,
-			long scopeSize, Module[] slaves, SimplePrintStream console,
-			APEHModuleFailedRoutine noModuleResponseHandler) {
+				PeriodicParameters parameters, StorageParameters scp,
+				long scopeSize, SimplePrintStream console, Module[] slaves, 
+				Recovery recovery) {
+		
 		super(priority, parameters, scp, scopeSize);
 
-		this.slaves = slaves;
 		this.console = console;
-		this.noModuleResponseHandler = noModuleResponseHandler;
+		this.slaves = slaves;
+		this.recovery = recovery;
 	}
 
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		//console.println("Checking module responses");
-		boolean invokeModuleFailedRoutine = false;
+		if(Config.DEBUG) {
+			console.println("PEHModuleResponseChecker");
+		}
+		
 		ModulePinger slaveModulePinger;
 		
 		for (Module slave : slaves) { // @WCA loop<=10
 			slaveModulePinger = slave.getModulePinger();
 			if (slaveModulePinger.didReceiveResponseFromModule()) {
 				slaveModulePinger.resetDidReceiveResponseFlag();
-			}	
-			else {
-				invokeModuleFailedRoutine = true;
+			} else {
+				recovery.executeRecovery = true;
 				break;
 			}
 		}
-		
-		if(invokeModuleFailedRoutine)
-			noModuleResponseHandler.release();
 	}
 }

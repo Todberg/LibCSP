@@ -5,43 +5,45 @@ import javax.realtime.Clock;
 
 import com.jopdesign.io.I2Cport;
 
-import sw901e12.sys.Config;
-
 /*
  * Pinging each module via. I2C is done differently depending on the device.
  * Therefore each module will have its own pinger that knows how to communicate with that particular device.
  */
 public abstract class ModulePinger {
-	protected boolean receivedResponseOnLastPing;
-	protected Clock clock;
-	protected I2Cport i2cPort;
+	
+	protected volatile boolean receivedResponseOnLastPing;
+	
 	protected int memoryAddressOnDeviceToRequest;
+	protected I2Cport i2cPort;
+	protected Clock clock;
+	protected AbsoluteTime time;
 	
 	public ModulePinger(int memoryAddressOnDeviceToRequest, I2Cport i2cPort) {
 		this.memoryAddressOnDeviceToRequest = memoryAddressOnDeviceToRequest;
 		this.i2cPort = i2cPort;
 		this.receivedResponseOnLastPing = false;
 		this.clock = Clock.getRealtimeClock();
+		this.time = clock.getTime();
 	}
 	
-	private boolean isTimeout(AbsoluteTime timeout) {		
-		return (clock.getTime().compareTo(timeout) > 0 ? true : false);
+	private boolean isTimeout(long timeout) {	
+		clock.getTime(time);
+		return (time.getMilliseconds() > timeout ? true : false);
 	}
 	
 	private boolean isDataAvailable() {
-		return ((i2cPort.status & I2Cport.DATA_VALID) == 1);
+		if(i2cPort != null) {
+			return ((i2cPort.status & I2Cport.DATA_VALID) == 1);
+		}
+		
+		return false;
 	}
 	
 	protected final void timeoutBasedWaitForModuleResponse() {
-		System.out.println("Getting clock");
-		AbsoluteTime timeout = clock.getTime();
+		clock.getTime(time);
+		long timeout = time.getMilliseconds() + 10;
 		
-		System.out.println("adding timeout");
-		timeout = timeout.add(Config.WD_MODULE_RESPONSE_TIMEOUT);
-		
-		System.out.println("lol");
 		while(!isTimeout(timeout)) {
-			System.out.println("hehe");
 			if(isDataAvailable())
 				break;
 		}
