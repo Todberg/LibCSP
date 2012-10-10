@@ -28,7 +28,7 @@ Instead we design the system around the watchdog acting as the sole master on th
     \end{table}
 \end{center}
 
-The periods of the two periodic tasks are assigned such that the watchdog begins it monitor cycle every half second. We assign priorities according to deadline monotonic priority ordering. We argue that despite deadline enforcement is not available in SCJ it is suitable to consider deadlines due to the precedence relationship between the pinger and checker tasks - not only must both tasks be done executing when either is to be released at a new period, the pinger task must run before the checker one. The deadline of the pinger is set on the assumption that each module times out 10 ms after the watchdog pings it, and in the worst case where the maximum of 10 modules times out, 100 ms will be spent on this alone. In order to correct the priorities and take the precedence relationship into account, we need the checker to have an offset. As in (Burns) we do this by stretching the deadline of the checker task and relate its deadline to the start of the transaction with the pinger, and not its own period and create a transformed task checker. Table \ref{tab:tasks2} shows the (final) transformed task set.
+The periods of the two periodic tasks are assigned such that the watchdog begins it monitor cycle every half second. We assign priorities according to deadline monotonic priority ordering. We argue that despite deadline enforcement and detection not being available in SCJ, it is suitable to consider deadlines due to the precedence relationship between the pinger and checker tasks - not only must both tasks be done executing when either is to be released at a new period, the pinger task must run before the checker one. The implementation must therefore be done to ensure these deadlines hold (this is done as part of the WCET analysis as described in Chapter \ref{chapter:wcetrta}). The deadline of the pinger is set on the assumption that each module coommunication times out 10 ms after the watchdog pings it (in which case it is consider failed), and in the worst case where the maximum of 10 modules times out, 100 ms will be spent on this alone. In order to correct the priorities and take the precedence relationship into account, we need the checker to have an offset. As in Burns\footnote{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.25.9149} we do this by stretching the deadline of the checker task and relate its deadline to the start of the transaction with the pinger, and not its own period and create a transformed task checker. Table \ref{tab:tasks2} shows the (final) transformed task set.
 \begin{center}
 	\begin{table}
     \begin{tabular}{ | l | l | c | c | c |}
@@ -45,6 +45,8 @@ The periods of the two periodic tasks are assigned such that the watchdog begins
 \end{center}
 
 \chapter{Design and Implementation}
+\img{UML.pdf}{0.8}{UML for the packages in the project}
 
 \chapter{WCET and Response-Time Analysis}
+\label{chapter:wcetrta}
 
