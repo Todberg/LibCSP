@@ -15,10 +15,10 @@ import com.jopdesign.sys.Native;
 
 public class PEHModulePingerMeasure extends PEHModulePinger {
 
-	private int instructionCountBegin;
-	private int instructionCountEnd;
-	private int instructionCountForNativeReads;
-	private int instructionCountResultForHandler;
+	private int timeUsBegin;
+	private int timeUsEnd;
+	private int timeUsForNativeReads;
+	private int timeUsResultForHandler;
 	
 	private ModulePingerFactory modulePingerFactory;
 	
@@ -36,9 +36,9 @@ public class PEHModulePingerMeasure extends PEHModulePinger {
 		
 		modulePingerFactory = ModulePingerFactory.createEnvironmentSpecificModuleFactory();
 		
-		instructionCountBegin = Native.rdMem(Const.IO_CNT);
-		instructionCountEnd = Native.rdMem(Const.IO_CNT);
-		instructionCountForNativeReads = instructionCountEnd - instructionCountBegin;
+		timeUsBegin = Native.rdMem(Const.IO_US_CNT);
+		timeUsEnd = Native.rdMem(Const.IO_US_CNT);
+		timeUsForNativeReads = timeUsEnd - timeUsBegin;
 		
 		slaves = new Module[10];
 		slaves[0] = Module.createWithNameAddressAndPinger("Ultrasonic Sensor", 0x01, modulePingerFactory.createModulePingerOnI2CAddress(0x01));
@@ -56,12 +56,12 @@ public class PEHModulePingerMeasure extends PEHModulePinger {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		instructionCountBegin = Native.rdMem(Const.IO_CNT);
+		timeUsBegin = Native.rdMem(Const.IO_US_CNT);
 		super.handleAsyncEvent();
-		instructionCountEnd = Native.rdMem(Const.IO_CNT);
+		timeUsEnd = Native.rdMem(Const.IO_US_CNT);
 		
-		instructionCountResultForHandler = instructionCountEnd - instructionCountBegin - instructionCountForNativeReads;
-		
-		console.println("Instructions: " + instructionCountResultForHandler);
+		timeUsResultForHandler = timeUsEnd - timeUsBegin - timeUsForNativeReads;
+		timeUsResultForHandler = timeUsEnd - timeUsBegin;
+		console.println("US: " + timeUsResultForHandler);
 	}
 }

@@ -1,8 +1,5 @@
 package sw901e12.comm;
 
-import javax.realtime.AbsoluteTime;
-import javax.realtime.Clock;
-
 import com.jopdesign.io.I2Cport;
 
 /*
@@ -15,20 +12,12 @@ public abstract class ModulePinger {
 	
 	protected int memoryAddressOnDeviceToRequest;
 	protected I2Cport i2cPort;
-	protected Clock clock;
-	protected AbsoluteTime time;
+	private long timeout;
 	
 	public ModulePinger(int memoryAddressOnDeviceToRequest, I2Cport i2cPort) {
 		this.memoryAddressOnDeviceToRequest = memoryAddressOnDeviceToRequest;
 		this.i2cPort = i2cPort;
 		this.receivedResponseOnLastPing = false;
-		this.clock = Clock.getRealtimeClock();
-		this.time = clock.getTime();
-	}
-	
-	private boolean isTimeout(long timeout) {	
-		clock.getTime(time);
-		return (time.getMilliseconds() > timeout ? true : false);
 	}
 	
 	private boolean isDataAvailable() {
@@ -40,10 +29,9 @@ public abstract class ModulePinger {
 	}
 	
 	protected final void timeoutBasedWaitForModuleResponse() {
-		clock.getTime(time);
-		long timeout = time.getMilliseconds() + 10;
+		timeout = System.currentTimeMillis() + 10;
 		
-		while(!isTimeout(timeout)) {
+		while(System.currentTimeMillis() < timeout) {
 			if(isDataAvailable())
 				break;
 		}
