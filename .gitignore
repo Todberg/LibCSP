@@ -18,3 +18,5 @@
 *.synctex.gz
 
 /Code/Watchdog/build/
+/Minireport/Report.pdf
+*.fdb_latexmk
