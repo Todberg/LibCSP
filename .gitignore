@@ -20,3 +20,4 @@
 /Code/Watchdog/build/
 /Minireport/Report.pdf
 *.fdb_latexmk
+Report.fdb_latexmk
