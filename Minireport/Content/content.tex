@@ -75,8 +75,19 @@ For the recovery periodic event handler, it was considered that different recove
 \label{chapter:wcetrta}
 \section{Determining WCET} % (fold)
 \label{sec:determining_wcet}
-To find the worst-case execution time (WCET) for the three tasks, the tasks are inspected and calculated individually. For the Watchdog application, this calculation is done using either static analysis in which the target source code is analysed without the program running or measurement-based where the target code is executed. For the \textit{Checker} and \textit{Recovery} handlers, static analysis will be performed using a WCET analysis tool provided with the JOP project. 
+To find the worst-case execution time (WCET) for the three tasks, the tasks are inspected and calculated individually. For the Watchdog application, this calculation is done using either static analysis in which the target source code is analysed without the program running or measurement-based where the target code is executed. For the \textit{Checker} and \textit{Recovery} handlers, static analysis will be performed using a WCET analysis tool (WCA) provided with the JOP project\footnote{This tool analyses the compiled java bytecode instructions while taking the cache into account. The output of running the tool is a report containing graphs, highlighted analysed code and WCET results in clock cycles.}. Compared to conducting run-time measurements WCA is able to output an exact cycle count as each bytecode instruction in a SCJ compliant application running on JOP is cycle time accurate making this method preferable. On the other hand, the combination and simplicity of JOP and the FPGA board makes the run-time method acceptable due to there only being a single cache (method cache), a single processor (and thereby no parallelism) and no interleaving processes that can claim CPU time.
 
+In the \textit{Checker}, to properly analyse the loop iterating over each module in order to check the response, a bound annotation is set to 10, thereby restricting the application to handle a maximum of 10 module devices. As the WCET for the \textit{Recovery} handler depends on the supplied recovery algorithm, a dummy recovery option is utilised which respectively turns on an off the LEDs on the Board with busy-wait loops in between for simulating work. These loops are bounded to 1000 iterations using the previously mentioned tool annotations. Running the tool on the two handlers yields to the following WCET results where the cache always misses:
+\begin{itemize}
+    \item \textbf{Checker:} $5832\ cycles \Rightarrow \frac{5832\ cycles}{60.000.000\ cycles/sec} * 1000 = 0.0972\ ms$
+    \item \textbf{Recovery:} $32337\ cycles \Rightarrow \frac{32337\ cycles}{60.000.000\ cycles/sec} * 1000 = 0.53895\ ms$
+\end{itemize}
+
+Unfortunatly the logic and implementation of the \textit{Pinger} prevents the same static analysis method due to temporal constraints. More specifically, the \textit{Pinger} invokes the \textit{ping} method of each module, which uses the $\textit{I}^2\textit{C}$ protocol to communicate with the the slave module. After requesting a memory address to read from, a timeout mechanism disallows the \textit{Pinger} to continue to the next module as the response (if any) can be somewhat slow due to it being an I/O operation. The timeout is set to 10ms which should more than enough time to determine whether or not the slave module is alive and talkative. Furthermore as the timeout mechanism is dependent on time, it is not possible to use WCA. To circumvent this issue, dynamic measurements are used through the use of a hardware timer. On the altera board and in the $\textit{I}^2\textit{C}$ configuration of JOP, a hardware timer with a resolution downto 1$\mu$s is available. To avoid polluting the Watchdog with measuring code we used inheritance to make a derived WCET-version of the \textit{Pinger}. In its \textit{handleAsyncEvent} method we surrounded the call to the handling code contained in the the super class with native reads of the hardware timer (start and stop). The start time is then substracted from the end time as well as well as the total time is takes to perform two timer reads\footnote{These two timer reads are measured at run-time in advance and stored in a variable}. Downloading the Watchdog application to the FPGA board and running the handler numerous times for about one minute gave the following maximum value, $100161\ \mu s $. As it is impossible to verify, no-matter how long you run the application, that the value indeed is the worst-case execution time, it is common to add another 20\% to the result in order to be on the 'safe side'. This yields the following WCET result:
+
+\begin{itemize}
+    \item \textbf{Recovery:} $100161\ \mu s * 1.25 = 125201.25\ \mu s \Rightarrow 125201.25\ \mu s * 1000 = 125.20125\ ms$
+\end{itemize}
 
 % section determining_wcet (end)
 
@@ -84,4 +95,3 @@ To find the worst-case execution time (WCET) for the three tasks, the tasks are 
 \label{sec:response_time_analysis_of_watchdog}
 
 % section response_time_analysis_of_watchdog (end)
-
