@@ -114,13 +114,8 @@ To find the worst-case execution time (WCET) for the three tasks, the tasks are 
 
 \section{Response-Time Analysis of Watchdog} % (fold)
 \label{sec:response_time_analysis_of_watchdog}
-Using the measured WCET we here perform the final response-time analysis of the concrete implementation. As the WCET for all tasks are way below the specified computation time in our earlier model, it is trivial to verify the schedulability of the implementation. We will, however, provide the calculations below for good measure and to verify this completely.
-\begin{equation}
-\label{eq:rta}
-     R_{i} = C_{i} + \sum\limits_{j\in hp(i)} \ceil{\frac{R_{i}}{T_{j}}}*C_{j}
-\end{equation}
+Using the measured WCET we here perform the final response-time analysis of the concrete implementation. As the WCET for all tasks are way below the specified computation time in our earlier model, it is trivial to verify the schedulability of the implementation. We will, however, provide the calculations below for good measure and proper verification.
 
-The following shows the response-times for the modelled tasks in the transformed task set (Table \ref{tab:tasks2}):
 \begin{equation}
 \label{eq:pingerrta}
      R_{pinger} = C_{pinger} = 125,20125
