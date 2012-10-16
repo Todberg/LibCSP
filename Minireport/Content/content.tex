@@ -75,6 +75,7 @@ For the recovery periodic event handler, it was considered that different recove
 \label{chapter:wcetrta}
 \section{Determining WCET} % (fold)
 \label{sec:determining_wcet}
+To find the worst-case execution time (WCET) for the three tasks, the tasks are inspected and calculated individually. For the Watchdog application, this calculation is done using either static analysis in which the target source code is analysed without the program running or measurement-based where the target code is executed. For the \textit{Checker} and \textit{Recovery} handlers, static analysis will be performed using a WCET analysis tool provided with the JOP project. 
 
 
 % section determining_wcet (end)

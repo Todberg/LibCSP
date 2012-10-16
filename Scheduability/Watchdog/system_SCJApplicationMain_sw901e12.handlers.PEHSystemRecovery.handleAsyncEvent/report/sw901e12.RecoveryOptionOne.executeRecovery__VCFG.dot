@@ -3,21 +3,21 @@ digraph cfg
 0 [label="#0 ENTRY",shape=box,fontname=Courier,fontsize=10];
 1 [label="#8 EXIT",shape=box,fontname=Courier,fontsize=10];
 2 [peripheries=1,label="#1 {simple}{11 By, 33 Cyc, }\l[22]  ledSwitch<-aload_0 getfield sw901e12.RecoveryOptionOne.ledSwitch Lcom/jopdesign/io/LedSwitch;\l  \ ldc 2147483647\l[22-23] $1<-iconst_0\l",shape=box,fontname=Courier,fontsize=10];
-3 [peripheries=2,label="#2 {if_icmpge}{6 By, 13 Cyc, LOOP 2/; [0,1024]}\l[23]  iload_1 ldc 10000000\l[23]  if_icmpge -> 24\l",shape=box,fontname=Courier,fontsize=10];
+3 [peripheries=2,label="#2 {if_icmpge}{7 By, 8 Cyc, LOOP 2/; 1000}\l[23]  iload_1 sipush 1000\l[23]  if_icmpge -> 25\l",shape=box,fontname=Courier,fontsize=10];
 4 [peripheries=2,label="#3 {goto}{7 By, 8 Cyc, }\l[23]  $1<-iload_1 iconst_1 iadd\l[23]  goto -> 11\l",shape=box,fontname=Courier,fontsize=10];
 5 [peripheries=1,label="#4 {simple}{19 By, 57 Cyc, }\l[24]  ledSwitch<-aload_0 getfield sw901e12.RecoveryOptionOne.ledSwitch Lcom/jopdesign/io/LedSwitch;\l  \ iconst_0\l[24-25] wd<-aload_0 getfield sw901e12.RecoveryOptionOne.sysDevice Lcom/jopdesign/io/SysDevice;\l  \ ldc 2147483647\l[25-26] $1<-iconst_0\l",shape=box,fontname=Courier,fontsize=10];
-6 [peripheries=2,label="#5 {if_icmpge}{6 By, 13 Cyc, LOOP 5/; [0,1024]}\l[26]  iload_1 ldc 10000000\l[26]  if_icmpge -> 56\l",shape=box,fontname=Courier,fontsize=10];
-7 [peripheries=2,label="#6 {goto}{7 By, 8 Cyc, }\l[26]  $1<-iload_1 iconst_1 iadd\l[26]  goto -> 43\l",shape=box,fontname=Courier,fontsize=10];
+6 [peripheries=2,label="#5 {if_icmpge}{7 By, 8 Cyc, LOOP 5/; 1000}\l[26]  iload_1 sipush 1000\l[26]  if_icmpge -> 58\l",shape=box,fontname=Courier,fontsize=10];
+7 [peripheries=2,label="#6 {goto}{7 By, 8 Cyc, }\l[26]  $1<-iload_1 iconst_1 iadd\l[26]  goto -> 44\l",shape=box,fontname=Courier,fontsize=10];
 8 [peripheries=1,label="#7 {return}{9 By, 45 Cyc, }\l[27]  wd<-aload_0 getfield sw901e12.RecoveryOptionOne.sysDevice Lcom/jopdesign/io/SysDevice;\l  \ iconst_0\l[27-28] return\l",shape=box,fontname=Courier,fontsize=10];
 0 -> 2[label=entry,fontname=Courier,fontsize=10];
-4 -> 3[label="",fontname=Courier,arrowhead=empty,fontsize=10];
-2 -> 3[label="",fontname=Courier,arrowhead=diamond,fontsize=10];
 7 -> 6[label="",fontname=Courier,arrowhead=empty,fontsize=10];
-6 -> 7[label="{cont:5 }",fontname=Courier,fontsize=10];
-6 -> 8[label="{exit:5 }",fontname=Courier,fontsize=10];
+2 -> 3[label="",fontname=Courier,arrowhead=diamond,fontsize=10];
+4 -> 3[label="",fontname=Courier,arrowhead=empty,fontsize=10];
 5 -> 6[label="",fontname=Courier,arrowhead=diamond,fontsize=10];
 8 -> 1[label=return,fontname=Courier,fontsize=10];
 3 -> 4[label="{cont:2 }",fontname=Courier,fontsize=10];
 3 -> 5[label="{exit:2 }",fontname=Courier,fontsize=10];
+6 -> 7[label="{cont:5 }",fontname=Courier,fontsize=10];
+6 -> 8[label="{exit:5 }",fontname=Courier,fontsize=10];
 0 -> 1[label=return,fontname=Courier,fontsize=10];
 }
