@@ -1,0 +1,9 @@
+digraph cfg
+{
+0 [label="#0 ENTRY",shape=box,fontname=Courier,fontsize=10];
+1 [label="#2 EXIT",shape=box,fontname=Courier,fontsize=10];
+2 [label="#1 {return}{6 By, 35 Cyc, }\l[43]  receivedResponseOnLastPing<-aload_0 iconst_0\l[43-44] return\l",shape=box,fontname=Courier,fontsize=10];
+0 -> 2[label=entry,fontname=Courier,fontsize=10];
+2 -> 1[label=return,fontname=Courier,fontsize=10];
+0 -> 1[label=return,fontname=Courier,fontsize=10];
+}

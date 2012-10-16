@@ -1,0 +1,9 @@
+digraph cfg
+{
+0 [label="#0 ENTRY",shape=box,fontname=Courier,fontsize=10];
+1 [label="#2 EXIT",shape=box,fontname=Courier,fontsize=10];
+2 [label="#1 {return}{5 By, 34 Cyc, }\l[41]  aload_0 getfield sw901e12.Module.modulePinger Lsw901e12/comm/ModulePinger;\l  \ areturn\l",shape=box,fontname=Courier,fontsize=10];
+0 -> 2[label=entry,fontname=Courier,fontsize=10];
+2 -> 1[label=return,fontname=Courier,fontsize=10];
+0 -> 1[label=return,fontname=Courier,fontsize=10];
+}

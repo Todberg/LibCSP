@@ -12,7 +12,11 @@ public class DummySimulatorModule extends ModulePinger {
 	
 	@Override
 	public void ping() {
+		
+		for(int i = 0; i < 1000; i++);
 		timeoutBasedWaitForModuleResponse();
+		for(int i = 0; i < 1000; i++);
+		
 		this.receivedResponseOnLastPing = true;
 	}
 }

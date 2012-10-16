@@ -4,7 +4,7 @@ import com.jopdesign.io.LedSwitch;
 import com.jopdesign.io.LedSwitchFactory;
 import com.jopdesign.io.SysDevice;
 
-public class RecoveryOptionOne extends Recovery {
+public class RecoveryOptionOne implements IRecoveryRoutine {
 
 	private LedSwitch ledSwitch;
 	private SysDevice sysDevice;

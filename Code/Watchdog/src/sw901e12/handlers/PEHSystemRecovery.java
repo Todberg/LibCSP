@@ -6,21 +6,24 @@ import javax.safetycritical.PeriodicEventHandler;
 import javax.safetycritical.StorageParameters;
 import javax.safetycritical.io.SimplePrintStream;
 
-import sw901e12.Recovery;
+import sw901e12.IRecoveryRoutine;
+import sw901e12.WatchdogMission;
 import sw901e12.sys.Config;
 
 public class PEHSystemRecovery extends PeriodicEventHandler {
 	
 	private SimplePrintStream console;
-	private Recovery recovery;
+	private IRecoveryRoutine recovery;
+	private WatchdogMission mission;
 	
 	public PEHSystemRecovery(PriorityParameters priority,
 			PeriodicParameters release, StorageParameters scp, 
-			long scopeSize,  SimplePrintStream console, Recovery recovery) {
+			long scopeSize,  SimplePrintStream console, WatchdogMission mission, IRecoveryRoutine recovery) {
 		
 		super(priority, release, scp, scopeSize);
 		
 		this.console = console;
+		this.mission = mission;
 		this.recovery = recovery;
 	}
 
@@ -30,7 +33,7 @@ public class PEHSystemRecovery extends PeriodicEventHandler {
 			console.println("PEHSystemRecovery");
 		}
 		
-		if(recovery.executeRecovery) {
+		if(mission.executeRecovery) {
 			if(Config.DEBUG) {
 				console.println("Initiating system recovery...");
 			}

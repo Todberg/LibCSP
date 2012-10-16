@@ -1,0 +1,149 @@
+<!-- Context: ClasReport -->
+<h1>Class: sw901e12.RecoveryOptionOne</h1>
+<h2>Source</h2>
+<p>java\target\src\..\..\..\..\SW9\Code\Watchdog\src\sw901e12\RecoveryOptionOne.java</p>
+<div style="background-color: white">
+	<code>
+		1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| package&nbsp;sw901e12;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| import&nbsp;com.jopdesign.io.LedSwitch;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| import&nbsp;com.jopdesign.io.LedSwitchFactory;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| import&nbsp;com.jopdesign.io.SysDevice;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| public&nbsp;class&nbsp;RecoveryOptionOne&nbsp;implements&nbsp;IRecoveryRoutine&nbsp;{
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;LedSwitch&nbsp;ledSwitch;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;SysDevice&nbsp;sysDevice;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</code>
+</div>
+<div style="background-color: lightblue">
+	<code>
+		12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;RecoveryOptionOne()&nbsp;{
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LedSwitchFactory&nbsp;ledSwitchfactory&nbsp;=&nbsp;LedSwitchFactory.getLedSwitchFactory();
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ledSwitch&nbsp;=&nbsp;ledSwitchfactory.getLedSwitch();
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sysDevice&nbsp;=&nbsp;ledSwitchfactory.getSysDevice();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override
+	</code>
+</div>
+<div style="background-color: lightblue">
+	<code>
+		19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;executeRecovery()&nbsp;{
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		21&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Simulate&nbsp;recovery&nbsp;computations
+	</code>
+</div>
+<div style="background-color: red">
+	<code>
+		22&nbsp;&nbsp;&nbsp;[33]&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ledSwitch.ledSwitch&nbsp;=&nbsp;Integer.MAX_VALUE;
+	</code>
+</div>
+<div style="background-color: red">
+	<code>
+		23&nbsp;&nbsp;&nbsp;[21517]&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10000000;&nbsp;i++);
+	</code>
+</div>
+<div style="background-color: red">
+	<code>
+		24&nbsp;&nbsp;&nbsp;[57]&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ledSwitch.ledSwitch&nbsp;=&nbsp;0;
+	</code>
+</div>
+<div style="background-color: red">
+	<code>
+		25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sysDevice.wd&nbsp;=&nbsp;Integer.MAX_VALUE;
+	</code>
+</div>
+<div style="background-color: red">
+	<code>
+		26&nbsp;&nbsp;&nbsp;[21517]&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10000000;&nbsp;i++);
+	</code>
+</div>
+<div style="background-color: red">
+	<code>
+		27&nbsp;&nbsp;&nbsp;[45]&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sysDevice.wd&nbsp;=&nbsp;0;
+	</code>
+</div>
+<div style="background-color: red">
+	<code>
+		28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+	</code>
+</div>
+<div style="background-color: white">
+	<code>
+		29&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| }
+	</code>
+</div>

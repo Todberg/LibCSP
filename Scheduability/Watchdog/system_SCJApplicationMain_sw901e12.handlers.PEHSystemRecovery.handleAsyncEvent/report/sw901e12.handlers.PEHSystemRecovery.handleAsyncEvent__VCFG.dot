@@ -1,0 +1,18 @@
+digraph cfg
+{
+0 [label="#0 ENTRY",shape=box,fontname=Courier,fontsize=10];
+1 [label="#6 EXIT",shape=box,fontname=Courier,fontsize=10];
+2 [label="#1 {ifeq}{10 By, 25 Cyc, }\l[36]  aload_0 getfield sw901e12.handlers.PEHSystemRecovery.mission Lsw901e12/WatchdogMission;\l  \ getfield sw901e12.WatchdogMission.executeRecovery Z\l[36]  ifeq -> 19\l",shape=box,fontname=Courier,fontsize=10];
+3 [label="#2 {simple}{4 By, 11 Cyc, }\l[40]  aload_0 getfield sw901e12.handlers.PEHSystemRecovery.recovery Lsw901e12/IRecoveryRoutine;\l",shape=box,fontname=Courier,fontsize=10];
+4 [label="#5 {return}{1 By, 21 Cyc, }\l[42]  return\l",shape=box,fontname=Courier,fontsize=10];
+5 [label="#3 {invoke sw901e12.RecoveryOptionOne.executeRecovery()V}{5 By, 115 Cyc, }\l[40]  invokeinterface[185](5) 6\l",shape=box,fontname=Courier,fontsize=10];
+6 [label="#4 SPLIT",shape=box,fontname=Courier,fontsize=10];
+0 -> 2[label=entry,fontname=Courier,fontsize=10];
+2 -> 3[label="",fontname=Courier,fontsize=10];
+2 -> 4[label="",fontname=Courier,fontsize=10];
+4 -> 1[label=return,fontname=Courier,fontsize=10];
+0 -> 1[label=return,fontname=Courier,fontsize=10];
+3 -> 5[label="",fontname=Courier,fontsize=10];
+6 -> 4[label="",fontname=Courier,fontsize=10];
+5 -> 6[label="",fontname=Courier,fontsize=10];
+}
