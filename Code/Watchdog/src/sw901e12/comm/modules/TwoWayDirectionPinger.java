@@ -11,10 +11,11 @@ public class TwoWayDirectionPinger extends ModulePinger {
 	}
 	
 	@Override
-	public final void ping() {
-		// write
+	public final void ping() {	
+		for(int i = 0; i < 10000000; i++);
 		timeoutBasedWaitForModuleResponse();
-		// read
+		for(int i = 0; i < 10000000; i++);
+		
 		this.receivedResponseOnLastPing = true;
 	}
 }

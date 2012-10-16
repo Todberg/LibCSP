@@ -26,8 +26,8 @@ public class WatchdogMission extends Mission {
 	private ModulePingerFactory modulePingerFactory;
 	private Module[] slaves;
 	
-	private RecoveryOptionOne recovery;
-
+	public volatile boolean executeRecovery;
+	
 	private PEHModulePinger modulePingerHandler;
 	private PEHModuleResponseChecker moduleResponseCheckerHandler;
 	private PEHSystemRecovery systemRecoveryHandler;
@@ -38,9 +38,7 @@ public class WatchdogMission extends Mission {
 		initializeConsole();
 		initializeModulePingerFactory();
 		initializeSlaves();
-		
-		recovery = new RecoveryOptionOne();
-        
+
         initializePEHModulePinger();
         if(!Config.MEASURE_WCET) {
         	initializePEHModuleResponseChecker();
@@ -120,7 +118,7 @@ public class WatchdogMission extends Mission {
 				0,
 				console,
 				slaves,
-				recovery);
+				this);
 		
 		moduleResponseCheckerHandler.register();
 	}
@@ -136,12 +134,15 @@ public class WatchdogMission extends Mission {
 		StorageParameters storageParams = new StorageParameters(FAILED_MODULE_HANDLER_BACKING_STORE_SIZE_IN_BYTES,
 															  new long[] { FAILED_MODULE_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 
+		RecoveryOptionOne recovery = new RecoveryOptionOne();
+		
 		systemRecoveryHandler = new PEHSystemRecovery(
 				priorityParams, 
 				periodicParams, 
 				storageParams, 
 				0,
 				console,
+				this,
 				recovery);
 		
 		systemRecoveryHandler.register();

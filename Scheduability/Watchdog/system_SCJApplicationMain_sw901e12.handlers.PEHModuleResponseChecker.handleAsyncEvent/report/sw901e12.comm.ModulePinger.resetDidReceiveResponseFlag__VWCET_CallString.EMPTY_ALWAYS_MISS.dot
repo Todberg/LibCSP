@@ -1,0 +1,9 @@
+digraph cfg
+{
+0 [label="#0 ENTRY",shape=box,fontname=Courier,fontsize=10];
+2 [label="#2 EXIT",shape=box,fontname=Courier,fontsize=10];
+1 [label="#1 basic(0)",shape=box,fontname=Courier,fontsize=10];
+0 -> 1[label=1,fontname=Courier,fontsize=10];
+1 -> 2[label=1,fontname=Courier,fontsize=10];
+0 -> 2[label=0,fontname=Courier,fontsize=10];
+}

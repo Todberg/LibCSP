@@ -9,7 +9,7 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.Module;
-import sw901e12.Recovery;
+import sw901e12.WatchdogMission;
 import sw901e12.comm.ModulePinger;
 import sw901e12.sys.Config;
 
@@ -17,18 +17,18 @@ public class PEHModuleResponseChecker extends PeriodicEventHandler {
 
 	private SimplePrintStream console;
 	private Module[] slaves;
-	private Recovery recovery;
+	private WatchdogMission mission;
 
 	public PEHModuleResponseChecker(PriorityParameters priority,
 				PeriodicParameters parameters, StorageParameters scp,
 				long scopeSize, SimplePrintStream console, Module[] slaves, 
-				Recovery recovery) {
+				WatchdogMission mission) {
 		
 		super(priority, parameters, scp, scopeSize);
 
 		this.console = console;
 		this.slaves = slaves;
-		this.recovery = recovery;
+		this.mission = mission;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class PEHModuleResponseChecker extends PeriodicEventHandler {
 			if (slaveModulePinger.didReceiveResponseFromModule()) {
 				slaveModulePinger.resetDidReceiveResponseFlag();
 			} else {
-				recovery.executeRecovery = true;
+				mission.executeRecovery = true;
 				break;
 			}
 		}
