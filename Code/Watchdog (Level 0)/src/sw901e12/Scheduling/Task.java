@@ -1,4 +1,4 @@
-package sw901e12;
+package sw901e12.Scheduling;
 
 public class Task {
 	

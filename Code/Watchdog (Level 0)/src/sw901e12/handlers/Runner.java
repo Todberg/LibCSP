@@ -9,8 +9,8 @@ import javax.safetycritical.annotate.SCJAllowed;
 
 import com.jopdesign.sys.Memory;
 
-import sw901e12.Task;
 import sw901e12.Scheduling.CyclicSchedule;
+import sw901e12.Scheduling.Task;
 
 public class Runner extends PeriodicEventHandler {
 

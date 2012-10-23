@@ -10,6 +10,8 @@ Figure \ref{img:setup.pdf} shows the setup of this small model. An Altera DE2-70
 \img{setup.pdf}{0.7}{Altera DE2-70 and Lego NXT UltraSonic sensor used in hardware setup}
 
 \section{Tasks and Temporal Requirements}
+The watchdog will be implemented according to compliance level 1.
+
 The tasks required for the watchdog depends on the communication flow. The watchdog can be designed to be the master that initiates and monitors each module, or each module can act as masters that regularly contacts and resets a timer in the watchdog. While the $\textit{I}^2\textit{C}$ is a multi-master protocol, only one master and slave may communicate on the bus at a time.
 A multi-master approach in this distributed setting with modules contacting the watchdog, could lead to starvation of one or more modules due to repeated bus congestion, leading (incorrectly) to the watchdog assuming a module failure.
 
@@ -79,7 +81,7 @@ The following shows the response-times for the modelled tasks in the transformed
 We can here see that the tasks of our model are indeed (very much) schedulable under FPS\footnote{The original task set defined in Table \ref{tab:taskslol} is, however, not!} as the response time for each task is below its deadline.
 
 \chapter{Design and Implementation}
-The implementation of the watchdog can be found on GitHub in the repository at \url{https://github.com/Todberg/SW9/tree/master/Code/Watchdog}. In addition to the implementation, additional time has been spent on optimizing the development and analysis process both for this project and long term for future SCJ development. Build and run scripts created are found in Appendix \ref{cha:build_scripts} and a small python script for performing response-time analysis is found in Appendix \ref{cha:rta_calculator}.
+The implementation of the watchdog can be found on GitHub in the repository at \url{https://github.com/Todberg/SW9/tree/master/Code/Watchdog (Level 1)}. In addition to the implementation, additional time has been spent on optimizing the development and analysis process both for this project and long term for future SCJ development. Build and run scripts created are found in Appendix \ref{cha:build_scripts} and a small python script for performing response-time analysis is found in Appendix \ref{cha:rta_calculator}.
 
 In the following a brief description of the implementation is described on an abstract level (confined to abstract design class diagrams). The Java packages comprising the structure of the watchdog is illustrated in Figure \ref{img:UML.pdf}. 
 \img{UML.pdf}{0.7}{UML for the packages in the project}

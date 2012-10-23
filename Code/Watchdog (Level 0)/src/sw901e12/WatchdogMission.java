@@ -14,6 +14,7 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.Scheduling.CyclicSchedule;
+import sw901e12.Scheduling.Task;
 import sw901e12.comm.ModulePingerFactory;
 import sw901e12.handlers.PEHModulePinger;
 import sw901e12.handlers.PEHModuleResponseChecker;

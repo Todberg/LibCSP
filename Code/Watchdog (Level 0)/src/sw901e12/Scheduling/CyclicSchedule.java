@@ -2,7 +2,6 @@ package sw901e12.Scheduling;
 
 import javax.realtime.RelativeTime;
 
-import sw901e12.Task;
 
 public final class CyclicSchedule {
 
