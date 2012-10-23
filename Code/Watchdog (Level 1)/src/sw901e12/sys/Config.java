@@ -5,7 +5,7 @@ public class Config {
 	
 	public static final int WD_MASTER_I2C_ADDRESS = 0x000F;
 	
-	public static final boolean MEASURE_WCET = true;
+	public static final boolean MEASURE_WCET = false;
 	
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 }

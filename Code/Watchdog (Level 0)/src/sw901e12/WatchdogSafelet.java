@@ -19,7 +19,7 @@ public class WatchdogSafelet implements Safelet<Mission> {
 	public MissionSequencer<Mission> getSequencer() {
 		return new LinearMissionSequencer<Mission>(
 				new PriorityParameters(11),
-				new StorageParameters(1000, null),
+				new StorageParameters(4096, null),
 				new WatchdogMission());
 	}
 
