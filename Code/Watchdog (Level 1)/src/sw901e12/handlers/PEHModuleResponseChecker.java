@@ -15,9 +15,9 @@ import sw901e12.sys.Config;
 
 public class PEHModuleResponseChecker extends PeriodicEventHandler {
 
-	private SimplePrintStream console;
-	private Module[] slaves;
-	private WatchdogMission mission;
+	protected SimplePrintStream console;
+	protected Module[] slaves;
+	protected WatchdogMission mission;
 
 	public PEHModuleResponseChecker(PriorityParameters priority,
 				PeriodicParameters parameters, StorageParameters scp,

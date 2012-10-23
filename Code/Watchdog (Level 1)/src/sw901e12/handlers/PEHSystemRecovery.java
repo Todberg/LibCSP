@@ -12,9 +12,9 @@ import sw901e12.sys.Config;
 
 public class PEHSystemRecovery extends PeriodicEventHandler {
 	
-	private SimplePrintStream console;
-	private IRecoveryRoutine recovery;
-	private WatchdogMission mission;
+	protected SimplePrintStream console;
+	protected IRecoveryRoutine recovery;
+	protected WatchdogMission mission;
 	
 	public PEHSystemRecovery(PriorityParameters priority,
 			PeriodicParameters release, StorageParameters scp, 
