@@ -103,7 +103,9 @@ For the recovery periodic event handler, it was considered that different recove
 
 \section{Implementing the Watchdog as a Cyclic Executive} % (fold)
 \label{sec:implementing_the_watchdog_as_a_cyclic_executive}
-While the original implementation conforms to Level 1 compliance of SCJ, the following describes an alternative implementation that conforms to Level 0, that is, the watchdog is implemented as a cyclic executive. The three handlers remains as three tasks.
+While the original implementation conforms to Level 1 compliance of SCJ, the following describes an alternative implementation that conforms to Level 0 (or is inteded to be able to), that is, the watchdog is implemented as a cyclic executive. The three handlers remains as three tasks.
+
+Currently SCJ on JOP does not provide a cyclic executive implementation that follows the specification. Neither is the JOP specific cyclic executive implementation functional in its current state. We therefore implemented the cyclic executive version in a way that ensures the three tasks are both executed as if they were run by a specification complete cyclic executive scheduler and in the same environment, e.g. each handler should have its own private memory when released.
 
 
 % section implementing_the_watchdog_as_a_cyclic_executive (end)
