@@ -1,9 +1,0 @@
-PWD /Users/Todberg/Documents/SW9/Report/Misc
-INPUT /usr/local/texlive/2012/texmf.cnf
-INPUT /usr/local/texlive/2012/texmf/web2c/texmf.cnf
-INPUT /usr/local/texlive/2012/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/Todberg/Documents/SW9/Report/Misc/Titlepage.tex
-OUTPUT Titlepage.log
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/map/fontname/texfonts.map
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/map/fontname/texfonts.map
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm

@@ -1,4 +1,6 @@
-# Git ignore these files #
+# Git please ignore these files #
+
+## Files ##
 *.class
 *.tps
 *.tcp
@@ -16,6 +18,10 @@
 *.fls
 *.log
 *.synctex.gz
+
+## Folders ##
+bin/
+build/
 
 /Code/Watchdog/build/
 /Minireport/Report.pdf
