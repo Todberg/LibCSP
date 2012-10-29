@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="csp/scj/|minepump/" kind="src" path="app"/>
+	<classpathentry kind="src" path="common"/>
+	<classpathentry excluding="javax/safetycritical/test/" including="javax/|org/" kind="src" path="rtapi"/>
+	<classpathentry kind="src" path="jdk11"/>
+	<classpathentry kind="src" path="jdk_base"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
