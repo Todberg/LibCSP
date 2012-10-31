@@ -32,7 +32,7 @@ public class InterfaceI2C implements IMACProtocol {
 		int[] frame = new int[FRAME_SIZE_IN_BYTES];
 		
 		frame[0] = (packet.header & packet.MASK_DEST) >> 20;
-		sliceDataIntoBytesAndInsertInto Frame(frame, 1, packet.header);
+		sliceDataIntoBytesAndInsertIntoFrame(frame, 1, packet.header);
 		sliceDataIntoBytesAndInsertIntoFrame(frame, 5, packet.data);
 		
 		I2CPort.write(frame);
