@@ -6,5 +6,6 @@
 	<classpathentry excluding="javax/safetycritical/test/" including="javax/|org/" kind="src" path="rtapi"/>
 	<classpathentry kind="src" path="jdk11"/>
 	<classpathentry kind="src" path="jdk_base"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
