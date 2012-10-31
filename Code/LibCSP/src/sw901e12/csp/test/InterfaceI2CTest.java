@@ -1,6 +1,6 @@
 package sw901e12.csp.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,38 +9,51 @@ import org.junit.Test;
 import sw901e12.csp.Packet;
 import sw901e12.csp.interfaces.InterfaceI2C;
 
-public class InterfaceI2CTest {
-
-	private InterfaceI2C I2CInterface;
+public class InterfaceI2CTest extends InterfaceI2C {
 	
 	@Before
 	public void setUp() {
-		this.I2CInterface = new InterfaceI2C();
 	}
 	
 	@After
 	public void tearDown() {
-		this.I2CInterface = null;
-	}
-
-	@Test
-	public void testReceiveFrame() {
-		
 	}
 	
 	@Test
-	public void sliceDataIntoBytesAndInsertIntoFrame() {
+	public void testGetBytePositionInInteger() {
+		final int testBytePositionWanted = 2;
+		final int testExpectedShiftedPosition = 8; 
+		
+		int actualShiftedPosition = this.position(testBytePositionWanted);
+		assertEquals(testExpectedShiftedPosition, actualShiftedPosition);
+	}
+	
+	@Test
+	public void testInsertNodeDestinationAddressIntoFrame() {
+		final int testNodeHeaderWithDestinationAddress = 0x300000; // Address 3
+		final int testNodeDestinationAddressInFrameByteWithI2CLSBUsed = 0x00000006;
+		Packet testPacket = new Packet(testNodeHeaderWithDestinationAddress, 0);
+	
+		int[] frame = new int[6];
+		this.insertNodeDestinationAddressIntoFrame(frame, testPacket);
+		
+		assertEquals(testNodeDestinationAddressInFrameByteWithI2CLSBUsed, frame[0]);
+	}
+	
+	@Test
+	public void testSliceDataIntoBytesAndInsertIntoFrame() {
 		int[] frame = new int[9];
 		
-		int header = 0xD0000000;
+		int header = 0xABDECFDA;
 		int data = 0xABCDABCD;
 		
-		I2CInterface.sliceDataIntoBytesAndInsertIntoFrame(frame, 1, header);
-		I2CInterface.sliceDataIntoBytesAndInsertIntoFrame(frame, 5, data);
+		this.sliceDataIntoBytesAndInsertIntoFrame(frame, header);
+		this.sliceDataIntoBytesAndInsertIntoFrame(frame, data);
 		
-		assertEquals((header & 0x0000000D), frame[1]);
-		assertEquals(header & 0x00000000, frame[2]);
-		assertEquals(header & 0x00000000, frame[3]);
-		assertEquals(header & 0x00000000, frame[4]);
+		assertEquals(0xAB, frame[0]);
+		assertEquals(0xDE, frame[1]);
+		assertEquals(0xCF, frame[2]);
+		assertEquals(0xDA, frame[3]);
+		assertEquals(0xAB, frame[4]);
 	}
 }

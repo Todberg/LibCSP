@@ -16,6 +16,7 @@ public class ISRHandler extends AperiodicEventHandler {
 		super(priority, release, scp);
 		
 		this.protocolInterface = protocolInterface;
+		this.register();
 	}
 	
 	@Override

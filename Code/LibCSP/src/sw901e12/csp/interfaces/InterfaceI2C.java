@@ -1,19 +1,24 @@
 package sw901e12.csp.interfaces;
 
+import sw901e12.csp.Packet;
+
 import com.jopdesign.io.I2CFactory;
 import com.jopdesign.io.I2Cport;
 
-import sw901e12.csp.Packet;
-
 public class InterfaceI2C implements IMACProtocol {
 
-	static final short INT_SIZE_IN_BYTES = 4;
-	static final short FRAME_SIZE_IN_BYTES = INT_SIZE_IN_BYTES * 2 + 1;
+	static final byte INT_SIZE_IN_BYTES = 4;
+	static final byte BYTE_SHIFT_COUNTER = INT_SIZE_IN_BYTES - 1;  
+	static final byte FRAME_SIZE_IN_BYTES = (INT_SIZE_IN_BYTES * 2) + 1;
 	
-	I2Cport I2CPort;
+	
+	private int frameByteIndex;
+	private I2Cport I2CPort;
 	
 	@Override
 	public void initialize(int nodeAddress) {
+		
+		frameByteIndex = 0;
 		I2CPort = I2CFactory.getFactory().getI2CportA();
 		I2CPort.initConf(nodeAddress);
 	}
@@ -32,26 +37,53 @@ public class InterfaceI2C implements IMACProtocol {
 		
 		int[] frame = new int[FRAME_SIZE_IN_BYTES];
 		
-		frame[0] = packet.getDST() << 1;
-		//sliceDataIntoBytesAndInsertIntoFrame(frame, 1, packet.header);
-		//sliceDataIntoBytesAndInsertIntoFrame(frame, 5, packet.data);
+		insertNodeDestinationAddressIntoFrame(frame, packet);
+		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.header);
+		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.data);
 		
 		I2CPort.write(frame);
 	}
 
+	/*
+	 * The incoming I2C frame contains the whole packet, here we extract this
+	 * from the data register and assemble the packet to be delivered
+	 * 
+	 * Context: ISR - invoked by the aperiodic event handler created during
+	 * initialization for the I2C interface
+	 */
 	@Override
 	public void receiveFrame() {
+		int header = mergeNextDataBytesReceivedAndInsertIntoInteger();
+		int data = mergeNextDataBytesReceivedAndInsertIntoInteger();
 		
+		Packet packet = new Packet(header, data);
 	}
 	
-	public void sliceDataIntoBytesAndInsertIntoFrame(int[] frame, 
-			int offset, 
-			int data) {
+	protected int mergeNextDataBytesReceivedAndInsertIntoInteger() {
+		int result = 0;
 		
+		for (byte b=0; b < 4; b++){
+			result |= I2CPort.rx_fifo_data << position(b);
+		}
+		
+		return result;
+	}
+	
+	protected void insertNodeDestinationAddressIntoFrame(int[] frame, Packet packet) {
+		frame[frameByteIndex] = packet.getDST() << 1;
+		frameByteIndex++;
+	}
+
+	protected void sliceDataIntoBytesAndInsertIntoFrame(int[] frame, int data) {
 		int dataMask;
-		for(int i = 0; i < INT_SIZE_IN_BYTES; i++) {
-			dataMask = 0x000000FF << i*4;
-			frame[offset+i] = (data & dataMask) >> i*4; 
-		}	
+		for(byte b = 0 ; b < INT_SIZE_IN_BYTES; b++) {
+			dataMask = 0xFF000000 >>>  b*8;
+			frame[frameByteIndex] = (data & dataMask) >>> position(b);
+			frameByteIndex++;
+		}
+	}
+	
+	protected int position(int index) {
+		return (BYTE_SHIFT_COUNTER - index)*8;
 	}
 }
