@@ -19,6 +19,8 @@
 *.fls
 *.log
 *.synctex.gz
+*.orig
+
 
 ## Folders ##
 bin/
@@ -29,3 +31,7 @@ build/
 
 /Code/LibCSP/.classpath
 /Code/LibCSP/.externalToolBuilders/New_Builder.launch
+Code/LibCSP/src/system/SCJApplication.java.BACKUP.1231.java
+Code/LibCSP/src/system/SCJApplication.java.BASE.1231.java
+Code/LibCSP/src/system/SCJApplication.java.LOCAL.1231.java
+Code/LibCSP/src/system/SCJApplication.java.REMOTE.1231.java
