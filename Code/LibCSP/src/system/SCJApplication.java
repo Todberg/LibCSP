@@ -1,12 +1,10 @@
 package system;
 
-import javax.safetycritical.JopSystem;
-
 public class SCJApplication {
 	
 	public static void main(String[] args) {
-		
-		System.out.println("main + 2");
-	
+		int header = 0xFEAFFFFF;
+		sw901e12.csp.Packet packet = new sw901e12.csp.Packet(header, 0);
+		System.out.println("DEST : " + packet.getDEST());
 	}
 }
