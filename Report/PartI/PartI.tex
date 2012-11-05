@@ -1,1 +1,15 @@
 \part{PartOne}
+
+\begin{lstlisting}[language=C++,label=samplecode,caption=A sample]
+#include <future>
+std::map<std::string,std::string> french
+{{"hello","bonjour"},{"world","tout le monde"}};
+int main()
+	{
+std::string greet=french["hello"];
+auto f=std::async(`[&]{std::cout << greet <<", ";}`);
+`std::string audience=french["word"];`
+f.get();
+std::cout<<audience<<std::endl;
+}
+\end{lstlisting}
