@@ -7,13 +7,24 @@ import com.jopdesign.io.I2Cport;
 
 public class InterfaceI2C implements IMACProtocol {
 
-	static final byte INT_SIZE_IN_BYTES = 4;
-	static final byte BYTE_SHIFT_COUNTER = INT_SIZE_IN_BYTES - 1;  
-	static final byte FRAME_SIZE_IN_BYTES = (INT_SIZE_IN_BYTES * 2) + 1;
+	private static InterfaceI2C instance;
 	
+	private static final byte INT_SIZE_IN_BYTES = 4;
+	private static final byte BYTE_SHIFT_COUNTER = INT_SIZE_IN_BYTES - 1;  
+	private static final byte FRAME_SIZE_IN_BYTES = (INT_SIZE_IN_BYTES * 2) + 1;
 	
 	private int frameByteIndex;
 	private I2Cport I2CPort;
+	
+	private InterfaceI2C() { }
+	
+	public InterfaceI2C getInterface() {
+		if(instance == null) {
+			instance = new InterfaceI2C();
+		}
+		
+		return instance;
+	}
 	
 	@Override
 	public void initialize(int nodeAddress) {
