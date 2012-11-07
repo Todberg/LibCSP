@@ -1,6 +1,9 @@
 package sw901e12.csp.interfaces;
 
+import sw901e12.csp.CSPManager;
+import sw901e12.csp.Node;
 import sw901e12.csp.Packet;
+import sw901e12.csp.handlers.RouteHandler;
 
 import com.jopdesign.io.I2CFactory;
 import com.jopdesign.io.I2Cport;
@@ -18,7 +21,7 @@ public class InterfaceI2C implements IMACProtocol {
 	
 	private InterfaceI2C() { }
 	
-	public InterfaceI2C getInterface() {
+	public static InterfaceI2C getInterface() {
 		if(instance == null) {
 			instance = new InterfaceI2C();
 		}
@@ -45,14 +48,17 @@ public class InterfaceI2C implements IMACProtocol {
 	 */
 	@Override
 	public void transmitPacket(Packet packet) {
-		
 		int[] frame = new int[FRAME_SIZE_IN_BYTES];
 		
-		insertNodeDestinationAddressIntoFrame(frame, packet);
+		Node packetDSTNode = RouteHandler.routeTable[packet.getDST()];
+		insertNextHopAddressIntoFrame(frame, packetDSTNode.nextHopAddress);
+		
 		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.header);
 		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.data);
 		
 		I2CPort.write(frame);
+
+		CSPManager.resourcePool.putPacket(packet);
 	}
 
 	/*
@@ -67,10 +73,13 @@ public class InterfaceI2C implements IMACProtocol {
 		int header = mergeNextDataBytesReceivedAndInsertIntoInteger();
 		int data = mergeNextDataBytesReceivedAndInsertIntoInteger();
 		
-		Packet packet = new Packet(header, data);
+		Packet packet = CSPManager.resourcePool.getPacket();
+		packet.header = header;
+		packet.data = data;
+		RouteHandler.packetsToBeProcessed.enqueue(packet);		
 	}
 	
-	protected int mergeNextDataBytesReceivedAndInsertIntoInteger() {
+	public int mergeNextDataBytesReceivedAndInsertIntoInteger() {
 		int result = 0;
 		
 		for (byte b=0; b < 4; b++){
@@ -80,12 +89,12 @@ public class InterfaceI2C implements IMACProtocol {
 		return result;
 	}
 	
-	protected void insertNodeDestinationAddressIntoFrame(int[] frame, Packet packet) {
-		frame[frameByteIndex] = packet.getDST() << 1;
+	public void insertNextHopAddressIntoFrame(int[] frame, byte nextHopAddress) {
+		frame[frameByteIndex] = nextHopAddress << 1;
 		frameByteIndex++;
 	}
 
-	protected void sliceDataIntoBytesAndInsertIntoFrame(int[] frame, int data) {
+	public void sliceDataIntoBytesAndInsertIntoFrame(int[] frame, int data) {
 		int dataMask;
 		for(byte b = 0 ; b < INT_SIZE_IN_BYTES; b++) {
 			dataMask = 0xFF000000 >>>  b*8;
@@ -94,7 +103,7 @@ public class InterfaceI2C implements IMACProtocol {
 		}
 	}
 	
-	protected int position(int index) {
+	public int position(int index) {
 		return (BYTE_SHIFT_COUNTER - index)*8;
 	}
 }

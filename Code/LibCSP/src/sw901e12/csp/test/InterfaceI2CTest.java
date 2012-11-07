@@ -9,14 +9,18 @@ import org.junit.Test;
 import sw901e12.csp.Packet;
 import sw901e12.csp.interfaces.InterfaceI2C;
 
-public class InterfaceI2CTest extends InterfaceI2C {
+public class InterfaceI2CTest {
+	
+	InterfaceI2C interfaceI2C;
 	
 	@Before
 	public void setUp() {
+		interfaceI2C = InterfaceI2C.getInterface();
 	}
 	
 	@After
 	public void tearDown() {
+		interfaceI2C = null;
 	}
 	
 	@Test
@@ -24,7 +28,7 @@ public class InterfaceI2CTest extends InterfaceI2C {
 		final int testBytePositionWanted = 2;
 		final int testExpectedShiftedPosition = 8; 
 		
-		int actualShiftedPosition = this.position(testBytePositionWanted);
+		int actualShiftedPosition = interfaceI2C.position(testBytePositionWanted);
 		assertEquals(testExpectedShiftedPosition, actualShiftedPosition);
 	}
 	
@@ -35,7 +39,7 @@ public class InterfaceI2CTest extends InterfaceI2C {
 		Packet testPacket = new Packet(testNodeHeaderWithDestinationAddress, 0);
 	
 		int[] frame = new int[6];
-		this.insertNodeDestinationAddressIntoFrame(frame, testPacket);
+		interfaceI2C.insertNextHopAddressIntoFrame(frame, testPacket);
 		
 		assertEquals(testNodeDestinationAddressInFrameByteWithI2CLSBUsed, frame[0]);
 	}
@@ -47,8 +51,8 @@ public class InterfaceI2CTest extends InterfaceI2C {
 		int header = 0xABDECFDA;
 		int data = 0xABCDABCD;
 		
-		this.sliceDataIntoBytesAndInsertIntoFrame(frame, header);
-		this.sliceDataIntoBytesAndInsertIntoFrame(frame, data);
+		interfaceI2C.sliceDataIntoBytesAndInsertIntoFrame(frame, header);
+		interfaceI2C.sliceDataIntoBytesAndInsertIntoFrame(frame, data);
 		
 		assertEquals(0xAB, frame[0]);
 		assertEquals(0xDE, frame[1]);
