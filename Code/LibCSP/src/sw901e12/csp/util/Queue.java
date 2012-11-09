@@ -1,17 +1,20 @@
 package sw901e12.csp.util;
 
+import sw901e12.csp.IDispose;
 
-public class Queue<T> {
+
+public class Queue<T extends IDispose> {
 	
 	/*
-	 * Holds the maximum capacity of the queue and
-	 * a count of the empty spaces
+	 * Maximum capacity of the queue and
+	 * a count of the used spaces
 	 */
 	protected byte capacity;
 	protected byte count;
 	
 	/*
-	 * Handles to the start, head and tail element of the queue
+	 * Handles to the start, head and tail 
+	 * element of the queue
 	 */
 	protected Element start;
 	protected Element head;
@@ -31,82 +34,82 @@ public class Queue<T> {
 	/*
 	 * Instantiates the supplied number of queue elements
 	 * with value fields set to null and chains them together 
-	 * in a linked list using the next fields.
+	 * in a linked list using the next fields
 	 */
 	public Queue(byte capacity) {
 		this.capacity = capacity;
 		this.count = 0;
 		
 		Element prev = null;
+		Element element;
 		for(int i = 0; i < capacity; i++) {
-			Element element = new Element();	
+			element = new Element();	
 			
 			if(i == 0) {
-				this.start = element;
-				this.head = element;
-				this.tail = element;
+				start = element;
+				head = element;
+				tail = element;
 			} else {
 				prev.next = element;
-			}
-			
+			}	
 			prev = element;
 		}	
 	}
 	
 	/*
-	 * Continuously attempt to dequeue the head element of the queue
+	 * Continuously attempt to dequeue the head value of the queue
 	 * until the dequeue operation succeedes or the supplied timeout occurs
 	 */
 	public T dequeue(long timeout) {
-		T element = null;
+		T value = null;
 		timeout = System.currentTimeMillis() + timeout;
 		do {
-			 element = dequeue();
-		} while((System.currentTimeMillis() < timeout) && (element == null));
+			 value = dequeue();
+		} while((System.currentTimeMillis() < timeout) && (value == null));	
 		
-		return element;
+		return value;
 	}
 	
-	/*
-	 * Enqueues a new element in tail of the queue
-	 */
-	public synchronized void enqueue(T element) {
+	/* Enqueues a new value in the tail of the queue */
+	public synchronized void enqueue(T value) {
 		if(count != capacity) {
-			tail.value = element;
+			tail.value = value;
 			if(tail.next == null) {
 				tail = start;
 			} else {
 				tail = tail.next; 
-			}
+			}	
 			count++;
 		}
 	}
 	
-	/*
-	 * Dequeues an element in the head of the queue
-	 */
+	/* Dequeues a value in the head of the queue */
 	private synchronized T dequeue() {
-		T element = null;
+		T value = null;
 		if(count != 0) {
-			element = head.value;
+			value = head.value;
 			head.value = null;
 			head = head.next;
 			
 			count--;
 		}
-		
-		return element;
+		return value;
 	}
 	
-	public void clear() {
+	/* Clears all values and resets the queue */
+	public void reset() {
 		Element element = null;
 		for(byte i = 0; i < count; i++) {
 			if(i == 0) {
 				element = head;
 			}
 			
+			element.value.dispose();
 			element.value = null;
 			element = (element.next == null ? start : element.next);
 		}
+		count = 0;
+		head = start;
+		tail = head;
 	}
 }

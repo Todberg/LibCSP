@@ -18,7 +18,6 @@ public class CSPManager {
 	 * 
 	 */
 	
-	
 	public void init(byte nodeAddress) {
 		this.nodeAddress = nodeAddress;		
 	}

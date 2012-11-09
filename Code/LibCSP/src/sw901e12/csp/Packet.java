@@ -1,12 +1,11 @@
 package sw901e12.csp;
 
-
 /*
  * The CSP header and data are stored in a 32 bit integer each
  * This is to reduce the memory footprint as opposed to storing each
  * element of a CSP packet in a separate data type
  */
-public class Packet {
+public class Packet implements IDispose {
 	
 	/* Header masks */
 	public final static int MASK_CRC = 0x00000001;
@@ -20,8 +19,8 @@ public class Packet {
 	public final static int MASK_SRC = 0x3E000000;
 	public final static int MASK_PRI = 0xC0000000;
 	
+	/* Packet */
 	public int header;
-	
 	public int data;
 	
 	public Packet(int header, int data) {
@@ -67,5 +66,12 @@ public class Packet {
 	
 	public byte getPRI() {
 		return (byte)((header & MASK_PRI) >>> 30);
+	}
+
+	@Override
+	public void dispose() {
+		this.header = 0;
+		this.data = 0;
+		CSPManager.resourcePool.putPacket(this);
 	}
 }

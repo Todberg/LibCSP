@@ -1,12 +1,14 @@
 package sw901e12.csp;
 
+import sw901e12.csp.util.ConnectionQueue;
 import sw901e12.csp.util.Const;
 import sw901e12.csp.util.Queue;
 
 public class ResourcePool {
 	
+	/* Pools */
 	public Queue<Socket> sockets;
-	public Queue<Connection> connections;
+	public ConnectionQueue connections;
 	public Queue<Packet> packets;
 	
 	public ResourcePool(byte socketsCapacity,
@@ -14,24 +16,24 @@ public class ResourcePool {
 			byte connectionsCapacity,
 			byte packetsPerConnectionCapacity,
 			byte packetsCapacity) {
+		
 		initializeSocketPool(socketsCapacity, connectionsPerSocketCapacity);
 		initializeConnectionPool(connectionsCapacity, packetsCapacity);
 		initializePacketPool(packetsCapacity);
-		
 	}
 	
-	private void initializeSocketPool(byte socketsCapacity, byte connectionsCapacity) {
+	private void initializeSocketPool(byte socketsCapacity, byte connectionsPerSocketCapacity) {
 		this.sockets = new Queue<Socket>(socketsCapacity);
 		
 		Socket socket;
 		for(byte i = 0; i < socketsCapacity; i++) {
-			socket = new Socket(connectionsCapacity);
+			socket = new Socket(connectionsPerSocketCapacity);
 			sockets.enqueue(socket);
 		}
 	}
 	
 	private void initializeConnectionPool(byte connectionsCapacity, byte packetsCapacity) {
-		this.connections = new Queue<Connection>(connectionsCapacity);
+		this.connections = new ConnectionQueue(connectionsCapacity);
 		
 		Connection connection;
 		for(byte i = 0; i < connectionsCapacity; i++) {
@@ -55,8 +57,7 @@ public class ResourcePool {
 	}
 	
 	public void putSocket(Socket socket) {
-		socket.connections.clear();
-		sockets.enqueue(socket);
+		socket.dispose();
 	}
 	
 	public Connection getConnection() {
@@ -64,8 +65,7 @@ public class ResourcePool {
 	}
 	
 	public void putConnection(Connection connection) {
-		connection.packets.clear();
-		connections.enqueue(connection);
+		connection.dispose();
 	}
 	
 	public Packet getPacket() {
@@ -73,8 +73,6 @@ public class ResourcePool {
 	}
 	
 	public void putPacket(Packet packet) {
-		packet.header = 0;
-		packet.data = 0;
-		packets.enqueue(packet);
+		packet.dispose();
 	}
 }
