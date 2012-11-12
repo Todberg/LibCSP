@@ -11,6 +11,9 @@ public class ResourcePool {
 	public ConnectionQueue connections;
 	public Queue<Packet> packets;
 	
+	/* Static connection pool containing all connections */
+	public Connection[] globalConnections;
+	
 	public ResourcePool(byte socketsCapacity,
 			byte connectionsPerSocketCapacity,
 			byte connectionsCapacity,
@@ -34,11 +37,13 @@ public class ResourcePool {
 	
 	private void initializeConnectionPool(byte connectionsCapacity, byte packetsCapacity) {
 		this.connections = new ConnectionQueue(connectionsCapacity);
+		this.globalConnections = new Connection[connectionsCapacity];
 		
 		Connection connection;
 		for(byte i = 0; i < connectionsCapacity; i++) {
 			connection = new Connection(packetsCapacity);
 			connections.enqueue(connection);
+			globalConnections[i] = connection;
 		}
 	}
 	
@@ -74,5 +79,14 @@ public class ResourcePool {
 	
 	public void putPacket(Packet packet) {
 		packet.dispose();
+	}
+	
+	public Connection getGlobalConnection(int id) {
+		for(Connection connection : globalConnections) {
+			if(connection.id == id) {
+				return connection;
+			}
+		}
+		return null;
 	}
 }

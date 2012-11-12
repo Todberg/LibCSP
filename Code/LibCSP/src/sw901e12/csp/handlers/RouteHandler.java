@@ -32,7 +32,7 @@ public class RouteHandler extends PeriodicEventHandler {
 		super(priority, parameters, scp, scopeSize);
 		
 		RouteHandler.routeTable = new Node[Const.MAX_NETWORK_HOSTS];
-		this.portTable = new Port[Const.MAX_PORTS_PER_HOST];
+		this.portTable = new Port[Const.MAX_BIND_PORTS];
 		this.resourcePool = resourcePool;
 		
 		initializeRouteTable();
@@ -46,7 +46,7 @@ public class RouteHandler extends PeriodicEventHandler {
 	}
 	
 	private void initializePortTable() {
-		for(byte i = 0; i < Const.MAX_PORTS_PER_HOST; i++) {
+		for(byte i = 0; i < Const.MAX_BIND_PORTS; i++) {
 			portTable[i] = new Port();
 		}
 	}
@@ -54,12 +54,41 @@ public class RouteHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		
+			
+		/*
+		 * CLIENT: opret conn til server: sender pakke:
+		 * 
+		 * Hvis pakke er til mig selv
+		 * 		Find aktiv/åben forbindelse ud fra header/4tupel (OPEN/CLOSED)
+		 * 			Hvis aktiv forbindelse - enqueue pakke i connection
+		 * 			Hvis ingen aktiv forbindelse - find socket i tabel og  alloker ny forbindelse på denne - enqueue pakke i denne
+		 * 					Hvis ingen socket på port - drop pakke
+		 * 
+		 * 
+		 * 
+		 * SERVER:
+		 * Hvis pakke er til mig selv
+		 * 		Find aktiv/åben forbindelse ud fra header/4tupel (OPEN/CLOSED)
+		 * 			Hvis aktiv forbindelse - enqueue pakke i connection
+		 * 			Hvis ingen aktiv forbindelse - find socket i tabel og  alloker ny forbindelse på denne - enqueue pakke i denne
+		 * 					Hvis ingen socket på port - drop pakke
+		 * 
+		 *  Sender svar til CLIENT
+		 */
+	
+			
+		 
 		Packet packet = packetsToBeProcessed.dequeue(Const.TIMEOUT_SINGLE_ATTEMPT);
 		if(packet != null) {
 			byte packetDST = packet.getDST(); 
 			if(packetDST == CSPManager.nodeAddress || packetDST == Const.BROADCAST_ADDRESS) {
+				// TODO: If broadcast - send videre
 				Port packetDPORT = portTable[packet.getDPORT()];
+				
+				 if (!packetDPORT.isOpen) {
+					 packetDPORT = portTable[Const.ANY_PORT];
+				 }
+				
 				if(packetDPORT.isOpen) {
 					Socket packetDstSocket = packetDPORT.socket;
 					ConnectionQueue packetConnections = packetDstSocket.connections;
@@ -72,30 +101,13 @@ public class RouteHandler extends PeriodicEventHandler {
 					}
 					packetConnection.packets.enqueue(packet);
 					
-				} else {
-					
+				} else {					
+					resourcePool.putPacket(packet);
 				}
 			} else {
 				Node packetDstNode = routeTable[packetDST];
 				packetDstNode.protocolInterface.transmitPacket(packet);
 			}
 		}
-		
-		/*
-		 *  pakke = dequeue packetsToBeProcessed
-		 *  hvis pakke er til mig (eller broadcast):
-		 * 		Led i portTable efter matchende port --> socket (opret hvis CLOSED) --> connection:
-		 * 			Hvis connection == OPEN:
-		 * 				put pakke i conn-packet-queue
-		 * 			Hvis connection == CLOSED:
-		 * 				Open connection og put pakke i conn-pakcet-queue:
-		 * 			Hvis der ikke er connection:
-		 * 				Dequeue ny connection fra ConnectionPool og put pakke i conn-packet-queue
-		 * 		Hvis port lukket => led efter catch all (ANY)
-		 *  ellers:
-		 *  	Kig i routeTable efter index == dst i header
-		 *  	Den node vi får ud transmit pakke via nexthopaddr
-		 * 
-		 */
 	}
 }

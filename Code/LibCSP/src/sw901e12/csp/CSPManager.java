@@ -8,21 +8,11 @@ public class CSPManager {
 	public static byte nodeAddress;
 	public static ResourcePool resourcePool;
 	
-	/* BRUGER FLOW:
-	 * 
-	 * 1. Opret socket på port x Socket = CSPManager.GetSocket(PORT, null) (dequeue operation bagved)
-	 * 2. Accept - (dequeue conn kø) - TryAccept() Accept(timeout) BLOKERING/BusyWait problem
-	 * 
-	 * int mutex;
-	 * mutex = 1;
-	 * 
-	 */
-	
 	public void init(byte nodeAddress) {
 		this.nodeAddress = nodeAddress;		
 	}
 	
-	public void startRoutingHandler() {
+	public void startRouteHandler() {
 		new RouteHandler(null,
 			null, 
 			null, 
@@ -43,10 +33,13 @@ public class CSPManager {
 			byte connectionsCapacity,
 			byte packetsPerConnectionCapacity,
 			byte packetsCapacity) {
+		
 		CSPManager.resourcePool = new ResourcePool(socketsCapacity, 
 			connectionsPerSocketCapacity,
 			connectionsCapacity, 
 			packetsPerConnectionCapacity,
 			packetsCapacity);
 	}
+	
+	public Socket GetSocket(byte port)
 }
