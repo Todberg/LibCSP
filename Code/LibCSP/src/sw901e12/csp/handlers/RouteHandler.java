@@ -55,29 +55,7 @@ public class RouteHandler extends PeriodicEventHandler {
 	
 	@Override
 	@SCJAllowed(Level.SUPPORT)
-	public void handleAsyncEvent() {
-			
-		/*
-		 * CLIENT: opret conn til server: sender pakke:
-		 * 
-		 * Hvis pakke er til mig selv
-		 * 		Find aktiv/åben forbindelse ud fra header/4tupel (OPEN/CLOSED)
-		 * 			Hvis aktiv forbindelse - enqueue pakke i connection
-		 * 			Hvis ingen aktiv forbindelse - find socket i tabel og  alloker ny forbindelse på denne - enqueue pakke i denne
-		 * 					Hvis ingen socket på port - drop pakke
-		 * 
-		 * 
-		 * 
-		 * SERVER:
-		 * Hvis pakke er til mig selv
-		 * 		Find aktiv/åben forbindelse ud fra header/4tupel (OPEN/CLOSED)
-		 * 			Hvis aktiv forbindelse - enqueue pakke i connection
-		 * 			Hvis ingen aktiv forbindelse - find socket i tabel og  alloker ny forbindelse på denne - enqueue pakke i denne
-		 * 					Hvis ingen socket på port - drop pakke
-		 * 
-		 *  Sender svar til CLIENT
-		 */
-		
+	public void handleAsyncEvent() {		
 		Packet packet = packetsToBeProcessed.dequeue(Const.TIMEOUT_SINGLE_ATTEMPT);
 		
 		if (packet != null) {
