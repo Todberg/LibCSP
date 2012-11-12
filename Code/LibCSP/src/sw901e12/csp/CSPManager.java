@@ -43,6 +43,7 @@ public class CSPManager {
 			byte connectionsCapacity,
 			byte packetsPerConnectionCapacity,
 			byte packetsCapacity) {
+		
 		CSPManager.resourcePool = new ResourcePool(socketsCapacity, 
 			connectionsPerSocketCapacity,
 			connectionsCapacity, 
