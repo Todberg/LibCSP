@@ -1,6 +1,5 @@
 package sw901e12.csp.util;
 
-import sw901e12.csp.IDispose;
 
 
 public class Queue<T extends IDispose> {

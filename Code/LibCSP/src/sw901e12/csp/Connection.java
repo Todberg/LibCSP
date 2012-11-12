@@ -1,5 +1,6 @@
 package sw901e12.csp;
 
+import sw901e12.csp.util.IDispose;
 import sw901e12.csp.util.Queue;
 
 public class Connection implements IDispose {

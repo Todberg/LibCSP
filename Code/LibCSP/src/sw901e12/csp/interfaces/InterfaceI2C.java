@@ -51,7 +51,7 @@ public class InterfaceI2C implements IMACProtocol {
 		int[] frame = new int[FRAME_SIZE_IN_BYTES];
 		
 		Node packetDSTNode = RouteHandler.routeTable[packet.getDST()];
-		insertNextHopAddressIntoFrame(frame, packetDSTNode.nextHopAddress);
+		insertNextHopAddressIntoFrame(frame, packetDSTNode.nextHopMacAddress);
 		
 		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.header);
 		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.data);

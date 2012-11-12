@@ -1,5 +1,7 @@
 package sw901e12.csp;
 
+import sw901e12.csp.util.IDispose;
+
 /*
  * The CSP header and data are stored in a 32 bit integer each
  * This is to reduce the memory footprint as opposed to storing each
