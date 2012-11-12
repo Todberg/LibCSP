@@ -83,7 +83,7 @@ public class ResourcePool {
 	
 	public Connection getGlobalConnection(int id) {
 		for(Connection connection : globalConnections) {
-			if(connection.id == id) {
+			if(connection.id == id && connection.isOpen) {
 				return connection;
 			}
 		}
