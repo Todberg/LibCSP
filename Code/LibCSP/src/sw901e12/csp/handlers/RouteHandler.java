@@ -62,7 +62,9 @@ public class RouteHandler extends PeriodicEventHandler {
 			byte packetDST = packet.getDST();
 			
 			if (packetDST == CSPManager.nodeAddress || packetDST == Const.BROADCAST_ADDRESS) {
-				Connection packetConnection = resourcePool.getGlobalConnection(10);
+				int connectionIdentifier = Connection.getConnectionIdFromPacketHeader(packet);
+				
+				Connection packetConnection = resourcePool.getGlobalConnection(connectionIdentifier);
 				
 				if (packetConnection == null) {
 					Port packetDPORT = portTable[packet.getDPORT()];
@@ -75,8 +77,8 @@ public class RouteHandler extends PeriodicEventHandler {
 						Socket packetDstSocket = packetDPORT.socket;
 						ConnectionQueue packetConnections = packetDstSocket.connections;
 						
-						packetConnection = resourcePool.getConnection();
-						packetConnection.id = 10; // TODO "id"!
+						packetConnection = resourcePool.getConnection(Const.TIMEOUT_SINGLE_ATTEMPT);
+						// remember random port! 
 						packetConnections.enqueue(packetConnection);
 					 }
 				}
