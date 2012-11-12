@@ -44,7 +44,7 @@ public class CSPManager {
 	public Socket createSocket(int port, Object options) {
 		Port p = RouteHandler.portTable[port];
 		p.isOpen = true;
-		p.socket = resourcePool.getSocket();
+		p.socket = resourcePool.getSocket(Const.TIMEOUT_SINGLE_ATTEMPT);
 		return p.socket;
 	}
 }

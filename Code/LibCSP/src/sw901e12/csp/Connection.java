@@ -74,4 +74,19 @@ public class Connection implements IDispose {
 		id &= ~(MASK_SRC);
 		id |= ((int)SRC << 17);
 	}
+	
+	public Packet read(int timeout) {
+		Packet packet = packets.dequeue(timeout);
+		if(packet != null) {
+			Packet packetCopy = new Packet(packet.header, packet.data);
+			CSPManager.resourcePool.putPacket(packet);
+			return packetCopy;
+		}
+		return null;
+	}
+	
+	public void close() {
+		isOpen = false;
+		dispose();
+	}
 }
