@@ -1,12 +1,14 @@
 package sw901e12.csp.test;
 
 import static org.junit.Assert.*;
+import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import sw901e12.csp.Connection;
+import sw901e12.csp.Packet;
 
 public class ConnectionTest {
 
@@ -97,6 +99,23 @@ public class ConnectionTest {
 		conn.setDPORT((byte)3);
 		
 		assertEquals(idWithDstPortSetTo3, conn.id);
+	}
+	
+	@Test
+	public void testGetConnectionIdFromPacketHeader() {
+		/* 
+		 * Bitpattern: 11 11010 00010 001011 000110 0000 0 0 0 0 
+		 * Fields:     PRI SRC DST DPORT SPORT RES HMAC XTEA RDP CRC 
+		 */
+		int header = 0xF422C600;
+		Packet packet = new Packet(header, 0);
+		
+		Connection c = new Connection((byte)20);
+		c.setId((byte)26, (byte)6, (byte)2, (byte)11);
+		
+		int connId = Connection.getConnectionIdFromPacketHeader(packet);
+		
+		Assert.assertEquals(c.id, connId);
 	}
 
 }
