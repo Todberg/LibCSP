@@ -92,6 +92,7 @@ public class Connection implements IDispose {
 	
 	public static int getConnectionIdFromPacketHeader(Packet packet) {
 		
+		
 		return 0;
 	}
 }

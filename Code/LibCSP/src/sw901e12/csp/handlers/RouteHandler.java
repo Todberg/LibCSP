@@ -78,7 +78,7 @@ public class RouteHandler extends PeriodicEventHandler {
 						ConnectionQueue packetConnections = packetDstSocket.connections;
 						
 						packetConnection = resourcePool.getConnection(Const.TIMEOUT_SINGLE_ATTEMPT);
-						// remember random port! 
+						// remember random port! and remmber to synchronize around it hot damn! 
 						packetConnections.enqueue(packetConnection);
 					 }
 				}
