@@ -21,10 +21,6 @@ public class Socket implements IDispose {
 		CSPManager.resourcePool.putSocket(this);
 	}
 	
-	public static int getConnectionIdFromPacketHeader(Packet packet) {
-		return 0;
-	}
-
 	public Connection accept(int timeout) {
 		return CSPManager.resourcePool.getConnection(timeout);
 	}
