@@ -89,4 +89,9 @@ public class Connection implements IDispose {
 		isOpen = false;
 		dispose();
 	}
+	
+	public static int getConnectionIdFromPacketHeader(Packet packet) {
+		
+		return 0;
+	}
 }
