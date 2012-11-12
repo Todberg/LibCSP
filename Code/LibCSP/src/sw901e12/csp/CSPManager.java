@@ -41,5 +41,10 @@ public class CSPManager {
 			packetsCapacity);
 	}
 	
-	public Socket GetSocket(byte port)
+	public Socket createSocket(int port, Object options) {
+		Port p = RouteHandler.portTable[port];
+		p.isOpen = true;
+		p.socket = resourcePool.getSocket();
+		return p.socket;
+	}
 }

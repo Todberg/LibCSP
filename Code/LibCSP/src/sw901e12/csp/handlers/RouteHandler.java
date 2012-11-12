@@ -21,7 +21,7 @@ import sw901e12.csp.util.Queue;
 public class RouteHandler extends PeriodicEventHandler {
 
 	public static Node[] routeTable;
-	public Port[] portTable;
+	public static Port[] portTable;
 	public static Queue<Packet> packetsToBeProcessed;
 	
 	private ResourcePool resourcePool;

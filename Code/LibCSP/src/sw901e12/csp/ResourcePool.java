@@ -57,24 +57,24 @@ public class ResourcePool {
 		}
 	}
 	
-	public Socket getSocket() {
-		return sockets.dequeue(Const.TIMEOUT_SINGLE_ATTEMPT);
+	public Socket getSocket(int timeout) {
+		return sockets.dequeue(timeout);
 	}
 	
 	public void putSocket(Socket socket) {
 		socket.dispose();
 	}
 	
-	public Connection getConnection() {
-		return connections.dequeue(Const.TIMEOUT_SINGLE_ATTEMPT);
+	public Connection getConnection(int timeout) {
+		return connections.dequeue(timeout);
 	}
 	
 	public void putConnection(Connection connection) {
 		connection.dispose();
 	}
 	
-	public Packet getPacket() {
-		return packets.dequeue(Const.TIMEOUT_SINGLE_ATTEMPT);
+	public Packet getPacket(int timeout) {
+		return packets.dequeue(timeout);
 	}
 	
 	public void putPacket(Packet packet) {

@@ -16,4 +16,9 @@ public class Socket implements IDispose {
 		this.connections = null;
 		CSPManager.resourcePool.putSocket(this);
 	}
+	
+	/* Context: User */
+	public void accept(int timeout) {
+		CSPManager.resourcePool.getConnection(timeout)
+	}
 }
