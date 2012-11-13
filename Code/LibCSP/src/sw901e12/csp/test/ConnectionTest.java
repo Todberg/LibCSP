@@ -7,98 +7,168 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import sw901e12.csp.CSPManager;
 import sw901e12.csp.Connection;
 import sw901e12.csp.Packet;
+import sw901e12.csp.handlers.RouteHandler;
+import sw901e12.csp.test.util.StopWatch;
+import sw901e12.csp.util.Const;
+import sw901e12.csp.util.Queue;
 
 public class ConnectionTest {
 
-	public Connection conn;
+	public CSPManager manager;
+	public Connection connection;
+	
+	public StopWatch stopWatch = new StopWatch();
 	
 	@Before
 	public void setUp() throws Exception {
-		 conn = new Connection((byte) 20);
+		manager = new CSPManager();
+		manager.initPools();
+		connection = CSPManager.resourcePool.getConnection(Const.TIMEOUT_SINGLE_ATTEMPT);
+		RouteHandler.packetsToBeProcessed = new Queue<Packet>(Const.DEFAULT_PACKET_QUEUE_SIZE_ROUTING);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		conn = null;
+		connection = null;
 	}
-
+	
+	@Test
+	public void testRead() {
+		Connection testConnection = setupTestConnectionWithTwoPacketsInQueue();
+		
+		Assert.assertEquals(25, testConnection.packets.dequeue(20).data);
+		
+		Packet receivedTestPacket = testConnection.packets.dequeue(Const.TIMEOUT_SINGLE_ATTEMPT);
+		Assert.assertEquals(30, receivedTestPacket.readContent());
+		Assert.assertEquals(0xAC, receivedTestPacket.header);
+	}
+	
+	private Connection setupTestConnectionWithTwoPacketsInQueue() {
+		Packet p1 = new Packet(0xAB, 25);
+		Packet p2 = new Packet(0xAC, 30);
+		
+		Connection c = new Connection((byte)20);
+		c.packets.enqueue(p1);
+		c.packets.enqueue(p2);
+		
+		return c;
+	}
+	
+	@Test
+	public void testReadWithEmptyPacketBuffer() {
+		Connection testConnection = new Connection((byte)10);
+		
+		stopWatch.start();
+		testConnection.read(20);
+		stopWatch.stop();
+		
+		Assert.assertTrue(stopWatch.getElapsedTime() >= 20);
+	}
+	
+	@Test
+	public void testSend() {
+		Packet testPacketToSend = setupTestPacketWithRandomPayload();
+		
+		connection.setId((byte)0xA, (byte)2, (byte)0xB, (byte)5); 
+		connection.send(testPacketToSend);
+		
+		Assert.assertEquals(5, testPacketToSend.getDPORT());
+		Assert.assertEquals(0xB, testPacketToSend.getDST());
+	}
+	
+	private Packet setupTestPacketWithRandomPayload() {
+		return new Packet(0xAB, 0xABC);
+	}
+	
+	@Test
+	public void testClose() {
+		CSPManager.outgoingPorts = 2;
+		connection.setSPORT((byte)49);
+		connection.isOpen = true;
+		connection.close();
+		
+		Assert.assertEquals(false, connection.isOpen);
+		Assert.assertEquals(0, CSPManager.outgoingPorts);
+	}
+	
 	@Test
 	public void testSetId() {
-		conn.setId((byte)9, (byte)11, (byte)4, (byte)8);
+		connection.setId((byte)9, (byte)11, (byte)4, (byte)8);
 		final int idExpected = 0x00125908;
 		
-		assertEquals(idExpected, conn.id);
+		assertEquals(idExpected, connection.id);
 	}
 
 	@Test
 	public void testGetSRC() {
 		final int idWithSrcAddressSetTo7 = 0x000E0000;
-		conn.id = idWithSrcAddressSetTo7;
+		connection.id = idWithSrcAddressSetTo7;
 		
-		assertEquals(7, conn.getSRC());
+		assertEquals(7, connection.getSRC());
 		
 	}
 
 	@Test
 	public void testGetSPORT() {
 		final int idWithSrcPortSetTo5 = 0x00002800;
-		conn.id = idWithSrcPortSetTo5;
+		connection.id = idWithSrcPortSetTo5;
 		
-		assertEquals(5, conn.getSPORT());
+		assertEquals(5, connection.getSPORT());
 	}
 
 	@Test
 	public void testGetDST() {
 		final int idWithDstAddressSetTo18 = 0x00000480;
-		conn.id = idWithDstAddressSetTo18;
+		connection.id = idWithDstAddressSetTo18;
 		
-		assertEquals(18, conn.getDST());
+		assertEquals(18, connection.getDST());
 	}
 
 	@Test
 	public void testGetDPORT() {
 		final int idWithDstPortSetTo7 = 0x00000007;
-		conn.id = idWithDstPortSetTo7;
+		connection.id = idWithDstPortSetTo7;
 		
-		assertEquals(7, conn.getDPORT());
+		assertEquals(7, connection.getDPORT());
 	}
 
 	@Test
 	public void testSetSRC() {
 		final int idWithSrcAddressSetTo4 = 0x00080000;
-		conn.id = 0;
-		conn.setSRC((byte)4);
+		connection.id = 0;
+		connection.setSRC((byte)4);
 		
-		assertEquals(idWithSrcAddressSetTo4, conn.id);
+		assertEquals(idWithSrcAddressSetTo4, connection.id);
 	}
 
 	@Test
 	public void testSetSPORT() {
 		final int idWithSrcPortSetTo7 = 0x00003800;
-		conn.id = 0;
-		conn.setSPORT((byte)7);
+		connection.id = 0;
+		connection.setSPORT((byte)7);
 		
-		assertEquals(idWithSrcPortSetTo7, conn.id);
+		assertEquals(idWithSrcPortSetTo7, connection.id);
 	}
 
 	@Test
 	public void testSetDST() {
 		final int idWithDstAddressSetTo9 = 0x00000240;
-		conn.id = 0;
-		conn.setDST((byte)9);
+		connection.id = 0;
+		connection.setDST((byte)9);
 		
-		assertEquals(idWithDstAddressSetTo9, conn.id);
+		assertEquals(idWithDstAddressSetTo9, connection.id);
 	}
 
 	@Test
 	public void testSetDPORT() {
 		final int idWithDstPortSetTo3 = 0x00000003;
-		conn.id = 0;
-		conn.setDPORT((byte)3);
+		connection.id = 0;
+		connection.setDPORT((byte)3);
 		
-		assertEquals(idWithDstPortSetTo3, conn.id);
+		assertEquals(idWithDstPortSetTo3, connection.id);
 	}
 	
 	@Test
@@ -117,5 +187,29 @@ public class ConnectionTest {
 		
 		Assert.assertEquals(c.id, connId);
 	}
+	
+	@Test
+	public void testDispose() {
+		connection.isOpen = true;
+		connection.id = 42;
 
+		Packet packet = null;
+		for(int i = 0; i < Const.DEFAULT_PACKET_QUEUE_SIZE_PER_CONNECTION; i++) {
+			packet = CSPManager.resourcePool.getPacket(Const.TIMEOUT_SINGLE_ATTEMPT);
+			connection.packets.enqueue(packet);
+		}
+		
+		int connectionsInPoolBefore = CSPManager.resourcePool.connections.count;
+		int packetsInPoolBefore = CSPManager.resourcePool.packets.count;
+		
+		connection.dispose();
+		
+		int connectionsInPoolAfter = CSPManager.resourcePool.connections.count;
+		int packetsInPoolAfter = CSPManager.resourcePool.packets.count;
+		
+		Assert.assertEquals(false, connection.isOpen);
+		Assert.assertEquals(0, connection.id);
+		Assert.assertEquals((connectionsInPoolBefore + 1), connectionsInPoolAfter);
+		Assert.assertEquals((packetsInPoolBefore + Const.DEFAULT_PACKET_QUEUE_SIZE_PER_CONNECTION), packetsInPoolAfter);
+	}
 }
