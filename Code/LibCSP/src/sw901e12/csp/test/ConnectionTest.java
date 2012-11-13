@@ -111,7 +111,7 @@ public class ConnectionTest {
 		Packet packet = new Packet(header, 0);
 		
 		Connection c = new Connection((byte)20);
-		c.setId((byte)26, (byte)6, (byte)2, (byte)11);
+		c.setId((byte)2, (byte)11, (byte)26, (byte)6);
 		
 		int connId = Connection.getConnectionIdFromPacketHeader(packet);
 		

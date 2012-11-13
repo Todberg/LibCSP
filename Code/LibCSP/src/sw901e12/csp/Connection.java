@@ -91,8 +91,13 @@ public class Connection implements IDispose {
 	}
 	
 	public static int getConnectionIdFromPacketHeader(Packet packet) {
-		
-		
-		return 0;
+		int connectionId = 0;
+	
+		connectionId = (packet.getDST() << 17);
+		connectionId |= (packet.getDPORT() << 11);
+		connectionId |= (packet.getSRC() << 6);
+		connectionId |= packet.getSPORT();
+		 
+		return connectionId;
 	}
 }
