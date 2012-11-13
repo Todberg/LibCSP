@@ -6,7 +6,7 @@ import sw901e12.csp.util.IDispose;
 
 public class Socket implements IDispose {
 	
-	public byte attachedPort;
+	public byte port;
 	public ConnectionQueue connections;
 	
 	public Socket(byte connectionsCapacity) {
@@ -15,18 +15,24 @@ public class Socket implements IDispose {
 
 	@Override
 	public void dispose() {
-		this.attachedPort = 0;
+		this.port = 0;
 		this.connections.reset();
 		this.connections = null;
 		CSPManager.resourcePool.putSocket(this);
 	}
 	
+	// Hmm..
 	public Connection accept(int timeout) {
-		return CSPManager.resourcePool.getConnection(timeout);
+		Connection connection = CSPManager.resourcePool.getConnection(timeout);
+		if(connection != null) {
+			connections.enqueue(connection);
+			return connection;
+		}
+		return null;
 	}
 	
 	public void close() {
-		RouteHandler.portTable[attachedPort].isOpen = false;
+		RouteHandler.portTable[port].isOpen = false;
 		dispose();
 	}
 }

@@ -1,7 +1,6 @@
 package sw901e12.csp;
 
 import sw901e12.csp.util.ConnectionQueue;
-import sw901e12.csp.util.Const;
 import sw901e12.csp.util.Queue;
 
 public class ResourcePool {

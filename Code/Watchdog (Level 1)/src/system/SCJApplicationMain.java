@@ -1,5 +1,7 @@
 package system;
 
+import com.jopdesign.io.ExpansionHeader;
+import com.jopdesign.io.ExpansionHeaderFactory;
 import com.jopdesign.io.I2CFactory;
 import com.jopdesign.io.I2Cport;
 
@@ -10,7 +12,19 @@ public class SCJApplicationMain
 		//JopSystem.startMission(new WatchdogSafelet());
 		
 		System.out.println("RunI2C");
-		RunI2C();
+		//RunI2C();
+		RunTest();
+	}
+	
+	private static void RunTest() throws InterruptedException {
+		ExpansionHeader header = ExpansionHeaderFactory.getExpansionHeaderFactory().getExpansionHeader();
+		System.out.println("hej");
+		while(true) {
+			header.write(Integer.MAX_VALUE);
+			Thread.sleep(2000);
+			header.write(0);
+			Thread.sleep(2000);
+		}
 	}
 	
 	private static void RunI2C() throws InterruptedException {

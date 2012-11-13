@@ -27,6 +27,7 @@ public class Connection implements IDispose {
 	@Override
 	public void dispose() {
 		this.id = 0;
+		this.isOpen = false;
 		this.packets.reset();
 		this.packets = null;
 		CSPManager.resourcePool.putConnection(this);
@@ -86,7 +87,6 @@ public class Connection implements IDispose {
 	}
 	
 	public void close() {
-		isOpen = false;
 		dispose();
 	}
 	
