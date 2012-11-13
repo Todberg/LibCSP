@@ -3,11 +3,7 @@
 \begin{document}
 
 % Front page
-\begin{figure}[!h]
-	\centering
-	\includegraphics{Images/de2-70}
-	\label{fig:front_page}
-\end{figure}
+\includepdf[noautoscale]{Frontpage}
 
 
 \setlength{\parskip}{0mm}
@@ -16,11 +12,13 @@
 		\input{Misc/Titlepage.tex}
 		\input{Misc/Preface.tex}
 		\tableofcontents
-		\input{PartI/PartI.tex}
-			\input{PartI/FileOne.tex}
-		\input{PartII/PartII.tex}
-			\input{PartII/FileTwo.tex}
-
+			\input{Chapters/Introduction.tex}
+			\input{Chapters/RTS.tex}
+			\input{Chapters/SCJ.tex}
+			\input{Chapters/JOP.tex}
+			\input{Chapters/CSP.tex}
+			\input{Chapters/CSPinSCJ.tex}
+			\input{Chapters/CSPBasedWatchdog.tex}
 		\appendix
 
 		\input{Configuration/Literature.tex}
