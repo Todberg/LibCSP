@@ -1,7 +1,9 @@
 package sw901e12.csp.util;
 
-
-
+/*
+ * Queue for holding and processing elements in FIFO order.
+ * T will either be Socket, Packet or Connection
+ */
 public class Queue<T extends IDispose> {
 	
 	/*
@@ -9,7 +11,7 @@ public class Queue<T extends IDispose> {
 	 * a count of the used spaces
 	 */
 	protected byte capacity;
-	protected byte count;
+	public byte count;
 	
 	/*
 	 * Handles to the start, head and tail 
@@ -103,8 +105,11 @@ public class Queue<T extends IDispose> {
 				element = head;
 			}
 			
-			element.value.dispose();
-			element.value = null;
+			if (element.value != null) {
+				element.value.dispose();
+				element.value = null;
+			}
+		
 			element = (element.next == null ? start : element.next);
 		}
 		count = 0;

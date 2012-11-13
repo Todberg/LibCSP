@@ -1,5 +1,12 @@
 package sw901e12.csp;
 
+import javax.safetycritical.annotate.Level;
+import javax.safetycritical.annotate.Phase;
+import javax.safetycritical.annotate.SCJAllowed;
+import javax.safetycritical.annotate.SCJRestricted;
+
+import sw901e12.csp.handlers.RouteHandler;
+import sw901e12.csp.util.Const;
 import sw901e12.csp.util.IDispose;
 import sw901e12.csp.util.Queue;
 
@@ -12,7 +19,7 @@ public class Connection implements IDispose {
 	public final static int MASK_DPORT = 0x0000003F;
 	
 	/*
-	 * Connection identifyer
+	 * Connection identifier
 	 * Format: S000000000 | SRC:5 | SPORT:6 | DST:5 | DPORT:6 | 
 	 */
 	public int id;
@@ -22,15 +29,6 @@ public class Connection implements IDispose {
 	
 	public Connection(byte i) {
 		this.packets = new Queue<Packet>(i);
-	}
-
-	@Override
-	public void dispose() {
-		this.id = 0;
-		this.isOpen = false;
-		this.packets.reset();
-		this.packets = null;
-		CSPManager.resourcePool.putConnection(this);
 	}
 	
 	public void setId(byte SRC, byte SPORT, byte DST, byte DPORT) {
@@ -76,6 +74,13 @@ public class Connection implements IDispose {
 		id |= ((int)SRC << 17);
 	}
 	
+	/**
+	 * Attempt to read any packet received in FIFO order.
+	 * @param timeout Maximum time in milliseconds to wait for an unused packet from the packet pool
+	 * @return Next packet received on the connection or null if none
+	 */
+	@SCJAllowed(Level.LEVEL_1)
+	@SCJRestricted(Phase.RUN)
 	public Packet read(int timeout) {
 		Packet packet = packets.dequeue(timeout);
 		if(packet != null) {
@@ -86,8 +91,34 @@ public class Connection implements IDispose {
 		return null;
 	}
 	
-	public void close() {
-		dispose();
+	/**
+	 * Sends a packet to the destination of the current connection.
+	 * @param packet The packet with specified data to be sent
+	 */
+	@SCJAllowed(Level.LEVEL_1)
+	@SCJRestricted(Phase.RUN)
+	public void send(Packet packet) {
+		packet.setSRC(CSPManager.nodeAddress);
+		packet.setSPORT(getSPORT());
+		packet.setDST(getDST());
+		packet.setDPORT(getDPORT());
+		RouteHandler.packetsToBeProcessed.enqueue(packet);
+	}
+	
+	/**
+	 * Closes the connection if open
+	 */
+	@SCJAllowed(Level.LEVEL_1)
+	@SCJRestricted(Phase.RUN)
+	public synchronized void close() {
+		if(isOpen) {
+			byte SPORT = getSPORT();
+			if(SPORT > Const.MAX_INCOMING_PORTS) {
+				SPORT -= (Const.MAX_INCOMING_PORTS + 1);
+				CSPManager.outgoingPorts &= ~(1 << SPORT);
+			}
+			dispose();
+		}
 	}
 	
 	public static int getConnectionIdFromPacketHeader(Packet packet) {
@@ -99,5 +130,13 @@ public class Connection implements IDispose {
 		connectionId |= packet.getSPORT();
 		 
 		return connectionId;
+	}
+	
+	@Override
+	public void dispose() {
+		this.id = 0;
+		this.isOpen = false;
+		this.packets.reset();
+		CSPManager.resourcePool.putConnection(this);
 	}
 }

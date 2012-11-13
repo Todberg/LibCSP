@@ -6,10 +6,11 @@ public class Const {
 	 * ports
 	 */
 	public static final byte MAX_NETWORK_HOSTS = 32;	
-	
+
 	/* Incoming port range  */
 	public static final byte MAX_SERVICE_PORTS = 8;
 	public static final byte MAX_BIND_PORTS = 39;
+	public static final byte MAX_INCOMING_PORTS = (MAX_SERVICE_PORTS + MAX_BIND_PORTS);
 	
 	/* Outgoing port range */
 	public static final byte MAX_OUTGOING_PORTS = 15;
@@ -26,7 +27,7 @@ public class Const {
 	public static final byte DEFAULT_PACKET_QUEUE_SIZE_ROUTING = 32;
 	public static final byte DEFAULT_PACKET_QUEUE_SIZE_PER_CONNECTION = 10;
 	public static final byte DEFAULT_MAX_SOCKETS = 15;
-	public static final byte DEFAULT_MAX_PACKETS_STORED = 100;
+	public static final byte DEFAULT_MAX_PACKETS = 100;
 	
 	/* Timeouts */
 	public static final byte TIMEOUT_NONE = -1;

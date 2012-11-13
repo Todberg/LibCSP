@@ -2,6 +2,11 @@ package sw901e12.csp.util;
 
 import sw901e12.csp.Connection;
 
+/*
+ * Once in a while it must be possible to search for a specific connection in the queue using
+ * an id (src, sport, dst, dport), hence Queue<T> is extended and type parameterized 
+ * with Connection. This would not be possible using the Queue<T> as T is a generic type
+ */
 public class ConnectionQueue extends Queue<Connection> {
 
 	public ConnectionQueue(byte capacity) {

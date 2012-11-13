@@ -1,5 +1,10 @@
 package sw901e12.csp;
 
+import javax.safetycritical.annotate.Level;
+import javax.safetycritical.annotate.Phase;
+import javax.safetycritical.annotate.SCJAllowed;
+import javax.safetycritical.annotate.SCJRestricted;
+
 import sw901e12.csp.util.IDispose;
 
 /*
@@ -28,6 +33,26 @@ public class Packet implements IDispose {
 	public Packet(int header, int data) {
 		this.header = header;
 		this.data = data;
+	}
+	
+	/**
+	 * Sets the payload of the packet.
+	 * @param data Payload data
+	 */
+	@SCJAllowed(Level.LEVEL_1)
+	@SCJRestricted(Phase.RUN)
+	public void setContent(int data) {
+		this.data = data;
+	}
+	
+	/**
+	 * Gets the payload of the packet.
+	 * @return Payload data
+	 */
+	@SCJAllowed(Level.LEVEL_1)
+	@SCJRestricted(Phase.RUN)
+	public int readContent() {
+		return this.data;
 	}
 	
 	public byte getCRC() {
@@ -69,7 +94,57 @@ public class Packet implements IDispose {
 	public byte getPRI() {
 		return (byte)((header & MASK_PRI) >>> 30);
 	}
+	
+	public void setCRC(byte value) {
+		header &= ~(MASK_CRC);
+		header |= (int)value;
+	}
+	
+	public void setRDP(byte value) {
+		header &= ~(MASK_RDP);
+		header |= (int)value << 1;		
+	}
+	
+	public void setXTEA(byte value) {
+		header &= ~(MASK_XTEA);
+		header |= (int)value << 2;
+	}
+	
+	public void setHMAC(byte value) {
+		header &= ~(MASK_HMAC);
+		header |= (int)value << 3;
+	}
+	
+	public void setRES(byte value) {
+		header &= ~(MASK_HMAC);
+		header |= (int)value << 4;
+	}
+	
+	public void setSPORT(byte value) {
+		header &= ~(MASK_SPORT);
+		header |= (int)value << 8;
+	}
+	
+	public void setDPORT(byte value) {
+		header &= ~(MASK_DPORT);
+		header |= (int)value << 14;
+	}
+	
+	public void setDST(byte value) {
+		header &= ~(MASK_DST);
+		header |= (int)value << 20;
+	}
 
+	public void setSRC(byte value) {
+		header &= ~(MASK_SRC);
+		header |= (int)value << 25;
+	}
+	
+	public void setPRI(byte value) {
+		header &= ~(MASK_PRI);
+		header |= (int)value << 30;
+	}
+	
 	@Override
 	public void dispose() {
 		this.header = 0;

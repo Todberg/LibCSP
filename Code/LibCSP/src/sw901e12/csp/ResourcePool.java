@@ -61,7 +61,7 @@ public class ResourcePool {
 	}
 	
 	public void putSocket(Socket socket) {
-		socket.dispose();
+		sockets.enqueue(socket);
 	}
 	
 	public Connection getConnection(int timeout) {
@@ -69,7 +69,7 @@ public class ResourcePool {
 	}
 	
 	public void putConnection(Connection connection) {
-		connection.dispose();
+		connections.enqueue(connection);
 	}
 	
 	public Packet getPacket(int timeout) {
@@ -77,7 +77,7 @@ public class ResourcePool {
 	}
 	
 	public void putPacket(Packet packet) {
-		packet.dispose();
+		packets.enqueue(packet);
 	}
 	
 	public Connection getGlobalConnection(int id) {
