@@ -87,7 +87,6 @@ public class Connection implements IDispose {
 	}
 	
 	public void close() {
-		isOpen = false;
 		dispose();
 	}
 	

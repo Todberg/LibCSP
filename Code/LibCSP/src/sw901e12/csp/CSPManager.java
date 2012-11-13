@@ -42,9 +42,37 @@ public class CSPManager {
 	}
 	
 	public Socket createSocket(int port, Object options) {
+		if(port < 0 || port > (Const.MAX_SERVICE_PORTS + Const.MAX_BIND_PORTS)) {
+			throw new IllegalArgumentException("Port must be in range 0-47");
+		}
+		
 		Port p = RouteHandler.portTable[port];
-		p.isOpen = true;
-		p.socket = resourcePool.getSocket(Const.TIMEOUT_SINGLE_ATTEMPT);
-		return p.socket;
+		if(!p.isOpen) {
+			Socket socket = resourcePool.getSocket(Const.TIMEOUT_SINGLE_ATTEMPT);
+			if(socket != null) {
+				p.isOpen = true;
+				p.socket = socket;
+				p.socket.port = (byte)port;
+				return socket;
+			}
+		}
+		return null;
+	}
+	
+	public Connection createConnection(int address, int port, int timeout, Object options) {
+		if(address < 0 || address > Const.MAX_NETWORK_HOSTS) {
+			throw new IllegalArgumentException("Address must be in range 0-32");
+		}
+		if(port < 0 || port > (Const.MAX_SERVICE_PORTS + Const.MAX_BIND_PORTS)) {
+			throw new IllegalArgumentException("Port must be in range 0-47");
+		}
+		
+		Connection connection = resourcePool.getConnection(timeout);
+		if(connection != null) {
+			connection.setId(nodeAddress, (byte)0, (byte)address, (byte)port);
+			connection.isOpen = true;
+			return connection;
+		}
+		return null;
 	}
 }
