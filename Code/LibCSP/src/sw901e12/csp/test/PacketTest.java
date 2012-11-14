@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import sw901e12.csp.CSPManager;
 import sw901e12.csp.Packet;
-import sw901e12.csp.util.Const;
 
 public class PacketTest {
 
@@ -26,7 +25,7 @@ public class PacketTest {
 		 */
 		int header = 0xF422C600;
 		
-		packet = CSPManager.resourcePool.getPacket(Const.TIMEOUT_SINGLE_ATTEMPT);
+		packet = CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		packet.header = header;
 		packet.data = 42;
 	}

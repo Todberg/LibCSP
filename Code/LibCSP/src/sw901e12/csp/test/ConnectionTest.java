@@ -26,7 +26,7 @@ public class ConnectionTest {
 	public void setUp() throws Exception {
 		manager = new CSPManager();
 		manager.initPools();
-		connection = CSPManager.resourcePool.getConnection(Const.TIMEOUT_SINGLE_ATTEMPT);
+		connection = CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		RouteHandler.packetsToBeProcessed = new Queue<Packet>(Const.DEFAULT_PACKET_QUEUE_SIZE_ROUTING);
 	}
 
@@ -41,7 +41,7 @@ public class ConnectionTest {
 		
 		Assert.assertEquals(25, testConnection.packets.dequeue(20).data);
 		
-		Packet receivedTestPacket = testConnection.packets.dequeue(Const.TIMEOUT_SINGLE_ATTEMPT);
+		Packet receivedTestPacket = testConnection.packets.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		Assert.assertEquals(30, receivedTestPacket.readContent());
 		Assert.assertEquals(0xAC, receivedTestPacket.header);
 	}
@@ -195,7 +195,7 @@ public class ConnectionTest {
 
 		Packet packet = null;
 		for(int i = 0; i < Const.DEFAULT_PACKET_QUEUE_SIZE_PER_CONNECTION; i++) {
-			packet = CSPManager.resourcePool.getPacket(Const.TIMEOUT_SINGLE_ATTEMPT);
+			packet = CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			connection.packets.enqueue(packet);
 		}
 		

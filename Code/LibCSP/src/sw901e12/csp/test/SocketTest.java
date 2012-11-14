@@ -26,7 +26,7 @@ public class SocketTest {
 	public void setUp() {
 		manager = new CSPManager();
 		manager.initPools();
-		socket = CSPManager.resourcePool.getSocket(Const.TIMEOUT_SINGLE_ATTEMPT);
+		socket = CSPManager.resourcePool.getSocket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 	}
 	
 	@After
@@ -51,7 +51,7 @@ public class SocketTest {
 		int timeout = 1000;
 		
 		for(int i = 0; i < 4; i++) {
-			socket.connections.enqueue(CSPManager.resourcePool.getConnection(Const.TIMEOUT_SINGLE_ATTEMPT));
+			socket.connections.enqueue(CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT));
 		}
 		
 		stopWatch.start();
@@ -88,10 +88,10 @@ public class SocketTest {
 		Connection connection = null;
 		Packet packet = null;	
 		for(int i = 0; i < Const.DEFAULT_MAX_CONNECTION_PER_SOCKET; i++) {
-			connection = CSPManager.resourcePool.getConnection(Const.TIMEOUT_SINGLE_ATTEMPT);
+			connection = CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			socket.connections.enqueue(connection);
 			for(int j = 0; j < Const.DEFAULT_PACKET_QUEUE_SIZE_PER_CONNECTION; j++) {
-				packet = CSPManager.resourcePool.getPacket(Const.TIMEOUT_SINGLE_ATTEMPT);
+				packet = CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 				connection.packets.enqueue(packet);
 			}
 		}
