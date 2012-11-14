@@ -27,11 +27,7 @@ public class Socket implements IDispose {
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.RUN)
 	public Connection accept(int timeout) {
-		Connection connection = connections.dequeue(timeout);
-		if(connection != null) {
-			return connection;
-		}
-		return null;
+		return connections.dequeue(timeout);
 	}
 	
 	/**

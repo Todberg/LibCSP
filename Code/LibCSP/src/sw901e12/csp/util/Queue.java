@@ -1,5 +1,7 @@
 package sw901e12.csp.util;
 
+import sw901e12.csp.CSPManager;
+
 /*
  * Queue for holding and processing elements in FIFO order.
  * T will either be Socket, Packet or Connection
@@ -10,7 +12,7 @@ public class Queue<T extends IDispose> {
 	 * Maximum capacity of the queue and
 	 * a count of the used spaces
 	 */
-	protected byte capacity;
+	public byte capacity;
 	public byte count;
 	
 	/*
@@ -63,10 +65,13 @@ public class Queue<T extends IDispose> {
 	 */
 	public T dequeue(long timeout) {
 		T value = null;
+		
+		boolean waitForever = (timeout == CSPManager.TIMEOUT_NONE ? true : false);
 		timeout = System.currentTimeMillis() + timeout;
+
 		do {
 			 value = dequeue();
-		} while((System.currentTimeMillis() < timeout) && (value == null));	
+		} while(((System.currentTimeMillis() < timeout) || waitForever) && (value == null));	
 		
 		return value;
 	}
@@ -75,11 +80,7 @@ public class Queue<T extends IDispose> {
 	public synchronized void enqueue(T value) {
 		if(count != capacity) {
 			tail.value = value;
-			if(tail.next == null) {
-				tail = start;
-			} else {
-				tail = tail.next; 
-			}	
+			tail = (tail.next == null ? start : tail.next);
 			count++;
 		}
 	}
@@ -87,18 +88,24 @@ public class Queue<T extends IDispose> {
 	/* Dequeues a value in the head of the queue */
 	private synchronized T dequeue() {
 		T value = null;
+		
 		if(count != 0) {
 			value = head.value;
 			head.value = null;
-			head = head.next;
-			
+			head = (head.next == null ? start : head.next);
 			count--;
 		}
+
 		return value;
 	}
 	
+	/* Checks whether or not the queue is full */
+	public synchronized boolean isFull() {
+		return capacity == count ? true : false;
+	}
+	
 	/* Clears all values and resets the queue */
-	public void reset() {
+	public synchronized void reset() {
 		Element element = null;
 		for(byte i = 0; i < count; i++) {
 			if(i == 0) {

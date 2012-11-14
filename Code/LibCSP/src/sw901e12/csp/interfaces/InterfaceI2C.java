@@ -4,7 +4,6 @@ import sw901e12.csp.CSPManager;
 import sw901e12.csp.Node;
 import sw901e12.csp.Packet;
 import sw901e12.csp.handlers.RouteHandler;
-import sw901e12.csp.util.Const;
 
 import com.jopdesign.io.I2CFactory;
 import com.jopdesign.io.I2Cport;
@@ -74,7 +73,7 @@ public class InterfaceI2C implements IMACProtocol {
 		int header = mergeNextDataBytesReceivedAndInsertIntoInteger();
 		int data = mergeNextDataBytesReceivedAndInsertIntoInteger();
 		
-		Packet packet = CSPManager.resourcePool.getPacket(Const.TIMEOUT_SINGLE_ATTEMPT);
+		Packet packet = CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		packet.header = header;
 		packet.data = data;
 		RouteHandler.packetsToBeProcessed.enqueue(packet);		

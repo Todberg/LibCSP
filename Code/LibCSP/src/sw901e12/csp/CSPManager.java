@@ -16,6 +16,14 @@ import sw901e12.csp.util.Const;
 
 public class CSPManager {
 	
+	/* Timeouts */
+	public static final byte TIMEOUT_NONE = -1;
+	public static final byte TIMEOUT_SINGLE_ATTEMPT = 0;
+	
+	/* Special addresses and ports */
+	public static final byte ADDRESS_BROADCAST = 31;
+	public static final byte PORT_ANY = 0x01;
+	
 	public static byte nodeAddress;
 	public static short outgoingPorts;
 	public static ResourcePool resourcePool;
@@ -37,6 +45,7 @@ public class CSPManager {
 		CSPManager.outgoingPorts = 0;
 		
 		initializeRouteHandlerParameters();
+		
 		routeHandler = new RouteHandler(this.routeHandlerPriorityParameters,
 			this.routeHandlerPeriodicParameters, 
 			this.routeHandlerStorageParameters, 0);
@@ -47,7 +56,7 @@ public class CSPManager {
 	private void initializeRouteHandlerParameters() {
 		final int ROUTE_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
 		final int ROUTE_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
-		final int ROUTE_HANDLER_RELEASE_PERIOD_IN_MS = 30;
+		final int ROUTE_HANDLER_RELEASE_PERIOD_IN_MS = 200;
 		final int ROUTE_HANDLER_PRIORITY = 10;
 		
 		routeHandlerPriorityParameters = new PriorityParameters(ROUTE_HANDLER_PRIORITY);
@@ -131,11 +140,11 @@ public class CSPManager {
 	public synchronized Socket createSocket(int port, Object options) {		
 		Port p = RouteHandler.portTable[port];
 		if(!p.isOpen) {
-			Socket socket = resourcePool.getSocket(Const.TIMEOUT_SINGLE_ATTEMPT);
+			Socket socket = resourcePool.getSocket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			if(socket != null) {
 				p.isOpen = true;
 				p.socket = socket;
-				p.socket.port = (byte)port;
+				p.socket.port = (byte)port;				
 				return socket;
 			}
 		}
@@ -187,6 +196,6 @@ public class CSPManager {
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.ALL)
 	public Packet createPacket() {
-		return CSPManager.resourcePool.getPacket(Const.TIMEOUT_SINGLE_ATTEMPT);
+		return CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 	}
 }

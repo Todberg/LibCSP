@@ -18,6 +18,10 @@ public class Connection implements IDispose {
 	public final static int MASK_DST = 0x000007C0;
 	public final static int MASK_DPORT = 0x0000003F;
 	
+	/* Status flags */
+	public boolean isClosing;
+	public boolean isBusy;
+	
 	/*
 	 * Connection identifier
 	 * Format: S000000000 | SRC:5 | SPORT:6 | DST:5 | DPORT:6 | 
@@ -102,7 +106,20 @@ public class Connection implements IDispose {
 		packet.setSPORT(getSPORT());
 		packet.setDST(getDST());
 		packet.setDPORT(getDPORT());
-		RouteHandler.packetsToBeProcessed.enqueue(packet);
+		
+		if (RouteHandler.packetsToBeProcessed.count < RouteHandler.packetsToBeProcessed.capacity) {
+			RouteHandler.packetsToBeProcessed.enqueue(packet);
+		} else {
+			CSPManager.resourcePool.packets.enqueue(packet);
+		}
+	}
+	
+	public synchronized void processPacket(Packet packet) {
+		if (isOpen) {
+			packets.enqueue(packet);
+		} else {
+			CSPManager.resourcePool.putPacket(packet);
+		}
 	}
 	
 	/**
@@ -110,7 +127,7 @@ public class Connection implements IDispose {
 	 */
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.RUN)
-	public synchronized void close() {
+	public synchronized void close() {	
 		if(isOpen) {
 			byte SPORT = getSPORT();
 			if(SPORT > Const.MAX_INCOMING_PORTS) {
@@ -118,6 +135,9 @@ public class Connection implements IDispose {
 				CSPManager.outgoingPorts &= ~(1 << SPORT);
 			}
 			dispose();
+			
+			isClosing = false;
+			isBusy = false;
 		}
 	}
 	
@@ -134,8 +154,8 @@ public class Connection implements IDispose {
 	
 	@Override
 	public void dispose() {
-		this.id = 0;
 		this.isOpen = false;
+		this.id = 0;
 		this.packets.reset();
 		CSPManager.resourcePool.putConnection(this);
 	}
