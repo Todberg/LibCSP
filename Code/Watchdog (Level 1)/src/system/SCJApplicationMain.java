@@ -12,8 +12,8 @@ public class SCJApplicationMain
 		//JopSystem.startMission(new WatchdogSafelet());
 		
 		System.out.println("RunI2C");
-		//RunI2C();
-		RunTest();
+		RunI2C();
+		//RunTest();
 	}
 	
 	private static void RunTest() throws InterruptedException {
@@ -31,15 +31,25 @@ public class SCJApplicationMain
 		I2CFactory factory = I2CFactory.getFactory();
 		I2Cport i2cPort = factory.getI2CportA();
 		
-		i2cPort.initConf(0x0f);
-		i2cPort.slaveMode();
+		i2cPort.initialize(0xA, true);
 		
 		while(true) {
-			System.out.println("Iteration");
-			i2cPort.write(0x0f, 99999);
+			System.out.println("while begin");
+			int[] result = new int[5];
+			System.out.println("before writeread");
+			i2cPort.writeRead(0x01, 0x00, 5);
+			System.out.println("after writeread");
 			Thread.sleep(100);
-			i2cPort.read(0x0f, 1);
-			System.out.println(i2cPort.rx_fifo_data);
+			//while ((i2cPort.status & I2Cport.DATA_RDY) == 0);
+			System.out.println("reading buffer");
+			i2cPort.readBuffer(result);
+			
+			System.out.print("Received " + (char)result[0]);
+			System.out.print((char)result[1]);
+			System.out.print((char)result[2]);
+			System.out.print((char)result[3]);
+			System.out.println((char)result[4]);
+			
 			Thread.sleep(1000);
 		}
 	}

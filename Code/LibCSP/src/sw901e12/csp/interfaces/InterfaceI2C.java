@@ -30,11 +30,10 @@ public class InterfaceI2C implements IMACProtocol {
 	}
 	
 	@Override
-	public void initialize(int nodeAddress) {
-		
+	public void initialize(int nodeAddress) {	
 		frameByteIndex = 0;
 		I2CPort = I2CFactory.getFactory().getI2CportA();
-		I2CPort.initConf(nodeAddress);
+		I2CPort.initialize(nodeAddress, true);
 	}
 
 	/*
