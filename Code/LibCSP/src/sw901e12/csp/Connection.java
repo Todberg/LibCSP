@@ -18,10 +18,6 @@ public class Connection implements IDispose {
 	public final static int MASK_DST = 0x000007C0;
 	public final static int MASK_DPORT = 0x0000003F;
 	
-	/* Status flags */
-	public boolean isClosing;
-	public boolean isBusy;
-	
 	/*
 	 * Connection identifier
 	 * Format: S000000000 | SRC:5 | SPORT:6 | DST:5 | DPORT:6 | 
@@ -135,12 +131,14 @@ public class Connection implements IDispose {
 				CSPManager.outgoingPorts &= ~(1 << SPORT);
 			}
 			dispose();
-			
-			isClosing = false;
-			isBusy = false;
 		}
 	}
 	
+	/**
+	 * Extracts the connection id (src, sport, dst, dport) from a packet header
+	 */
+	@SCJAllowed(Level.LEVEL_1)
+	@SCJRestricted(Phase.RUN)
 	public static int getConnectionIdFromPacketHeader(Packet packet) {
 		int connectionId = 0;
 	
