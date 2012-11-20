@@ -14,7 +14,6 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.annotate.SCJRestricted;
 
 import sw901e12.csp.CSPManager;
-import sw901e12.csp.ResourcePool;
 
 public class ClientServerMission extends Mission implements Safelet<Mission> {
 

@@ -22,7 +22,7 @@ public abstract class ModulePinger {
 	
 	private boolean isDataAvailable() {
 		if(i2cPort != null) {
-			return ((i2cPort.status & I2Cport.DATA_VALID) == 1);
+			return ((i2cPort.status & I2Cport.DATA_RDY) == 1);
 		}
 		
 		return false;
