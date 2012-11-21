@@ -27,8 +27,8 @@ public class Connection implements IDispose {
 	public boolean isOpen;
 	public Queue<Packet> packets;
 	
-	public Connection(byte i) {
-		this.packets = new Queue<Packet>(i);
+	public Connection(byte packetsCapacity) {
+		this.packets = new Queue<Packet>(packetsCapacity);
 	}
 	
 	public void setId(byte SRC, byte SPORT, byte DST, byte DPORT) {
@@ -111,10 +111,10 @@ public class Connection implements IDispose {
 	}
 	
 	public synchronized void processPacket(Packet packet) {
-		if (isOpen) {
+		if (isOpen && !packets.isFull()) {
 			packets.enqueue(packet);
 		} else {
-			CSPManager.resourcePool.putPacket(packet);
+			packet.dispose();
 		}
 	}
 	

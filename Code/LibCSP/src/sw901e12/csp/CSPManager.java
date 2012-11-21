@@ -56,13 +56,12 @@ public class CSPManager {
 	private void initializeRouteHandlerParameters() {
 		final int ROUTE_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
 		final int ROUTE_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
-		final int ROUTE_HANDLER_RELEASE_PERIOD_IN_MS = 200;
-		final int ROUTE_HANDLER_PRIORITY = 10;
+		final int ROUTE_HANDLER_RELEASE_PERIOD_IN_MS = 20;
+		final int ROUTE_HANDLER_PRIORITY = 18;
 		
 		routeHandlerPriorityParameters = new PriorityParameters(ROUTE_HANDLER_PRIORITY);
 		routeHandlerPeriodicParameters = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(ROUTE_HANDLER_RELEASE_PERIOD_IN_MS, 0));
 		routeHandlerStorageParameters = new StorageParameters(ROUTE_HANDLER_BACKING_STORE_SIZE_IN_BYTES, new long[] { ROUTE_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
-		
 	}
 	
 	

@@ -30,27 +30,9 @@ public class SCJApplicationMain
 	private static void RunI2C() throws InterruptedException {
 		I2CFactory factory = I2CFactory.getFactory();
 		I2Cport i2cPort = factory.getI2CportA();
-		
-		i2cPort.initialize(0xA, true);
-		
-		while(true) {
-			System.out.println("while begin");
-			int[] result = new int[5];
-			System.out.println("before writeread");
-			i2cPort.writeRead(0x01, 0x00, 5);
-			System.out.println("after writeread");
-			Thread.sleep(100);
-			//while ((i2cPort.status & I2Cport.DATA_RDY) == 0);
-			System.out.println("reading buffer");
-			i2cPort.readBuffer(result);
-			
-			System.out.print("Received " + (char)result[0]);
-			System.out.print((char)result[1]);
-			System.out.print((char)result[2]);
-			System.out.print((char)result[3]);
-			System.out.println((char)result[4]);
-			
-			Thread.sleep(1000);
-		}
+		i2cPort.initialize(0xA, false);
+		System.out.println("Polling DATA_RDY flag");
+		while((i2cPort.status & i2cPort.DATA_RDY) == 0);
+		System.out.println("Data is available");
 	}
 }

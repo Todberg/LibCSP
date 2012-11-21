@@ -38,26 +38,28 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	protected void initialize() {
+		super.peHandlerCount = 4;
+		
 		manager = new CSPManager();
 		
 		manager.init((byte)ClientServerMission.NODE_ADDRESS);
 		manager.initPools();
 		manager.startRouteHandler();
 		
-		initializeClientHandler();
+		initializeFirstClientHandler();
+		initializeSecondClientHandler();
 		initializeServerHandler();
-		
 	}
 	
 	
-	private void initializeClientHandler() {
+	private void initializeFirstClientHandler() {
 		final int CLIENT_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 2048;
 		final int CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
-		final int CLIENT_HANDLER_RELEASE_PERIOD_IN_MS = 25;
-		final int CLIENT_HANDLER_PRIORITY = 10;
+		final int CLIENT_HANDLER_RELEASE_PERIOD_IN_MS = 400;
+		final int CLIENT_HANDLER_PRIORITY = 5;
 		
 		PriorityParameters clientHandlerPriorityParameters = new PriorityParameters(CLIENT_HANDLER_PRIORITY);
-		PeriodicParameters clientHandlerPeriodicParameters = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(CLIENT_HANDLER_RELEASE_PERIOD_IN_MS, 0));
+		PeriodicParameters clientHandlerPeriodicParameters = new PeriodicParameters(new RelativeTime(200, 0), new RelativeTime(CLIENT_HANDLER_RELEASE_PERIOD_IN_MS, 0));
 		StorageParameters clientHandlerStorageParameters = new StorageParameters(CLIENT_HANDLER_BACKING_STORE_SIZE_IN_BYTES, new long[] { CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 		
 		ClientHandler client = new ClientHandler(clientHandlerPriorityParameters,
@@ -69,11 +71,30 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 		client.register();
 	}
 	
+	private void initializeSecondClientHandler() {
+		final int CLIENT_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 2048;
+		final int CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
+		final int CLIENT_HANDLER_RELEASE_PERIOD_IN_MS = 400;
+		final int CLIENT_HANDLER_PRIORITY = 7;
+		
+		PriorityParameters clientHandlerPriorityParameters = new PriorityParameters(CLIENT_HANDLER_PRIORITY);
+		PeriodicParameters clientHandlerPeriodicParameters = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(CLIENT_HANDLER_RELEASE_PERIOD_IN_MS, 0));
+		StorageParameters clientHandlerStorageParameters = new StorageParameters(CLIENT_HANDLER_BACKING_STORE_SIZE_IN_BYTES, new long[] { CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
+		
+		SecondClientHandler client = new SecondClientHandler(clientHandlerPriorityParameters,
+			clientHandlerPeriodicParameters,
+			clientHandlerStorageParameters,
+			0,
+			manager);
+		
+		client.register();
+	}
+	
 	private void initializeServerHandler() {
 		final int SERVER_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 2048;
 		final int SERVER_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
-		final int SERVER_HANDLER_RELEASE_PERIOD_IN_MS = 1000;
-		final int SERVER_HANDLER_PRIORITY = 10;
+		final int SERVER_HANDLER_RELEASE_PERIOD_IN_MS = 15;
+		final int SERVER_HANDLER_PRIORITY = 15;
 		
 		PriorityParameters serverHandlerPriorityParameters = new PriorityParameters(SERVER_HANDLER_PRIORITY);
 		PeriodicParameters serverHandlerPeriodicParameters = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(SERVER_HANDLER_RELEASE_PERIOD_IN_MS, 0));
@@ -95,3 +116,4 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 	}
 
 }
+

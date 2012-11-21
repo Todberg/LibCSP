@@ -12,8 +12,6 @@ import sw901e12.csp.Connection;
 import sw901e12.csp.Node;
 import sw901e12.csp.Packet;
 import sw901e12.csp.Port;
-import sw901e12.csp.Socket;
-import sw901e12.csp.util.ConnectionQueue;
 import sw901e12.csp.util.Const;
 import sw901e12.csp.util.Queue;
 
@@ -27,12 +25,12 @@ public class RouteHandler extends PeriodicEventHandler {
 			PeriodicParameters parameters, StorageParameters scp,
 			long scopeSize) {
 		super(priority, parameters, scp, scopeSize);
-		
+
 		RouteHandler.routeTable = new Node[Const.MAX_NETWORK_HOSTS];
 		RouteHandler.portTable = new Port[Const.MAX_INCOMING_PORTS];
 		
 		RouteHandler.packetsToBeProcessed = new Queue<Packet>(Const.DEFAULT_PACKET_QUEUE_SIZE_ROUTING);
-		
+
 		initializeRouteTable();
 		initializePortTable();
 	}
@@ -53,7 +51,7 @@ public class RouteHandler extends PeriodicEventHandler {
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {		
 		Packet packet = packetsToBeProcessed.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
-
+		
 		if (packet != null) {
 			byte packetDST = packet.getDST();
 			
@@ -74,33 +72,30 @@ public class RouteHandler extends PeriodicEventHandler {
 					}
 					
 					/* If a socket listens on the port (Server) */
-					if (packetDPORT.isOpen) {
-						Socket packetDstSocket = packetDPORT.socket;
-						ConnectionQueue packetConnections = packetDstSocket.connections;
-						
+					if (packetDPORT.isOpen) {						
 						packetConnection = CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
-						
 						if (packetConnection != null) {
 							/* 
 							 * New connection established - Set connection id (reverse src, dst and sport, dport) 
 							 * and enqueue connection in the sockets connection queue 
 							 */
-							packetConnection.setId(packet.getDST(),	packet.getDPORT(), packet.getSRC(),	packet.getSPORT());
-							packetConnection.isOpen = true;
-							packetConnections.enqueue(packetConnection);
+							try {
+								packetConnection.setId(packet.getDST(), packet.getDPORT(), packet.getSRC(), packet.getSPORT());
+								packetConnection.isOpen = true;
+								packetDPORT.socket.processConnection(packetConnection);
+							} catch(NullPointerException e) {
+								packetConnection.dispose();
+								packetConnection = null;
+							}
 						}
 					}
 				}
 				
 				/* Check if we have a connection - then deliver or drop the packet */
 				if (packetConnection != null) {
-					if (packetConnection.packets.isFull()) {
-						CSPManager.resourcePool.putPacket(packet);
-					} else {
-						packetConnection.processPacket(packet);
-					}
+					packetConnection.processPacket(packet);
 				} else {
-					CSPManager.resourcePool.putPacket(packet);
+					packet.dispose();
 				}
 			} else { /* The packet is not for me - send it to the destination node through the correct interface */
 				Node packetDstNode = routeTable[packetDST];

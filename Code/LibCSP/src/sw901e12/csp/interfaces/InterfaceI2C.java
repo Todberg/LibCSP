@@ -55,7 +55,7 @@ public class InterfaceI2C implements IMACProtocol {
 		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.header);
 		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.data);
 		
-		I2CPort.write(frame);
+		//I2CPort.write(frame);
 
 		CSPManager.resourcePool.putPacket(packet);
 	}

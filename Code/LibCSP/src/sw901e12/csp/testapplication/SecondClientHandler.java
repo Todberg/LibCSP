@@ -11,11 +11,11 @@ import sw901e12.csp.CSPManager;
 import sw901e12.csp.Connection;
 import sw901e12.csp.Packet;
 
-public class ClientHandler extends PeriodicEventHandler {
+public class SecondClientHandler extends PeriodicEventHandler {
 
 	private CSPManager cspManager;
 	
-	public ClientHandler(PriorityParameters priority,
+	public SecondClientHandler(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp, long scopeSize,
 			 CSPManager manager) {
 		super(priority, parameters, scp, scopeSize);
@@ -26,24 +26,22 @@ public class ClientHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		System.out.println("First Client released");
+		System.out.println("Second Client released");
 		
-		char c = 'A';
+		char c = 'B';
 		Connection conn = cspManager.createConnection(ClientServerMission.NODE_ADDRESS,
 			12, CSPManager.TIMEOUT_NONE, null);
 		
-		System.out.println("Client 1: Retrieved conn from pool");
-		
 		if (conn != null) {	
-			System.out.println("Client 1: Got new connection, gonna send packet");
+			System.out.println("Client 2: Got new connection, gonna send packet");
 			Packet p = cspManager.createPacket();
 			p.setContent((int)c);
 			
 			conn.send(p);
 			
-			System.out.println("Client 1: Awaiting response");
+			System.out.println("Client 2: Awaiting response");
 			char r = (char)conn.read(CSPManager.TIMEOUT_NONE).readContent();
-			System.out.println("Client 1: Got " + r);
+			System.out.println("Client 2: Got " + r);
 			
 			conn.close();
 		}

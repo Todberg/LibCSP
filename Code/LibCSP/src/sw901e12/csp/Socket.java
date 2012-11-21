@@ -30,6 +30,12 @@ public class Socket implements IDispose {
 		return connections.dequeue(timeout);
 	}
 	
+	public synchronized void processConnection(Connection connection) {
+		if(port != -1) {
+			connections.enqueue(connection);
+		}
+	}
+	
 	/**
 	 * Closes the socket an unbinds the used port. 
 	 */
