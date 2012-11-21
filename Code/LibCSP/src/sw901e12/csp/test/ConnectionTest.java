@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sw901e12.csp.CSPManager;
-import sw901e12.csp.Connection;
-import sw901e12.csp.Packet;
+import sw901e12.csp.core.ConnectionCore;
+import sw901e12.csp.core.PacketCore;
 import sw901e12.csp.handlers.RouteHandler;
 import sw901e12.csp.test.util.StopWatch;
 import sw901e12.csp.util.Const;
@@ -18,7 +18,7 @@ import sw901e12.csp.util.Queue;
 public class ConnectionTest {
 
 	public CSPManager manager;
-	public Connection connection;
+	public ConnectionCore connection;
 	
 	public StopWatch stopWatch = new StopWatch();
 	
@@ -27,7 +27,7 @@ public class ConnectionTest {
 		manager = new CSPManager();
 		manager.initPools();
 		connection = CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
-		RouteHandler.packetsToBeProcessed = new Queue<Packet>(Const.DEFAULT_PACKET_QUEUE_SIZE_ROUTING);
+		RouteHandler.packetsToBeProcessed = new Queue<PacketCore>(Const.DEFAULT_PACKET_QUEUE_SIZE_ROUTING);
 	}
 
 	@After
@@ -37,20 +37,20 @@ public class ConnectionTest {
 	
 	@Test
 	public void testRead() {
-		Connection testConnection = setupTestConnectionWithTwoPacketsInQueue();
+		ConnectionCore testConnection = setupTestConnectionWithTwoPacketsInQueue();
 		
 		Assert.assertEquals(25, testConnection.packets.dequeue(20).data);
 		
-		Packet receivedTestPacket = testConnection.packets.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
+		PacketCore receivedTestPacket = testConnection.packets.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		Assert.assertEquals(30, receivedTestPacket.readContent());
 		Assert.assertEquals(0xAC, receivedTestPacket.header);
 	}
 	
-	private Connection setupTestConnectionWithTwoPacketsInQueue() {
-		Packet p1 = new Packet(0xAB, 25);
-		Packet p2 = new Packet(0xAC, 30);
+	private ConnectionCore setupTestConnectionWithTwoPacketsInQueue() {
+		PacketCore p1 = new PacketCore(0xAB, 25);
+		PacketCore p2 = new PacketCore(0xAC, 30);
 		
-		Connection c = new Connection((byte)20);
+		ConnectionCore c = new ConnectionCore((byte)20);
 		c.packets.enqueue(p1);
 		c.packets.enqueue(p2);
 		
@@ -59,7 +59,7 @@ public class ConnectionTest {
 	
 	@Test
 	public void testReadWithEmptyPacketBuffer() {
-		Connection testConnection = new Connection((byte)10);
+		ConnectionCore testConnection = new ConnectionCore((byte)10);
 		
 		stopWatch.start();
 		testConnection.read(20);
@@ -70,7 +70,7 @@ public class ConnectionTest {
 	
 	@Test
 	public void testSend() {
-		Packet testPacketToSend = setupTestPacketWithRandomPayload();
+		PacketCore testPacketToSend = setupTestPacketWithRandomPayload();
 		
 		connection.setId((byte)0xA, (byte)2, (byte)0xB, (byte)5); 
 		connection.send(testPacketToSend);
@@ -79,8 +79,8 @@ public class ConnectionTest {
 		Assert.assertEquals(0xB, testPacketToSend.getDST());
 	}
 	
-	private Packet setupTestPacketWithRandomPayload() {
-		return new Packet(0xAB, 0xABC);
+	private PacketCore setupTestPacketWithRandomPayload() {
+		return new PacketCore(0xAB, 0xABC);
 	}
 	
 	@Test
@@ -178,12 +178,12 @@ public class ConnectionTest {
 		 * Fields:     PRI SRC DST DPORT SPORT RES HMAC XTEA RDP CRC 
 		 */
 		int header = 0xF422C600;
-		Packet packet = new Packet(header, 0);
+		PacketCore packet = new PacketCore(header, 0);
 		
-		Connection c = new Connection((byte)20);
+		ConnectionCore c = new ConnectionCore((byte)20);
 		c.setId((byte)2, (byte)11, (byte)26, (byte)6);
 		
-		int connId = Connection.getConnectionIdFromPacketHeader(packet);
+		int connId = ConnectionCore.getConnectionIdFromPacketHeader(packet);
 		
 		Assert.assertEquals(c.id, connId);
 	}
@@ -193,7 +193,7 @@ public class ConnectionTest {
 		connection.isOpen = true;
 		connection.id = 42;
 
-		Packet packet = null;
+		PacketCore packet = null;
 		for(int i = 0; i < Const.DEFAULT_PACKET_QUEUE_SIZE_PER_CONNECTION; i++) {
 			packet = CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			connection.packets.enqueue(packet);

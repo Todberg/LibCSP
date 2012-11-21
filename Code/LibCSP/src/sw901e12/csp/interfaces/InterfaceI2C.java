@@ -1,8 +1,8 @@
 package sw901e12.csp.interfaces;
 
 import sw901e12.csp.CSPManager;
-import sw901e12.csp.Node;
-import sw901e12.csp.Packet;
+import sw901e12.csp.core.Node;
+import sw901e12.csp.core.PacketCore;
 import sw901e12.csp.handlers.RouteHandler;
 
 import com.jopdesign.io.I2CFactory;
@@ -46,7 +46,7 @@ public class InterfaceI2C implements IMACProtocol {
 	 * and the final 32 bits the data
 	 */
 	@Override
-	public void transmitPacket(Packet packet) {
+	public void transmitPacket(PacketCore packet) {
 		int[] frame = new int[FRAME_SIZE_IN_BYTES];
 		
 		Node packetDSTNode = RouteHandler.routeTable[packet.getDST()];
@@ -72,7 +72,7 @@ public class InterfaceI2C implements IMACProtocol {
 		int header = mergeNextDataBytesReceivedAndInsertIntoInteger();
 		int data = mergeNextDataBytesReceivedAndInsertIntoInteger();
 		
-		Packet packet = CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
+		PacketCore packet = CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		packet.header = header;
 		packet.data = data;
 		RouteHandler.packetsToBeProcessed.enqueue(packet);		

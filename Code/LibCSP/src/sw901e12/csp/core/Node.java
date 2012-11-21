@@ -1,4 +1,4 @@
-package sw901e12.csp;
+package sw901e12.csp.core;
 
 import sw901e12.csp.interfaces.IMACProtocol;
 

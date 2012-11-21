@@ -9,6 +9,9 @@ import javax.safetycritical.annotate.Phase;
 import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.annotate.SCJRestricted;
 
+import sw901e12.csp.core.ConnectionCore;
+import sw901e12.csp.core.Port;
+import sw901e12.csp.core.ResourcePool;
 import sw901e12.csp.handlers.RouteHandler;
 import sw901e12.csp.interfaces.IMACProtocol;
 import sw901e12.csp.interfaces.InterfaceLoopback;
@@ -22,16 +25,16 @@ public class CSPManager {
 	
 	/* Special addresses and ports */
 	public static final byte ADDRESS_BROADCAST = 31;
-	public static final byte PORT_ANY = 0x01;
+	public static final byte PORT_ANY = Const.MAX_BIND_PORTS + 1;
 	
 	public static byte nodeAddress;
 	public static short outgoingPorts;
 	public static ResourcePool resourcePool;
 	public RouteHandler routeHandler;
 	
-	PeriodicParameters routeHandlerPeriodicParameters;
-	StorageParameters routeHandlerStorageParameters;
-	PriorityParameters routeHandlerPriorityParameters;
+	private PeriodicParameters routeHandlerPeriodicParameters;
+	private StorageParameters routeHandlerStorageParameters;
+	private PriorityParameters routeHandlerPriorityParameters;
 	
 	/**
 	 * Initializes CSP
@@ -142,7 +145,7 @@ public class CSPManager {
 			Socket socket = resourcePool.getSocket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			if(socket != null) {
 				p.isOpen = true;
-				p.socket = socket;
+				p.socket = (sw901e12.csp.core.SocketCore) socket;
 				p.socket.port = (byte)port;				
 				return socket;
 			}
@@ -162,7 +165,7 @@ public class CSPManager {
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.ALL)
 	public Connection createConnection(int address, int port, int timeout, Object options) {
-		Connection connection = resourcePool.getConnection(timeout);
+		ConnectionCore connection = resourcePool.getConnection(timeout);
 		
 		if(connection != null) {
 			byte nodePort = findUnusedOutgoingPort();

@@ -8,10 +8,10 @@ import javax.safetycritical.annotate.Level;
 import javax.safetycritical.annotate.SCJAllowed;
 
 import sw901e12.csp.CSPManager;
-import sw901e12.csp.Connection;
-import sw901e12.csp.Node;
-import sw901e12.csp.Packet;
-import sw901e12.csp.Port;
+import sw901e12.csp.core.ConnectionCore;
+import sw901e12.csp.core.Node;
+import sw901e12.csp.core.PacketCore;
+import sw901e12.csp.core.Port;
 import sw901e12.csp.util.Const;
 import sw901e12.csp.util.Queue;
 
@@ -19,30 +19,29 @@ public class RouteHandler extends PeriodicEventHandler {
 
 	public static Node[] routeTable;
 	public static Port[] portTable;
-	public static Queue<Packet> packetsToBeProcessed;
+	public static Queue<PacketCore> packetsToBeProcessed;
 
 	public RouteHandler(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp,
 			long scopeSize) {
 		super(priority, parameters, scp, scopeSize);
 
-		RouteHandler.routeTable = new Node[Const.MAX_NETWORK_HOSTS];
-		RouteHandler.portTable = new Port[Const.MAX_INCOMING_PORTS];
-		
-		RouteHandler.packetsToBeProcessed = new Queue<Packet>(Const.DEFAULT_PACKET_QUEUE_SIZE_ROUTING);
+		RouteHandler.packetsToBeProcessed = new Queue<PacketCore>(Const.DEFAULT_PACKET_QUEUE_SIZE_ROUTING);
 
 		initializeRouteTable();
 		initializePortTable();
 	}
 
 	private void initializeRouteTable() {
+		RouteHandler.routeTable = new Node[Const.MAX_NETWORK_HOSTS];
 		for (byte i = 0; i < Const.MAX_NETWORK_HOSTS; i++) {
 			routeTable[i] = new Node();
 		}
 	}
 
 	private void initializePortTable() {
-		for (byte i = 0; i < Const.MAX_INCOMING_PORTS; i++) {
+		RouteHandler.portTable = new Port[Const.MAX_PORTS];
+		for (byte i = 0; i < Const.MAX_PORTS; i++) {
 			portTable[i] = new Port();
 		}
 	}
@@ -50,7 +49,7 @@ public class RouteHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {		
-		Packet packet = packetsToBeProcessed.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
+		PacketCore packet = packetsToBeProcessed.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		
 		if (packet != null) {
 			byte packetDST = packet.getDST();
@@ -59,19 +58,19 @@ public class RouteHandler extends PeriodicEventHandler {
 			if (packetDST == CSPManager.nodeAddress || packetDST == CSPManager.ADDRESS_BROADCAST) {
 				
 				/* Check for an existing connection that should receive the packet */
-				int connectionIdentifier = Connection.getConnectionIdFromPacketHeader(packet);
-				Connection packetConnection = CSPManager.resourcePool.getGlobalConnection(connectionIdentifier);
+				int connectionIdentifier = ConnectionCore.getConnectionIdFromPacketHeader(packet);
+				ConnectionCore packetConnection = CSPManager.resourcePool.getGlobalConnection(connectionIdentifier);
 				
-				/* If its the first packet with no existing connection (Server) */
+				/* If its the first packet with no existing connection (server) */
 				if (packetConnection == null) {
 					
 					/* Extract the port from the packet header */
 					Port packetDPORT = portTable[packet.getDPORT()];
-					if (!packetDPORT.isOpen) {
+					if (!packetDPORT.isOpen) {	
 						packetDPORT = portTable[CSPManager.PORT_ANY];
 					}
 					
-					/* If a socket listens on the port (Server) */
+					/* If a socket listens on the port (server) */
 					if (packetDPORT.isOpen) {						
 						packetConnection = CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 						if (packetConnection != null) {

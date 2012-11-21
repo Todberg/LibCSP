@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sw901e12.csp.CSPManager;
-import sw901e12.csp.Connection;
-import sw901e12.csp.Packet;
-import sw901e12.csp.Port;
-import sw901e12.csp.Socket;
+import sw901e12.csp.core.ConnectionCore;
+import sw901e12.csp.core.PacketCore;
+import sw901e12.csp.core.Port;
+import sw901e12.csp.core.SocketCore;
 import sw901e12.csp.handlers.RouteHandler;
 import sw901e12.csp.test.util.StopWatch;
 import sw901e12.csp.util.Const;
@@ -18,7 +18,7 @@ import sw901e12.csp.util.Const;
 public class SocketTest {
 
 	public CSPManager manager;
-	public Socket socket;
+	public SocketCore socket;
 	
 	public StopWatch stopWatch = new StopWatch();
 	
@@ -39,7 +39,7 @@ public class SocketTest {
 		int timeout = 1000;
 		
 		stopWatch.start();
-		Connection connection = socket.accept(timeout);
+		ConnectionCore connection = socket.accept(timeout);
 		stopWatch.stop();
 		
 		Assert.assertNull(connection);
@@ -55,7 +55,7 @@ public class SocketTest {
 		}
 		
 		stopWatch.start();
-		Connection connection = socket.accept(timeout);
+		ConnectionCore connection = socket.accept(timeout);
 		stopWatch.stop();
 		
 		Assert.assertNotNull(connection);
@@ -85,8 +85,8 @@ public class SocketTest {
 	public void testDispose() {
 		socket.port = 7;
 		
-		Connection connection = null;
-		Packet packet = null;	
+		ConnectionCore connection = null;
+		PacketCore packet = null;	
 		for(int i = 0; i < Const.DEFAULT_MAX_CONNECTION_PER_SOCKET; i++) {
 			connection = CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			socket.connections.enqueue(connection);

@@ -7,12 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sw901e12.csp.CSPManager;
-import sw901e12.csp.Packet;
+import sw901e12.csp.core.PacketCore;
 
 public class PacketTest {
 
 	public CSPManager manager;
-	public Packet packet;
+	public PacketCore packet;
 	
 	@Before
 	public void setUp() {

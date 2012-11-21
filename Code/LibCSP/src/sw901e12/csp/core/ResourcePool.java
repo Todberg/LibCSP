@@ -1,4 +1,4 @@
-package sw901e12.csp;
+package sw901e12.csp.core;
 
 import sw901e12.csp.util.ConnectionQueue;
 import sw901e12.csp.util.Queue;
@@ -6,12 +6,12 @@ import sw901e12.csp.util.Queue;
 public class ResourcePool {
 	
 	/* Pools */
-	public Queue<Socket> sockets;
+	public Queue<SocketCore> sockets;
 	public ConnectionQueue connections;
-	public Queue<Packet> packets;
+	public Queue<PacketCore> packets;
 	
 	/* Static connection pool containing all connections */
-	public Connection[] globalConnections;
+	public ConnectionCore[] globalConnections;
 	
 	public ResourcePool(byte socketsCapacity,
 			byte connectionsPerSocketCapacity,
@@ -25,63 +25,63 @@ public class ResourcePool {
 	}
 	
 	private void initializeSocketPool(byte socketsCapacity, byte connectionsPerSocketCapacity) {
-		this.sockets = new Queue<Socket>(socketsCapacity);
+		this.sockets = new Queue<SocketCore>(socketsCapacity);
 		
-		Socket socket;
+		SocketCore socket;
 		for(byte i = 0; i < socketsCapacity; i++) {
-			socket = new Socket(connectionsPerSocketCapacity);
+			socket = new SocketCore(connectionsPerSocketCapacity);
 			sockets.enqueue(socket);
 		}
 	}
 	
 	private void initializeConnectionPool(byte connectionsCapacity, byte packetsCapacity) {
 		this.connections = new ConnectionQueue(connectionsCapacity);
-		this.globalConnections = new Connection[connectionsCapacity];
+		this.globalConnections = new ConnectionCore[connectionsCapacity];
 		
-		Connection connection;
+		ConnectionCore connection;
 		for(byte i = 0; i < connectionsCapacity; i++) {
-			connection = new Connection(packetsCapacity);
+			connection = new ConnectionCore(packetsCapacity);
 			connections.enqueue(connection);
 			globalConnections[i] = connection;
 		}
 	}
 	
 	private void initializePacketPool(byte packetsCapacity) {
-		this.packets = new Queue<Packet>(packetsCapacity);
+		this.packets = new Queue<PacketCore>(packetsCapacity);
 		
-		Packet packet;
+		PacketCore packet;
 		for(byte i = 0; i < packetsCapacity; i++) {
-			packet = new Packet(0, 0);
+			packet = new PacketCore(0, 0);
 			packets.enqueue(packet);
 		}
 	}
 	
-	public Socket getSocket(int timeout) {
+	public SocketCore getSocket(int timeout) {
 		return sockets.dequeue(timeout);
 	}
 	
-	public void putSocket(Socket socket) {
+	public void putSocket(SocketCore socket) {
 		sockets.enqueue(socket);
 	}
 	
-	public Connection getConnection(int timeout) {
+	public ConnectionCore getConnection(int timeout) {
 		return connections.dequeue(timeout);
 	}
 	
-	public void putConnection(Connection connection) {
+	public void putConnection(ConnectionCore connection) {
 		connections.enqueue(connection);
 	}
 	
-	public Packet getPacket(int timeout) {
+	public PacketCore getPacket(int timeout) {
 		return packets.dequeue(timeout);
 	}
 	
-	public void putPacket(Packet packet) {
+	public void putPacket(PacketCore packet) {
 		packets.enqueue(packet);
 	}
 	
-	public Connection getGlobalConnection(int id) {
-		for(Connection connection : globalConnections) {
+	public ConnectionCore getGlobalConnection(int id) {
+		for(ConnectionCore connection : globalConnections) {
 			if(connection.id == id && connection.isOpen) {
 				return connection;
 			}

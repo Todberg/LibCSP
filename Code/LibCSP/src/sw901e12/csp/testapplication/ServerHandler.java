@@ -8,15 +8,16 @@ import javax.safetycritical.annotate.Level;
 import javax.safetycritical.annotate.SCJAllowed;
 
 import sw901e12.csp.CSPManager;
-import sw901e12.csp.Connection;
 import sw901e12.csp.Packet;
 import sw901e12.csp.Socket;
+import sw901e12.csp.core.ConnectionCore;
+import sw901e12.csp.core.PacketCore;
 
 public class ServerHandler extends PeriodicEventHandler {
 
 	private CSPManager cspManager;
 	private Socket socket;
-	private Connection connection;
+	private ConnectionCore connection;
 	
 	public ServerHandler(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp, long scopeSize, CSPManager manager) {
@@ -32,7 +33,7 @@ public class ServerHandler extends PeriodicEventHandler {
 		connection = socket.accept(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		
 		if (connection != null) {
-			Packet p = connection.read(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
+			PacketCore p = connection.read(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			
 			char data = (char)p.readContent();
 			

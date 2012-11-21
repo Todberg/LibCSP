@@ -5,19 +5,11 @@ import javax.safetycritical.annotate.Phase;
 import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.annotate.SCJRestricted;
 
-import sw901e12.csp.handlers.RouteHandler;
-import sw901e12.csp.util.ConnectionQueue;
-import sw901e12.csp.util.IDispose;
+import sw901e12.csp.core.ConnectionCore;
 
-public class Socket implements IDispose {
-	
-	public byte port;
-	public ConnectionQueue connections;
-	
-	public Socket(byte connectionsCapacity) {
-		this.connections = new ConnectionQueue(connectionsCapacity);
-	}
 
+public interface Socket {
+	
 	/**
 	 * Sets the socket in a state where it can receive new connections.
 	 * When a new packet arrives for the port on which the socket listens a new connection is created.
@@ -26,33 +18,12 @@ public class Socket implements IDispose {
 	 */
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.RUN)
-	public Connection accept(int timeout) {
-		return connections.dequeue(timeout);
-	}
-	
-	public synchronized void processConnection(Connection connection) {
-		if(port != -1) {
-			connections.enqueue(connection);
-		}
-	}
+	public ConnectionCore accept(int timeout);
 	
 	/**
 	 * Closes the socket an unbinds the used port. 
 	 */
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.RUN)
-	public synchronized void close() {
-		if(RouteHandler.portTable[port].isOpen) {
-			RouteHandler.portTable[port].isOpen = false;
-			RouteHandler.portTable[port].socket = null;
-			dispose();
-		}	
-	}
-	
-	@Override
-	public void dispose() {
-		this.port = 0;
-		this.connections.reset();
-		CSPManager.resourcePool.putSocket(this);
-	}
+	public void close();
 }

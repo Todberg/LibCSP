@@ -1,6 +1,6 @@
 package sw901e12.csp.interfaces;
 
-import sw901e12.csp.Packet;
+import sw901e12.csp.core.PacketCore;
 import sw901e12.csp.handlers.RouteHandler;
 
 public class InterfaceLoopback implements IMACProtocol {
@@ -21,7 +21,7 @@ public class InterfaceLoopback implements IMACProtocol {
 	public void initialize(int nodeAddress) { }
 
 	@Override
-	public void transmitPacket(Packet packet) {
+	public void transmitPacket(PacketCore packet) {
 		RouteHandler.packetsToBeProcessed.enqueue(packet);
 	}
 

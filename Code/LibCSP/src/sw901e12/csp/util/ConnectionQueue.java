@@ -1,13 +1,13 @@
 package sw901e12.csp.util;
 
-import sw901e12.csp.Connection;
+import sw901e12.csp.core.ConnectionCore;
 
 /*
  * Once in a while it must be possible to search for a specific connection in the queue using
  * an id (src, sport, dst, dport), hence Queue<T> is extended and type parameterized 
  * with Connection. This would not be possible using the Queue<T> as T is a generic type
  */
-public class ConnectionQueue extends Queue<Connection> {
+public class ConnectionQueue extends Queue<ConnectionCore> {
 
 	public ConnectionQueue(byte capacity) {
 		super(capacity);
@@ -18,7 +18,7 @@ public class ConnectionQueue extends Queue<Connection> {
 	 * the supplied connection id and returns the matching 
 	 * connection if found
 	 */
-	public synchronized Connection getConnection(int id) {
+	public synchronized ConnectionCore getConnection(int id) {
 		Element element = null;
 		
 		for(byte i = 0; i < super.count; i++) {
