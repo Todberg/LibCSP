@@ -9,7 +9,7 @@ public interface Connection {
 	
 	/**
 	 * Attempt to read any packet received in FIFO order.
-	 * @param timeout Maximum time in milliseconds to wait for an unused packet from the packet pool
+	 * @param timeout Maximum time in milliseconds to wait for an unused packet from the packet pool 
 	 * @return Next packet received on the connection or null if none
 	 */
 	@SCJAllowed(Level.LEVEL_1)
