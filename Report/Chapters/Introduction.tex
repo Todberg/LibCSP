@@ -1,2 +1,27 @@
 \chapter{Introduction}
 \label{chapter:introduction}
+\begin{lstlisting}[label=samplecode,caption=A sample]
+#include <future>
+std::map<std::string,std::string> french
+{{"hello","bonjour"},{"world","tout le monde"}};
+int main()
+{
+	std::string greet=french["hello"];
+	auto f=std::async(`[&]{std::cout << greet <<", ";}`);
+	`std::string audience=french["word"];`
+	f.get();
+	std::cout<<audience<<std::endl;
+}
+
+def main():
+	hehe
+\end{lstlisting}
+
+
+\begin{tikzpicture}[remember picture,overlay]
+\coordinate (aa) at ($(a1)+(5.0,10.0)$); 
+\node[note,draw,callout relative pointer={($(aa)-(5.0,-5.0)$)},right] at (aa) {time consuming I/O};
+
+\coordinate (bb) at ($(a2)+(3.25,2.75)$); % <= adjust this parameter to move the position of the annotation 
+\node[note,draw,callout relative pointer={($(bb)-(7,1.1)$)},right] at (bb) {next lookup};
+\end{tikzpicture}
