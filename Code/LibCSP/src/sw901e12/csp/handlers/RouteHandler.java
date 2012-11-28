@@ -12,6 +12,8 @@ import sw901e12.csp.core.ConnectionCore;
 import sw901e12.csp.core.Node;
 import sw901e12.csp.core.PacketCore;
 import sw901e12.csp.core.Port;
+import sw901e12.csp.transportextentions.ITransportExtension;
+import sw901e12.csp.transportextentions.TransportUDP;
 import sw901e12.csp.util.Const;
 import sw901e12.csp.util.Queue;
 
@@ -21,12 +23,15 @@ public class RouteHandler extends PeriodicEventHandler {
 	public static Port[] portTable;
 	public static Queue<PacketCore> packetsToBeProcessed;
 
+	private TransportUDP transportExtensionUDP;
+	
 	public RouteHandler(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp,
 			long scopeSize) {
 		super(priority, parameters, scp, scopeSize);
 
 		RouteHandler.packetsToBeProcessed = new Queue<PacketCore>(Const.DEFAULT_PACKET_QUEUE_SIZE_ROUTING);
+		transportExtensionUDP = new TransportUDP();
 
 		initializeRouteTable();
 		initializePortTable();
@@ -92,7 +97,8 @@ public class RouteHandler extends PeriodicEventHandler {
 				
 				/* Check if we have a connection - then deliver or drop the packet */
 				if (packetConnection != null) {
-					packetConnection.processPacket(packet);
+					ITransportExtension transportExtension = getTransportExtensionForPacket(packet);
+					transportExtension.deliverPacket(packetConnection, packet);
 				} else {
 					packet.dispose();
 				}
@@ -101,5 +107,10 @@ public class RouteHandler extends PeriodicEventHandler {
 				packetDstNode.protocolInterface.transmitPacket(packet);
 			}
 		}
+	}
+	
+	private ITransportExtension getTransportExtensionForPacket(PacketCore packet) {
+		/* Inspect header and return the correct transport extension - UDP or RDP */
+		return transportExtensionUDP;
 	}
 }
