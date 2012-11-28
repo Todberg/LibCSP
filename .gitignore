@@ -28,6 +28,7 @@ build/
 
 ## Absolute files ##
 /Minireport/Report.pdf
+/Report/Report.pdf
 
 /Code/LibCSP/.classpath
 /Code/LibCSP/.externalToolBuilders/New_Builder.launch
