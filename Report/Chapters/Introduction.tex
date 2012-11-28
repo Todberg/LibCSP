@@ -1,27 +1,44 @@
 \chapter{Introduction}
 \label{chapter:introduction}
-\begin{lstlisting}[label=samplecode,caption=A sample]
-#include <future>
-std::map<std::string,std::string> french
-{{"hello","bonjour"},{"world","tout le monde"}};
-int main()
-{
-	std::string greet=french["hello"];
-	auto f=std::async(`[&]{std::cout << greet <<", ";}`);
-	`std::string audience=french["word"];`
-	f.get();
-	std::cout<<audience<<std::endl;
-}
+Todays notion of a \textit{computer} is often implicitly associated with general purpose computers such as desktops, laptops or even tablets used for information processing. However, computers, also extends to other areas of domains such as controlling or monitoring physical hardware. Such tasks, where computers interact directly with the real world are typically referred to as \textit{embedded systems}. Examples of such systems are braking system in cars and software for washing machines. An indication of the importance of embedded systems can be seen in the production of microprocessors. An estimated 99\% of the worlds production is for use in embedded systems\cite{alan2001real}. Different applications of embedded systems also makes more strict demands for reliability of the software. Consider an embedded system for air traffic control. Timing delays leading to faults in such a system may have more serious consequences in contrast to a general purpose computer where only the user experience would suffer. This type of system in which the system must take timing constraints into consideration are referred to as \textit{real-time systems}. While several definitions exists, we here provide the following definition:
 
-def main():
-	hehe
-\end{lstlisting}
+\begin{quotation}
+"Any information processing activity or system which has to respond to externally generated input stimuli within a finite and specified period." \cite{alan2001real}
+\end{quotation}
+
+Depending on the type of embedded system, failures may also result in more fatal consequences. Applications where a failure to respond within timing constraints (or an incorrect response is produced) results in a significant loss, or even life, are referred to as \textit{safety-critical systems}(cite SCJ spec). As a result of the possible consequences, safety-critical systems must go through a strict and rigorous certification and validation process before being put into practical use. One example of such certification processes is the \textit{Software Considerations in Airborne Systems and Equipments Certification} (DO-178B)\cite{DO178B}, that the \textit{Federal Aviation Administration} requires safety-critical software to be certified against within the United States (and equivalent is found in Europe). As an example, with the highest level of certification (level A) under DO-178B, the compiled object code must be analysed in depth in order to verify correct behaviour and to find and inspect all compiler made optimizations\cite{DO178B-Example}.
 
 
-\begin{tikzpicture}[remember picture,overlay]
-\coordinate (aa) at ($(a1)+(5.0,10.0)$); 
-\node[note,draw,callout relative pointer={($(aa)-(5.0,-5.0)$)},right] at (aa) {time consuming I/O};
+Currently developing safety-critical systems is done using languages in which there is little nondeterminism, such as the C or Ada programming languages, due to their ability to write predictable software as a result of, amongst other things, the manual memory management. Recently, attempts have been made to bring Java into the area of real-time and safety-critical systems. Motivations for this are primarily grounded in its attractiveness due to its type-safety, programmer productivity and availability of programmers.
+The Safety-Critical Java (SCJ) specification under \textit{JSR-302}\cite{JSR}(cite til spec), based on the existing \textit{Real-Time Specification for Java} (RTSJ), is an attempt to leverage the many benefits of Java for safety-critical systems development, which require behaviour and performance that is predictable as well as being reliable(cite spec). The primary goal of SCJ is to enable the development of applications that can be certified against rigorous certification processes such as DO-178B level A. As the specification is not yet completed, and still a draft, few implementations and use cases exists which are required in order to thoroughly evaluate the specification and validate its design.
+In this study we wish to examine developing real-time applications using Safety-Critical Java, as well as contribute and complement the further development of Safety-Critical Java, from its current state. In the following Sections we examine the current state of Safety-Critical Java and open areas in which this project may contribute.
 
-\coordinate (bb) at ($(a2)+(3.25,2.75)$); % <= adjust this parameter to move the position of the annotation 
-\node[note,draw,callout relative pointer={($(bb)-(7,1.1)$)},right] at (bb) {next lookup};
-\end{tikzpicture}
+\section{The Current State of SCJ and Open Issues}
+In this Section we will briefly examine the current state of Safety-Critical Java and areas that are open for work in order to find a suitable area to contribute in bringing Java to safety-critical systems. Note that this will not provide a thorough introduction to SCJ but rather, serves to describe why it is here.
+
+\subsection{Brief History of Java for Safety-Critical Systems} % (fold)
+\label{sub:brief_history_of_java_for_safety_critical_systems}
+For several years Java has been widely applied in the industry as the programming language and platform for many software development projects. The standard edition of Java, however, is not directly applicable in the area of real-time systems (and in particular safety-critical systems). The Real-Time Specification for Java (RTSJ) under JSR-001\cite{alan2001real}\cite{henties:2009-20} was a significant breakthrough that specified constraints of Java in terms of thread scheduling and memory management amongst other things, that are necessary in order to meet the requirements of developing real-time systems. A number of virtual machines for RTSJ have been implemented, and interesting use cases have been developed. Notable examples are experimenting with RTSJ for an unmanned aerial vehicle (UAV) at Boeing\cite{Armbruster:2007:RJV:1324969.1324974} and experimenting with the programming model in RTSJ for space missions, done in collaboration with NASA\cite{DBLP:conf/isorc/DvorakBCCCGIMMR04}. However, despite such prominent actors having invested time and effort into RTSJ, it has been the subject of much debate. Primarily, the application of RTSJ for e.g. safety-critical applications has been questioned due to its size and complexity. As a result, attempts to simplify RTSJ have been made, such as the Ravenscar Java profile and Safety-Critical Java in which the latter have become the most prominent one.
+
+Safety-Critical Java was initiated in 2006 as JSR-302 led by "The Open Group", and the specification has been under development since then, with involvement from representatives from companies such as Boeing, Oracle and IBM. Having just passed its 6th birthday, the specification is nearing its completion and is currently being finalised. This does not, however, mean that one can simply begin to develop SCJ applications, as there are still future work to be done. First, the specification requires some kind of validation in order to approve its application for safety-critical software. Second, as the specification originates back from 2006, many things have happened in the area since, and the surroundings (such as certification requirements) have changed in some areas which may allow easing some of the restrictions under which SCJ applications are developed. In the following we will look at some of these interesting topics that is open for work in relation to SCJ.
+
+% subsection brief_history_of_java_for_safety_critical_systems (end)
+
+
+\subsection{Interesting Research Areas} % (fold)
+\label{sub:interestingresearch}
+As the SCJ specification is still in public draft and thereby under constant evaluation both from the outside world and within, the expert group desperately need more implementations of it in order to refine it. Currently at the time of writing, a limited open-source prototype implementation supporting non-complex SCJ applications is available under the name, oSCJ cite(http://sss.cs.purdue.edu/projects/oscj/). As the implementation is extremely limited and because there is little to no activity in the code repository, it can be considered as being either in a hibernation state. Fortunately, another prototype implementation of SCJ that offers a larger subset of the specification to run on the Java Optimized Processor, a hardware implementation of the JVM, is also available cite(Safety-Critical Java on a Java Processor). This implementation supports the creation and execution of more complex SCJ applications. Besides supporting the specification development by providing implementations of the specification, the expert group also needs more practical use cases of SCJ applications. In this regard, only two public available use cases have been developed, namely a desktop RepRap 3D printer cite(reprap artikel) and a cardiac pacemaker cite(The Cardiac Pacemaker Case Study and its implementation in Safety-Critical Java and Ravenscar Ada). Another interesting and highly debated area of research is in relation to the memory model. SCJ uses a rather special memory model in order to compensate the lack of automatic garbage collection. Furthermore using garbage collectors in real-time systems are often avoided due to timing difficulties. This unconventional way of handling memory is often criticized as being confusing and troublesome and a lot of research is put into bringing garbage collectors into SCJ to prevent this alienation.
+% subsection subsection_name (end)
+
+\section{GomSpace and the Cubesat Space Protocol} % (fold)
+\label{sec:gomspace_and_the_cubesat_space_protocol}
+
+% section gomspace_and_the_cubesat_space_protocol (end)
+
+\section{Problem Statement} % (fold)
+\label{sec:problem_statement}
+
+\begin{quotation}
+	\textit{Can the network-layer delivery protocol, Cubesat Space Protocol, be designed and implemented using Safety-Critical Java, such that it can be applied for applications that relies on communicating with peripheral modules in a safety-critical environment?}
+\end{quotation}
+% section problem_statement (end)
