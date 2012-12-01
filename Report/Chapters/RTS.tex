@@ -13,13 +13,6 @@ A real-time-system was defined as a system in which correctness was not only dep
 \item[Firm] As with soft, deadlines can be missed occasionally, but late delivery in a response does not provide any benefit. 
 \end{description}
 
-In any of such real-time systems, different computations are typically involved in order to generate the resulting response. Such computations may be triggered by time or event. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
-\begin{description}
-	\item[Periodic (time-triggered)] A task is periodic if it is periodic with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
-	\item[Aperiodic (event-triggered)] A task is aperiodic if some event in the environment triggers the execution of the task, without any bound on how often this may be triggered. An example could be a task that is released every time. An example could be a computer mouse where the user generates click events. Such click events may arrive at any time without bound.
-	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal inter arrival time. This could for instance be a coffee machine, in which the event generated to start brewing coffee will not be generated until after it is done with its current task.
-\end{description}
-
 The different kinds of real-time systems are often associated with embedded systems. Embedded systems were introduced as applications that participate in a larger engineering system. This can be as a component that monitors or controls operation of equipment. Because such applications will typically have timing constraints, embedded systems are typically also real-time systems (but these are by no means mutually inclusive).
 
 Safety-critical systems can be categorised as hard real-time systems, as it is imperative that deadlines are satisfied. There are, however, different degrees of safety in the area of safety-critical software development. First, let us consider the definition of safety in relation to software(cite spec):
@@ -37,7 +30,14 @@ Just as we distinguish between different types of real-time systems, one can als
 	\item[Level E (No Effect)] Failures does not result in any effect on the aircraft.
 \end{description}
 
+In any of such real-time systems, different computations are typically involved in order to generate the resulting response. Such computations may be triggered by time or event. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
+\begin{description}
+	\item[Periodic (time-triggered)] A task is periodic if it is periodic with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
+	\item[Aperiodic (event-triggered)] A task is aperiodic if some event in the environment triggers the execution of the task, without any bound on how often this may be triggered. An example could be a task that is released every time. An example could be a computer mouse where the user generates click events. Such click events may arrive at any time without bound.
+	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal inter arrival time. This could for instance be a coffee machine, in which the event generated to start brewing coffee will not be generated until after it is done with its current task.
+\end{description}
 
+Rarely is it the case that only a single task exists. Instead a real-time (and safety-critical) system is typically made up of several tasks. In the following we look at how this execution can achieved such that temporal requirements are met.
 
 % section definitions_and_background (end)
 
