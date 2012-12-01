@@ -1,8 +1,43 @@
-\chapter{Real-Time Embedded and Safety-Critical Systems}
+\chapter{Real-Time, Embedded and Safety-Critical Systems}
 \label{chapter:rts}
+This chapter will introduce the concepts and definitions of real-time, embedded and safety-critical systems that will be applied throughout the report. The following is primarily based on \cite{alan2001real}. In the case of additional use of sources, these are referred to as usual.
 
 \section{Definitions and Background} % (fold)
 \label{sec:definitions_and_background}
+In Chapter \ref{chapter:introduction} we presented a definition of real-time systems and briefly introduced the concepts of embedded and safety-critical systems. We will here outline these in more detail and describe their relation in between.
+
+A real-time-system was defined as a system in which correctness was not only dependent on the absence of failure in the generated output response, but also in the timing. Not all timing failures are, however, equally disastrous as the consequences may vary from simple usability annoyances to being life threatening. We therefore distinguish between the following types of real-time systems:
+\begin{description}
+\item[Hard] Those real-time systems where responses must be generated within the specified deadline. Any miss of deadline results in failure. A pacemaker is one such example of a hard real-time system.
+\item[Soft] Missing a deadline occasionally does not imply failure of the system, and it may continue to function correctly. An example of such a system could be a digital video-phone system, in which delays in deliveries of network packets may result in quality degradation.
+\item[Firm] As with soft, deadlines can be missed occasionally, but late delivery in a response does not provide any benefit. 
+\end{description}
+
+The different kinds of real-time systems are often associated with embedded systems. Embedded systems were introduced as applications that participate in a larger engineering system. This can be as a component that monitors or controls operation of equipment. Because such applications will typically have timing constraints, embedded systems are typically also real-time systems (but these are by no means mutually inclusive).
+
+Safety-critical systems can be categorised as hard real-time systems, as it is imperative that deadlines are satisfied. There are, however, different degrees of safety in the area of safety-critical software development. First, let us consider the definition of safety in relation to software(cite spec):
+\begin{description}
+	\item[Safety] a system property in which failure will not result in endangerment of human life or the environment.
+	\item[Safety-critical system] a system of high criticality with an extremely high assurance of the safety property.
+\end{description}
+
+Just as we distinguish between different types of real-time systems, one can also distinguish between different levels in the safety property which is often done in the context of safety-critical systems. This naturally depends on the specific application domain and what different consequences can be caused by anomalous behaviour. We previously introduced the DO-178B standard used by the FAA as a certification for safety-critical systems in the United States. This standard (and the European ED-12B equivalent) defines a total of 5 levels of software that is related to aircraft safety:
+\begin{description}
+	\item[Level A (Catastrophic)] Failure may directly or contribute to crash of the aircraft.  
+	\item[Level B (Hazardous)] Failure may directly or contribute to the failure of a function that results in severe conditions for the aircraft. Failure of the function would reduce the capability of the aircraft or the ability of the crew to cope with converse operating conditions. As an example, this could be the weather radar during flight in an area with tropical storm.
+	\item[Level C (Major)] Failures are still serious, but not as serious as Level B. Consequences may be more discomfort and increased crew workload. An example could be a system component that aids in many of the mental arithmetic tasks a pilot has. Failure of such a system puts this workload on the pilot instead.
+	\item[Level D (Minor)] A failure may directly or contribute to a failure in a function that results in a minor failure. This failure does not reduce the safety significantly.
+	\item[Level E (No Effect)] Failures does not result in any effect on the aircraft.
+\end{description}
+
+In any of such real-time systems, different computations are typically involved in order to generate the resulting response. Such computations may be triggered by time or event. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
+\begin{description}
+	\item[Periodic (time-triggered)] A task is periodic if it is periodic with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
+	\item[Aperiodic (event-triggered)] A task is aperiodic if some event in the environment triggers the execution of the task, without any bound on how often this may be triggered. An example could be a task that is released every time. An example could be a computer mouse where the user generates click events. Such click events may arrive at any time without bound.
+	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal inter arrival time. This could for instance be a coffee machine, in which the event generated to start brewing coffee will not be generated until after it is done with its current task.
+\end{description}
+
+Rarely is it the case that only a single task exists. Instead a real-time (and safety-critical) system is typically made up of several tasks. In the following we look at how this execution can achieved such that temporal requirements are met.
 
 % section definitions_and_background (end)
 
@@ -38,6 +73,8 @@ In many cases it makes sense to interrupt a lower priority task when a task with
 % section scheduling (end)
 
 \subsection{Schedulability Analysis} % (fold)
+
+
 \label{sec:schedulability_analysis}
 
 % section schedulability_analysis (end)
