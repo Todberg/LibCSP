@@ -51,17 +51,18 @@ We have therefore reached the ability to state the following problem statement f
 \begin{quotation}
 	\textit{Can the network-layer delivery protocol, Cubesat Space Protocol, be designed and implemented using Safety-Critical Java, such that it can be applied for applications that relies on communicating with peripheral modules in a safety-critical environment?}
 \end{quotation}
+In addition to the statement of the problem, we wish to outline some of the key goals, that is, what we wish to examine as a part of this study.
 
-Before continuing with this concrete problem at hand, we will elaborate a bit on the motivation behind working with this, goals
+An additional reason for working with this topic is our personal backgrounds. We have great interest in software development, and we believe that with our background in Software Engineering, which includes much experience working with Java and similar platforms, we are able to provide some reflection on applying SCJ as developers would see it. As previously stated many of the motivations behind bringing Java technology to safety-critical systems is that of programmer productivity, as well as letting many of the Java developers out there develop safety-critical systems. Therefore as a part of the problem, we wish to examine this and in the end reflect upon the SCJ from our point of views as a part of the use case. We can outline these additional questions as following:
+\begin{itemize}
+	\item When working with this use case - to what degree is it possible to apply existing Java experience to the development of safety-critical systems using SCJ?
+	\item Are there elements in the specification that could be changed for the better?
+	\item As CSP is effectively a library, which considerations must one take into account when developing libraries for SCJ in contrast to standard edition Java? And how can such libraries be made to ease the use for developers with prior Java experience?
+	\item Ass a result of the use case, are there any topics that is worth examining for future work?
+\end{itemize}
 
-\subsection{Grounds and Goals} % (fold)
-\label{sub:grounds_and_goals}
-
-\subsection{Delimitation} % (fold)
-\label{sub:delimitation}
-
-\subsection{Method} % (fold)
-\label{sub:method}
+Furthermore, in order to be able to reflect upon these questions and provide a conclusion for the statement of the problem, we have the goal of building an SCJ application on top of the implemented CSP protocol. This serves the goal of both 
+validating the implementation of CSP, as well as being able to illustrate the development of a real-time safety-critical application using the CSP implementation, and how a Java developer would see this task.
 
 % subsection method (end)
 
