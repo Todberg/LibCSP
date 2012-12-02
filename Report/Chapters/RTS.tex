@@ -6,6 +6,9 @@ This chapter will introduce the concepts and definitions of real-time, embedded 
 \label{sec:definitions_and_background}
 In Chapter \ref{chapter:introduction} we presented a definition of real-time systems and briefly introduced the concepts of embedded and safety-critical systems. We will here outline these in more detail and describe their relation in between.
 
+\subsection{Real-Time and Embedded Systems} % (fold)
+\label{sub:real_time_and_embedded_systems}
+% subsection real_time_and_embedded_systems (end)
 A real-time-system was defined as a system in which correctness was not only dependent on the absence of failure in the generated output response, but also in the timing. Not all timing failures are, however, equally disastrous as the consequences may vary from simple usability annoyances to being life threatening. We therefore distinguish between the following types of real-time systems:
 \begin{description}
 \item[Hard] Those real-time systems where responses must be generated within the specified deadline. Any miss of deadline results in failure. A pacemaker is one such example of a hard real-time system.
@@ -15,6 +18,9 @@ A real-time-system was defined as a system in which correctness was not only dep
 
 The different kinds of real-time systems are often associated with embedded systems. Embedded systems were introduced as applications that participate in a larger engineering system. This can be as a component that monitors or controls operation of equipment. Because such applications will typically have timing constraints, embedded systems are typically also real-time systems (but these are by no means mutually inclusive).
 
+\subsection{Safety-Critical Systems} % (fold)
+\label{sub:safety_critical_systems}
+% subsection safety_critical_systems (end)
 Safety-critical systems can be categorised as hard real-time systems, as it is imperative that deadlines are satisfied. There are, however, different degrees of safety in the area of safety-critical software development. First, let us consider the definition of safety in relation to software(cite spec):
 \begin{description}
 	\item[Safety] a system property in which failure will not result in endangerment of human life or the environment.
@@ -30,6 +36,9 @@ Just as we distinguish between different types of real-time systems, one can als
 	\item[Level E (No Effect)] Failures does not result in any effect on the aircraft.
 \end{description}
 
+\subsection{Real-Time Tasks} % (fold)
+\label{sub:real_time_tasks}
+% subsection real_time_tasks (end)
 In any of such real-time systems, different computations are typically involved in order to generate the resulting response. Such computations may be triggered by time or event. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
 \begin{description}
 	\item[Periodic (time-triggered)] A task is periodic if it is periodic with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
