@@ -79,7 +79,7 @@ d & 100 & 6  \\ [1ex]
 \label{table:CEtaskset}
 \end{table}
 
-\img{scheduling_cyclic_example.pdf}{1}{Time-line}
+\img{scheduling_cyclic_example.pdf}{0.9}{Time-line}
 
 \subsection{Fixed Priority Scheduling}
 Fixed Priority Scheduling, or simply FPS, is a priority-based scheduling technique in which tasks are assigned priorities that are taking into account when creating the schedule. A task with a higher priority is preferred over a task with a lower priority. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
@@ -116,6 +116,39 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 	\item \textbf{Rate Monotonic:} Each task is given a unique priority based on its period - a short period equals a high priority. For example, two tasks, \textit{i} and \textit{j} with periods, $T_i$ and $T_j$ such that $T_i$ < $T_j$ yields the priority relationship, $P_i$ > $P_j$.
 	\item \textbf{Deadline Monotonic:} Each task is given a unique priority based on its deadline - the task with the shortest deadline is assigned the highest priority. For example, two tasks \textit{i} and \textit{j} with deadlines, $D_i$ and $D_j$ such that $D_i$ < $D_j$ yields the priority relationship, $P_i$ > $P_j$.
 \end{itemize}
+
+With rate monotonic, and in accordance with the previously mentioned simple task model, deadlines are implicit meaning that the period and deadline are assumed equal for each task ($D = T$). This assumption is lifted in the deadline monotonic scheme as deadlines are allowed to be less then the periods ($D <= T$). Additionally the requirement of having only periodic tasks can also be changed to support periodic and sporadic tasks. Doing so makes the deadline monotonic \textit{optimal} in the sense that if a task set can be scheduled under a preemptive fixed priority scheduler using some fixed priority assignment scheme while preserving this changed task model, then the task set can also be scheduled using the deadline monotonic scheme. On the other hand, keeping the simple task model unchanged makes the rate monotonic scheme optimal.
+
+\begin{table}[ht]
+\begin{minipage}[b]{0.45\linewidth}
+\caption{Example of a task set with rate monotonic assignment}
+\centering
+\begin{tabular}{c c c}
+\hline\hline
+Task, N & Period, T & Priority, P \\ [0.5ex]
+\hline 
+a & 23 & 3 \\
+b & 41 & 2 \\
+c & 68 & 1 \\ [1ex]
+\hline
+\end{tabular}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\caption{Example of a task set with deadline monotonic assignment}
+\centering
+\begin{tabular}{c c c c}
+\hline\hline
+Task, N & Period, T & Deadline, D & Priority, P \\ [0.5ex]
+\hline 
+a & 5  & 2 & 4 \\
+b & 12 & 4 & 3 \\
+c & 23 & 11 & 2  \\
+d & 47 & 20 & 1  \\ [1ex]
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
 
 % section scheduling (end)
 
