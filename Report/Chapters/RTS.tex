@@ -97,7 +97,17 @@ The currently executing task is in a \textit{running} state, but can be \textit{
 In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run - this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state - this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
 
 \subsubsection{Simple Task Model}
-..
+Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronization, this becomes a complex task. Therefore, the schedulability tests presented builds upon \textit{the simple task model} that imposes a number of restrictions in concurrent real-time systems. Basically this attempts to simplify the process of schedulability testing an application. The simple task model makes the following assumptions of a concurrent real-time system:
+\begin{itemize}
+	\item The application is assumed to consists of a fixed set of tasks.
+	\item All tasks are periodic, with known periods.
+	\item The tasks are completely independent of each other.
+	\item All system overheads, context-switching times and so on are ignored (that is, assumed to have zero cost).
+	\item All tasks have deadlines equal to their periods (that is, each task must complete before it is next released).
+	\item All tasks have fixed worst-case execution times.
+	\item No task contains any internal suspension points (e.g. an internal delay statement or a blocking I/O request).
+	\item All tasks execute on a single processor (CPU).
+\end{itemize}
 
 \subsubsection{Priority Assignment}
 In FPS, the important question is how to assign the priorities amongst the different tasks? Naturally it would make sense to assign high priorities to tasks that are deemed important from a developer perspective, however, this is usually not a good solution as priorities are derived from temporal requirements rather than functional importance. Instead, the following two methods are often used:
@@ -142,10 +152,21 @@ d & 47 & 20 & 1  \\ [1ex]
 
 % section scheduling (end)
 
-\subsection{Schedulability Analysis} % (fold)
-
-
+\section{Schedulability Analysis} % (fold)
 \label{sec:schedulability_analysis}
+A scheduling scheme consists not only of the algorithm for ordering the use of resources such as the CPU, but also provides a means for performing analysis in order to predict the worst-case behaviour of the system under the particular scheduling algorithm. This is an important aspect of developing real-time and (in particular) safety-critical systems, as one must provide ensurance that the temporal requirements of the tasks are satisfied. A schedulability test can have one or both of the following characteristics:
+\begin{description}
+	\item[Sufficient] A test is sufficient if it guarantees that all deadlines are always met when the test is satisfied.
+	\item[Necessary] A test is necessary if failure to satisfy the test will result in a deadline miss at some point during execution.
+\end{description}
+A test that is both sufficient and necessary is considered \textbf{exact}. In the following we will examine two well known methods for determining schedulability of a concurrent system.
+
+% subsection the_simple_task_model (end)
+
+\subsection{Worst-Case Execution Time Analysis} % (fold)
+\label{sub:worst_case_execution_time_analysis}
+
+% subsection worst_case_execution_time_analysis (end)
 
 % section schedulability_analysis (end)
 
