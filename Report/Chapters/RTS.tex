@@ -43,7 +43,7 @@ Rarely is it the case that only a single task exists. Instead a real-time (and s
 
 \section{Scheduling} % (fold)
 \label{sec:scheduling}
-In concurrent programs, i.e programs containing multiple threads, it is not necessary to specify the exact ordering of task execution. The scheduler provides the means of sharing system resources with every participating thread in a way such that every thread meets its temporal requirements. For this to work the tasks rarely cannot just run until completion in a sequential manner one at a time. Instead the scheduler generates an internal \textit{schedule} based on the properties of each task that the tasks are interleaved with each other. If the program is correct, the output stays the same across all possible interleaves. Thus scheduling can be defined as:
+In concurrent programs, i.e programs containing multiple threads, it is not necessary to specify the exact ordering of task execution. The scheduler provides the means of sharing system resources with every participating thread in a way such that every thread meets its temporal requirements. For this to work the tasks rarely cannot just run until completion in a sequential manner one at a time. Instead the scheduler generates an internal \textit{schedule} based on the properties of each task such that the tasks are interleaved with each other. If the program is correct, the output stays the same across all possible interleaves. Thus scheduling can be defined as:
 
 \begin{quotation}
 	\textit{The activity of restricting the non-determinism found in concurrent systems by ordering the execution of tasks, such that they meet their temporal requirements}
@@ -52,7 +52,23 @@ In concurrent programs, i.e programs containing multiple threads, it is not nece
 Several scheduling algorithms have been proposed including the \textit{Cyclic Executive} (CE) and \textit{Fixed Priority Scheduling} (FPS). Although many other algorithms exists such as \textit{Earliest Deadline First} (EDF) and \textit{Value-Based Scheduling} (VBS), attention will only be given to CE and FPS as these are the ones employed in SCJ. Note that in the following, the notions a \textit{task} and a \textit{thread} is used interchangeably.
 
 \subsection{Cyclic Executive}
-When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically split up into fixed sized chunks of so-called procedure calls and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further analysis which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Figure \ref{asd} shows an example of a schedule with 
+When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically split up into fixed sized chunks of so-called procedure calls and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further analysis which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Table \ref{tab} and Figure \ref{fig} shows an example of a task set with four tasks and the accompanying time-line. The schedule repeats itself at time 100 (the major cycle) when the time slot with \textit{abc} runs again. 
+
+\begin{table}[ht]
+\caption{Task set}
+\centering
+\begin{tabular}{c c c}
+\hline\hline
+Task, N & Period, T & Computation time, C \\ [0.5ex]
+\hline 
+a & 50  & 20 \\
+b & 50  & 18 \\
+c & 100 & 9  \\
+d & 100 & 6  \\ [1ex]
+\hline
+\end{tabular}
+\label{table:CEtaskset}
+\end{table}
 
 \subsection{Fixed Priority Scheduling}
 Fixed Priority Scheduling, or simply FPS, is priority-based scheduling technique in which tasks are assigned priorities that are taking into account when creating the schedule. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
