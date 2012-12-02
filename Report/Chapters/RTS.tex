@@ -153,7 +153,7 @@ With rate monotonic, and in accordance with the previously mentioned simple task
 
 Figure \ref{img:fps_rate_mono_example.pdf} shows the time-tine for the task set represented in Table \ref{table:FPSRateMon}. The computation times have been omitted for simplification. At the \textit{critical instant} all tasks are released, but only the task with the highest priority, namely task \textit{a}, is allowed to run. The remaining tasks are blocked until task \textit{a} finishes its release. Next task \textit{b} runs till completion after which task \textit{c} runs. Task \textit{c} is however interrupted by the release of task \textit{a}. After task \textit{a} has completed, task \textit{c} continues a little time before being interrupted again by task \textit{b} this time. After this task has finished, task \textit{c} is finally able to complete.
 
-\img{fps_rate_mono_example.pdf}{0.9}{Time-line for the task set in Tabel \ref{table:FPSRateMon}.}
+\img{fps_rate_mono_example.pdf}{0.8}{Time-line for the task set in Tabel \ref{table:FPSRateMon}.}
 
 % section scheduling (end)
 
