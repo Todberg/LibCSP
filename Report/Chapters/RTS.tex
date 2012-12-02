@@ -99,10 +99,25 @@ In many cases it makes sense to interrupt a lower priority task when a task with
 
 % section scheduling (end)
 
-\subsection{Schedulability Analysis} % (fold)
-
-
+\section{Schedulability Analysis} % (fold)
 \label{sec:schedulability_analysis}
+A scheduling scheme consists not only of the algorithm for ordering the use of resources such as the CPU, but also provides a means for performing analysis in order to predict the worst-case behaviour of the system under the particular scheduling algorithm. This is an important aspect of developing real-time and (in particular) safety-critical systems, as one must provide ensurance that the temporal requirements of the tasks are satisfied. A schedulability test can have one or both of the following characteristics:
+\begin{description}
+	\item[Sufficient] A test is sufficient if it guarantees that all deadlines are always met when the test is satisfied.
+	\item[Necessary] A test is necessary if failure to satisfy the test will result in a deadline miss at some point during execution.
+\end{description}
+A test that is both sufficient and necessary is considered \textbf{exact}. In the following we will examine two schedulability tests, however, we begin with introducing the \textit{simple task model} that states a number of assumptions that the tests builds upon.
+
+\subsection{The Simple Task Model} % (fold)
+\label{sub:the_simple_task_model}
+Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronization, this becomes a complex task. Therefore, the schedulability tests presented builds upon \textit{the simple task model} that imposes a number of restrictions in concurrent real-time systems. Basically this attempts to simplify the process of schedulability testing an application.
+
+% subsection the_simple_task_model (end)
+
+\subsection{Worst-Case Execution Time Analysis} % (fold)
+\label{sub:worst_case_execution_time_analysis}
+
+% subsection worst_case_execution_time_analysis (end)
 
 % section schedulability_analysis (end)
 
