@@ -117,12 +117,9 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 	\item \textbf{Deadline Monotonic:} Each task is given a unique priority based on its deadline - the task with the shortest deadline is assigned the highest priority. For example, two tasks \textit{i} and \textit{j} with deadlines, $D_i$ and $D_j$ such that $D_i$ < $D_j$ yields the priority relationship, $P_i$ > $P_j$.
 \end{itemize}
 
-
-
-
 % section scheduling (end)
 
-\section{Schedulability Analysis} % (fold)
+\section{Testing Schedulability} % (fold)
 \label{sec:schedulability_analysis}
 A scheduling scheme consists not only of the algorithm for ordering the use of resources such as the CPU, but also provides a means for performing analysis in order to predict the worst-case behaviour of the system under the particular scheduling algorithm. This is an important aspect of developing real-time and (in particular) safety-critical systems, as one must provide ensurance that the temporal requirements of the tasks are satisfied. A schedulability test can have one or both of the following characteristics:
 \begin{description}
@@ -130,8 +127,28 @@ A scheduling scheme consists not only of the algorithm for ordering the use of r
 	\item[Necessary] A test is necessary if failure to satisfy the test will result in a deadline miss at some point during execution.
 \end{description}
 A test that is both sufficient and necessary is considered \textbf{exact}. In the following we will examine two well known methods for determining schedulability of a concurrent system.
+% Notations
+
+\subsection{Utilization-based Test} % (fold)
+\label{sub:utilization_based_test}
+This test can be considered the most simple test for FPS. It is important to note that while it is not exact (it is sufficient) it is simple to perform when applying the rate monotonic assignment scheme and thus makes the assumption of the simple task model.
+
+The test is based on considering the utilization of a task set, and schedulability is ensured (that is, all tasks in the task set will meet their deadlines) if the following condition is true:
+
+\begin{equation}
+	\sum_{i=1}^N \biggl(\frac{C_i}{T_i}\biggr) \le N\bigl( 2^{1/N} - 1 \bigr)
+\end{equation}
+
+As stated the test is not exact but only sufficient, there exists task sets for which the utilization-based test will result in a negative outcome, but is actually schedulable. Therefore when the utilization-based test fails, the task set \textit{may not} be schedulable. Variations and improvements for this test exists, however, these will not be discussed in this report. For additional information on the utilization-based test and variations, we refer to the cited material.
 
 % subsection the_simple_task_model (end)
+
+\subsection{Response-Time Analysis (RTA)} % (fold)
+\label{sub:response_time_analysis_}
+An alternative test for FPS is the Response-Time Analysis (RTA) that is, in contrast to the utilization-based test, exact, albeit more complex.
+
+
+% subsection response_time_analysis_ (end)
 
 \subsection{Worst-Case Execution Time Analysis} % (fold)
 \label{sub:worst_case_execution_time_analysis}
