@@ -395,7 +395,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{112, 203.5}, {9, 14}}</string>
+			<string>{{113, 203.5}, {7, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -434,7 +434,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\fs24 \cf0 A}</string>
+\f0\fs24 \cf0 a}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -491,7 +491,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{112, 257.5}, {9, 14}}</string>
+			<string>{{113, 257.5}, {7, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -530,7 +530,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\fs24 \cf0 B}</string>
+\f0\fs24 \cf0 b}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -549,7 +549,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{112, 311.5}, {9, 14}}</string>
+			<string>{{113.5, 311.5}, {6, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -588,7 +588,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\fs24 \cf0 C}</string>
+\f0\fs24 \cf0 c}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -597,7 +597,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{51.010421752929688, 476.51148083806038}, {145, 14}}</string>
+			<string>{{402.82640075683594, 423.73850110173225}, {145, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -645,7 +645,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{35.184036254882812, 478.51148083806038}, {9.5, 10}}</string>
+			<string>{{387.00001525878906, 425.73850110173225}, {9.5, 10}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -668,7 +668,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{51.010421752929688, 442.01148083806038}, {53, 14}}</string>
+			<string>{{301.326416015625, 424.75000622868538}, {53, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -716,7 +716,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{21.684036254882812, 436.99997571110725}, {23, 22}}</string>
+			<string>{{272.00003051757812, 419.73850110173225}, {23, 22}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -741,7 +741,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{51.010421752929688, 407.51148083806038}, {59, 14}}</string>
+			<string>{{301.326416015625, 388.25000622868538}, {59, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -789,7 +789,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{21.684036254882812, 403.51148083806038}, {23, 22}}</string>
+			<string>{{272.00003051757812, 384.25000622868538}, {23, 22}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -799,7 +799,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{51.010421752929688, 373.01148083806038}, {68, 14}}</string>
+			<string>{{402.82640075683594, 391.49997571110725}, {68, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -852,8 +852,8 @@
 			<integer>124</integer>
 			<key>Points</key>
 			<array>
-				<string>{44.119707327042164, 392.0229859650135}</string>
-				<string>{43.684038772714189, 354}</string>
+				<string>{395.93568633094844, 410.51148083806038}</string>
+				<string>{395.50001777662044, 372.48849487304688}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1170,7 +1170,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-02 13:28:58 +0000</string>
+	<string>2012-12-02 13:33:28 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
