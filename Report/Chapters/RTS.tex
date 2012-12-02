@@ -212,6 +212,61 @@ The most significant part of performing an RTA is naturally the analysis to find
 	R_i = C_i + I_i
 \end{equation}
 
+In the worst case where all other higher priority tasks for a task $i$ are released at the same time (critical instant), the response time for $i$ can be expressed as the following:
+\begin{equation}
+	R_i = C_i + \sum_{j\in hp(i)} \ceil[\bigg]{\frac{R_i}{T_j}}
+\end{equation}
+
+Because the value being calculated ($R_i$) is also present in the right hand side of the equation, this presents a fixed-point equation. This can be solved forming a recurrence relationship:
+\begin{equation}
+	\label{eq:recurrence}
+	w^{n+1}_{i} = C_i + \sum_{j\in hp(i)} \ceil[\bigg]{\frac{w^n_i}{T_j}}
+\end{equation}
+
+Solving the set of values \{$w^0_i, w^1_i, .. w^n_i, ..$\}, the solution to $R_i$ is found when $w^n_i = w^{n+1}_i$. In order to bootstrap the process, the value $C_i$ is used for $w^0_i$, under the safe assumption that $R_i \ge C_i$. In the process of solving the set of values, if $w^n_i$ becomes bigger than the period of task $i$ then it will miss a deadline (recall that $D_i$ = $T_i$ in the simple task model). As a consequence, in order for a set of tasks to be deemed schedulable under the simple task model, using the RTA schedulability test, the following property must be satisfied:
+\begin{equation}
+	\forall i \in N: R_i \le T_i
+\end{equation}
+
+\subsubsection{Example of Performing Response-Time Analysis}
+Let us consider the use of RTA for the task set presented previously in Table \ref{table:FPSRateMon}. In Table \ref{table:FPSRateMonSecond}, each task have been provided with a computation time, $C$. In the following we will demonstrate the application of the response-time analysis method in order to verify the schedulability of the provided task set.
+	\begin{table}
+		\caption{Task set for analysis of schedulability}
+			\centering
+			\begin{tabular}{c c c c}
+			\hline
+			Task & Period, T & Computation Time, C & Priority, P \\ [0.5ex]
+			\hline 
+			a & 23 & 4 &  3 \\
+			b & 41 & 20 &  2 \\
+			c & 68 & 10 &  1 \\ [1ex]
+			\hline
+			\end{tabular}
+		\label{table:FPSRateMonSecond}
+	\end{table}
+
+As stated in Section \ref{sub:response_time_analysis_}, $R$ for the task with highest priority (in this case $a$) is set to its own computation time. Thus we trivially find that $R_a = 4$. For task $b$ we apply Equation \ref{eq:recurrence} to solve the recurrence relationship to find $R_b$ and $R_c$:
+\begin{eqnarray}
+    w_{b}^0 &=& C_{b} = 20 \nonumber \\ 
+    w_{b}^1 &=& 20 + \ceil[\bigg]{\frac{20}{23}}*4 = 24 \nonumber \\ 
+    w_{b}^2 &=& 20 + \ceil[\bigg]{\frac{24}{23}}*14 = 28 \nonumber \\
+    w_{b}^3 &=& 20 + \ceil[\bigg]{\frac{28}{23}}*14 = 28 \nonumber \\
+    R_{b} &=& 28
+\end{eqnarray}
+
+\begin{eqnarray}
+    w_{c}^0 &=& C_{c} = 10 \nonumber \\ 
+    w_{b}^1 &=& 10 + \ceil[\bigg]{\frac{18}{23}}*4 + \ceil[\bigg]{\frac{18}{41}}*20 = 34 \nonumber \\ 
+    w_{b}^2 &=& 10 + \ceil[\bigg]{\frac{34}{23}}*4 + \ceil[\bigg]{\frac{34}{41}}*20 = 38 \nonumber \\ 
+    w_{b}^3 &=& 10 + \ceil[\bigg]{\frac{38}{23}}*4 + \ceil[\bigg]{\frac{38}{41}}*20 = 38 \nonumber \\ 
+    R_{b} &=& 38
+\end{eqnarray}
+
+As a result we can see that the task set, under the simple task model, is indeed schedulable under FPS as the response time for each task is less than its period and therefore its deadline.
+
+While the RTA test is exact, it is naturally very much restricted because of the assumptions made in the simple task model. Rarely is it the case that several concurrently running tasks is always independent of each other, and synchronization is often involved. For this reason there has been many extensions and variations of the described method to loosen or remove single restrictions in the simple task model. We refer to the cited material for additional information on how one may handle the removal of restrictions.
+
+In addition to the restrictions in the task model, the schedulability tests also depends on the important computation time, $C$ of a task being available. Up until now, we have simply made the assumption that this value was available. However, finding this value for a specific task is a complex process itself, and presents many challenges that make up a complete research area in its own. In the following Section we will introduce this task and methods for analysing a task and finding the needed computation time.
 
 % subsection response_time_analysis_ (end)
 

@@ -1139,7 +1139,7 @@
 	<array>
 		<dict>
 			<key>Lock</key>
-			<string>NO</string>
+			<string>YES</string>
 			<key>Name</key>
 			<string>Layer 1</string>
 			<key>Print</key>
@@ -1170,7 +1170,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-02 13:38:22 +0000</string>
+	<string>2012-12-02 16:13:44 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
