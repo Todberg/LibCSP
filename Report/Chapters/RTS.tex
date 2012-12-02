@@ -82,6 +82,7 @@ d & 100 & 6  \\ [1ex]
 \img{scheduling_cyclic_example.pdf}{0.9}{Time-line}
 
 \subsection{Fixed Priority Scheduling}
+\label{sub:fps}
 Fixed Priority Scheduling, or simply FPS, is a priority-based scheduling technique in which tasks are assigned priorities that are taking into account when creating the schedule. A task with a higher priority is preferred over a task with a lower priority. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
 
 \begin{itemize}
@@ -164,8 +165,29 @@ A scheduling scheme consists not only of the algorithm for ordering the use of r
 	\item[Sufficient] A test is sufficient if it guarantees that all deadlines are always met when the test is satisfied.
 	\item[Necessary] A test is necessary if failure to satisfy the test will result in a deadline miss at some point during execution.
 \end{description}
-A test that is both sufficient and necessary is considered \textbf{exact}. In the following we will examine two well known methods for determining schedulability of a concurrent system.
-% Notations
+A test that is both sufficient and necessary is considered \textbf{exact}. In the following we will examine two well known methods for determining schedulability of a concurrent system. Note that in the following we will apply the standard notation listed in Table \ref{table:ScheduleNotation} that is generally used in theory on real-time systems.
+	\begin{table}
+			\centering
+			\rowcolors{1}{}{lightgray}
+			\begin{tabular}{l l}
+			\hline
+			\textbf{Notation} & \textbf{Description}\\
+			\hline 
+			B 	& Worst-case blocking time for the task (if applicable)  \\
+			C 	& Worst-case execution time (WCET) of the task \\
+			D   & Deadline of the task \\
+			I 	& The interference time of the task \\
+			J 	& Release jitter of the task \\
+			N 	& Number of tasks in the system \\
+			P 	& Priority assigned to the task (if applicable) \\
+			R 	& Worst-case response time of the task \\
+			T 	& Minimum time between task releases (task period) \\
+			U 	& The utilization of each task (equal to C/T) \\
+			\hline
+			\end{tabular}
+					\caption{Standard notation\cite{alan2001real}}
+		\label{table:ScheduleNotation}
+	\end{table}
 
 \subsection{Utilization-based Test} % (fold)
 \label{sub:utilization_based_test}
@@ -185,7 +207,10 @@ As stated the test is not exact but only sufficient, there exists task sets for 
 \label{sub:response_time_analysis_}
 RTA is an alternative test for FPS is the Response-Time Analysis (RTA) that is, in contrast to the utilization-based test, exact, albeit more complex. Performing an RTA is divided into two overall steps. First, each task is analysed to compute its \textit{worst-case response time} (R) and then the response time for each task is compared to its deadline.
 
-The most significant part of performing an RTA is naturally the analysis to find $R$ for each $N$ tasks. The intuition behind 
+The most significant part of performing an RTA is naturally the analysis to find $R$ for each $N$ tasks. The analysis takes its starting point in the task with the highest priority. In a pre-emptive FPS system $R$ for this task will always be equal to its own computation time $C$. For the remaining tasks, the intuition is to calculate $R$ by analysing the interference from tasks with a higher priority. Looking back to the possible states of a task in Section \ref{sub:fps}, this happens when a task is in the runnable state, but cannot begin to execute because another task with a higher priority is in its running state. For a a given task $i$ the response time is found by calculating this interference:
+\begin{equation}
+	R_i = C_i + I_i
+\end{equation}
 
 
 % subsection response_time_analysis_ (end)
