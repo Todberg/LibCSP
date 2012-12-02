@@ -61,7 +61,7 @@ In concurrent programs, i.e programs containing multiple threads, it is not nece
 Several scheduling algorithms have been proposed including the \textit{Cyclic Executive} (CE) and \textit{Fixed Priority Scheduling} (FPS). Although many other algorithms exists such as \textit{Earliest Deadline First} (EDF) and \textit{Value-Based Scheduling} (VBS), attention will only be given to CE and FPS as these are the ones employed in SCJ. Note that in the following, the notions a \textit{task} and a \textit{thread} is used interchangeably.
 
 \subsection{Cyclic Executive}
-When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically split up into fixed sized chunks of so-called procedure calls and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further analysis which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Table \ref{table:CEtaskset} and Figure \ref{fig} shows an example of a task set with four tasks and the accompanying time-line. The schedule repeats itself at time 100 (the major cycle) when the time slot with \textit{abc} runs again. 
+When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically broken down into fixed sized chunks of so-called procedure calls and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further analysis which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Table \ref{table:CEtaskset} and Figure \ref{img:scheduling_cyclic_example.pdf} shows an example of a task set with four tasks and the accompanying time-line. The schedule repeats itself at time 100 (the major cycle) when the time slot with \textit{abc} runs again. 
 
 \begin{table}[ht]
 \caption{Task set}
@@ -79,10 +79,10 @@ d & 100 & 6  \\ [1ex]
 \label{table:CEtaskset}
 \end{table}
 
-
+\img{scheduling_cyclic_example.pdf}{1}{Time-line}
 
 \subsection{Fixed Priority Scheduling}
-Fixed Priority Scheduling, or simply FPS, is priority-based scheduling technique in which tasks are assigned priorities that are taking into account when creating the schedule. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
+Fixed Priority Scheduling, or simply FPS, is a priority-based scheduling technique in which tasks are assigned priorities that are taking into account when creating the schedule. A task with a higher priority is preferred over a task with a lower priority. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
 
 \begin{itemize}
 	\item Running
@@ -91,9 +91,22 @@ Fixed Priority Scheduling, or simply FPS, is priority-based scheduling technique
 	\item Suspended and is waiting for a non-timing event
 \end{itemize}
 
-The currently executing task is in a \textit{running} state, but can be \textit{suspended}, by e.g. the release of a higher priority task. In this case, the task waits for a timing event from the scheduler in order to continue. Tasks that are in a \textit{runnable} state, are ready to run, but are not yet scheduled by the scheduler. Finally tasks that are e.g. waiting for some condition can be woken by a non-timing event, e.g. in the case of a producer-consumer pair. 
+The currently executing task is in a \textit{running} state, but can be \textit{suspended}, by e.g. the release of a higher priority task. In this case, the task waits for a timing event from the scheduler in order to continue. Tasks that are in a \textit{runnable} state, are ready to run, but are not yet scheduled by the scheduler. Finally tasks that are e.g. waiting for some condition, can be woken by a non-timing event, e.g. in the case of a producer-consumer pair. 
 
+\subsubsection{Preemption, Non-Preemption or Something Else}
 In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run - this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state - this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
+
+\subsubsection{Simple Task Model}
+..
+
+\subsubsection{Priority Assignment}
+In FPS, the important question is how to assign the priorities amongst the different tasks? Naturally it would make sense to assign high priorities to tasks that are deemed important from a developer perspective, however, this is usually not a good solution as priorities are derived from temporal requirements rather than functional importance. Instead, the following two methods are often used:
+
+\begin{itemize}
+	\item \textbf{Rate Monotonic:} Each task is given a unique priority based on its period - a short period equals a high priority. For example, two tasks, \textit{i} and \textit{j} with periods, $T_i$ and $T_j$ such that $T_i$ < $T_j$ yields the priority relationship, $P_i$ > $P_j$.
+	\item \textbf{Deadline Monotonic:} Each task is given a unique priority based on its deadline - the task with the shortest deadline is assigned the highest priority. For example, two tasks \textit{i} and \textit{j} with deadlines, $D_i$ and $D_j$ such that $D_i$ < $D_j$ yields the priority relationship, $P_i$ > $P_j$.
+\end{itemize}
+
 
 
 
