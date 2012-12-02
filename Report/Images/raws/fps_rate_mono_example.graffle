@@ -597,7 +597,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{402.82640075683594, 423.73850110173225}, {145, 14}}</string>
+			<string>{{307.32637023925781, 408.12500622868538}, {145, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -645,7 +645,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{387.00001525878906, 425.73850110173225}, {9.5, 10}}</string>
+			<string>{{291.49998474121094, 410.12500622868538}, {9.5, 10}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -668,7 +668,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{301.326416015625, 424.75000622868538}, {53, 14}}</string>
+			<string>{{205.82638549804688, 409.1365113556385}, {53, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -716,7 +716,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{272.00003051757812, 419.73850110173225}, {23, 22}}</string>
+			<string>{{176.5, 404.12500622868538}, {23, 22}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -741,7 +741,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{301.326416015625, 388.25000622868538}, {59, 14}}</string>
+			<string>{{205.82638549804688, 372.6365113556385}, {59, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -789,7 +789,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{272.00003051757812, 384.25000622868538}, {23, 22}}</string>
+			<string>{{176.5, 368.6365113556385}, {23, 22}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -799,7 +799,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{402.82640075683594, 391.49997571110725}, {68, 14}}</string>
+			<string>{{307.32637023925781, 375.88648083806038}, {68, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -852,8 +852,8 @@
 			<integer>124</integer>
 			<key>Points</key>
 			<array>
-				<string>{395.93568633094844, 410.51148083806038}</string>
-				<string>{395.50001777662044, 372.48849487304688}</string>
+				<string>{300.43565581337032, 394.8979859650135}</string>
+				<string>{299.99998725904231, 356.875}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1170,7 +1170,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-02 13:33:28 +0000</string>
+	<string>2012-12-02 13:38:22 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
