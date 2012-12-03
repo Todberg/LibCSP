@@ -1,6 +1,6 @@
 \chapter{Real-Time, Embedded and Safety-Critical Systems}
 \label{chapter:rts}
-This chapter will introduce the concepts and definitions of real-time, embedded and safety-critical systems that will be applied throughout the report. The following is primarily based on \cite{alan2001real}. In the case of additional use of sources, these are referred to as usual.
+This chapter will introduce the concepts and definitions of real-time, embedded and safety-critical systems that will be applied throughout the report. The following is primarily based on the book, \textit{Real- Time Systems and Programing Languages}\cite{alan2001real}. In the case of additional use of sources, these are referred to as usual.
 
 \section{Definitions and Background} % (fold)
 \label{sec:definitions_and_background}
@@ -9,11 +9,12 @@ In Chapter \ref{chapter:introduction} we presented a definition of real-time sys
 \subsection{Real-Time and Embedded Systems} % (fold)
 \label{sub:real_time_and_embedded_systems}
 % subsection real_time_and_embedded_systems (end)
-A real-time-system was defined as a system in which correctness was not only dependent on the absence of failure in the generated output response, but also in the timing. Not all timing failures are, however, equally disastrous as the consequences may vary from simple usability annoyances to being life threatening. We therefore distinguish between the following types of real-time systems:
+A real-time system was defined as a system in which correctness was not only dependent on the absence of failure in the generated output response, but also in the timing. Not all timing failures are, however, equally disastrous as the consequences may vary from simple usability annoyances to life threatening conditions. We therefore distinguish between the following types of real-time systems:
 \begin{description}
 \item[Hard] Those real-time systems where responses must be generated within the specified deadline. Any miss of deadline results in failure. A pacemaker is one such example of a hard real-time system.
-\item[Soft] Missing a deadline occasionally does not imply failure of the system, and it may continue to function correctly. An example of such a system could be a digital video-phone system, in which delays in deliveries of network packets may result in quality degradation.
-\item[Firm] As with soft, deadlines can be missed occasionally, but late delivery in a response does not provide any benefit. 
+\item[Soft] Missing a deadline occasionally does not imply failure of the system, and it may continue to function correctly. An example of such a system could be a digital video-phone system in which delays in deliveries of network packets may result in quality degradation.
+%\item[Firm] As with soft real-time systems, deadlines can be missed occasionally, but late delivery in a response does not provide any benefit.
+\item[Firm] As with soft real-time systems, deadlines can be missed occasionally and may degrade the systems quality of service.
 \end{description}
 
 The different kinds of real-time systems are often associated with embedded systems. Embedded systems were introduced as applications that participate in a larger engineering system. This can be as a component that monitors or controls operation of equipment. Because such applications will typically have timing constraints, embedded systems are typically also real-time systems (but these are by no means mutually inclusive).
@@ -21,17 +22,17 @@ The different kinds of real-time systems are often associated with embedded syst
 \subsection{Safety-Critical Systems} % (fold)
 \label{sub:safety_critical_systems}
 % subsection safety_critical_systems (end)
-Safety-critical systems can be categorised as hard real-time systems, as it is imperative that deadlines are satisfied. There are, however, different degrees of safety in the area of safety-critical software development. First, let us consider the definition of safety in relation to software(cite spec):
+Safety-critical systems can be categorized as hard real-time systems, as it is imperative that deadlines are satisfied. There are, however, different degrees of safety in the area of safety-critical software development. First, let us consider the definition of \textit{safety} in relation to software(cite spec):
 \begin{description}
-	\item[Safety] a system property in which failure will not result in endangerment of human life or the environment.
-	\item[Safety-critical system] a system of high criticality with an extremely high assurance of the safety property.
+	\item[Safety:] A system property in which failure will not result in endangerment of human life or the environment.
+	\item[Safety-critical system:] A system of high criticality with an extremely high assurance of the safety property.
 \end{description}
 
-Just as we distinguish between different types of real-time systems, one can also distinguish between different levels in the safety property which is often done in the context of safety-critical systems. This naturally depends on the specific application domain and what different consequences can be caused by anomalous behaviour. We previously introduced the DO-178B standard used by the FAA as a certification for safety-critical systems in the United States. This standard (and the European ED-12B equivalent) defines a total of 5 levels of software that is related to aircraft safety:
+Just as we distinguish between different types of real-time systems, one can also distinguish between different criticality levels in the safety property, which is often done in the context of safety-critical systems. The level naturally depends on the specific application domain and the consequences anomalous behavior may cast. We previously introduced the DO-178B standard used by the FAA as a certification for safety-critical systems in the United States. This standard (and the European ED-12B equivalent) defines a total of five levels of software that is related to aircraft safety:
 \begin{description}
 	\item[Level A (Catastrophic)] Failure may directly or contribute to crash of the aircraft.  
 	\item[Level B (Hazardous)] Failure may directly or contribute to the failure of a function that results in severe conditions for the aircraft. Failure of the function would reduce the capability of the aircraft or the ability of the crew to cope with converse operating conditions. As an example, this could be the weather radar during flight in an area with tropical storm.
-	\item[Level C (Major)] Failures are still serious, but not as serious as Level B. Consequences may be more discomfort and increased crew workload. An example could be a system component that aids in many of the mental arithmetic tasks a pilot has. Failure of such a system puts this workload on the pilot instead.
+	\item[Level C (Major)] Failures are still serious, but not as serious as Level B. Consequences may cause discomfort or increased crew workload. An example could be a system component that aids in many of the mental arithmetic tasks a pilot has. Failure of such a system puts this workload on the pilot instead.
 	\item[Level D (Minor)] A failure may directly or contribute to a failure in a function that results in a minor failure. This failure does not reduce the safety significantly.
 	\item[Level E (No Effect)] Failures does not result in any effect on the aircraft.
 \end{description}
@@ -39,29 +40,29 @@ Just as we distinguish between different types of real-time systems, one can als
 \subsection{Real-Time Tasks} % (fold)
 \label{sub:real_time_tasks}
 % subsection real_time_tasks (end)
-In any of such real-time systems, different computations are typically involved in order to generate the resulting response. Such computations may be triggered by time or event. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
+In any of such real-time systems, different computations are typically involved in order to generate the resulting response. Such computations may be triggered by time or events. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
 \begin{description}
 	\item[Periodic (time-triggered)] A task is periodic if it is periodic with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
-	\item[Aperiodic (event-triggered)] A task is aperiodic if some event in the environment triggers the execution of the task, without any bound on how often this may be triggered. An example could be a task that is released every time. An example could be a computer mouse where the user generates click events. Such click events may arrive at any time without bound.
-	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal inter arrival time. This could for instance be a coffee machine, in which the event generated to start brewing coffee will not be generated until after it is done with its current task.
+	\item[Aperiodic (event-triggered)] A task is aperiodic if some event in the environment triggers the execution of the task, without any bound on how often this may be triggered. An example could be a computer mouse where the user generates click events. Such click events may arrive at any time without bound.
+	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal inter arrival time. This could for instance be a coffee machine, in which the event generated to start brewing coffee will not be generated until after it has filled the current cup.
 \end{description}
 
-Rarely is it the case that only a single task exists. Instead a real-time (and safety-critical) system is typically made up of several tasks. In the following we look at how this execution can achieved such that temporal requirements are met.
+Rarely is it the case that only a single task exists. Instead a real-time (and safety-critical) system is typically made up of several tasks running concurrently or even in parallel. In the following we look at how this execution can achieved such that all temporal requirements are met.
 
 % section definitions_and_background (end)
 
 \section{Scheduling} % (fold)
 \label{sec:scheduling}
-In concurrent programs, i.e programs containing multiple threads, it is not necessary to specify the exact ordering of task execution. The scheduler provides the means of sharing system resources with every participating thread in a way such that every thread meets its temporal requirements. For this to work the tasks rarely cannot just run until completion in a sequential manner one at a time. Instead the scheduler generates an internal \textit{schedule} based on the properties of each task such that the tasks are interleaved with each other. If the program is correct, the output stays the same across all possible interleaves. Thus scheduling can be defined as:
+In concurrent programs, i.e programs containing multiple threads, it is not necessary to specify the exact ordering of task execution. The scheduler provides the means of sharing system resources with every participating thread in a way such that every thread meets its temporal requirements. For this to work the tasks rarely cannot just run until completion in a sequential manner one at a time. Instead the scheduler generates an internal \textit{schedule} based on the properties of each task such that the tasks are interleaved with each other. If the program is correct, the output stays the same across all possible interleavings. Thus scheduling can be defined as:
 
 \begin{quotation}
 	\textit{The activity of restricting the non-determinism found in concurrent systems by ordering the execution of tasks, such that they meet their temporal requirements}
 \end{quotation}
 
-Several scheduling algorithms have been proposed including the \textit{Cyclic Executive} (CE) and \textit{Fixed Priority Scheduling} (FPS). Although many other algorithms exists such as \textit{Earliest Deadline First} (EDF) and \textit{Value-Based Scheduling} (VBS), attention will only be given to CE and FPS as these are the ones employed in SCJ. Note that in the following, the notions a \textit{task} and a \textit{thread} is used interchangeably.
+Several scheduling algorithms have been proposed including \textit{Cyclic Executive} (CE) and \textit{Fixed Priority Scheduling} (FPS). Although many other algorithms exists such as \textit{Earliest Deadline First} (EDF) and \textit{Value-Based Scheduling} (VBS), attention will only be given to CE and FPS as these are the ones employed in SCJ. Note that in the following, the notions a \textit{task} and a \textit{thread} is used interchangeably.
 
 \subsection{Cyclic Executive}
-When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically broken down into fixed sized chunks of so-called procedure calls and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further analysis which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Table \ref{table:CEtaskset} and Figure \ref{img:scheduling_cyclic_example.pdf} shows an example of a task set with four tasks and the accompanying time-line. The schedule repeats itself at time 100 (the major cycle) when the time slot with \textit{abc} runs again. 
+When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule.} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically broken down into fixed sized chunks of so-called \textit{procedure calls} and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further correctness analysis which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Table \ref{table:CEtaskset} and Figure \ref{img:scheduling_cyclic_example.pdf} shows an example of a task set with four tasks and the accompanying time-line.
 
 \begin{table}[ht]
 \caption{Task set}
@@ -81,9 +82,11 @@ d & 100 & 6  \\ [1ex]
 
 \img{scheduling_cyclic_example.pdf}{0.9}{Time-line}
 
+The schedule repeats itself at time 100 (the major cycle) when the time slot with \textit{abc} runs again. It can therefore be concluded that the task set can be scheduled such that each task runs at its correct rate. 
+
 \subsection{Fixed Priority Scheduling}
 \label{sub:fps}
-Fixed Priority Scheduling, or simply FPS, is a priority-based scheduling technique in which tasks are assigned priorities that are taking into account when creating the schedule. A task with a higher priority is preferred over a task with a lower priority. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
+Fixed Priority Scheduling, or simply FPS, is a priority-based scheduling technique in which tasks are assigned priorities that are taking into account during scheduling decisions in a way such that a task with a high priority is preferred over a task with a low priority. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
 
 \begin{itemize}
 	\item Running
@@ -92,7 +95,10 @@ Fixed Priority Scheduling, or simply FPS, is a priority-based scheduling techniq
 	\item Suspended and is waiting for a non-timing event
 \end{itemize}
 
-The currently executing task is in a \textit{running} state, but can be \textit{suspended}, by e.g. the release of a higher priority task. In this case, the task waits for a timing event from the scheduler in order to continue. Tasks that are in a \textit{runnable} state, are ready to run, but are not yet scheduled by the scheduler. Finally tasks that are e.g. waiting for some condition, can be woken by a non-timing event, e.g. in the case of a producer-consumer pair. 
+The currently executing task is in a \textit{running} state, but can be \textit{suspended}, by e.g. the release of a higher priority task. In this case, the task waits for a timing event from the scheduler in order to continue. Tasks that are in a \textit{runnable} state, are ready to run, but are not yet scheduled by the scheduler. Finally tasks that are e.g. waiting for some condition, can be woken by a non-timing event, e.g. in the case of a producer-consumer pair. Figure \ref{img:task_states.pdf} depicts a Petri Net of the possible states for four tasks represented as tokens. Note that this only holds for single processor systems as only one task/token can be in the \textit{Running} location at a time.
+
+\img{task_states.pdf}{0.7}{Petri Net of the possible states for four tasks.}
+
 
 \subsubsection{Preemption, Non-Preemption or Something Different}
 In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run - this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state - this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
