@@ -1,6 +1,6 @@
 \chapter{Real-Time, Embedded and Safety-Critical Systems}
 \label{chapter:rts}
-This chapter will introduce the concepts and definitions of real-time, embedded and safety-critical systems that will be applied throughout the report. The following is primarily based on the book, \textit{Real- Time Systems and Programing Languages}\cite{alan2001real}. In the case of additional use of sources, these are referred to as usual.
+This chapter will introduce the concepts and definitions of real-time, embedded and safety-critical systems that will be applied throughout the report. The following is primarily based on the book, \textit{Real- Time Systems and Programming Languages}\cite{alan2001real}. In the case of additional use of sources, these are referred to as usual.
 
 \section{Definitions and Background} % (fold)
 \label{sec:definitions_and_background}
@@ -190,13 +190,13 @@ A test that is both sufficient and necessary is considered \textbf{exact}. In th
 			U 	& The utilization of each task (equal to C/T) \\
 			\hline
 			\end{tabular}
-			\caption{Standard notation.\cite{alan2001real}}
+			\caption{Standard notation\cite{alan2001real}.}
 		\label{table:ScheduleNotation}
 	\end{table}
 
 \subsection{Utilization-based Test} % (fold)
 \label{sub:utilization_based_test}
-This test can be considered the most simple test for FPS. It is important to note that while it is not exact (it is sufficient) it is simple to perform when applying the rate monotonic assignment scheme and thus makes the assumption of the simple task model.
+This test can be considered the most simple test for FPS. It is important to note that while it is not exact (it is sufficient), it is simple to perform when applying the rate monotonic assignment scheme and thus makes the assumption of the simple task model.
 
 The test is based on considering the utilization of a task set. The schedulability is ensured - i.e. all tasks in the task set will meet their deadlines if the following condition is true:
 
@@ -212,10 +212,10 @@ As stated the test, is not exact but only sufficient as there exists task sets f
 \label{sub:response_time_analysis_}
 Response-Time Analysis, or simply RTA, is an alternative test for FPS that is, in contrast to the utilization-based test, exact, albeit more complex. Performing an RTA is divided into two overall steps:
 \begin{enumerate}
-\item Each task is analyzed to compute its \textit{worst-case response time} (R)
+\item Each task is analysed to compute its \textit{worst-case response time} (R)
 \item The response time for each task is compared to its deadline
 \end{enumerate}
-The most difficult part of performing an RTA is naturally the analysis to find $R$ for all $N$ tasks. The analysis takes its starting point in the task with the highest priority. In a preemptive FPS system, $R$ for this task will always be equal to its own computation time, $C$. For the remaining tasks, the intuition is to calculate $R$ by analyzing the interference from tasks with higher priority. Looking back to the possible states of a task in Section \ref{sub:fps}, this happens when a task is in the \textit{runnable} state, but cannot begin to execute because another task with a higher priority is in its \textit{running} state. For a a given task, $i$, the response time is found by calculating this interference and by adding its own computation time:
+The most difficult part of performing an RTA is naturally the analysis to find $R$ for all $N$ tasks. The analysis takes its starting point in the task with the highest priority. In a preemptive FPS system, $R$ for this task will always be equal to its own computation time, $C$. For the remaining tasks, the intuition is to calculate $R$ by analysing the interference from tasks with higher priority. Looking back to the possible states of a task in Section \ref{sub:fps}, this happens when a task is in the \textit{runnable} state, but cannot begin to execute because another task with a higher priority is in its \textit{running} state. For a a given task, $i$, the response time is found by calculating this interference and by adding its own computation time:
 \begin{equation}
 	R_i = C_i + I_i
 \end{equation}
@@ -249,11 +249,11 @@ Let us consider the use of RTA for the task set previously presented in Table \r
 		c & 68 & 10 &  1 \\ [1ex]
 		\hline
 		\end{tabular}
-		\caption{Task set for analysis of schedulability}
+		\caption{Task set for analysis of schedulability.}
 		\label{table:FPSRateMonSecond}
 	\end{table}
 
-As stated in Section \ref{sub:response_time_analysis_}, $R$ for the task with highest priority (in this case $a$) is set to its own computation time. Thus we trivially find that $R_a = 4$. For task $b$ and $c$ we apply Equation \ref{eq:recurrence} to find $R_b$ and $R_c$:
+As stated in Section \ref{sub:response_time_analysis_}, $R$ for the task with highest priority (in this case $a$) is set to its own computation time. Thus, we trivially find that $R_a = 4$. For task $b$ and $c$ we apply Equation \ref{eq:recurrence} to find $R_b$ and $R_c$:
 \begin{eqnarray}
     w_{b}^0 &=& C_{b} = 20 \nonumber \\ 
     w_{b}^1 &=& 20 + \ceil[\bigg]{\frac{20}{23}}*4 = 24 \nonumber \\ 
@@ -272,9 +272,9 @@ As stated in Section \ref{sub:response_time_analysis_}, $R$ for the task with hi
 
 As a result we can see that the task set, under the simple task model, is indeed schedulable under FPS as the response time for each task is less than its period and therefore its deadline.
 
-While the RTA test is exact, it is naturally very much restricted because of the assumptions made in the simple task model. Rarely is it the case that several concurrently running tasks are always independent of each other - synchronization is often involved. For this reason there has been many extensions and variations of the described method to loosen or remove single restrictions in the simple task model. We refer to the cited material for additional information on how one may handle the removal of restrictions.
+While the RTA test is exact, it is naturally very much restricted because of the assumptions made in the simple task model. Rarely is it the case that several concurrently running tasks are always independent of each other - synchronization is often involved. For this reason there has been many extensions and variations of the described method to loosen or remove single restrictions in the simple task model. In Section \ref{sub:fps} we saw one example of this where the restriction of $D = T$ was lifted in the deadline monotonic assignment scheme. We refer to the cited material for additional information on how one may handle the removal of restrictions.
 
-In addition to the restrictions in the task model, the schedulability tests also depends on the important computation time, $C$ of a task being available. Up until now, we have simply made the assumption that this value was available. However, finding this value for a specific task is a complex process itself and presents many challenges that make up a complete research area in its own. In the following Section we will introduce the process and some of the methods for analyzing a task in order to find the needed computation time.
+In addition to the restrictions in the task model, the schedulability test also depends on the important computation time, $C$ of a task being available. Up until now, we have simply made the assumption that this value was available. However, finding this value for a specific task is a complex process itself and presents many challenges that make up a complete research area own its own. In the following Section we will introduce the process and some of the methods for analysing a task in order to find the needed computation time.
 
 % subsection response_time_analysis_ (end)
 
@@ -282,7 +282,7 @@ In addition to the restrictions in the task model, the schedulability tests also
 \label{sub:worst_case_execution_time_analysis}
 Worst-Case Execution Time (WCET) analysis of real-time programs is the process of determining an upper bound on the execution time on a specific piece of hardware\cite{Wilhelm:2008}. As stated previously, this is needed in order to show that a program satisfies its temporal requirements. Note that a thorough review of performing WCET analysis is beyond the scope of this report, for more details we refer to the cited material.
 
-Methods (or direct tools) for determining the WCET of an application are evaluated on two criteria. \textit{Safety} describes whether the method produces only estimates or actual bounds. \textit{Precision} describes how close the bounds or estimates are to the exact values. Methods are generally classified as either a \textit{static} analysis technique or \textit{end-to-end measurement}, both of which have varying safety and precision properties. In the following we will briefly provide an introduction on these to give an intuition behind the two overall approaches.
+Methods (or direct tools) for determining the WCET of an application are evaluated on two criteria. \textit{Safety} describes whether the method produces only estimates or actual bounds. \textit{Precision} describes how close the bounds or estimates are to the exact values. Methods are generally classified as either a \textit{static} analysis technique or \textit{end-to-end measurement}, both of which have varying safety and precision properties. In the following, we will briefly provide an introduction on these to give an intuition behind the two overall approaches.
 
 \subsubsection{End-to-End Measurement}
 End-to-end measurement of code is, as the name may imply, based on doing manual measurement of executed code, that is, a given task is executed on the desired hardware platform, or in a simulator while being measured. The measurement can be done using metrics such as time or CPU cycles. The technique presents several challenges such as choosing appropriate input for a task that results in worst-case behaviour, and varying execution times on the same input e.g. due to caching.
