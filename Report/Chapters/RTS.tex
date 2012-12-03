@@ -99,34 +99,34 @@ The currently executing task is in a \textit{running} state, but can be \textit{
 
 \img{task_states.pdf}{0.7}{Petri Net of the possible states for four tasks.}
 
-
 \subsubsection{Preemption, Non-Preemption or Something Different}
 In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run - this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state - this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
 
 \subsubsection{Simple Task Model}
-Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronization, this becomes a complex task. Therefore, the schedulability tests presented builds upon \textit{the simple task model} that imposes a number of restrictions in concurrent real-time systems. Basically this attempts to simplify the process of schedulability testing an application. The simple task model makes the following assumptions of a concurrent real-time system:
+Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronization mechanisms, this becomes a complex task. Therefore, the schedulability tests presented builds upon \textit{the simple task model} that imposes a number of restrictions in concurrent real-time systems. Basically this attempts to simplify the process of schedulability testing an application. The simple task model makes the following assumptions of a concurrent real-time system:
+
 \begin{itemize}
-	\item The application is assumed to consists of a fixed set of tasks.
-	\item All tasks are periodic, with known periods.
-	\item The tasks are completely independent of each other.
-	\item All system overheads, context-switching times and so on are ignored (that is, assumed to have zero cost).
-	\item All tasks have deadlines equal to their periods (that is, each task must complete before it is next released).
-	\item All tasks have fixed worst-case execution times.
-	\item No task contains any internal suspension points (e.g. an internal delay statement or a blocking I/O request).
-	\item All tasks execute on a single processor (CPU).
+	\item The application is assumed to consists of a fixed set of tasks
+	\item All tasks are periodic, with known periods
+	\item The tasks are completely independent of each other
+	\item All system overheads, context-switching times and so on are ignored (i.e. assumed to have zero cost)
+	\item All tasks have deadlines equal to their periods (i.e. each task must complete before it is next released)
+	\item All tasks have fixed worst-case execution times
+	\item No task contains any internal suspension points (e.g. an internal delay statement or a blocking I/O request)
+	\item All tasks execute on a single processor (CPU)
 \end{itemize}
 
 \subsubsection{Priority Assignment}
-In FPS, the important question is how to assign the priorities amongst the different tasks? Naturally it would make sense to assign high priorities to tasks that are deemed important from a developer perspective, however, this is usually not a good solution as priorities are derived from temporal requirements rather than functional importance. Instead, the following two methods are often used:
+In FPS, the important question is how to assign the priorities amongst the different tasks. Naturally it would make sense to assign high priorities to tasks that are deemed important from a developer perspective, however, this is usually not a good solution as priorities are derived from temporal requirements rather than functional importance. Instead, the following two methods are often used:
 
 \begin{itemize}
-	\item \textbf{Rate Monotonic:} Each task is given a unique priority based on its period - a short period equals a high priority. For example, two tasks, \textit{i} and \textit{j} with periods, $T_i$ and $T_j$ such that $T_i$ < $T_j$ yields the priority relationship, $P_i$ > $P_j$. Table \ref{table:FPSRateMon} shows an example of a task set with priorities set using rate monotonic.
+	\item \textbf{Rate Monotonic:} Each task is given a unique priority based on its period - a short period equals a high priority. For example, two tasks, \textit{i} and \textit{j} with periods, $T_i$ and $T_j$ such that $T_i$ < $T_j$ yields the priority relationship, $P_i$ > $P_j$. Table \ref{table:FPSRateMon} shows an example of a task set with priorities set using rate monotonic. Note that 3 represents the highest priority and 1 is the lowest.
 
 	\begin{table}[ht]
-		\caption{Example task set with assignment using rate monotonic}
+		\caption{Example task set with assignment using rate monotonic.}
 			\centering
 			\begin{tabular}{c c c}
-			\hline\hline
+			\hline
 			Task, N & Period, T & Priority, P \\ [0.5ex]
 			\hline 
 			a & 23 & 3 \\
@@ -140,10 +140,10 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 	\item \textbf{Deadline Monotonic:} Each task is given a unique priority based on its deadline - the task with the shortest deadline is assigned the highest priority. For example, two tasks \textit{i} and \textit{j} with deadlines, $D_i$ and $D_j$ such that $D_i$ < $D_j$ yields the priority relationship, $P_i$ > $P_j$. Table \ref{table:FPSDeadlineMon} shows an example of a task set with priorities set using deadline monotonic.
 
 	\begin{table}[ht]
-		\caption{Example task set with assignment using deadline monotonic}
+		\caption{Example task set with assignment using deadline monotonic.}
 			\centering
 			\begin{tabular}{c c c c}
-			\hline\hline
+			\hline
 			Task, N & Period, T & Deadline, D & Priority, P \\ [0.5ex]
 			\hline 
 			a & 5  & 2  & 3 \\
@@ -158,7 +158,7 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 
 With rate monotonic, and in accordance with the previously mentioned simple task model, deadlines are implicit meaning that the period and deadline are assumed equal for each task ($D = T$). This assumption is lifted in the deadline monotonic scheme as deadlines are allowed to be less then the periods ($D <= T$). Additionally the requirement of having only periodic tasks can also be changed to support periodic and sporadic tasks. Doing so makes the deadline monotonic \textit{optimal} in the sense that if a task set can be scheduled under a preemptive fixed priority scheduler using some fixed priority assignment scheme while preserving this changed task model, then the task set can also be scheduled using the deadline monotonic scheme. On the other hand, keeping the simple task model unchanged makes the rate monotonic scheme optimal.
 
-Figure \ref{img:fps_rate_mono_example.pdf} shows the time-line for the task set represented in Table \ref{table:FPSRateMon}. The computation times have been omitted for simplification. At the \textit{critical instant} all tasks are released, but only the task with the highest priority, namely task \textit{a}, is allowed to run. The remaining tasks are blocked until task \textit{a} finishes its release. Next task \textit{b} runs till completion after which task \textit{c} runs. Task \textit{c} is however interrupted by the release of task \textit{a}. After task \textit{a} has completed, task \textit{c} continues a little time before being interrupted again by task \textit{b} this time. After this task has finished, task \textit{c} is finally able to complete.
+Figure \ref{img:fps_rate_mono_example.pdf} shows the time-line for the task set represented in Table \ref{table:FPSRateMon}. The computation times have been omitted for simplification. At the \textit{critical instant} all tasks are released, but only the task with the highest priority, namely task \textit{a}, is allowed to run. The remaining tasks are blocked until task \textit{a} finishes its release. Next task \textit{b} runs till completion after which task \textit{c} runs. Task \textit{c} is however preempted by the release of task \textit{a}. After task \textit{a} has completed, task \textit{c} continues a little time before being preempted again by task \textit{b} this time. After this task has finished, task \textit{c} is finally able to complete.
 
 \img{fps_rate_mono_example.pdf}{0.8}{Time-line for the task set in Tabel \ref{table:FPSRateMon}.}
 
