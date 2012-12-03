@@ -66,7 +66,7 @@ When the number of tasks is fixed and are only periodic, it is possible\footnote
 \begin{table}[ht]
 \centering
 \begin{tabular}{c c c}
-\hline\hline
+\hline
 Task, N & Period, T & Computation time, C \\ [0.5ex]
 \hline 
 a & 50  & 20 \\
@@ -75,11 +75,11 @@ c & 100 & 9  \\
 d & 100 & 6  \\ [1ex]
 \hline
 \end{tabular}
-\caption{Task set}
+\caption{Task set.}
 \label{table:CEtaskset}
 \end{table}
 
-\img{scheduling_cyclic_example.pdf}{0.9}{Time-line}
+\img{scheduling_cyclic_example.pdf}{0.9}{Time-line.}
 
 The schedule repeats itself at time 100 (the major cycle) when the time slot with \textit{abc} runs again. It can therefore be concluded that the task set can be scheduled such that each task runs at its correct rate. 
 
@@ -98,7 +98,7 @@ The currently executing task is in a \textit{running} state, but can be \textit{
 
 \img{task_states.pdf}{0.7}{Petri Net of the possible states for four tasks.}
 
-\subsubsection{Preemption, Non-Preemption}
+\subsubsection{Preemption and Non-Preemption}
 In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run - this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state - this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
 
 \subsubsection{Simple Task Model}
