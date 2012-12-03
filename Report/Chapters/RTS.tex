@@ -122,7 +122,6 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 	\item \textbf{Rate Monotonic:} Each task is given a unique priority based on its period - a short period equals a high priority. For example, two tasks, \textit{i} and \textit{j} with periods, $T_i$ and $T_j$ such that $T_i$ < $T_j$ yields the priority relationship, $P_i$ > $P_j$. Table \ref{table:FPSRateMon} shows an example of a task set with priorities set using rate monotonic. Note that 3 represents the highest priority and 1 is the lowest.
 
 	\begin{table}[ht]
-		\caption{Example task set with assignment using rate monotonic.}
 			\centering
 			\begin{tabular}{c c c}
 			\hline
@@ -133,13 +132,13 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 			c & 68 & 1 \\ [1ex]
 			\hline
 			\end{tabular}
+			\caption{Example task set with assignment using rate monotonic.}
 		\label{table:FPSRateMon}
 	\end{table}
 
 	\item \textbf{Deadline Monotonic:} Each task is given a unique priority based on its deadline - the task with the shortest deadline is assigned the highest priority. For example, two tasks \textit{i} and \textit{j} with deadlines, $D_i$ and $D_j$ such that $D_i$ < $D_j$ yields the priority relationship, $P_i$ > $P_j$. Table \ref{table:FPSDeadlineMon} shows an example of a task set with priorities set using deadline monotonic.
 
 	\begin{table}[ht]
-		\caption{Example task set with assignment using deadline monotonic.}
 			\centering
 			\begin{tabular}{c c c c}
 			\hline
@@ -150,6 +149,7 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 			d & 47 & 20 & 1 \\ [1ex]
 			\hline
 			\end{tabular}
+			\caption{Example task set with assignment using deadline monotonic.}
 		\label{table:FPSDeadlineMon}
 	\end{table}
 
