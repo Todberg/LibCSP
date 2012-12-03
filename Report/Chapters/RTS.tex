@@ -13,8 +13,7 @@ A real-time system was defined as a system in which correctness was not only dep
 \begin{description}
 \item[Hard] Those real-time systems where responses must be generated within the specified deadline. Any miss of deadline results in failure. A pacemaker is one such example of a hard real-time system.
 \item[Soft] Missing a deadline occasionally does not imply failure of the system, and it may continue to function correctly. An example of such a system could be a digital video-phone system in which delays in deliveries of network packets may result in quality degradation.
-%\item[Firm] As with soft real-time systems, deadlines can be missed occasionally, but late delivery in a response does not provide any benefit.
-\item[Firm] As with soft real-time systems, deadlines can be missed occasionally and may degrade the systems quality of service.
+\item[Firm] As with soft real-time systems, deadlines can be missed occasionally, but late delivery in a response does not provide any benefit. A response may therefore be discarded in such case.
 \end{description}
 
 The different kinds of real-time systems are often associated with embedded systems. Embedded systems were introduced as applications that participate in a larger engineering system. This can be as a component that monitors or controls operation of equipment. Because such applications will typically have timing constraints, embedded systems are typically also real-time systems (but these are by no means mutually inclusive).
