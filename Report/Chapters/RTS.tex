@@ -27,10 +27,10 @@ Safety-critical systems can be categorized as hard real-time systems, as it is i
 	\item[Safety-critical system:] A system of high criticality with an extremely high assurance of the safety property.
 \end{description}
 
-Just as we distinguish between different types of real-time systems, one can also distinguish between different criticality levels in the safety property, which is often done in the context of safety-critical systems. The level naturally depends on the specific application domain and the consequences anomalous behavior may cast. We previously introduced the DO-178B standard used by the FAA as a certification for safety-critical systems in the United States. This standard (and the European ED-12B equivalent) defines a total of five levels of software that is related to aircraft safety:
+Just as we distinguish between different types of real-time systems, one can also distinguish between different criticality levels in the safety property, which is often done in the context of safety-critical systems. The level naturally depends on the specific application domain and the consequences anomalous behaviour may cast. We previously introduced the DO-178B standard, used by the FAA as a certification for safety-critical systems in the United States. This standard (and the European ED-12B equivalent) defines a total of five levels of software that is related to aircraft safety:
 \begin{description}
-	\item[Level A (Catastrophic)] Failure may directly or contribute to crash of the aircraft.  
-	\item[Level B (Hazardous)] Failure may directly or contribute to the failure of a function that results in severe conditions for the aircraft. Failure of the function would reduce the capability of the aircraft or the ability of the crew to cope with converse operating conditions. As an example, this could be the weather radar during flight in an area with tropical storm.
+	\item[Level A (Catastrophic)] Failure may directly result in, or contribute to, crash of the aircraft.  
+	\item[Level B (Hazardous)] Failure may directly result in, or contribute to, the failure of a function that results in severe conditions for the aircraft. Failure of the function would reduce the capability of the aircraft or the ability of the crew to cope with converse operating conditions. As an example, this could be the weather radar during flight in an area with tropical storm.
 	\item[Level C (Major)] Failures are still serious, but not as serious as Level B. Consequences may cause discomfort or increased crew workload. An example could be a system component that aids in many of the mental arithmetic tasks a pilot has. Failure of such a system puts this workload on the pilot instead.
 	\item[Level D (Minor)] A failure may directly or contribute to a failure in a function that results in a minor failure. This failure does not reduce the safety significantly.
 	\item[Level E (No Effect)] Failures does not result in any effect on the aircraft.
@@ -41,9 +41,9 @@ Just as we distinguish between different types of real-time systems, one can als
 % subsection real_time_tasks (end)
 In any of such real-time systems, different computations are typically involved in order to generate the resulting response. Such computations may be triggered by time or events. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
 \begin{description}
-	\item[Periodic (time-triggered)] A task is periodic if it is periodic with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
+	\item[Periodic (time-triggered)] A task is periodic if it is executed periodically, with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
 	\item[Aperiodic (event-triggered)] A task is aperiodic if some event in the environment triggers the execution of the task, without any bound on how often this may be triggered. An example could be a computer mouse where the user generates click events. Such click events may arrive at any time without bound.
-	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal inter arrival time. This could for instance be a coffee machine, in which the event generated to start brewing coffee will not be generated until after it has filled the current cup.
+	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal interarrival time. This could for instance be a coffee machine, in which the event generated to start brewing coffee will not be generated until after it has filled the current cup.
 \end{description}
 
 Rarely is it the case that only a single task exists. Instead a real-time (and safety-critical) system is typically made up of several tasks running concurrently or even in parallel. In the following we look at how this execution can achieved such that all temporal requirements are met.
@@ -52,19 +52,18 @@ Rarely is it the case that only a single task exists. Instead a real-time (and s
 
 \section{Scheduling} % (fold)
 \label{sec:scheduling}
-In concurrent programs, i.e programs containing multiple threads, it is not necessary to specify the exact ordering of task execution. The scheduler provides the means of sharing system resources with every participating thread in a way such that every thread meets its temporal requirements. For this to work the tasks rarely cannot just run until completion in a sequential manner one at a time. Instead the scheduler generates an internal \textit{schedule} based on the properties of each task such that the tasks are interleaved with each other. If the program is correct, the output stays the same across all possible interleavings. Thus scheduling can be defined as:
+In concurrent programs, i.e programs containing multiple threads, it is not necessary to specify the exact ordering of task execution. The scheduler provides the means of sharing system resources with every participating thread in a way such that every thread meets its temporal requirements. For this to work the tasks rarely cannot just run until completion in a sequential manner one at a time. Instead the scheduler generates an internal \textit{schedule} based on the properties of each task, such that the tasks are interleaved with each other. If the program is correct, the output stays the same across all possible interleavings. Thus scheduling can be defined as:
 
 \begin{quotation}
 	\textit{The activity of restricting the non-determinism found in concurrent systems by ordering the execution of tasks, such that they meet their temporal requirements}
 \end{quotation}
 
-Several scheduling algorithms have been proposed including \textit{Cyclic Executive} (CE) and \textit{Fixed Priority Scheduling} (FPS). Although many other algorithms exists such as \textit{Earliest Deadline First} (EDF) and \textit{Value-Based Scheduling} (VBS), attention will only be given to CE and FPS as these are the ones employed in SCJ. Note that in the following, the notions a \textit{task} and a \textit{thread} is used interchangeably.
+Several scheduling algorithms exists, including \textit{Cyclic Executive} (CE) and \textit{Fixed Priority Scheduling} (FPS). Although many other algorithms exists such as \textit{Earliest Deadline First} (EDF) and \textit{Value-Based Scheduling} (VBS), attention will only be given to CE and FPS, as these are the ones employed in SCJ. Note that in the following, the notions of a \textit{task} and a \textit{thread} is used interchangeably.
 
 \subsection{Cyclic Executive}
-When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule.} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically broken down into fixed sized chunks of so-called \textit{procedure calls} and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further correctness analysis which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Table \ref{table:CEtaskset} and Figure \ref{img:scheduling_cyclic_example.pdf} shows an example of a task set with four tasks and the accompanying time-line.
+When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule.} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically broken down into fixed sized chunks of so-called \textit{procedure calls} and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further correctness analysis, which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Table \ref{table:CEtaskset} and Figure \ref{img:scheduling_cyclic_example.pdf} shows an example of a task set with four tasks and the accompanying time-line.
 
 \begin{table}[ht]
-\caption{Task set}
 \centering
 \begin{tabular}{c c c}
 \hline\hline
@@ -76,6 +75,7 @@ c & 100 & 9  \\
 d & 100 & 6  \\ [1ex]
 \hline
 \end{tabular}
+\caption{Task set}
 \label{table:CEtaskset}
 \end{table}
 
@@ -98,7 +98,7 @@ The currently executing task is in a \textit{running} state, but can be \textit{
 
 \img{task_states.pdf}{0.7}{Petri Net of the possible states for four tasks.}
 
-\subsubsection{Preemption, Non-Preemption or Something Different}
+\subsubsection{Preemption, Non-Preemption}
 In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run - this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state - this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
 
 \subsubsection{Simple Task Model}
@@ -116,7 +116,7 @@ Analysis of programs is not an easy task, and when concurrency comes into play w
 \end{itemize}
 
 \subsubsection{Priority Assignment}
-In FPS, the important question is how to assign the priorities amongst the different tasks. Naturally it would make sense to assign high priorities to tasks that are deemed important from a developer perspective, however, this is usually not a good solution as priorities are derived from temporal requirements rather than functional importance. Instead, the following two methods are often used:
+In FPS, the important question is how to assign the priorities amongst the different tasks. Naturally it would make sense to assign high priorities to tasks that are deemed important from a developer perspective, however, priorities are derived from temporal requirements rather than functional importance. Therefore, the following two methods are often used:
 
 \begin{itemize}
 	\item \textbf{Rate Monotonic:} Each task is given a unique priority based on its period - a short period equals a high priority. For example, two tasks, \textit{i} and \textit{j} with periods, $T_i$ and $T_j$ such that $T_i$ < $T_j$ yields the priority relationship, $P_i$ > $P_j$. Table \ref{table:FPSRateMon} shows an example of a task set with priorities set using rate monotonic. Note that 3 represents the highest priority and 1 is the lowest.
@@ -157,7 +157,7 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 
 With rate monotonic, and in accordance with the previously mentioned simple task model, deadlines are implicit meaning that the period and deadline are assumed equal for each task ($D = T$). This assumption is lifted in the deadline monotonic scheme as deadlines are allowed to be less then the periods ($D <= T$). Additionally the requirement of having only periodic tasks can also be changed to support periodic and sporadic tasks. Doing so makes the deadline monotonic \textit{optimal} in the sense that if a task set can be scheduled under a preemptive fixed priority scheduler using some fixed priority assignment scheme while preserving this changed task model, then the task set can also be scheduled using the deadline monotonic scheme. On the other hand, keeping the simple task model unchanged makes the rate monotonic scheme optimal.
 
-Figure \ref{img:fps_rate_mono_example.pdf} shows the time-line for the task set represented in Table \ref{table:FPSRateMon}. The computation times have been omitted for simplification. At the \textit{critical instant} all tasks are released, but only the task with the highest priority, namely task \textit{a}, is allowed to run. The remaining tasks are blocked until task \textit{a} finishes its release. Next task \textit{b} runs till completion after which task \textit{c} runs. Task \textit{c} is however preempted by the release of task \textit{a}. After task \textit{a} has completed, task \textit{c} continues a little time before being preempted again by task \textit{b} this time. After this task has finished, task \textit{c} is finally able to complete.
+Figure \ref{img:fps_rate_mono_example.pdf} shows the time-line for the task set represented in Table \ref{table:FPSRateMon}. The computation times have been omitted for simplification. At the \textit{critical instant} all tasks are released, but only the task with the highest priority, namely task \textit{a}, is allowed to run. The remaining tasks are blocked until task \textit{a} finishes its release. Next task \textit{b} runs till completion after which task \textit{c} runs. Task \textit{c} is preempted once again, by the release of task \textit{a} the second time. After task \textit{a} has completed, task \textit{c} continues a little time before being preempted again by task \textit{b} this time. After this task has finished, task \textit{c} is finally able to complete.
 
 \img{fps_rate_mono_example.pdf}{0.8}{Time-line for the task set in Tabel \ref{table:FPSRateMon}.}
 
