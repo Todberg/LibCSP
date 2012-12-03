@@ -280,21 +280,22 @@ In addition to the restrictions in the task model, the schedulability tests also
 
 \subsection{Worst-Case Execution Time Analysis} % (fold)
 \label{sub:worst_case_execution_time_analysis}
-Worst-Case Execution Time (WCET) analysis of real-time programs is the process of determining an upper bound on the execution time on a specific piece of hardware\cite{Wilhelm:2008}. As stated previously, this is needed in order to show that a program satisfies its temporal requirements. Note that a thorough review of performing WCET analysis is beyond the scope of this report, for more details we refer to the cited material.
+Worst-Case Execution Time (WCET) analysis of real-time programs is the process of determining an upper bound on the execution time on a specific piece of hardware\cite{Wilhelm:2008}. As stated previously, this is needed in order to show that a program satisfies its temporal requirements. Note that a thorough review of performing WCET analysis is beyond the scope of this report - for more details we refer to the cited material.
 
 Methods (or direct tools) for determining the WCET of an application are evaluated on two criteria. \textit{Safety} describes whether the method produces only estimates or actual bounds. \textit{Precision} describes how close the bounds or estimates are to the exact values. Methods are generally classified as either a \textit{static} analysis technique or \textit{end-to-end measurement}, both of which have varying safety and precision properties. In the following we will briefly provide an introduction on these to give an intuition behind the two overall approaches.
 
 \subsubsection{End-to-End Measurement}
 End-to-end measurement of code is, as the name may imply, based on doing manual measurement of executed code, that is, a given task is executed on the desired hardware platform, or in a simulator while being measured. The measurement can be done using metrics such as time or CPU cycles. The technique presents several challenges such as choosing appropriate input for a task that results in worst-case behaviour, and varying execution times on the same input e.g. due to caching.
-In Figure \ref{img:wcet_terms.pdf} the problem of WCET analysis is illustrated, along with an example of the type of results an end-to-end measurement may provide.
+In Figure \ref{img:wcet_terms.pdf} the problem of WCET analysis is illustrated along with an example of the type of results an end-to-end measurement may provide.
 
-The dashes curve represents the execution time of all executions, where the solid curve represents measured execution times over a number of trials. As it can be seen, measurement provides only estimates for what is called \textit{minimal observed} and \textit{maximal observed execution times}. This technique is therefore not safe, as it typically overestimates the lower bound, and, more importantly, underestimates the upper bound.
-\img{wcet_terms.pdf}{0.8}{Basic notation in WCET analysis and illustration of the problem - adapted and modified from \cite{Wilhelm:2008}}
+\img{wcet_terms.pdf}{0.8}{Basic notation in WCET analysis and illustration of the problem - adapted and modified from the article, \textit{The worst-case execution-time problem-overview of methods and survey of tools}\cite{Wilhelm:2008}.}
+
+The dashed curve represents the execution time of all executions, where the solid curve represents measured execution times over a number of trials. As it can be seen, measurement provides only estimates for what is called \textit{minimal observed} and \textit{maximal observed execution times}. This technique is therefore not safe, as it typically overestimates the lower bound, and, more importantly, underestimates the upper bound. In terms of handling the underestimation of the upper bound, it is common to add some percentage to the calculated WCET. 
 
 \subsubsection{Static Analysis}
-This class contains the methods that does not involve execution of code on real hardware or through simulation. While several methods exists, one example of a static method is \textit{Control-Flow Analysis} (CFA) that can also be used in combination with \textit{Data-Flow Analysis}.
+This class contains the methods that does not involve execution of code on real hardware or through simulation. While several methods exists, one example of a static method is \textit{Control-Flow Analysis} (CFA) that can also be used in combination with \textit{Data-Flow Analysis} (DFA).
 
-CFA is based on examining the execution paths of a program and constructing a \textit{Control-Flow Graph} (CFG). Using this CFG, a tool may analyse execution paths while counting information, such as instructions for functions.
+CFA is based on examining the execution paths of a program and constructing a \textit{Control-Flow Graph} (CFG). Using this CFG, a tool may analyse execution paths while counting information such as instructions for functions.
 
 Static approaches such as CFA combined with DFA provides a safe approximation of the bound, this is also illustrated in Figure \ref{img:wcet_terms.pdf} as the upper bound provided that is an over estimate of the actual possible WCET. However, the use of static techniques presents some issues. First, programs can be complex, and building the CFG can be a problematic process. Usually tools rely on the programmer providing hints for the tool, such as explicit bounds on loops to reduce the complexity of the static analysis. Second, the hardware has become very complex which makes it more difficult for a static technique to make an appropriate abstraction of the underlying hardware.
 
