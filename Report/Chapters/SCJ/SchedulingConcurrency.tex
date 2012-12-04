@@ -17,22 +17,69 @@ In SCJ all tasks are implemented as event-handlers and a unit of work to be exec
 
 A second motivation for an event-based model, is that of binding threads. In RTSJ an asynchronous event handler always executes under the control of a thread, however, when this binding occurs is not specified. This can either happen just before the release (allowing reuse of threads for different handlers) in which the event handlers are \textit{unbound}. Otherwise , the asynchronous event handler may also be \textit{bound} permanently to a thread upon creation. The important part of this, is that asynchronous event handlers are effectively real-time threads and is no different in terms of scheduling. There is therefore no significant drawback in using asynchronous event handlers. This supports the first motivation for using the event-based model. In addition, only bound asynchronous event handlers are allowed, as this is more predictable considering no latency occurs due to the need for binding upon release.
 
+\subsection{Cross-Level Semantics and Restrictions} % (fold)
+\label{sub:cross_level_restrictions}
+% subsection cross_level_restrictions (end)
+As described previously, SCJ supports bound asynchronous event handlers almost exclusively (level 2 applications may use a simplified thread-based approach as will be described). Despite cyclic executive being implemented as event handlers, these are not executed concurrently. These will always be executed sequentially in a single thread.
+In SCJ, code that will be executed by a preemptive scheduler, is coined the \textit{schedulable object}. The event handlers implemented in a non-cyclic executive are then released and executed in response to release events that can be either time-triggered or event-triggered. 
 
+As described in Section \ref{sub:real_time_tasks}, tasks are usually distinguished between being either periodic, aperiodic or sporadic. While RTSJ supports all three task types, SCJ is restricted to periodic and aperiodic tasks. Therefore no enforcement of minimum inter-arrival times between release events is present, and relies on the application developer. It is not evident why sporadic handlers are not supported, however, no latency in run-time timing checks may be an obvious reason. Similarily issues with \textit{jitter} may further the complexity of this task, thus result in less predictability. We return to the issue of jitter in relation to deadlines in Section \ref{sub:deadline_miss_detection_and_handling}. As a result, one must model sporadic tasks as aperiodic event handlers instead.
+
+In addition to this there are a number of restrictions that application developers must conform to regardless of conformance level\footnote{We here provide semantics for single-processor based platforms. For additional details on multi-processor uses, we refer to the specification.}:
+\begin{itemize}
+	\item The \textit{synchronize} statement is not allowed. Synchronization is done using synchronized methods or the use of the volatile modifier for primitive types.
+	\item Nested calls of synchronized methods are allowed.
+	\item No synchronized code may self-suspend while holding a monitor lock (e.g. for I/O or the use of \code{sleep} method). Note that requesting a lock through a synchronized call is not considered self-suspension in this case.
+\end{itemize}
+
+It is not clear what motives are behind not allowing the use of the synchronized statement, as equivalent code can easily be produced by encapsulation in a synchronized method.
+In addition to these there are also specific semantics and restrictions depending on the compliance level. These will be described in the following.
 % subsection concurrency_model (end)
 
 % Concurrency Model
 % - event / thread based, event baseret med bound threads/schedulable objects
 % - Generelle betingelser på tværs af compliance levels
 
-\subsection{Level Specific Restrictions} % (fold)
+\subsection{Level Specific Semantics and Restrictions} % (fold)
 \label{sub:level_specific_restrictions}
+In addition to the semantics that apply across levels the following apply to the individual levels. These also show how the complexity of applications increase as a result of conforming to a higher compliance level.
 
-% subsection level_specific_restrictions (end)
+\subsubsection{Level 0}
+\begin{itemize}
+	\item Only periodic bound asynchronous event handlers supported (though executed as if it was under a single thread of control).
+	\item The use of the suspending method \code{Object.wait} and appertaining methods \code{Object.notify} and \code{Object.notifyAll} are not allowed.
+	\item No deadline miss detection facilitated.
+\end{itemize}
+
+\subsubsection{Level 1}
+The following apply in addition to the level 0 requirements.
+\begin{itemize}
+	\item Aperiodic and one-shot asynchronous event handlers are allowed.
+	\item Each event handler is bound to its own thread of control, and similarly, each thread only serves a single handler.
+	\item A full preemptive FPS shall be applied, with priority ceiling emulation. At least 28 priorities must be support.
+	\item Deadline miss detection is facilitated under a certain granularity.
+	\item A preempted schedulable object must be placed in front of the queue for its active priority (This is only a recommendation in RTSJ).
+\end{itemize}
+
+\subsubsection{Level 2}
+The following apply in addition to the level 1 requirements.
+\begin{itemize}
+	\item No-heap real-time threads are supported (but is managed).
+	\item \code{Object.wait}, \code{Object.notify} and \code{Object.notifyAll} are allowed.
+\end{itemize}
 
 % Levels
 
+\subsection{Implementing Tasks} % (fold)
+\label{sub:implementing_tasks}
+
+% subsection implementing_tasks (end)
 % Klasse hierarki og Parameters
 
 % Priority Inversion Management Protocol
 
+\subsection{Deadline Miss Detection and Handling} % (fold)
+\label{sub:deadline_miss_detection_and_handling}
+
+% subsection deadline_miss_detection_and_handling (end)
 % Muligvis noget med deadline og release jitter?
