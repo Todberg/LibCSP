@@ -27,11 +27,24 @@ The concept of a \textit{mission life cycle} covers the different phases a missi
 
 \img{scj_mission_lifecyle.pdf}{0.6}{The mission life cycle.}
 
-Once the application starts to execute, a single mission is selected from all defined missions, by a \textit{mission sequencer}, that oversees the execution the \code{mission}. Next the \code{mission} is initialised which involves calling the mission's \code{initialize} method (see Listing \ref{missionexample}). Upon the transition from the \textit{initialisation phase} to the \textit{execution phase}, the \code{schedulable objects} that were defined and registered during the initialization phase, are scheduled by the underlying fixed-priority scheduler. Note that the \code{schedulable objects} residing in other missions can not be scheduled at this time, but only those defined in the currently selected \code{mission}.
+Once the application starts to execute, a single mission is selected from all defined missions, by a \textit{mission sequencer}, that oversees the execution of each \code{mission}. Next the \code{mission} is initialised which involves calling the mission's \code{initialize} method (see Listing \ref{missionexample}) that amongst other things registers the defined \code{schedulable objects}. These are internally represented in the class, \code{ManagedScheduable}. 
 
+Upon the transition from the \textit{initialisation phase} to the \textit{execution phase}, the \code{schedulable objects} that were defined and registered during the initialization phase, are scheduled by the underlying fixed-priority scheduler. Note that \code{schedulable objects} residing in other missions can not be scheduled at this time, but only those defined in the currently selected \code{mission}. 
 
+Before terminating the currently executing mission and switching to the next, i.e. after every \code{scheduable object} within the mission have terminated, a \textit{clean up phase} occurs in which mission related clean up code can be executed. In order to do so, the following method must be overridden from \code{Mission:}
 
-\subsection{Safelet}
+\begin{quotation}
+	\code{protected void cleanUp();}
+\end{quotation}
 
 \subsection{Handlers}
-functional behaviour
+\label{subsection:handlers}
+A mission in itself does not do much apart from allocating shared data structures. The functional behaviour of a mission happens through the previously mentioned \code{schedulable objects}, which are basically implemented as threads that operates as event handlers. The underlying details will be explained later in Section \ref{sub:asynchronous_event_handlers}. The event handlers can be either periodic or aperiodic (sporadic tasks are not supported in SCJ). In the \code{initialize} method of the solar panel \code{mission} for the Mars rover in Listing \ref{missionexample}, a periodic event handler could be instantiated and registered.
+
+\lstinputlisting[label=handlerexample,caption=Example of a handler.]
+{Code/handler.java}
+
+The supplied arguments denote its priority (\code{PriorityParamenters}), release time and frequency (\code{PeriodicParameters}) and various storage parameters. The handler class itself, being its a periodic event handler, must extend the class \code{PeriodicEventHandler}. Aperiodic event handlers similarly extends \code{AperiodicEventhandler}. As a minimum requirement, the class must have a constructor accepting the above mentioned parameters that will be passed to its immediate base class, but also override another contravariant method called \code{handleAsyncEvent} in which most application logic occur.
+
+\subsection{Safelet}
+\label{subsection:safelet}
