@@ -39,7 +39,7 @@ Before terminating the currently executing mission and switching to the next, i.
 
 \subsection{Handlers}
 \label{subsection:handlers}
-A mission in itself does not do much apart from allocating shared data structures. The functional behaviour of a mission happens through the previously mentioned \code{schedulable objects}, which are basically implemented as threads that operates as event handlers. The underlying details will be explained later in Section \ref{sub:asynchronous_event_handlers}. The event handlers can be either periodic or aperiodic (sporadic tasks are not supported in SCJ). In the \code{initialize} method of the solar panel \code{mission} for the Mars rover in Listing \ref{missionexample}, a periodic event handler could be instantiated and registered.
+A mission in itself does not do much apart from allocating shared data structures. The functional behaviour of a mission happens through the previously mentioned \code{schedulable objects}, which are basically implemented as threads that operates as event handlers. This will be elaborated in further detail in Section \ref{section:schedulingConcurrency}. The event handlers can be either periodic or aperiodic (sporadic tasks are not supported in SCJ). In the \code{initialize} method of the solar panel \code{mission} for the Mars rover in Listing \ref{missionexample}, a periodic event handler could be instantiated and registered.
 
 \lstinputlisting[label=handlerexample,caption=Example of a handler.]
 {Code/handler.java}
