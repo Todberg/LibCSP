@@ -3,6 +3,7 @@
 \usepackage{subfigure}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{inconsolata}
 \usepackage{lastpage}
 \usepackage{caption}
 \usepackage{lmodern}
@@ -15,6 +16,11 @@
 \definecolor{lightgray}{gray}{0.9}
 
 \graphicspath{{./Images/}}
+
+% Code font (Looks like consolas but more nice!)
+\newcommand{\code}[1] {
+  {\fontfamily{fi4}\selectfont #1}
+}
 
 \newcommand{\img}[3]{
 	\begin{figure}[!htp]
