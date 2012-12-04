@@ -4,8 +4,34 @@ The programming model of SCJ can be considered being much more strict than its p
 
 
 \subsection{Missions}
-As a requirement, every SCJ application will consist of at least one \code{mission}. Furthermore \code{missions} can be regarded as encapsulating a specific responsibility of the 
+As a requirement and as the back-bone of every SCJ application, an application must consist of at least one \code{mission}. Furthermore \code{missions} can be regarded as entities encapsulating specific responsibilities of the overall application. This is much in accordance with the Object-Oriented Programming (OOP) principles of dividing code into classes having specific purposes. The granularity of encapsulation and thereby separation of concern is, however, often broader in \code{missions} as each mission can take the responsibilities of several tasks that are confined to a specific domain. As an example, consider the software for an unmanned moon rover taking earth samples on Mars. The rover needs to perform several vital functions in order to complete its objectives. The functionality can roughly be divided into:
+
+\begin{itemize}
+	\item Detach from charge station
+	\item Navigate the environment to specific locations
+	\item Align mounted solar panels to optimal positions throughout operation to prolong battery life
+	\item Obtain earth samples
+	\item Communicate results to outside world
+	\item Drive back and attach to charge station
+\end{itemize}
+
+The above functionality could be represented in five different missions with coordination happening in between. Each mission would in turn contain a number of \textit{schedulable objects} (threads) refereed to as \textit{event handlers}. These will be described in the next section. "The Expert Group" behind the specification decided to include the mission concept as a solution to the problem of some modern safety-critical monolithic applications consisting of millions of lines of code making them very complex to maintain and certify. Also by dividing the application into one or more missions, each mission could be developed independently and in isolation of the others.  
+
+To create a \code{mission} class in SCJ it must extend the abstract \code{Mission} as its base class and override the two abstract methods, \code{initialize} and \code{missionMemorySize}. In \code{initialize}, the mission context is initialized such as creating the \textit{event handlers} (tasks) and other objects like shared data structures. In \code{missionMemorySize}, the maximum memory space for the \code{mission} is defined (in bytes). Returning back to the rover example, a possible mission for the solar panel functionality, could look like that seen in Listing \ref{missionexample}. The reason for explicitly stating the memory consumption is due to the absence of automatic garbage collection. Furthermore as memory in real-time systems often is a limited resource, this number should be assigned with care by analysing the contained code.
+
+\lstinputlisting[label=missionexample,caption=Example of a mission.]
+{Code/mission.java}
+
+\subsubsection{Mission Life Cycle}
+The concept of a \textit{mission life cycle} covers the different phases a mission can be situated in throughout its "life time". Figure \ref{img:scj_mission_lifecyle.pdf} shows the various phases of a mission.
+
+\img{scj_mission_lifecyle.pdf}{0.6}{The mission life cycle.}
+
+Once the application starts to execute, a single mission is selected from all defined missions, by a \textit{mission sequencer}, that oversees the execution the \code{mission}. Next the \code{mission} is initialised which involves calling the mission's \code{initialize} method (see Listing \ref{missionexample}). Upon the transition from the \textit{initialisation phase} to the \textit{execution phase}, the \code{schedulable objects} that were defined and registered during the initialization phase, are scheduled by the underlying fixed-priority scheduler. Note that the \code{schedulable objects} residing in other missions can not be scheduled at this time, but only those defined in the currently selected \code{mission}.
+
+
 
 \subsection{Safelet}
 
 \subsection{Handlers}
+functional behaviour
