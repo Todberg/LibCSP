@@ -43,7 +43,7 @@ In any of such real-time systems, different computations are typically involved 
 \begin{description}
 	\item[Periodic (time-triggered)] A task is periodic if it is executed periodically, with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
 	\item[Aperiodic (event-triggered)] A task is aperiodic if some event in the environment triggers the execution of the task, without any bound on how often this may be triggered. An example could be a computer mouse where the user generates click events. Such click events may arrive at any time without bound.
-	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal interarrival time. This could for instance be a coffee machine, in which the event generated to start brewing coffee will not be generated until after it has filled the current cup.
+	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal interarrival time. This could for instance be a coffee vending machine, in which the event generated to start brewing coffee will not be generated until after it has filled the current cup.
 \end{description}
 
 Rarely is it the case that only a single task exists. Instead a real-time (and safety-critical) system is typically made up of several tasks running concurrently or even in parallel. In the following we look at how this execution can achieved such that all temporal requirements are met.
