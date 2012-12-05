@@ -1,5 +1,3 @@
-import javax.safetycritical.Mission;
-
 public class SolarPanelMission extends Mission {
 
 	@Override
