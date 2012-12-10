@@ -21,7 +21,7 @@ The different kinds of real-time systems are often associated with embedded syst
 \subsection{Safety-Critical Systems} % (fold)
 \label{sub:safety_critical_systems}
 % subsection safety_critical_systems (end)
-Safety-critical systems can be categorized as hard real-time systems, as it is imperative that deadlines are satisfied. There are, however, different degrees of safety in the area of safety-critical software development. First, let us consider the definition of \textit{safety} in relation to software(cite spec):
+Safety-critical systems can be categorised as hard real-time systems, as it is imperative that deadlines are satisfied. There are, however, different degrees of safety in the area of safety-critical software development. First, let us consider the definition of \textit{safety} in relation to software(cite spec):
 \begin{description}
 	\item[Safety:] A system property in which failure will not result in endangerment of human life or the environment.
 	\item[Safety-critical system:] A system of high criticality with an extremely high assurance of the safety property.
@@ -103,7 +103,7 @@ The currently executing task is in a \textit{running} state, but can be \textit{
 In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run - this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state - this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
 
 \subsubsection{Simple Task Model}
-Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronization mechanisms, this becomes a complex task. Therefore, the schedulability tests presented builds upon \textit{the simple task model} that imposes a number of restrictions in concurrent real-time systems. Basically this attempts to simplify the process of schedulability testing an application. The simple task model makes the following assumptions of a concurrent real-time system:
+Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronisation mechanisms, this becomes a complex task. Therefore, the schedulability tests presented builds upon \textit{the simple task model} that imposes a number of restrictions in concurrent real-time systems. Basically this attempts to simplify the process of schedulability testing an application. The simple task model makes the following assumptions of a concurrent real-time system:
 
 \begin{itemize}
 	\item The application is assumed to consists of a fixed set of tasks
@@ -188,30 +188,30 @@ A test that is both sufficient and necessary is considered \textbf{exact}. In th
 			P 	& Priority assigned to the task (if applicable) \\
 			R 	& Worst-case response time of the task \\
 			T 	& Minimum time between task releases (task period) \\
-			U 	& The utilization of each task (equal to C/T) \\
+			U 	& The utilisation of each task (equal to C/T) \\
 			\hline
 			\end{tabular}
 			\caption{Standard notation\cite{alan2001real}.}
 		\label{table:ScheduleNotation}
 	\end{table}
 
-\subsection{Utilization-based Test} % (fold)
+\subsection{Utilisation-based Test} % (fold)
 \label{sub:utilization_based_test}
 This test can be considered the most simple test for FPS. It is important to note that while it is not exact (it is sufficient), it is simple to perform when applying the rate monotonic assignment scheme and thus makes the assumption of the simple task model.
 
-The test is based on considering the utilization of a task set. The schedulability is ensured - i.e. all tasks in the task set will meet their deadlines if the following condition is true:
+The test is based on considering the utilisation of a task set. The schedulability is ensured - i.e. all tasks in the task set will meet their deadlines if the following condition is true:
 
 \begin{equation}
 	\sum_{i=1}^N \biggl(\frac{C_i}{T_i}\biggr) \le N\bigl( 2^{1/N} - 1 \bigr)
 \end{equation}
 
-As stated the test, is not exact but only sufficient as there exists task sets for which the utilization-based test will result in a negative outcome, but is actually schedulable. Therefore when the utilization-based test fails, the task set \textit{may or may not} be schedulable. Variations and improvements for this test exists, however, these will not be discussed in this report. For additional information on the utilization-based test and variations, we refer to the cited material.
+As stated the test, is not exact but only sufficient as there exists task sets for which the utilisation-based test will result in a negative outcome, but is actually schedulable. Therefore when the utilisation-based test fails, the task set \textit{may or may not} be schedulable. Variations and improvements for this test exists, however, these will not be discussed in this report. For additional information on the utilisation-based test and variations, we refer to the cited material.
 
 % subsection the_simple_task_model (end)
 
 \subsection{Response-Time Analysis (RTA)} % (fold)
 \label{sub:response_time_analysis_}
-Response-Time Analysis, or simply RTA, is an alternative test for FPS that is, in contrast to the utilization-based test, exact, albeit more complex. Performing an RTA is divided into two overall steps:
+Response-Time Analysis, or simply RTA, is an alternative test for FPS that is, in contrast to the utilisation-based test, exact, albeit more complex. Performing an RTA is divided into two overall steps:
 \begin{enumerate}
 \item Each task is analysed to compute its \textit{worst-case response time} (R)
 \item The response time for each task is compared to its deadline
@@ -273,7 +273,7 @@ As stated in Section \ref{sub:response_time_analysis_}, $R$ for the task with hi
 
 As a result we can see that the task set, under the simple task model, is indeed schedulable under FPS as the response time for each task is less than its period and therefore its deadline.
 
-While the RTA test is exact, it is naturally very much restricted because of the assumptions made in the simple task model. Rarely is it the case that several concurrently running tasks are always independent of each other - synchronization is often involved. For this reason there has been many extensions and variations of the described method to loosen or remove single restrictions in the simple task model. In Section \ref{sub:fps} we saw one example of this where the restriction of $D = T$ was lifted in the deadline monotonic assignment scheme. We refer to the cited material for additional information on how one may handle the removal of restrictions.
+While the RTA test is exact, it is naturally very much restricted because of the assumptions made in the simple task model. Rarely is it the case that several concurrently running tasks are always independent of each other - synchronisation is often involved. For this reason there has been many extensions and variations of the described method to loosen or remove single restrictions in the simple task model. In Section \ref{sub:fps} we saw one example of this where the restriction of $D = T$ was lifted in the deadline monotonic assignment scheme. We refer to the cited material for additional information on how one may handle the removal of restrictions.
 
 In addition to the restrictions in the task model, the schedulability test also depends on the important computation time, $C$ of a task being available. Up until now, we have simply made the assumption that this value was available. However, finding this value for a specific task is a complex process itself and presents many challenges that make up a complete research area own its own. In the following Section we will introduce the process and some of the methods for analysing a task in order to find the needed computation time.
 
