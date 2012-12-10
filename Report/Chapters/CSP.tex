@@ -1,2 +1,10 @@
 \chapter{The Cubesat Space Protocol (CSP)}
 \label{chapter:csp}
+This section will introduce the Cubesat Space Protocol and show a little example of a client/server application utilising the protocol. 
+
+\section{The Protocol Stack}
+The Cubesat Space Protocol is developed with inspiration drawn from the classical TCP/IP model. Like the TCP/IP protocol, CSP is divided into several layers having distinct responsibilities and with communication with the adjacent layer(s). Figure \ref{img:csp_stack.pdf} shows the protocol stack.
+
+\img{csp_stack.pdf}{0.9}{The CSP protocol stack.}
+
+The \textit{Driver} layer contains low-level drivers for the supported network devices such as I2C and CAN. If the driver for the particular 
