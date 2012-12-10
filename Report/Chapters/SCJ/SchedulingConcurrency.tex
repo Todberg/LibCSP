@@ -1,4 +1,4 @@
-\chapter{Scheduling and Concurrency in Safety-Critical Java}
+\chapter{Scheduling and Concurrency in SCJ}
 \label{chapter:scheduling}
 Traditionally, safety-critical systems have been small programs that were constructed using the cyclic executive scheduling approach. However, a gradual shift towards the use of concurrency has lead to more complex safety-critical systems. This has resulted in programming models where simple concurrent activites have become viable in the development of safety-critical systems. As a result, there has been a migration from \textit{deterministic} scheduling to \textit{predictable scheduling}, where verification is done through schedulability analysis such as the response time analysis, described in Section \ref{sec:schedulability_analysis}. This verification is then typically appended as evidence in the certification process. In Section \ref{subsection:handlers} an example of a Mars rover illustrated how to create the fundamental event handlers. In this Section we examine the underlying motivations for this approach towards constructing safety-critical applications and details on the infrastructure.
 
