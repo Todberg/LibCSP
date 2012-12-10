@@ -1,2 +1,20 @@
 \chapter{Java Optimized Processor (JOP)}
 \label{chapter:jop}
+In order to implement the CSP library under SCJ restrictions, we need a Java virtual machine and a suitable execution platform. This Section will briefly introduce the used JVM and the associated platform for this purpose. 
+
+\section{The Java Optimized Processor}
+The Java Optimized Processor (JOP) is a small RISC soft microprocessor core of the Java virtual machine implemented in hardware. What sets this processor aside from other processors, is in its ability to run Java bytecode natively in a time predictable manner. JOP is written in the low-level hardware language, \textit{\textbf{V}ery high speed integrated circuit \textbf{H}ardware \textbf{D}escription \textbf{L}anguage} and is targeted at \textit{Field Programmable Gate Arrays} (FPGA) --- an integrated circuit that must be configured by the user after each boot. Some of the key architectureal features of JOP include:
+
+\begin{itemize}
+ 	\item Dynamic one cycle translations of CISC Java bytecode instructions to a RISC stack based instruction set (microcode) in a three stage pipeline
+ 	\item No viable latency in the translation causing time predictability
+ 	\item Constant execution time (one cycle) for all microcode instructions
+ 	\item No time dependencies between bytecodes that yields a simpler WCET analysis
+ 	\item Time predictable instruction cache that caches whole methods such that only invoke and return can cause cache misses
+ 	\item Time predictable cache that caches local variables and the operand stack such that access to local variable always hits
+ 	\item Good average case performance compared to other real-time Java processors.
+\end{itemize}
+
+One of the most compelling aspects of JOP from a real-time perspective, is that is allows the creation of analysable Java programs in terms of execution time when run on a FPGA board --- i.e. once the execution time for a given chunk of code is known, it remains the same provided that the execution path remains the same.
+
+In relation to SCJ, JOP supports applications conforming to compliance levels 0 and 1, making it a suitable choice for running SCJ applications. The FPGA on which JOP will be configured, will be an \textit{Altera DE2-70}. The main reason for choosing this board, is that it is easily accessible from the IT department.
