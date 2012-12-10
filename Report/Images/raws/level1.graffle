@@ -95,7 +95,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{478.903076171875, 215.75}, {69, 62}}</string>
+			<string>{{478.903076171875, 215.75}, {70.096923828125227, 62}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -712,8 +712,8 @@
 			<integer>31</integer>
 			<key>Points</key>
 			<array>
-				<string>{449.375, 391.5}</string>
-				<string>{505.49998664855957, 391.5}</string>
+				<string>{491.778076171875, 348}</string>
+				<string>{547.90306282043457, 348}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -844,7 +844,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{462.74995994567871, 392.5}, {34, 21}}</string>
+			<string>{{505.15303611755371, 349}, {34, 21}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -972,7 +972,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-10 08:45:01 +0000</string>
+	<string>2012-12-10 08:46:39 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
