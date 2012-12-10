@@ -11,4 +11,17 @@ The details of the memory model is closely related to the mission life cycle tha
 In fact, the illustrated hierarchy is explicitly maintained and used to perform scope checks at runtime by the infrastructure. This is to ensure that no \textit{dangling} pointers exists, in the case of assigning an object allocated in e.g. a private memory area to a field that resides in mission memory. When said private scope would exit, the field would point to a non-existing object as it would be deallocated.
 
 % Memory artiklen detaljer
+
+\subsection{Considerations of Scoped Memory} % (fold)
+\label{sub:considerations_of_scoped_memory}
+The use of the scoped memory model is a clear compromise between achieving the predictable behaviour of manual memory management and the developer benefits of automatic memory management. As a result, there are some considerations that forces SCJ developers to think different compared to standard edition Java.
+
+In Java, many operations and standard libraries relies on creating temporary objects that will be automatically collected by the garbage collector. Because the allocation context is now the important part of allocating objects dynamically, many of the usual development habits and standard libraries are invalidated or made troublesome to use.
+
+
+\lstinputlisting[label=stringappendexample,caption=Trivial use of Java String operations in SCJ]
+{Code/StringAppendExample.java}
+
+
+% subsection considerations_of_scoped_memory (end)
 % Problematikker med denne - append eksemplet og ref til GC artiklen
