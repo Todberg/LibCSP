@@ -16,12 +16,7 @@ In fact, the illustrated hierarchy is explicitly maintained and used to perform 
 \label{sub:considerations_of_scoped_memory}
 The use of the scoped memory model is a clear compromise between achieving the predictable behaviour of manual memory management and the developer benefits of automatic memory management. As a result, there are some considerations that forces SCJ developers to think different compared to standard edition Java.
 
-In Java, many operations and standard libraries relies on creating temporary objects that will be automatically collected by the garbage collector. Because the allocation context is now the important part of allocating objects dynamically, many of the usual development habits and standard libraries are invalidated or made troublesome to use.
-
-
+In Java, many operations and standard libraries relies on creating temporary objects that will be automatically collected by the garbage collector. Because the allocation context is now the important part of allocating objects dynamically, many of the usual development habits and standard libraries are invalidated or made troublesome to use. This was also highlighted as an issue in the RepRap 3D Printer use case\cite{Schoeberl:2012:RepRap}. Consider the example SCJ application consisting of a single mission with a single periodic handler in Listing \ref{stringappendexample}. An otherwise innocent use of the append method on a String object will in this case result in a \code{MEMORYEXCEPTION} after on the fourth release of the handler, because the original \code{StringBuilder} object was allocated in Mission memory. Therefore, a challenge lies in the construction of packages for SCJ that other developers should use, if they should be able to use packages as in standard edition Java.
 \lstinputlisting[label=stringappendexample,caption=Trivial use of Java String operations in SCJ]
 {Code/StringAppendExample.java}
 
-
-% subsection considerations_of_scoped_memory (end)
-% Problematikker med denne - append eksemplet og ref til GC artiklen
