@@ -1,12 +1,12 @@
-\section{Scheduling and Concurrency}
-\label{section:schedulingConcurrency}
+\chapter{Scheduling and Concurrency in Safety-Critical Java}
+\label{chapter:scheduling}
 Traditionally, safety-critical systems have been small programs that were constructed using the cyclic executive scheduling approach. However, a gradual shift towards the use of concurrency has lead to more complex safety-critical systems. This has resulted in programming models where simple concurrent activites have become viable in the development of safety-critical systems. As a result, there has been a migration from \textit{deterministic} scheduling to \textit{predictable scheduling}, where verification is done through schedulability analysis such as the response time analysis, described in Section \ref{sec:schedulability_analysis}. This verification is then typically appended as evidence in the certification process. In Section \ref{subsection:handlers} an example of a Mars rover illustrated how to create the fundamental event handlers. In this Section we examine the underlying motivations for this approach towards constructing safety-critical applications and details on the infrastructure.
 
 % SCJ supports both the creation of applications relying on a cyclic executive as well as more complex concurrent ones. As described in Section \ref{section:complianceLevels} a total of three compliance levels exists. These compliance levels indicates the complexity of the safety-critical application, where the concurrency and scheduling becomes more comprehensive and complex at higher levels. In the following we examine the general concurrency model, followed by more extensive details on the differences at each level as well as details on the concurrency and scheduling infrastructure.
 
 % Traditionelt anvendt cyclic executive. Der er sket en gradvis migrering til at anvende prorgamming models der understøtter concurrenct activities.  Skift fra deterministic scheduling til predictable scheduling. Verification sker ved schedulability analyse såsom RTA i section x, som typisk vil være bevis til certificerings processen.
 
-\subsection{Concurrency Model} % (fold)
+\section{Concurrency Model} % (fold)
 \label{sub:concurrency_model}
 In general, the two concurrency models, \textit{thread-based} and \textit{event-based} exists. In the thread-based model a single thread of control is used for each entity. In the event-based model, an event handler begins executing in response to an event being fired. In SCJ, the concurrency model is based on an event-based approach (almost) exclusively. This is in contrast to RTSJ which incorporates both models. Let us consider some of the motives behind this restriction. 
 
@@ -19,7 +19,7 @@ In SCJ all tasks are implemented as event handlers and a unit of work to be exec
 
 A second motivation for an event-based model, is that of binding threads. In RTSJ an asynchronous event handler always executes under the control of a thread, however, when this binding occurs is not specified. This can either happen just before the release (allowing reuse of threads for different handlers) in which the event handlers are \textit{unbound}. Otherwise , the asynchronous event handler may also be \textit{bound} permanently to a thread upon creation. The important part of this, is that asynchronous event handlers are effectively real-time threads and is no different in terms of scheduling. There is therefore no significant drawback in using asynchronous event handlers. This supports the first motivation for using the event-based model. In addition, only bound asynchronous event handlers are allowed, as this is more predictable considering no latency occurs due to the need for binding upon release.
 
-\subsection{Cross-Level Semantics and Restrictions} % (fold)
+\section{Cross-Level Semantics and Restrictions} % (fold)
 \label{sub:cross_level_restrictions}
 % subsection cross_level_restrictions (end)
 %As described previously, SCJ supports bound asynchronous event handlers almost exclusively (level 2 applications may use a simplified thread-based approach as will be described). Despite cyclic executive being implemented as event handlers, these are not executed concurrently. These will always be executed sequentially in a single thread.
@@ -41,18 +41,18 @@ In addition to these there are also specific semantics and restrictions dependin
 % - event / thread based, event baseret med bound threads/schedulable objects
 % - Generelle betingelser på tværs af compliance levels
 
-\subsection{Level Specific Semantics and Restrictions} % (fold)
+\section{Level Specific Semantics and Restrictions} % (fold)
 \label{sub:level_specific_restrictions}
 In addition to the semantics that apply across levels the following apply to the individual levels. These also show how the complexity of applications increase as a result of conforming to a higher compliance level.
 
-\subsubsection{Level 0}
+\subsection{Level 0}
 \begin{itemize}
 	\item Only periodic bound asynchronous event handlers supported (though executed as if it was under a single thread of control).
 	\item The use of the suspending method \code{Object.wait} and appertaining methods \code{Object.notify} and \code{Object.notifyAll} are not allowed.
 	\item No deadline miss detection facilitated.
 \end{itemize}
 
-\subsubsection{Level 1}
+\subsection{Level 1}
 The following apply in addition to the level 0 requirements.
 \begin{itemize}
 	\item Aperiodic and one-shot asynchronous event handlers are allowed.
@@ -73,7 +73,7 @@ As it can be seen, language constructs and methods that makes analysis complex a
 With the fundamental model on concurrency in SCJ outlined, we now turn to the more detailed areas of scheduling and threading, as specified in the specification.
 
 % subsection scheduling_ (end)
-\subsection{Scheduling and Priority Inversion Avoidance} % (fold)
+\section{Scheduling and Priority Inversion Avoidance} % (fold)
 \label{sub:schedulingobjects}
 As stated, the scheduling of schedulable objects in SCJ is done explicitly by a full preemptive fixed-priority scheduler for level 1 and 2 applications. In addition the scheduler must at least be able to handle 28 different priorities (otherwise depends on the implementation). This is equivalent to the scheduling specified in RTSJ. Because of support for communication between schedulable objects in SCJ, a priority inversion management protocol is necessary. SCJ explicitly uses \textit{Priority Ceiling Emulation} (otherwise known as \textit{Immediate Ceiling Priority Protocol}, ICPP). This is different from RTSJ in which inheritance is the standard protocol, and the ceiling protocol may be used optionally. As a result, whenever a task locks a resource (such as when successfully invoking a synchronised method), its priority is raised to the ceiling of that particular resource. The ceiling priority of each resource is defined as the maximum of all tasks that uses it. For additional information on different priority avoidance protocols and their differences we refer to \cite{alan2001real}.
 

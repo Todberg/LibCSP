@@ -1,22 +1,22 @@
 \chapter{Real-Time, Embedded and Safety-Critical Systems}
 \label{chapter:rts}
-This chapter will introduce the concepts and definitions of real-time, embedded and safety-critical systems that will be applied throughout the report. The following is primarily based on the book, \textit{Real- Time Systems and Programming Languages}\cite{alan2001real}. In the case of additional use of sources, these are referred to as usual.
+This chapter introduces the concepts and definitions of real-time, embedded and safety-critical systems used throughout the report. The following is primarily based on the book, \textit{Real- Time Systems and Programming Languages}\cite{alan2001real}. Additional sources, are referred to as usual.
 
 \section{Definitions and Background} % (fold)
 \label{sec:definitions_and_background}
-In Chapter \ref{chapter:introduction} we presented a definition of real-time systems and briefly introduced the concepts of embedded and safety-critical systems. We will here outline these in more detail and describe their relation in between.
+In Chapter \ref{chapter:introduction} we presented a definition of real-time systems and briefly introduced the concepts of embedded and safety-critical systems. We will here describe these in more detail.
 
 \subsection{Real-Time and Embedded Systems} % (fold)
 \label{sub:real_time_and_embedded_systems}
 % subsection real_time_and_embedded_systems (end)
-A real-time system was defined as a system in which correctness was not only dependent on the absence of failure in the generated output response, but also in the timing. Not all timing failures are, however, equally disastrous as the consequences may vary from simple usability annoyances to life threatening conditions. We therefore distinguish between the following types of real-time systems:
+We defined a real-time system as a system in which correctness was not only dependent on the absence of failure in the generated output response, but also in the timing. Not all timing failures are, however, equally disastrous as the consequences may vary from simple usability annoyances to life threatening conditions. We therefore distinguish between the following types of real-time systems:
 \begin{description}
 \item[Hard] Those real-time systems where responses must be generated within the specified deadline. Any miss of deadline results in failure. A pacemaker is one such example of a hard real-time system.
 \item[Soft] Missing a deadline occasionally does not imply failure of the system, and it may continue to function correctly. An example of such a system could be a digital video-phone system in which delays in deliveries of network packets may result in quality degradation.
 \item[Firm] As with soft real-time systems, deadlines can be missed occasionally, but late delivery in a response does not provide any benefit. A response may therefore be discarded in such case.
 \end{description}
 
-The different kinds of real-time systems are often associated with embedded systems. Embedded systems were introduced as applications that participate in a larger engineering system. This can be as a component that monitors or controls operation of equipment. Because such applications will typically have timing constraints, embedded systems are typically also real-time systems (but these are by no means mutually inclusive).
+The different kinds of real-time systems are often associated with embedded systems. This can be as a component that monitors or controls operation of equipment. Because such applications will typically have timing constraints, embedded systems are typically also real-time systems (but these are by no means mutually inclusive).
 
 \subsection{Safety-Critical Systems} % (fold)
 \label{sub:safety_critical_systems}
@@ -39,11 +39,11 @@ Just as we distinguish between different types of real-time systems, one can als
 \subsection{Real-Time Tasks} % (fold)
 \label{sub:real_time_tasks}
 % subsection real_time_tasks (end)
-In any of such real-time systems, different computations are typically involved in order to generate the resulting response. Such computations may be triggered by time or events. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
+In any real-time system, different computations are typically involved in order to generate a response. Such computations may be triggered by time or events. These computations are typically implemented as \textit{tasks}, and for reactive systems we distinguish between the following types of tasks:
 \begin{description}
 	\item[Periodic (time-triggered)] A task is periodic if it is executed periodically, with a defined release cycle time. An example could be a sensor monitor task that samples the sensor value every 50 ms.
 	\item[Aperiodic (event-triggered)] A task is aperiodic if some event in the environment triggers the execution of the task, without any bound on how often this may be triggered. An example could be a computer mouse where the user generates click events. Such click events may arrive at any time without bound.
-	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimal interarrival time. This could for instance be a coffee vending machine, in which the event generated to start brewing coffee will not be generated until after it has filled the current cup.
+	\item[Sporadic (event-triggered)] A sporadic task is the same as an aperiodic task, except there is a minimum interarrival time. This could for instance be a coffee vending machine, in which the event generated to start brewing coffee will not be generated until after it has filled the current cup.
 \end{description}
 
 Rarely is it the case that only a single task exists. Instead a real-time (and safety-critical) system is typically made up of several tasks running concurrently or even in parallel. In the following we look at how this execution can achieved such that all temporal requirements are met.
@@ -52,17 +52,17 @@ Rarely is it the case that only a single task exists. Instead a real-time (and s
 
 \section{Scheduling} % (fold)
 \label{sec:scheduling}
-In concurrent programs, i.e programs containing multiple threads, it is not necessary to specify the exact ordering of task execution. The scheduler provides the means of sharing system resources with every participating thread in a way such that every thread meets its temporal requirements. For this to work the tasks rarely cannot just run until completion in a sequential manner one at a time. Instead the scheduler generates an internal \textit{schedule} based on the properties of each task, such that the tasks are interleaved with each other. If the program is correct, the output stays the same across all possible interleavings. Thus scheduling can be defined as:
+In concurrent programs, i.e. programs containing multiple threads, it is not necessary to specify the exact ordering of task execution. The scheduler provides the means of sharing system resources with every participating thread in a way such that every thread meets its temporal requirements. For this to work the tasks rarely run until completion in a sequential manner one at a time. Instead the scheduler generates an internal \textit{schedule} based on the properties of each task, such that the tasks are interleaved with each other. If the program is correct, the output stays the same across all possible interleavings. Thus scheduling can be defined as:
 
 \begin{quotation}
 	\textit{The activity of restricting the non-determinism found in concurrent systems by ordering the execution of tasks, such that they meet their temporal requirements}
 \end{quotation}
 
-Several scheduling algorithms exists, including \textit{Cyclic Executive} (CE) and \textit{Fixed Priority Scheduling} (FPS). Although many other algorithms exists such as \textit{Earliest Deadline First} (EDF) and \textit{Value-Based Scheduling} (VBS), attention will only be given to CE and FPS, as these are the ones employed in SCJ. Note that in the following, the notions of a \textit{task} and a \textit{thread} is used interchangeably.
+Several scheduling algorithms exist, including \textit{Cyclic Executive} (CE) and \textit{Fixed-Priority Scheduling} (FPS). Although many other algorithms exists such as \textit{Earliest Deadline First} (EDF) and \textit{Value-Based Scheduling} (VBS), attention will only be given to CE and FPS, as these are the ones employed in SCJ. Note that in the following, the notions of a \textit{task} and a \textit{thread} is used interchangeably.
 
 \subsection{Cyclic Executive}
 \label{subsec:cyclicExecutive}
-When the number of tasks is fixed and are only periodic, it is possible\footnote{It is possible but often very hard to create this schedule.} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically broken down into fixed sized chunks of so-called \textit{procedure calls} and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts happening every x ms ensures that all containing procedures are executed in the scheduled slot before rescheduling to the next. Although the table is often rather difficult to construct, especially with tasks having long periods, the schedule requires no further correctness analysis, which is a huge benefit of this approach. On the downside, only period tasks are supported having periods that are multiples of the minor cycle time. Table \ref{table:CEtaskset} and Figure \ref{img:scheduling_cyclic_example.pdf} shows an example of a task set with four tasks and the accompanying time-line.
+When the number of tasks is fixed and periodic, it is possible\footnote{It is possible but often hard to create this schedule.} to create a schedule by hand such that when the schedule is repeated, every task meets its temporal requirements. Each task is basically broken down into fixed sized chunks of \textit{procedure calls} and represented in the table, which is known as the \textit{major cycle}. Typically the major cycle is split into time slots of a fixed duration, or simply \textit{minor cycles}, in a way such that each slot contains a small number of procedure calls. Clock interrupts every $x$ ms execute the procedures in a scheduled slot. Although the table can be difficult to construct, when tasks are long and many exist, the schedule requires no further correctness analysis, which is a benefit of this approach.. Table \ref{table:CEtaskset} and Figure \ref{img:scheduling_cyclic_example.pdf} shows an example of a task set with four tasks and the accompanying time-line.
 
 \begin{table}[ht]
 \centering
@@ -84,31 +84,29 @@ d & 100 & 6  \\ [1ex]
 
 The schedule repeats itself at time 100 (the major cycle) when the time slot with \textit{abc} runs again. It can therefore be concluded that the task set can be scheduled such that each task runs at its correct rate. 
 
-\subsection{Fixed Priority Scheduling}
+\subsection{Fixed-Priority Scheduling}
 \label{sub:fps}
-Fixed Priority Scheduling, or simply FPS, is a priority-based scheduling technique in which tasks prior to execution are assigned static priorities that are taking into account during scheduling decisions in a way such that a task with a high priority is preferred over a task with a low priority. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
+Fixed-priority scheduling~(FPS), is a priority-based scheduling technique in which tasks prior to execution are assigned static priorities that are taking into account during scheduling decisions in a way such that a task with a high priority is preferred over a task with a low priority. As opposed to the previous Cyclic Executive scheme, the notion of a task (thread) is preserved in FPS, as tasks are not explicitly split up into procedure calls. Each task is always in one of the following states:
 
 \begin{itemize}
-	\item Running
 	\item Runnable
 	\item Suspended and is waiting for a timing event
 	\item Suspended and is waiting for a non-timing event
 \end{itemize}
 
-The currently executing task is in a \textit{running} state, but can be \textit{suspended}, by e.g. the release of a higher priority task. In this case, the task waits for a timing event from the scheduler in order to continue. Tasks that are in a \textit{runnable} state, are ready to run, but are not yet scheduled by the scheduler. Finally tasks that are e.g. waiting for some condition, can be woken by a non-timing event, e.g. in the case of a producer-consumer pair. Figure \ref{img:task_states.pdf} depicts a Petri Net of the possible states for four tasks represented as tokens. Note that this only holds for single processor systems as only one task/token can be in the \textit{Running} location at a time.
-
-\img{task_states.pdf}{0.7}{Petri Net of the possible states for four tasks.}
+The currently executing task is in a \textit{running} state, but can be \textit{suspended}, by e.g. the release of a higher priority task. In this case, the task waits for a timing event from the scheduler in order to continue. Tasks that are in a \textit{runnable} state, are ready to run, but are not yet scheduled by the scheduler. Finally tasks that are e.g. waiting for some condition, can be woken by a non-timing event, e.g. in the case of a producer-consumer pair. Figure \ref{img:task_states.pdf} depicts a state diagram of the possible states for a task, once it is created.
+\img{task_states.pdf}{0.7}{State diagram for a task.}
 
 \subsubsection{Preemption and Non-Preemption}
-In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run - this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state - this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
+In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run --- this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state --- this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
 
 \subsubsection{Simple Task Model}
-Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronisation mechanisms, this becomes a complex task. Therefore, the schedulability tests presented builds upon \textit{the simple task model} that imposes a number of restrictions in concurrent real-time systems. Basically this attempts to simplify the process of schedulability testing an application. The simple task model makes the following assumptions of a concurrent real-time system:
+Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronisation mechanisms, this becomes a complex task. Therefore, the schedulability tests presented build upon \textit{the simple task model} that imposes restrictions in concurrent real-time systems. The simple task model makes the following assumptions of a concurrent real-time system:
 
 \begin{itemize}
-	\item The application is assumed to consists of a fixed set of tasks
+	\item The application is assumed to consist of a fixed set of tasks
 	\item All tasks are periodic, with known periods
-	\item The tasks are completely independent of each other
+	\item The tasks are independent of each other
 	\item All system overheads, context-switching times and so on are ignored (i.e. assumed to have zero cost)
 	\item All tasks have deadlines equal to their periods (i.e. each task must complete before it is next released)
 	\item All tasks have fixed worst-case execution times
@@ -117,7 +115,7 @@ Analysis of programs is not an easy task, and when concurrency comes into play w
 \end{itemize}
 
 \subsubsection{Priority Assignment}
-In FPS, the important question is how to assign the priorities amongst the different tasks. Naturally it would make sense to assign high priorities to tasks that are deemed important from a developer perspective, however, priorities are derived from temporal requirements rather than functional importance. Therefore, the following two methods are often used:
+In FPS, the important question is how to assign the priorities amongst the different tasks. Naturally it would make sense to assign high priorities to tasks that are deemed important from a developer perspective. However, priorities are derived from temporal requirements rather than functional importance. Therefore, the following two methods are often used:
 
 \begin{itemize}
 	\item \textbf{Rate Monotonic:} Each task is given a unique priority based on its period - a short period equals a high priority. For example, two tasks, \textit{i} and \textit{j} with periods, $T_i$ and $T_j$ such that $T_i$ < $T_j$ yields the priority relationship, $P_i$ > $P_j$. Table \ref{table:FPSRateMon} shows an example of a task set with priorities set using rate monotonic. Note that 3 represents the highest priority and 1 is the lowest.
@@ -156,7 +154,7 @@ In FPS, the important question is how to assign the priorities amongst the diffe
 
 \end{itemize}
 
-With rate monotonic, and in accordance with the previously mentioned simple task model, deadlines are implicit meaning that the period and deadline are assumed equal for each task ($D = T$). This assumption is lifted in the deadline monotonic scheme as deadlines are allowed to be less then the periods ($D <= T$). Additionally the requirement of having only periodic tasks can also be changed to support periodic and sporadic tasks. Doing so makes the deadline monotonic \textit{optimal} in the sense that if a task set can be scheduled under a preemptive fixed priority scheduler using some fixed priority assignment scheme while preserving this changed task model, then the task set can also be scheduled using the deadline monotonic scheme. On the other hand, keeping the simple task model unchanged makes the rate monotonic scheme optimal.
+With rate monotonic, and in accordance with the previously mentioned simple task model, deadlines are implicit meaning that the period and deadline are assumed equal for each task ($D = T$). This assumption is lifted in the deadline monotonic scheme as deadlines are allowed to be less then the periods ($D <= T$). Additionally the requirement of having only periodic tasks can also be changed to support periodic and sporadic tasks. Doing so makes the deadline monotonic \textit{optimal} in the sense that if a task set can be scheduled under a preemptive fixed-priority scheduler using some fixed-priority assignment scheme while preserving this changed task model, then the task set can also be scheduled using the deadline monotonic scheme. On the other hand, keeping the simple task model unchanged makes the rate monotonic scheme optimal.
 
 Figure \ref{img:fps_rate_mono_example.pdf} shows the time-line for the task set represented in Table \ref{table:FPSRateMon}. The computation times have been omitted for simplification. At the \textit{critical instant} all tasks are released, but only the task with the highest priority, namely task \textit{a}, is allowed to run. The remaining tasks are blocked until task \textit{a} finishes its release. Next task \textit{b} runs till completion after which task \textit{c} runs. Task \textit{c} is preempted once again, by the release of task \textit{a} the second time. After task \textit{a} has completed, task \textit{c} continues a little time before being preempted again by task \textit{b} this time. After this task has finished, task \textit{c} is finally able to complete.
 
@@ -166,7 +164,7 @@ Figure \ref{img:fps_rate_mono_example.pdf} shows the time-line for the task set 
 
 \section{Testing Schedulability} % (fold)
 \label{sec:schedulability_analysis}
-A scheduling scheme consists not only of the algorithm for ordering the use of resources such as the CPU, but also provides a means for performing analysis in order to predict the worst-case behavior of the system under the particular scheduling algorithm. This is an important aspect of developing real-time and (in particular) safety-critical systems, as one must provide assurance that the temporal requirements of the tasks are satisfied. A schedulability test can have one or both of the following characteristics:
+A scheduling scheme consists not only of the algorithm for ordering the use of resources such as the CPU, but also provides a means for performing analysis in order to predict the worst-case behavior of the system under the particular scheduling algorithm. This is an important aspect of developing real-time and (in particular) safety-critical systems, as one must provide assurance that the temporal requirements of the tasks are satisfied. A schedulability test can have the following characteristics:
 \begin{description}
 	\item[Sufficient] A test is sufficient if it guarantees that all deadlines are always met when the test is satisfied.
 	\item[Necessary] A test is necessary if failure to satisfy the test will result in a deadline miss at some point during execution.
@@ -179,16 +177,16 @@ A test that is both sufficient and necessary is considered \textbf{exact}. In th
 			\hline
 			\textbf{Notation} & \textbf{Description}\\
 			\hline 
-			B 	& Worst-case blocking time for the task (if applicable)  \\
-			C 	& Worst-case execution time (WCET) of the task \\
-			D   & Deadline of the task \\
-			I 	& The interference time of the task \\
-			J 	& Release jitter of the task \\
-			N 	& Number of tasks in the system \\
-			P 	& Priority assigned to the task (if applicable) \\
-			R 	& Worst-case response time of the task \\
-			T 	& Minimum time between task releases (task period) \\
-			U 	& The utilisation of each task (equal to C/T) \\
+			$B$ 	& Worst-case blocking time for the task (if applicable)  \\
+			$C$ 	& Worst-case execution time (WCET) of the task \\
+			$D$   & Deadline of the task \\
+			$I$ 	& The interference time of the task \\
+			$J$ 	& Release jitter of the task \\
+			$N$ 	& Number of tasks in the system \\
+			$P$ 	& Priority assigned to the task (if applicable) \\
+			$R$ 	& Worst-case response time of the task \\
+			$T$ 	& Minimum time between task releases (task period) \\
+			$U$ 	& The utilisation of each task (equal to C/T) \\
 			\hline
 			\end{tabular}
 			\caption{Standard notation\cite{alan2001real}.}
@@ -199,7 +197,7 @@ A test that is both sufficient and necessary is considered \textbf{exact}. In th
 \label{sub:utilization_based_test}
 This test can be considered the most simple test for FPS. It is important to note that while it is not exact (it is sufficient), it is simple to perform when applying the rate monotonic assignment scheme and thus makes the assumption of the simple task model.
 
-The test is based on considering the utilisation of a task set. The schedulability is ensured - i.e. all tasks in the task set will meet their deadlines if the following condition is true:
+The test is based on considering the utilisation of a task set. The schedulability is ensured --- i.e. all tasks in the task set will meet their deadlines if the following condition is true:
 
 \begin{equation}
 	\sum_{i=1}^N \biggl(\frac{C_i}{T_i}\biggr) \le N\bigl( 2^{1/N} - 1 \bigr)
@@ -223,13 +221,13 @@ The most difficult part of performing an RTA is naturally the analysis to find $
 
 In the worst case where all higher priority tasks are released at the same time (critical instant), the response time for $i$ can be expressed as the following:
 \begin{equation}
-	R_i = C_i + \sum_{j\in hp(i)} \ceil[\bigg]{\frac{R_i}{T_j}}
+	R_i = C_i + \sum_{j\in hp(i)} \ceil[\bigg]{\frac{R_i}{T_j}} \cdot C_j
 \end{equation}
 
 Because the value being calculated ($R_i$) is also present in the right hand side of the equation, this presents a fixed-point equation. The equation can be solved forming a recurrence relationship:
 \begin{equation}
 	\label{eq:recurrence}
-	w^{n+1}_{i} = C_i + \sum_{j\in hp(i)} \ceil[\bigg]{\frac{w^n_i}{T_j}}
+	w^{n+1}_{i} = C_i + \sum_{j\in hp(i)} \ceil[\bigg]{\frac{w^n_i}{T_j}} \cdot C_j
 \end{equation}
 
 By solving the set of values \{$w^0_i, w^1_i, .. w^n_i, ..$\}, the solution to $R_i$ is found when $w^n_i = w^{n+1}_i$. In order to bootstrap the process, the value $C_i$ is used for $w^0_i$, under the safe assumption that $R_i \ge C_i$. In the process of solving the set of values, if $w^n_i$ becomes bigger than the period of task, then it will miss a deadline (recall that $D_i$ = $T_i$ in the simple task model). As a consequence, in order for a set of tasks to be deemed schedulable under the simple task model using the RTA schedulability test, the following property must be satisfied:
@@ -257,17 +255,17 @@ Let us consider the use of RTA for the task set previously presented in Table \r
 As stated in Section \ref{sub:response_time_analysis_}, $R$ for the task with highest priority (in this case $a$) is set to its own computation time. Thus, we trivially find that $R_a = 4$. For task $b$ and $c$ we apply Equation \ref{eq:recurrence} to find $R_b$ and $R_c$:
 \begin{eqnarray}
     w_{b}^0 &=& C_{b} = 20 \nonumber \\ 
-    w_{b}^1 &=& 20 + \ceil[\bigg]{\frac{20}{23}}*4 = 24 \nonumber \\ 
-    w_{b}^2 &=& 20 + \ceil[\bigg]{\frac{24}{23}}*14 = 28 \nonumber \\
-    w_{b}^3 &=& 20 + \ceil[\bigg]{\frac{28}{23}}*14 = 28 \nonumber \\
+    w_{b}^1 &=& 20 + \ceil[\bigg]{\frac{20}{23}} \cdot 4 = 24 \nonumber \\ 
+    w_{b}^2 &=& 20 + \ceil[\bigg]{\frac{24}{23}} \cdot 4 = 28 \nonumber \\
+    w_{b}^3 &=& 20 + \ceil[\bigg]{\frac{28}{23}} \cdot 4 = 28 \nonumber \\
     R_{b} &=& 28
 \end{eqnarray}
 
 \begin{eqnarray}
     w_{c}^0 &=& C_{c} = 10 \nonumber \\ 
-    w_{c}^1 &=& 10 + \ceil[\bigg]{\frac{18}{23}}*4 + \ceil[\bigg]{\frac{18}{41}}*20 = 34 \nonumber \\ 
-    w_{c}^2 &=& 10 + \ceil[\bigg]{\frac{34}{23}}*4 + \ceil[\bigg]{\frac{34}{41}}*20 = 38 \nonumber \\ 
-    w_{c}^3 &=& 10 + \ceil[\bigg]{\frac{38}{23}}*4 + \ceil[\bigg]{\frac{38}{41}}*20 = 38 \nonumber \\ 
+    w_{c}^1 &=& 10 + \ceil[\bigg]{\frac{18}{23}} \cdot 4 + \ceil[\bigg]{\frac{18}{41}} \cdot 20 = 34 \nonumber \\ 
+    w_{c}^2 &=& 10 + \ceil[\bigg]{\frac{34}{23}} \cdot 4 + \ceil[\bigg]{\frac{34}{41}} \cdot 20 = 38 \nonumber \\ 
+    w_{c}^3 &=& 10 + \ceil[\bigg]{\frac{38}{23}} \cdot 4 + \ceil[\bigg]{\frac{38}{41}} \cdot 20 = 38 \nonumber \\ 
     R_{c} &=& 38
 \end{eqnarray}
 
@@ -275,7 +273,7 @@ As a result we can see that the task set, under the simple task model, is indeed
 
 While the RTA test is exact, it is naturally very much restricted because of the assumptions made in the simple task model. Rarely is it the case that several concurrently running tasks are always independent of each other - synchronisation is often involved. For this reason there has been many extensions and variations of the described method to loosen or remove single restrictions in the simple task model. In Section \ref{sub:fps} we saw one example of this where the restriction of $D = T$ was lifted in the deadline monotonic assignment scheme. We refer to the cited material for additional information on how one may handle the removal of restrictions.
 
-In addition to the restrictions in the task model, the schedulability test also depends on the important computation time, $C$ of a task being available. Up until now, we have simply made the assumption that this value was available. However, finding this value for a specific task is a complex process itself and presents many challenges that make up a complete research area own its own. In the following Section we will introduce the process and some of the methods for analysing a task in order to find the needed computation time.
+In addition to the restrictions in the task model, the schedulability test also depends on the important computation time, $C$, of a task being available. Up until now, we have simply made the assumption that this value was available. However, finding this value for a specific task is a complex process itself and presents many challenges that make up a complete research area on its own. In the following Section we will introduce the process and some of the methods for analysing a task in order to find the needed computation time.
 
 % subsection response_time_analysis_ (end)
 
@@ -294,11 +292,11 @@ In Figure \ref{img:wcet_terms.pdf} the problem of WCET analysis is illustrated a
 The dashed curve represents the execution time of all executions, where the solid curve represents measured execution times over a number of trials. As it can be seen, measurement provides only estimates for what is called \textit{minimal observed} and \textit{maximal observed execution times}. This technique is therefore not safe, as it typically overestimates the lower bound, and, more importantly, underestimates the upper bound. In terms of handling the underestimation of the upper bound, it is common to add some percentage to the calculated WCET. 
 
 \subsubsection{Static Analysis}
-This class contains the methods that does not involve execution of code on real hardware or through simulation. While several methods exists, one example of a static method is \textit{Control-Flow Analysis} (CFA) that can also be used in combination with \textit{Data-Flow Analysis} (DFA).
+This class contains the methods that do not involve execution of code on real hardware or through simulation. While several methods exists, one example of uses \textit{Control-Flow Analysis} (CFA) that can also be used in combination with \textit{Data-Flow Analysis} (DFA).
 
 CFA is based on examining the execution paths of a program and constructing a \textit{Control-Flow Graph} (CFG). Using this CFG, a tool may analyse execution paths while counting information such as instructions for functions.
-
-Static approaches such as CFA combined with DFA provides a safe approximation of the bound, this is also illustrated in Figure \ref{img:wcet_terms.pdf} as the upper bound provided that is an over estimate of the actual possible WCET. However, the use of static techniques presents some issues. First, programs can be complex, and building the CFG can be a problematic process. Usually tools rely on the programmer providing hints for the tool, such as explicit bounds on loops to reduce the complexity of the static analysis. Second, the hardware has become very complex which makes it more difficult for a static technique to make an appropriate abstraction of the underlying hardware.
+Static approaches that uses e.g. CFA provides a safe approximation of the bound. This is also illustrated in Figure \ref{img:wcet_terms.pdf} as the upper bound provided that is an over estimate of the actual possible WCET. 
+%However, the use of static techniques presents some issues. First, programs can be complex, and building the CFG can be a problematic process. Usually tools rely on the programmer providing hints for the tool, such as explicit bounds on loops to reduce the complexity of the static analysis. Second, the hardware has become very complex which makes it more difficult for a static technique to make an appropriate abstraction of the underlying hardware.
 
 \subsubsection{Hybrid Techniques}
 As a result of the different issues found in both measurement and static techniques, one can also apply a hybrid based approach. Depending on the program, tasks can be decomposed into smaller functions that can separately be analysed using an appropriate technique with all the results being aggregated in the end.
