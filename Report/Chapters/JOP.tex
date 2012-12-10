@@ -18,5 +18,6 @@ One of the most compelling aspects of JOP from a real-time perspective, is that 
 
 \section{SCJ Implementation on JOP} % (fold)
 \label{sec:scj_implementation_on_jop}
-In relation to SCJ, JOP supports applications conforming to compliance levels 0 and 1, making it a suitable choice for this project. An \textit{Altera DE2-70}, running at 60 MHz, configured with JOP will be used in the implementation of CSP. The board is seen in Figure \ref{img:board.pdf}.
+In relation to SCJ, JOP supports applications conforming to compliance levels 0 and 1, making it a suitable choice for this project. An \textit{Altera DE2-70}, running at 60 MHz, configured with JOP will be used in the implementation of CSP. The board is seen in Figure \ref{img:board.pdf}. As can be seen it is possible to connect external hardware devices the Altera DE2-70, and for this particular board, a configuration of JOP is supplied that supports a number of these interfaces.
+It should be noted that the SCJ implementation deviates from the specification in this particular point, by using Hardware Objects\cite{Schoeberl:2011:HAL:2043662.2043666, Schoeberl:2008:HOJ:1371608.1372849} for using hardware devices, as opposed to the \textit{Raw Memory Access} defined in the specification.
 \img{board.pdf}{0.8}{The Altera DE2-70 FPGA configured with JOP used for this project, with a Lego NXT Ultrasonic Sensor device attached.}
