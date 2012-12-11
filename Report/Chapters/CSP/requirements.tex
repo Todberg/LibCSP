@@ -1,0 +1,21 @@
+\section{Requirements}
+Although the current version of CSP supports many features, we choose to implement a subset of these. We focus on parts of CSP in each layer of the stack, that supports further implementation of the remaining features. The primary goal is to implement a minimised version of the full protocol stack. The requirements are delimited to the following features:
+
+\begin{itemize}
+	\item Thread-safe socket API
+	\item Unreliable packet transmission (UDP)
+	\item Broadcast traffic
+	\item Loopback interface
+	\item I2C interface
+\end{itemize}
+
+The selected features are primarily chosen as these constitute substantial parts in each layer. Additional features can then be incorporated (e.g. RDP is implemented using UDP or ICMP in a simple application using the socket API). 
+
+We introduced JOP as the underlying JVM with its SCJ implementation as the platform for this project. In addition to the specified features we specify the following non-functional requirements:
+
+\begin{itemize}
+	\item Conformance with compliance level 1 - working with this level compared to a level 0 implementation, will provide more depth and increased exploration of the specification in the study.
+	\item The implementation must be within the boundaries of the SCJ specification. The use of hardware objects for external device support is the only exception.
+\end{itemize}
+
+No temporal requirements will be specified for this, as these are relevant for real-time applications using the protocol.

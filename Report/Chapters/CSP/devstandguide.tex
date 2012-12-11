@@ -1,0 +1,11 @@
+\section{Development Standards and Guidelines}
+By inspecting the source code of the protocol, it is clear that much energy has been put into development practices and concepts such as optimisation, code compression and documentation. We decide to carry some of these practices on to our SCJ implementation by settling upon several standards and guidelines before starting with the actual development. The following include the most important decisions:
+
+\begin{itemize}
+	\item High performance and a small footprint is valued higher than object-oriented design principles (only in internal parts).
+	\item Provide an API that an existing Java programmer can easily become acquainted with.
+	\item Keep modularity in mind such that components can be replaced or additional ones added in a relatively easy way. 
+	\item Design such that the system can be analysed (WCET) - e.g. no unbounded loops.
+	\item Use CamelCase and try to give meaningful type and reference names. Naming conventions for different language constructs has been agreed on such as how to name interfaces and Java packages etc. Also write comments especially if the responsibility of something is not obvious.
+	\item As much as possible, let each method have a single responsibility and limit its size. Unit tests, using the JUnit framework, will be created and this guideline makes the task easier.
+\end{itemize}
