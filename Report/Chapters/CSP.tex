@@ -1,6 +1,6 @@
 \chapter{The Cubesat Space Protocol (CSP)}
 \label{chapter:csp}
-This section will introduce the Cubesat Space Protocol and show an example of a client/server application using the protocol.
+This section will introduce the Cubesat Space Protocol and show an example of a client/server application that uses the protocol. The chapter is based on \cite{GomSpace, GomSpace:CSP} and extensive inspection of the source code~\cite{GomSpace:CSPsrcGit}.
 
 \section{The Protocol Stack}
 The Cubesat Space Protocol is developed with inspiration drawn from the classical TCP/IP protocol stack. CSP is divided into several layers having distinct responsibilities and with communication only between the adjacent layer(s). Figure \ref{img:csp_stack.pdf} shows the protocol stack with the four different layers.
@@ -17,8 +17,8 @@ The following describes the responsibility of each layer:
 
 \end{description}
   
-\section{Accessibility and Features}
-Most of the protocol is publicly available under the LGPL license or is otherwise, developed as GomSpace extensions. Some of the drivers, however, must be written by the consumers if not already present. The source code is hosted by GitHub and can be inspected or cloned at their GitHub repository\footnote{\url{https://github.com/GomSpace/libcsp}}. Some main features of the protocol are:
+\section{Features}
+Most of the protocol is publicly available under the LGPL license or is otherwise, developed as GomSpace extensions. Some of the drivers, however, must be written by the consumers if not already present. Some main features of the protocol are:
 
 \begin{itemize}
 	\item Thread safe Socket API
