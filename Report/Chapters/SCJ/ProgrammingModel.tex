@@ -16,7 +16,7 @@ As a requirement and as the back-bone of every SCJ application, an application m
 	\item Drive back and attach to charge station
 \end{itemize}
 
-The above functionality could be represented in five different missions with coordination taking place in between. Each mission would in turn contain a number of \textit{schedulable objects} refereed to as \textit{event handlers}. These will be described in the next section. The mission concept was included in response to a problem found in some modern safety-critical applications. These were designed as monolithic applications, consisting of millions of lines of code making them complex to maintain and certify. Also by dividing the application into one or more missions, each mission can be developed independently and in isolation from the others.  
+The above functionality could be represented in five different missions with coordination between them. Each mission would in turn contain a number of \textit{schedulable objects} (\textit{event handlers}). These will be described in the next section. The mission concept was included in response to a problem found in some modern safety-critical applications. These were designed as monolithic applications, consisting of millions of lines of code making them complex to maintain and certify. Also by dividing the application into one or more missions, each mission can be developed independently and in isolation from the others.  
 
 To create mission class in SCJ it must extend the abstract \code{Mission} and override the two abstract methods, \code{initialize} and \code{missionMemorySize}. In \code{initialize}, the mission context is prepared which includes creating the underlying \textit{schedulable objects} and possibly various shared data structures. In \code{missionMemorySize}, the maximum memory space for the \code{mission} is defined (in bytes).
 
@@ -24,7 +24,7 @@ Returning back to the rover example, a possible mission for the solar panel func
 
 \lstinputlisting[label=missionexample,caption=Example of a mission for the Mars rover.]{Code/mission.java}
 
-The reason for explicitly stating the memory consumption is due to the absence of a garbage collection, and is a vital part of supporting the memory model, described in Section\ref{section:memoryManagement}.
+The reason for explicitly stating the memory consumption is due to the absence of garbage collection, and is a vital part of supporting the memory model, which will be described in Section \ref{section:memoryManagement}.
 
 \subsubsection{Life Cycle}
 \label{subsec:lifecycle}
