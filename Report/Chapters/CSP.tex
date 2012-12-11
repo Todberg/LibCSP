@@ -1,10 +1,61 @@
 \chapter{The Cubesat Space Protocol (CSP)}
 \label{chapter:csp}
-This section will introduce the Cubesat Space Protocol and show a little example of a client/server application utilising the protocol. 
+This section will introduce the Cubesat Space Protocol and show an example of a client/server application using the protocol. 
 
 \section{The Protocol Stack}
-The Cubesat Space Protocol is developed with inspiration drawn from the classical TCP/IP model. Like the TCP/IP protocol, CSP is divided into several layers having distinct responsibilities and with communication with the adjacent layer(s). Figure \ref{img:csp_stack.pdf} shows the protocol stack.
+The Cubesat Space Protocol is developed with inspiration drawn from the classical TCP/IP model. Like the TCP/IP protocol, CSP is divided into several layers having distinct responsibilities and with communication with the adjacent layer(s). Figure \ref{img:csp_stack.pdf} shows the protocol stack with the four different layers.
 
 \img{csp_stack.pdf}{0.9}{The CSP protocol stack.}
 
-The \textit{Driver} layer contains low-level drivers for the supported network devices such as I2C and CAN. If the driver for the particular 
+The \textit{Driver} layer contains low-level drivers for supported network devices such as I2C and CAN. GomSpace advices the use of DMA and interrupt driven drivers whenever possible, in case of having to write new drivers, as a means of ensuring network stability and high performance. The \textit{MAC layer protocols} layer is responsible for defining a suitable frame format for the packets. Furthermore whenever a new frame arrives on the particular interface, the incoming frame exterior is removed, leaving only the raw packet left. This packet is then shipped to the upper layer for delivery. Similarly, whenever a packet arrives from the above layer, the packet is encapsulated in a frame and sent to the right driver. The \textit{Router Core} layer can be considered the backbone of the protocol, as this layer is responsible for routing packets to the correct destinations. As the network topology is known in advance, each node in the network maintains a complete overview of the network in the internal routing table. The entries in the table are destination addresses and next-hop interfaces. Various fixed-sized buffers are also allocated at this layer for holding packets, sockets, connections etc. The final layer, named \textit{Transport Extensions}, defines one or more delivery methods just like the TCP/IP or the OSI stack does. Two transport extensions are developed by GomSpace, which are the \textit{Unreliable Datagram Protocol} (UDP) and the \textit{Reliable Datagram Protocol} (RDP). For small satellites, the internal bus is usually very reliable rendering RDP somewhat unnecessary. In order to be absolute certain of a reliable transmission in terms of avoiding packet loss, packet duplication, ordering issues or erroneous data integrity, either RDP or UDP with a user-space application on top, capable of dealing with these issues should be used. Often time sensitive applications such as real-time systems uses UDP because waiting for packets as opposed to just dropping them may not an option.
+
+\section{Accessibility and Features}
+Most of the protocol is publicly available under the LGPL license or is developed as GomSpace extensions, however some of the drivers must be written by the consumers if not already present. The source code is hosted by GitHub and can be inspected or checked out at \textit{https://github.com/GomSpace/libcsp}. The main features of the protocol are:
+
+\begin{itemize}
+	\item Thread safe Socket API
+	\item Router task with Quality of Services
+	\item Connection-oriented operation (RFC 908 and 1151).
+	\item Connection-less operation (similar to UDP)
+	\item ICMP-like requests such as ping and buffer status.
+	\item Loopback interface
+	\item Very Small Footprint 48 kB code and less that 1kB ram required on ARM
+	\item Zero-copy buffer and queue system
+	\item Modular network interface system
+	\item Modular OS interface, ported to FreeRTOS, windows (cygwin) and Linux
+	\item Broadcast traffic
+	\item Promiscuous mode
+	\item Encrypted packets with XTEA in CTR mode
+	\item Truncated HMAC-SHA1 Authentication (RFC 2104)
+\end{itemize}
+
+\section{Packet Format}
+A packet is divided into two parts for the header and the payload respectively. Figure \ref{img:csp_header.pdf} shows the latest packet format (1.0+).
+
+\img{csp_header.pdf}{1.0}{The header format of a CSP 1.0+ packet.}
+
+As it can be seen, a total of 32 bits are used for being able to differentiate between packet importance (priority), maintaining routing information (addresses and ports) and enabling other operations to be performed such as encryption/decryption (XTEA) and data integrity checks (CRC). From bit number 32, the actual payload begins.
+
+\section{Application Example}
+In order to show what we wish to accomplish with the SCJ implementation, we here show a little example of its usage. Listing \ref{cspexampleserver} shows a simple server application, which uses the protocol. 
+
+\lstinputlisting[label=cspexampleserver,caption=Example of a server application.]
+{Code/server.c}
+
+In line 4-6, pointers for a connection, packet and socket are created. Furthermore, the socket pointer is assigned to a newly allocated socket endpoint. In order to associate the socket with a specific port (7), the port must bind to the socket, which is seen in line 8. Next, raw memory for a queue is allocated for holding future connections in the socket. This happens through a call to \code{csp\_listen}. The \code{csp\_accept} statement within the loop waits 1000 ms for an incoming client connection before trying to read and print the content of the connection packet. Notice that both \code{csp\_accept} and \code{csp\_read} can return \code{null} in case no client contacts the server during the 1000 ms busy wait, which will cause a null pointer during the print operation. Before moving on to the next client, the packet memory area is freed and the connection closed. 
+
+Listing \ref{cspexampleclient} shows a client sending data to the above server.
+
+\lstinputlisting[label=cspexampleclient,caption=Example of a client application.]
+{Code/client.c}
+
+First a connection to the server is established. Then a packet is prepared, which involves setting its payload and payload length\footnote{The length must be set such that the server knows how much of the packet payload to read.}. The \code{csp\_send} operation immediately sends the packet to the server. Finally the connection can be closed.
+
+\section{The SCJ Implementation}
+The previous client/server example shows some of the basic steps involved in typical socket programming. Moreover with a SCJ implementation, we wish to be able to support this kind of functionality and thereby making communication between multiple hosts in a network possible. However due to time constraints, only a subset of the protocol will be developed. This subset include support for:
+
+\begin{itemize}
+	\item UDP transmission of packets between multiple hosts
+	\item I2C and the loopback interface
+	\item Broadcast traffic
+\end{itemize}
