@@ -1,23 +1,22 @@
 \section{The Programming Model}
 \label{section:programmingmodel}
-The programming model of SCJ can be considered being much more strict than its predecessor, RTSJ. This simplification naturally poses restrictions on the developer in terms of how code must be structured within a SCJ application. 
-%Furthermore, by forcing the developers to adhere to a general programming model as well as having special annotations for vendor-supplied third-party tools, that are able to analyse correctness properties of the source code depending on the different use contexts, aimed at assisting in the certification. 
+The programming model of SCJ can be considered being more strict than its predecessor, RTSJ. This poses restrictions on the developer in terms of how code must be structured within a SCJ application.
 This Section will describe the programming model in SCJ and the rationale behind some of the decisions and concepts.
-
+%Furthermore, by forcing the developers to adhere to a general programming model as well as having special annotations for vendor-supplied third-party tools, that are able to analyse correctness properties of the source code depending on the different use contexts, aimed at assisting in the certification. 
 
 \subsection{Missions}
-As a requirement and as the back-bone of every SCJ application, an application must consist of at least one \textit{mission}. Missions can be regarded as entities encapsulating specific responsibilities of the overall application. This is much in accordance with the Object-Oriented Programming (OOP) principles of dividing code into classes having specific purposes. The granularity of encapsulation and thereby separation of concern is, however, often broader in missions as each mission can take the responsibilities of several tasks that are confined to a specific domain. As an example, consider the software for an unmanned rover taking earth samples on Mars. The rover needs to perform several vital functions in order to complete its objectives. The required functionality could be be divided into the following:
+As a requirement and as the back-bone of every SCJ application, an application must consist of at least one \textit{mission}. Missions can be regarded as entities encapsulating specific responsibilities of the overall application. This is much in accordance with the Object-Oriented Programming (OOP) principles of dividing code into classes having specific purposes. The granularity of encapsulation and thereby separation of concern is, however, often broader in missions than objects, as each mission can take the responsibilities of several tasks that are confined to a specific domain. In object-oriented programming we strive to adhere to the \textit{Single Responsibility Principle}~(SRP). As an example of structuring an SCJ application into missions, consider the software for an unmanned rover taking earth samples on Mars. The rover needs to perform several vital functions in order to complete its objectives. The required functionality could be be divided into the following:
 
 \begin{itemize}
 	\item Detach from charge station
-	\item Navigate the environment to specific locations
+	\item Navigate to specific locations in the environment
 	\item Align mounted solar panels to optimal positions throughout operation to prolong battery life
 	\item Obtain earth samples
 	\item Communicate results to outside world
 	\item Drive back and attach to charge station
 \end{itemize}
 
-The above functionality could be represented in five different missions with coordination taking place in between. Each mission would in turn contain a number of \textit{schedulable objects} (threads) refereed to as \textit{event handlers}. These will be described in the next section. The mission concept was included in response to a problem found in some modern safety-critical applications. These were designed as monolithic applications, consisting of millions of lines of code making them complex to maintain and certify. Also by dividing the application into one or more missions, each mission can be developed independently and in isolation from the others.  
+The above functionality could be represented in five different missions with coordination taking place in between. Each mission would in turn contain a number of \textit{schedulable objects} refereed to as \textit{event handlers}. These will be described in the next section. The mission concept was included in response to a problem found in some modern safety-critical applications. These were designed as monolithic applications, consisting of millions of lines of code making them complex to maintain and certify. Also by dividing the application into one or more missions, each mission can be developed independently and in isolation from the others.  
 
 To create mission class in SCJ it must extend the abstract \code{Mission} and override the two abstract methods, \code{initialize} and \code{missionMemorySize}. In \code{initialize}, the mission context is prepared which includes creating the underlying \textit{schedulable objects} and possibly various shared data structures. In \code{missionMemorySize}, the maximum memory space for the \code{mission} is defined (in bytes).
 
@@ -25,17 +24,17 @@ Returning back to the rover example, a possible mission for the solar panel func
 
 \lstinputlisting[label=missionexample,caption=Example of a mission for the Mars rover.]{Code/mission.java}
 
-The reason for explicitly stating the memory consumption is due to the absence of automatic garbage collection. Furthermore as memory in real-time systems often is a limited resource, this number should be assigned with care by analysing the contained code.
+The reason for explicitly stating the memory consumption is due to the absence of a garbage collection, and is a vital part of supporting the memory model, described in Section\ref{section:memoryManagement}.
 
 \subsubsection{Life Cycle}
 \label{subsec:lifecycle}
-The concept of a \textit{mission life cycle} covers the different phases a mission can be situated in throughout its "life time". Figure \ref{img:scj_mission_lifecyle.pdf} shows the various phases of the life cycle.
+The concept of a \textit{mission life cycle} covers the different phases a mission can be situated in. Figure \ref{img:scj_mission_lifecyle.pdf} shows the various phases of the life cycle.
 
 \img{scj_mission_lifecyle.pdf}{0.6}{The mission life cycle.}
 
 Once the application starts to execute, a single mission is selected from all defined missions, by a \textit{mission sequencer}, that oversees the execution of each mission. Next the mission is initialised which involves calling the \code{initialize} method on the mission\footnote{Note that this invocation is done by the underlying infrastructure, and not by the developer.} (see Listing \ref{missionexample}) that, amongst other things, registers the defined schedulable objects. Internally these are descendants of the class, \code{ManagedScheduable}. 
 
-Upon transitioning from the \textit{initialisation phase} to the \textit{execution phase}, the schedulable objects are scheduled by the underlying fixed-priority scheduler. Note that schedulable objects residing in other missions cannot be scheduled at this time, but only those defined in the currently selected mission. Before terminating the currently executing mission and switching to the next, i.e. after every schedulable object within the mission have terminated, a \textit{clean up phase} occurs in which mission related clean up code can be executed. In order to do so, the \code{cleanUp} method must be overriden with appropriate code.
+Upon transitioning from the \textit{initialisation phase} to the \textit{execution phase}, the schedulable objects of the active mission are either scheduled sequentially or by a fixed-priority scheduler, depending on the type of application. Before terminating the currently executing mission and switching to the next, i.e. after every schedulable object within the mission have terminated, a \textit{clean up phase} occurs in which mission related clean up code can be executed. In order to do so, the \code{cleanUp} method must be overriden with appropriate code.
 
 \subsection{Handlers}
 \label{subsection:handlers}
@@ -44,14 +43,14 @@ A mission in itself does not do much apart from creating schedulable objects and
 \lstinputlisting[label=handlerIns,caption=Instantiation and registration of a periodic event handler for the Mars rover.]
 {Code/handlerInstantiated.java}
 
-The supplied arguments denote its priority (\code{PriorityParameters}), release offset and frequency (\code{PeriodicParameters}) and various storage parameters. Storage and memory management is an important aspect in SCJ and is something that will be elaborated in greater detail in Section \ref{section:memoryManagement}. The handler class itself, being its a periodic event handler, must extend the class \code{PeriodicEventHandler}. Aperiodic event handlers similarly extends \code{AperiodicEventhandler}. As a minimum requirement, the handler class must have a constructor accepting the above mentioned parameters that will be passed to its immediate base class, but also override another method called \code{handleAsyncEvent} in which execution logic occur. The \code{PEHAlignmentHandler} event handler from Listing \ref{handlerIns} could be defined as seen in Listing \ref{handlerDef}.
+The supplied arguments denote its priority (\code{PriorityParameters}), release offset and frequency (\code{PeriodicParameters}) and various storage parameters. The handler class itself, being its a periodic event handler, must extend the class \code{PeriodicEventHandler}. Aperiodic event handlers similarly extends \code{AperiodicEventhandler}. As a minimum requirement, the handler class must have a constructor accepting the above mentioned parameters that will be passed to its immediate base class, but also override another method called \code{handleAsyncEvent} in which execution logic occur. That is, the \code{handleAsyncEvent} is the method that will be invoked for each release of a handler. The \code{PEHAlignmentHandler} event handler from Listing \ref{handlerIns} could be defined as seen in Listing \ref{handlerDef}.
 
 \lstinputlisting[label=handlerDef,caption=Definition of the periodic event handler for the Mars rover.]
 {Code/handlerDefinition.java}
 
 \subsection{Safelet}
 \label{subsection:safelet}
-The application defining class of a SCJ application is represented by a user-defined implementation of the so-called \textit{Safelet} interface, which identifies the outer-most \code{mission sequencer} and like the mission, also the maximum storage space. The safelet implementation for the Mars rover can be seen in Listing \ref{safeletRover}.
+The application defining class of a SCJ application is represented by a user-defined implementation of the so-called \textit{Safelet} interface, which identifies the outer-most \code{mission sequencer} and also the maximum storage used. The safelet implementation for the Mars rover can be seen in Listing \ref{safeletRover}.
 
 \lstinputlisting[label=safeletRover,caption=Safelet implementation for the Mars rover.]
 {Code/safelet.java}
