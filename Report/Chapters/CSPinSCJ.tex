@@ -1,2 +1,11 @@
 \chapter{The CSP in Safety-Critical Java}
 \label{chapter:cspinscj}
+
+\section{The SCJ Implementation (not ready for read)}
+The previous client/server example shows some of the basic steps involved in typical socket programming. Moreover with a SCJ implementation, we wish to be able to support this kind of functionality and thereby making communication between multiple hosts in a network possible. However due to time constraints, only a subset of the protocol will be developed. This subset include support for:
+
+\begin{itemize}
+	\item UDP transmission of packets between multiple hosts
+	\item I2C and the loopback interface
+	\item Broadcast traffic
+\end{itemize}
