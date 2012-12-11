@@ -12,7 +12,7 @@
    conn = csp_accept(socket, 1000);
    packet = csp_read(conn, 100);
 
-   printf(“%s\r\n”, packet->data);
+   printf("%s\r\n", packet->data);
 
    csp_buffer_free(packet);
    csp_close(conn);

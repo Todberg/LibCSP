@@ -7,7 +7,7 @@ csp_packet_t* packet = csp_buffer_new(sizeof(csp_packet_t));
 
 sprintf(packet->data, "Hello Server");
 
-packet->length = strlen(“Hello Server”);
+packet->length = strlen("Hello Server");
 
 csp_send(conn, packet, TIMEOUT_NONE);
 csp_close(conn);
