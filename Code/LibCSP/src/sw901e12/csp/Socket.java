@@ -5,8 +5,6 @@ import javax.safetycritical.annotate.Phase;
 import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.annotate.SCJRestricted;
 
-import sw901e12.csp.core.ConnectionCore;
-
 
 public interface Socket {
 	
@@ -18,7 +16,7 @@ public interface Socket {
 	 */
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.RUN)
-	public ConnectionCore accept(int timeout);
+	public Connection accept(int timeout);
 	
 	/**
 	 * Closes the socket an unbinds the used port. 

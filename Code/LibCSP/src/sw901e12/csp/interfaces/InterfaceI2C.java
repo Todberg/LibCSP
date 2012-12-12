@@ -30,10 +30,10 @@ public class InterfaceI2C implements IMACProtocol {
 	}
 	
 	@Override
-	public void initialize(int nodeAddress) {	
+	public void initialize(int MACAddress) {	
 		frameByteIndex = 0;
 		I2CPort = I2CFactory.getFactory().getI2CportA();
-		I2CPort.initialize(nodeAddress, true);
+		I2CPort.initialize(MACAddress, true);
 	}
 
 	/*
@@ -55,7 +55,7 @@ public class InterfaceI2C implements IMACProtocol {
 		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.header);
 		sliceDataIntoBytesAndInsertIntoFrame(frame, packet.data);
 		
-		//I2CPort.write(frame);
+		// i2C operations here..
 
 		CSPManager.resourcePool.putPacket(packet);
 	}
