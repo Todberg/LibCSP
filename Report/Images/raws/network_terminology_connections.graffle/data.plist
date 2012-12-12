@@ -63,9 +63,9 @@
 			<integer>25457</integer>
 			<key>Points</key>
 			<array>
-				<string>{92, 56}</string>
-				<string>{209, 56}</string>
-				<string>{208.63179644077707, 48.499398657579398}</string>
+				<string>{88, 84.000009059906006}</string>
+				<string>{205, 84.000009059906006}</string>
+				<string>{204.63179644077707, 76.499407717485397}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -101,10 +101,10 @@
 			<integer>25456</integer>
 			<key>Points</key>
 			<array>
-				<string>{92, 72.5}</string>
-				<string>{92, 56}</string>
-				<string>{62.49998664855957, 56}</string>
-				<string>{63.871670099633015, 48.491859056123573}</string>
+				<string>{88, 100.50000905990601}</string>
+				<string>{88, 84.000009059906006}</string>
+				<string>{58.49998664855957, 84.000009059906006}</string>
+				<string>{59.871670099633015, 76.491868116029579}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -128,7 +128,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{10, 12}, {114.5, 36}}</string>
+			<string>{{6, 40.000009059906006}, {114.5, 36}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -166,7 +166,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{150.47366333007812, 12}, {114.5, 36}}</string>
+			<string>{{146.47366333007812, 40.000009059906006}, {114.5, 36}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -214,9 +214,9 @@
 			<integer>25453</integer>
 			<key>Points</key>
 			<array>
-				<string>{408.24998664855957, 608.5}</string>
-				<string>{408.24998664855957, 669}</string>
-				<string>{387, 669}</string>
+				<string>{408.24997329711914, 560.5}</string>
+				<string>{408.24997329711914, 621}</string>
+				<string>{386.99998664855957, 621}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -240,7 +240,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{272, 651}, {114.5, 36}}</string>
+			<string>{{271.99998664855957, 603}, {114.5, 36}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -288,9 +288,9 @@
 			<integer>25451</integer>
 			<key>Points</key>
 			<array>
-				<string>{398, 95}</string>
-				<string>{357, 95}</string>
-				<string>{357.20618133696678, 121.50001511704691}</string>
+				<string>{394, 123.00000905990601}</string>
+				<string>{353, 123.00000905990601}</string>
+				<string>{353.20618133696678, 149.50002417695293}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -314,7 +314,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{398.5, 77}, {114.5, 36}}</string>
+			<string>{{394.5, 105.00000905990601}, {114.5, 36}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -362,9 +362,9 @@
 			<integer>25449</integer>
 			<key>Points</key>
 			<array>
-				<string>{141.5, 91}</string>
-				<string>{170, 91}</string>
-				<string>{170.04564730409211, 121.50000055374576}</string>
+				<string>{137.5, 119.00000905990601}</string>
+				<string>{166, 119.00000905990601}</string>
+				<string>{166.04415067285575, 148.5000107211433}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -388,7 +388,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{43, 73}, {98, 36}}</string>
+			<string>{{39, 101.00000905990601}, {98, 36}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -413,7 +413,7 @@ Address: (5, 28)}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{238.99998789432414, 140.35676865993301}, {47, 24}}</string>
+			<string>{{235.51987135509626, 168.49999650607296}, {47, 24}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -483,8 +483,8 @@ Address: (5, 28)}</string>
 			<integer>25447</integer>
 			<key>Points</key>
 			<array>
-				<string>{231.84204234940034, 152.4042881521743}</string>
-				<string>{295.69737681272579, 152.30531305724668}</string>
+				<string>{228.84204292297369, 180.49999650607296}</string>
+				<string>{291.69737434387207, 180.49999650607296}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -506,7 +506,7 @@ Address: (5, 28)}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{276.99999823877488, 208}, {29, 24}}</string>
+			<string>{{272.99999823877488, 236.00000905990601}, {29, 24}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -576,10 +576,10 @@ Address: (5, 28)}</string>
 			<integer>25443</integer>
 			<key>Points</key>
 			<array>
-				<string>{264.83108830408258, 274.50000169926847}</string>
-				<string>{264.97367025911808, 220}</string>
-				<string>{357.49998664855957, 220}</string>
-				<string>{357.47153703183022, 183.49999984535015}</string>
+				<string>{260.83108830408258, 302.50001075917447}</string>
+				<string>{260.97367025911808, 248.00000905990601}</string>
+				<string>{353.49998664855957, 248.00000905990601}</string>
+				<string>{353.47153703183022, 211.50000890525615}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -601,7 +601,7 @@ Address: (5, 28)}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{455.49998664855957, 538.5}, {41, 14}}</string>
+			<string>{{455.49997329711914, 490.5}, {41, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -651,7 +651,7 @@ Address: (5, 28)}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{461.49998664855957, 510.5}, {35, 14}}</string>
+			<string>{{461.49997329711914, 462.5}, {35, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -706,7 +706,7 @@ Address: (5, 28)}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{304.29654789759115, 130.89583333333337}, {96.17768595041322, 35.583333333333329}}</string>
+					<string>{{300.29654789759115, 158.89584239323938}, {96.17768595041322, 35.583333333333329}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -751,7 +751,7 @@ CSP Address: 7}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{296.19737434387207, 122}, {122.50000000000004, 61.000000000000014}}</string>
+					<string>{{292.19737434387207, 150.00000905990601}, {122.50000000000004, 61.000000000000014}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -770,7 +770,7 @@ CSP Address: 7}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{116.94121647669272, 130.89583333333337}, {96.17768595041322, 35.583333333333329}}</string>
+					<string>{{112.94121647669272, 158.89584239323938}, {96.17768595041322, 35.583333333333329}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -793,6 +793,8 @@ CSP Address: 7}</string>
 						<dict>
 							<key>Draws</key>
 							<string>NO</string>
+							<key>Width</key>
+							<real>3</real>
 						</dict>
 					</dict>
 					<key>Text</key>
@@ -815,13 +817,21 @@ CSP Address: 5}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{108.84204292297363, 122}, {122.50000000000004, 61.000000000000014}}</string>
+					<string>{{104.84204292297363, 150.00000905990601}, {122.50000000000004, 61.000000000000014}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
 					<integer>25434</integer>
 					<key>Shape</key>
 					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>stroke</key>
+						<dict>
+							<key>Width</key>
+							<real>3</real>
+						</dict>
+					</dict>
 				</dict>
 			</array>
 			<key>ID</key>
@@ -834,8 +844,8 @@ CSP Address: 5}</string>
 			<integer>25431</integer>
 			<key>Points</key>
 			<array>
-				<string>{202.74998664855963, 318}</string>
-				<string>{164.44737434387207, 318}</string>
+				<string>{199.49998474121094, 341}</string>
+				<string>{161.19737243652338, 341}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -852,7 +862,7 @@ CSP Address: 5}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{132.44737434387207, 290.5}, {32, 30}}</string>
+			<string>{{128.44737434387207, 318.50000905990601}, {32, 30}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -887,7 +897,7 @@ CSP Address: 5}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{211.59916020227865, 283.89583333333337}, {96.17768595041322, 35.583333333333329}}</string>
+					<string>{{207.59916020227865, 311.89584239323938}, {96.17768595041322, 35.583333333333329}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -932,7 +942,7 @@ CSP Address: 2 }</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{203.49998664855954, 275}, {122.50000000000004, 61.000000000000014}}</string>
+					<string>{{199.49998664855954, 303.00000905990601}, {122.50000000000004, 61.000000000000014}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -956,8 +966,8 @@ CSP Address: 2 }</string>
 			<integer>25426</integer>
 			<key>Points</key>
 			<array>
-				<string>{141.83878413651183, 577.50002985237006}</string>
-				<string>{142.33605222233007, 532}</string>
+				<string>{141.8387707850714, 529.50002985237006}</string>
+				<string>{142.33603887088964, 484}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -979,7 +989,7 @@ CSP Address: 2 }</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{226.97367025911811, 580.41263659771414}, {38, 24}}</string>
+			<string>{{226.97365690767768, 532.41263659771414}, {38, 24}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1049,8 +1059,8 @@ CSP Address: 2 }</string>
 			<integer>42</integer>
 			<key>Points</key>
 			<array>
-				<string>{202.74998664855963, 592}</string>
-				<string>{281.49998664855957, 592.75178997613364}</string>
+				<string>{202.7499732971192, 544}</string>
+				<string>{281.49997329711914, 544.75178997613364}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1144,7 +1154,7 @@ CSP Address: 2 }</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{88.349160202278682, 586.89583333333337}, {96.17768595041322, 35.583333333333329}}</string>
+					<string>{{88.349146850838252, 538.89583333333337}, {96.17768595041322, 35.583333333333329}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -1189,7 +1199,7 @@ CSP Address: 10 }</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{80.249986648559599, 578}, {122.50000000000004, 61.000000000000014}}</string>
+					<string>{{80.249973297119169, 530}, {122.50000000000004, 61.000000000000014}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -1208,8 +1218,8 @@ CSP Address: 10 }</string>
 			<integer>25420</integer>
 			<key>Points</key>
 			<array>
-				<string>{62.49998664855957, 531}</string>
-				<string>{496.49998664855957, 532}</string>
+				<string>{62.499973297119141, 483}</string>
+				<string>{496.49997329711914, 484}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1233,7 +1243,7 @@ CSP Address: 10 }</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{355.09916020227865, 582.375}, {96.17768595041322, 17.5}}</string>
+					<string>{{355.09914685083822, 534.375}, {96.17768595041322, 17.5}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -1275,7 +1285,7 @@ CSP Address: 10 }</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{346.99998664855957, 578}, {122.50000000000004, 30}}</string>
+					<string>{{346.99997329711914, 530}, {122.50000000000004, 30}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -1289,7 +1299,7 @@ CSP Address: 10 }</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{265.99998664855957, 625}, {83, 14}}</string>
+			<string>{{265.99997329711914, 577}, {83, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1337,7 +1347,7 @@ CSP Address: 10 }</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{126.49998664855957, 502}, {32, 30}}</string>
+			<string>{{126.49997329711914, 454}, {32, 30}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -1367,7 +1377,7 @@ CSP Address: 10 }</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{281.49998664855957, 569}, {52, 48}}</string>
+			<string>{{281.49997329711914, 521}, {52, 48}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -1453,7 +1463,7 @@ CSP Address: 10 }</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-12 09:23:09 +0000</string>
+	<string>2012-12-12 14:02:33 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
@@ -1534,7 +1544,7 @@ CSP Address: 10 }</string>
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{391, 52}, {693, 811}}</string>
+		<string>{{391, 67}, {693, 811}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
