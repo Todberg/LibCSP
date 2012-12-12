@@ -53,7 +53,7 @@
 	<array>
 		<dict>
 			<key>Bounds</key>
-			<string>{{132.53538566174194, 421.69361112435837}, {50, 14}}</string>
+			<string>{{132.53387381953434, 421.69361114501891}, {50, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -117,8 +117,8 @@
 			<integer>72</integer>
 			<key>Points</key>
 			<array>
-				<string>{157.55571291940825, 475.13717655408249}</string>
-				<string>{157.51505840407566, 382.25004569463425}</string>
+				<string>{157.55515065735497, 475.13717655430247}</string>
+				<string>{157.5125969817137, 382.25004573573534}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -291,7 +291,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{368.51943426328177, 332.35643007873756}, {50, 14}}</string>
+			<string>{{368.51959536103482, 332.35643005371196}, {50, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -355,8 +355,8 @@
 			<integer>63</integer>
 			<key>Points</key>
 			<array>
-				<string>{393.50762328645379, 301.25004577669131}</string>
-				<string>{393.53124524010974, 377.46281438078381}</string>
+				<string>{393.50769081324199, 301.25004577636719}</string>
+				<string>{393.53149990882764, 377.46281433105679}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -392,7 +392,7 @@
 			<integer>61</integer>
 			<key>Points</key>
 			<array>
-				<string>{392.61226770454931, 194.03771222262088}</string>
+				<string>{392.61224306708419, 194.03771222272647}</string>
 				<string>{494, 194}</string>
 				<string>{494, 407.75004577646496}</string>
 				<string>{457.03992301474955, 406.72459876183234}</string>
@@ -495,8 +495,6 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>StickArrow</string>
-					<key>HeadScale</key>
-					<real>2.2142860889434814</real>
 					<key>Legacy</key>
 					<true/>
 					<key>Pattern</key>
@@ -693,7 +691,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{367.76921405702075, 201.14366149885709}, {50, 14}}</string>
+			<string>{{367.76918267136375, 201.14366149902344}, {50, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -757,8 +755,8 @@
 			<integer>47</integer>
 			<key>Points</key>
 			<array>
-				<string>{392.34523246211199, 170.03724629605691}</string>
-				<string>{393.1931956519295, 246.25007670165726}</string>
+				<string>{392.34521930630933, 170.03724629605907}</string>
+				<string>{393.19314603641823, 246.25007670198781}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1009,7 +1007,7 @@ transportextensions}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{132.53379442567797, 265.43752288818359}, {50, 14}}</string>
+			<string>{{132.53379440398521, 265.43752288818359}, {50, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1073,8 +1071,8 @@ transportextensions}</string>
 			<integer>30</integer>
 			<key>Points</key>
 			<array>
-				<string>{157.51117869520596, 327.25004581085034}</string>
-				<string>{157.55641015615001, 217.62499996551691}</string>
+				<string>{157.51117868795856, 327.25004581085034}</string>
+				<string>{157.55641012001183, 217.62499996551691}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1362,7 +1360,7 @@ core}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-11 16:59:59 +0000</string>
+	<string>2012-12-12 20:18:45 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
@@ -1399,16 +1397,6 @@ core}</string>
 		<array>
 			<string>int</string>
 			<string>0</string>
-		</array>
-		<key>NSPrinter</key>
-		<array>
-			<string>coded</string>
-			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAlOU1ByaW50ZXIAhIQITlNPYmplY3QAhZKEhIQITlNTdHJpbmcBlIQBKwhLbHluZ2UgMYaG</string>
-		</array>
-		<key>NSPrinterName</key>
-		<array>
-			<string>string</string>
-			<string>Klynge 1</string>
 		</array>
 		<key>NSRightMargin</key>
 		<array>
