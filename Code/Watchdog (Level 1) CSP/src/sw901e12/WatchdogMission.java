@@ -73,8 +73,8 @@ public class WatchdogMission extends Mission {
 			{
 				/* Module 1 */
 				int MACAddress = Config.MAC_ADDRESS;
-				int CSPAddress = 0x01;
-				int CSPPort = 0x02;
+				int CSPAddress = Config.CSP_ADDRESS;
+				int CSPPort = 0x01;
 				slaves[0] = Module.create("Module 1", MACAddress, CSPAddress, CSPPort);
 				IMACProtocol loopbackInterface = InterfaceLoopback.getInterface();
 				loopbackInterface.initialize(MACAddress);
@@ -83,7 +83,7 @@ public class WatchdogMission extends Mission {
 			{
 				/* Module 2 */
 				int MACAddress = Config.MAC_ADDRESS;
-				int CSPAddress = 0x02;
+				int CSPAddress = Config.CSP_ADDRESS;
 				int CSPPort = 0x02;
 				slaves[1] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
 				IMACProtocol loopbackInterface = InterfaceLoopback.getInterface();

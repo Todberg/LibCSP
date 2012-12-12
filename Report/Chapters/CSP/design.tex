@@ -1,0 +1,7 @@
+\section{Design}
+This Section will elaborate on the most important design decisions. The considerations and decisions are based the review the C implementation in conjunction with the SCJ specification.
+
+\subsection{Routing}
+In CSP, and any other network for that matter, \textit{routing} is a central task that revolves around choosing network trafficking paths along a network. To obtain an overview of the interplay between routing and the remaining system, we abstractly outline the flow with respect to our implementation requirements. Figure \ref{img:stack_flow.pdf} shows the protocol stack with the major components inside. As seen in the Figure, frames arrive and depart from the driver layer through a combination of VHDL and Java code. For an incoming frame, the frame exterior is 
+
+\img{stack_flow.pdf}{0.7}{Abstract flow.}
