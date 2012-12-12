@@ -4,7 +4,7 @@ import sw901e12.csp.core.PacketCore;
 
 public interface IMACProtocol {
 	
-	public void initialize(int nodeAddress);
+	public void initialize(int MACAddress);
 	
 	public void transmitPacket(PacketCore packet);
 	

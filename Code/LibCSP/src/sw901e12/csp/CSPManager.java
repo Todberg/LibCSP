@@ -43,8 +43,8 @@ public class CSPManager {
 	 */
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.INITIALIZATION)
-	public void init(byte nodeAddress) {
-		CSPManager.nodeAddress = nodeAddress;
+	public void init(int nodeAddress) {
+		CSPManager.nodeAddress = (byte)nodeAddress;
 		CSPManager.outgoingPorts = 0;
 		
 		initializeRouteHandlerParameters();
@@ -104,17 +104,18 @@ public class CSPManager {
 	 */
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.INITIALIZATION)
-	public void initPools(byte socketsCapacity,
-			byte connectionsPerSocketCapacity,
-			byte connectionsCapacity,
-			byte packetsPerConnectionCapacity,
-			byte packetsCapacity) {
+	public void initPools(int socketsCapacity,
+			int connectionsPerSocketCapacity,
+			int connectionsCapacity,
+			int packetsPerConnectionCapacity,
+			int packetsCapacity) {
 		
-		CSPManager.resourcePool = new ResourcePool(socketsCapacity, 
-			connectionsPerSocketCapacity,
-			connectionsCapacity, 
-			packetsPerConnectionCapacity,
-			packetsCapacity);
+		CSPManager.resourcePool = new ResourcePool(
+			(byte)socketsCapacity, 
+			(byte)connectionsPerSocketCapacity,
+			(byte)connectionsCapacity, 
+			(byte)packetsPerConnectionCapacity,
+			(byte)packetsCapacity);
 	}
 	
 	/**

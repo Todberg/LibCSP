@@ -18,7 +18,7 @@ public class InterfaceLoopback implements IMACProtocol {
 	}
 	
 	@Override
-	public void initialize(int nodeAddress) { }
+	public void initialize(int MACAddress) { }
 
 	@Override
 	public void transmitPacket(PacketCore packet) {
