@@ -3,10 +3,10 @@ This Section will elaborate on the most important design decisions. The consider
 
 \subsection{Ports, Sockets, Connections and Packets}
 We begin with some of the basic concepts that exist in CSP, and how the design of sockets must accommodate the available features. Consider the network example illustrated in Figure \ref{img:network_terminology_connections.pdf}. Here, the NanoCam listens has an open socket on port 28. Both the NanoMind and MissionControl communicates to the NanoCam using this open end-point (each using a randomly selected outgoing port). Therefore, in addition to a socket we have the concept of a connection between the end-points. A connection is uniquely identified on a host by the 4-tuple \textit{(destination address, destination port, source address, source port)}. We emphasize that this concept of a connection is not related to that of connectionless and connection-oriented sockets.
-\img{network_terminology_connections.pdf}{0.7}{Example scenario with active connections using CSP.}
+\img{network_terminology_connections.pdf}{0.65}{Example scenario with active connections using CSP.}
 
 As a result, all outgoing communication from client applications will happen only through a connection. On the server side, an application will bind a socket to a specified port, and all subsequent communication on that port will end up with a new connection. Therefore, individual packets are also read and sent through connections. The relation between ports, sockets and connections is illustrated in Figure \ref{img:overallflow.pdf}. Note that while source and destination ports occupies 6 bits each in the header, only values $0-39$ are available for incoming connections. The remaining ports up to $2^6-1$ (63) are used for outgoing connections.
-\img{overallflow.pdf}{0.7}{Relationship between a socket bound to a port and connections.}
+\img{overallflow.pdf}{0.6}{Relationship between a socket bound to a port and connections.}
 
 As a result of this, we have the following classes to support these concepts:
 \begin{description}
