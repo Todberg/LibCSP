@@ -1,0 +1,10 @@
+\subsection{Resource Buffers}
+The scoped memory model in SCJ requires some additional work underneath in the implementation. For instance, in many parts a problem similar to the producer-consumer problem arise. The following are just two example of issues that arise as a result of the memory model:
+\begin{itemize}
+	\item A handler may be awaiting packets on a connection, which will be produced by incoming data and delivered by the routing handler. Packets that arrive and are extracted in an aperiodic event handler for some hardware interface, must be transferred to a memory area available for the awaiting handler.
+	\item A socket may be initialized and placed in mission memory in an application. Whenever a connection is made upon receiving data this must therefore also be placed in mission memory. The reason for this, is that connections are associated with sockets, but the particular socket object cannot have a reference to a connection if this is allocated in a private memory area.
+\end{itemize}
+
+As a result we use a \textit{Resource Pool}\cite{Rios:2012:PSJ:2388936.2388938} in which a static amount of socket, connection and packet objects are allocated during initialization phase of the application. During execution phase no additional objects of these are allocated. The advantage of this approach is that it is ensured that no runtime exceptions occur due to references exist into a shorter lived scope in the CSP library. A disadvantage of this approach is that there will an overhead in copying values to the fields of objects that are retrieved from the pool.
+
+The class ResourcePool illustrated in Figure REF stores all unused objects and provides an interface for retrieving and object and putting one back into the pool.
