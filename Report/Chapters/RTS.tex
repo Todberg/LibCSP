@@ -272,7 +272,7 @@ As stated in Section \ref{sub:response_time_analysis_}, $R$ for the task with hi
     R_{c} &=& 38
 \end{eqnarray}
 
-As a result we can see that the task set, under the simple task model, is indeed schedulable under FPS as it is the case that $R_{a} < D_{a}$, $R_{b} < D_{b}$ and $R_{c} < D_{c}$.
+As a result we can see that the task set, under the simple task model, is indeed schedulable under FPS as it is the case that {$R_{a} < D_{a}$, $R_{b} < D_{b}$ and $R_{c} < D_{c}$}.
 
 While the RTA test is exact, it is naturally very much restricted because of the assumptions made in the simple task model. Rarely is it the case that several concurrently running tasks are always independent of each other - synchronisation is often involved. For this reason there has been many extensions and variations of the described method to loosen or remove single restrictions in the simple task model. In Section \ref{sub:fps} we saw one example of this where the restriction of $D = T$ was lifted in the deadline monotonic assignment scheme. We refer to the cited material for additional information on how one may handle the removal of further restrictions (such as the inclusion of blocking time).
 
