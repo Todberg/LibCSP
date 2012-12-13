@@ -14,6 +14,44 @@ Option one has the clear advantage of separation as it groups all routing relate
 \subsubsection{Routing Algorithm}
 The routing handler must be able to handle several different cases during packet processing. We here present a pseudo algorithm on how the task handles the different situations for our SCJ implementation.
 
-C = Collection of packets to be processed
 
-p = Get packet from C
+% \begin{algorithm}[H]
+%  \SetAlgoLined
+%  \KwData{this text}
+%  \KwResult{how to write algorithm with \LaTeX2e }
+%  initialization\;
+%  \While{not at end of this document}{
+%   read current\;
+%   \eIf{understand}{
+%    go to next section\;
+%    current section becomes this one\;
+%    }{
+%    go back to the beginning of current section\;
+%   }
+%  }
+%  \caption{How to write algorithms}
+% \end{algorithm}
+
+
+% RouteTable = Route table
+% PortTable = Port table
+% Packets = Collection of packets
+
+% packet := get next packet from Packets
+% if packet exists then:
+% 	dest := Get destination address from header
+% 	if dest = this OR broadcast then
+% 		conn := look for existing open connection
+% 		if conn does not exists then
+% 			port := get destination port from PortTable
+% 			if port = open then
+% 				create new connection, open it and store it on the port's socket
+% 		if conn exists then
+% 			deliver packet to conn
+% 		else
+% 			drop packet
+% 	else
+% 		get network node from RouteTable and send packet through next hop interface
+
+
+
