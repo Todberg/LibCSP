@@ -2,16 +2,23 @@
 This Section will elaborate on the most important design decisions. The considerations and decisions are based on the review of the C implementation in conjunction with the SCJ specification.
 
 \subsection{Ports, Sockets, Connections and Packets}
-We begin with some of the basic concepts that exist in CSP, and how the design of sockets must accommodate the available features. Consider the network example illustrated in Figure \ref{img:network_terminology_connections.pdf}. Here, the NanoCam listens has an open socket on port 28. Both the NanoMind and MissionControl communicates to the NanoCam using this open end-point (each using a randomly selected outgoing port). Therefore, in addition to a socket we have the concept of a connection between the end-points. A connection is uniquely identified on a host by the 4-tuple \textit{(destination address, destination port, source address, source port)}. We emphasize that this concept of a connection is not related to that of connectionless and connection-oriented sockets.
-\img{network_terminology_connections.pdf}{0.65}{Example scenario with active connections using CSP.}
+We begin with some of the basic concepts in CSP, and how the design of sockets must accommodate the available features. Consider the network example illustrated in Figure \ref{img:network_terminology_connections.pdf}. 
 
-As a result, all outgoing communication from client applications will happen only through a connection. On the server side, an application will bind a socket to a specified port, and all subsequent communication on that port will end up with a new connection. Therefore, individual packets are also read and sent through connections. The relation between ports, sockets and connections is illustrated in Figure \ref{img:overallflow.pdf}. Note that while source and destination ports occupies 6 bits each in the header, only values $0-39$ are available for incoming connections. The remaining ports up to $2^6-1$ (63) are used for outgoing connections.
-\img{overallflow.pdf}{0.6}{Relationship between a socket bound to a port and connections.}
+\img{network_terminology_connections.pdf}{0.65}{Example scenario with active connections using CSP. The tuples like (x,~y) and (x,~y,~z,~w) represents (source~address,~source port) and (destination~address,~destination~port,~source~address,~source~port) respectively.}
+
+Here, the \textit{NanoCam} has an open socket on port 28. Both the \textit{NanoMind} and \textit{Mission Control} communicates to the \textit{NanoCam} using this open end-point (each using a randomly selected outgoing port - 43 and 52 respectively). Therefore, in addition to a socket we have the concept of a connection between the end-points. A connection is uniquely identified on a host by the 4-tuple:
+
+\begin{quotation}
+	\emph{(destination address, destination port, source address, source port)}
+\end{quotation}
+
+We emphasize that this concept of a connection is not related to that of connection-less and connection-oriented sockets. As a result, all outgoing communication from client applications (like \textit{NanoMind} and \textit{Mission Control} in the example) will happen only through a connection. On the server side, an application will bind a socket to a specified port, and all subsequent communication on that port will end up with a new connection. Therefore, individual packets are also read and sent through connections. The relationship between ports, sockets, connections and packets is illustrated in Figure \ref{img:overallflow.pdf}. Note that while source and destination ports occupies 6 bits each in the header, only values $0-39$ are available for incoming connections. The remaining ports up to $2^6-1$ (63) are used for outgoing connections.
+\img{overallflow.pdf}{0.6}{Relationship between a socket bound to a port and with a list of connections each having its own list of packets.}
 
 As a result of this, we have the following classes to support these concepts:
 \begin{description}
-	\item[Port] This class is used to associate a socket with a port. The routing logic will be able to use objects of these to determine if a given port is open upon receiving new packets and retrieve the associated socket.
+	\item[Port] The port class is used to associate a port with a socket. The routing logic will be able to use objects of these to determine if a given port is open upon receiving new packets and retrieve the associated socket.
 	\item[Socket] The socket class is used to define and end-point that can be bound to a specific port that an application should listen on. Furthermore this will provide the access to accept new incoming connections.
-	\item[Connection] The connection class is used to represent ongoing activity between two end-points. Packets are sent and read between end-points through this entity. A connection is always associated with a socket on the initial receiving side.
-	\item[Packet] The packet represents the CSP entity packet that is sent through connections. This contains the header and payload.
+	\item[Connection] The connection class is used to represent ongoing and ingoing activity between two end-points. Packets are sent and read between end-points through this entity. A connection is always associated with a socket on the initial receiving side.
+	\item[Packet] The packet class represents the CSP entity packet that is sent through connections. This contains the header and payload.
 \end{description}

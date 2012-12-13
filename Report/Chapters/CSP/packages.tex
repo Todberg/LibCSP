@@ -4,9 +4,9 @@ For organisation and seperation of concern purposes we divide the implementation
 
 The packages are chosen explicitly, not to organise the classes into namespaces that resembles that of only the protocol stack. Instead the design of the hierarchical naming pattern is chosen to reflect a combination of the protocol stack as well as the relation of classes to the underlying concepts in SCJ, such as event handlers. The following describes the responsibility of each package:
 \begin{description}
-	\item[sw902e12.csp] Contains the CSPManager and public interfaces for the underlying classes. Client applications access the library only through this package.
-	\item[sw902e12.csp.core] Resource pool and all core classes such as Socket and Connection are organised in this package.
-	\item[sw902e12.csp.handlers] Event handlers are placed in this --- e.g. the Routing Handler.
+	\item[sw902e12.csp] Contains the \code{CSPManager} and public interfaces for the underlying classes. Client applications access the library only through this package.
+	\item[sw902e12.csp.core] Resource pool and all core classes such as \code{Socket} and \code{Connection} are organised in this package.
+	\item[sw902e12.csp.handlers] Event handlers are placed in this --- e.g. the routing handler.
 	\item[sw902e12.csp.interfaces] MAC-layer protocol implementations are organised in this package.
 	\item[sw902e12.csp.transportextensions] Transport extensions are organised in this package.
 	\item[sw902e12.csp.util] For all auxiliary classes.

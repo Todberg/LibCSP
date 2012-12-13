@@ -1,5 +1,5 @@
 \subsection{Routing}
-In CSP, and any other network for that matter, \textit{routing} is a central task that revolves around choosing network trafficking paths along a network. To obtain an overview of the interplay between routing and the remaining system, we abstractly outline the flow with respect to our implementation requirements. Figure \ref{img:stack_flow.pdf} shows the protocol stack with the major components inside. As illustrated in the Figure, frames arrive and depart from the \textit{drivers} layer through a combination of VHDL and Java code. At the \textit{MAC-layer protocols} layer, for a frame arriving from some particular interface (\iic or Loopback), the frame exterior is removed and the packet placed in a packet-collection residing in the \textit{routing core} layer. This collection stores all packets to be processed by the routing task. Similarly, packets arriving from user applications by "send" invocations at the \textit{Transport extensions} layer, also end up in this data structure. Regularly the routing task extracts a packet from the collection and sends it to the upper or lower layer depending on the header information. The \textit{port table} or the \textit{route table} is consulted in order to guide the packet further to its rightful destination.
+In CSP, and any other network for that matter, \textit{routing} is a central task that revolves around choosing network trafficking paths along a network. To obtain an overview of the interplay between routing and the remaining system, we abstractly outline the flow with respect to our implementation requirements. Figure \ref{img:stack_flow.pdf} shows the protocol stack with the major components inside. As illustrated in the Figure, frames arrive and depart from the \textit{drivers} layer through a combination of VHDL and Java code. At the \textit{MAC-layer protocols} layer, for a frame arriving from some particular interface (\iic or Loopback), the frame exterior is removed and the packet placed in a packet-collection residing in the \textit{routing core} layer. This collection stores all packets to be processed by the routing task. Similarly, packets arriving from user applications by "send" invocations at the \textit{Transport extensions} layer, also end up in this data structure. Regularly the routing task extracts a packet from the collection and sends it to the upper or lower layer depending on the header information. The \textit{port table} or the \textit{route table} is consulted for this matter in order to guide the packet towards to its destination.
 
 \img{stack_flow.pdf}{0.7}{Abstract flow.}
 The routing component in the C implementation runs in is own thread, however, although an obvious choice may be to map it directly to an SCJ event handler, it may not be the best solution. We therefore identify two ways of structuring the routing task:
@@ -9,28 +9,52 @@ The routing component in the C implementation runs in is own thread, however, al
 	\item Let user-defined event handlers execute routing logic in conjunction with application logic (\textit{monolithic} approach)
 \end{enumerate}
 
-Option one has the clear advantage of separation as it groups all routing related code to a dedicated place, namely the route handler. Compared with the monolithic approach, this also makes WCET analysis easier as user-defined tasks are not penalised with extra execution time in terms having to run routing code as well. On the downside, by requiring another task to run in conjunction with the other tasks, problems such as priority determination and release frequency arises. By choosing the lowest priority, the routing task only runs when all other tasks are finished with their release and can thus be preempted once another task becomes runnable. This property can have the negative effect of causing a starvation-like effect, making the routing task drop packets due to frequent interruptions. On the other hand, by choosing the highest priority in the system, the routing task can run too often, which can affect the other tasks in terms of interference. In terms of scheduling, this can cause lower utilisation of actual application logic or scheduling difficulties. The bottom line is that the priority of the routing task heavily depends on the other tasks and must thus be adjusted according to these. Similarly with the release frequency, this must also be adjusted on the basis of the other tasks in the system. Option two removes these scheduling issues to some degree\footnote{Routing code still needs to be executed which can break schedulability in terms of yielding higher WCET values.}, but has the major drawback of mixing application logic together with routing logic, which breaks the original desire of letting each event handler have a single responsibility (an issue threads in RTSJ could suffer from according to the authors of the SCJ specification - Section \ref{sub:concurrency_model} in Appendix \ref{chapter:scheduling} shows the issue with an example). We believe that the benefits of option one surpasses those of option two, and therefore choose to run routing as a separate periodic event handler.
+Option one has the clear advantage of separation as it groups all routing related code to a dedicated place, namely the route handler. Compared with the monolithic approach, this also makes WCET analysis easier as user-defined tasks are not penalised with extra execution time in terms having to run routing code as well. On the downside, by requiring another task to run in conjunction with the other tasks, problems such as priority determination and release frequency arises. By choosing the lowest priority, the routing task only runs when all other tasks are finished with their release and can thus be preempted once another task becomes runnable. This property can have the negative effect of causing a starvation-like effect, making the routing task drop packets due to frequent interruptions. On the other hand, by choosing the highest priority in the system, the routing task can run too often, which can affect the other tasks in terms of interference. The bottom line is that the priority of the routing task heavily depends on the other tasks and must thus be adjusted according to these. Similarly with the release frequency, this must also be adjusted on the basis of the other tasks in the system. Option two removes these scheduling issues to some degree\footnote{Routing code still needs to be executed which can break schedulability in terms of yielding higher WCET values.}, but has the major drawback of mixing application logic together with routing logic, which breaks the original desire of letting each event handler have a single responsibility (an issue threads in RTSJ could suffer from according to the authors of the SCJ specification - Section \ref{sub:concurrency_model} in Appendix \ref{chapter:scheduling} shows the issue with an example). We believe that the benefits of option one surpasses those of option two, and therefore choose to run routing as a separate periodic event handler.
 
 \subsubsection{Routing Algorithm}
-The routing handler must be able to handle several different cases during packet processing. We here present a pseudo algorithm on how the task handles the different situations for our SCJ implementation.
+The routing handler must be able to handle various cases during packet processing. Algorithm \ref{RoutingAlgo} presents a pseudo algorithm on how it must handle the different situations for our SCJ implementation. The initial data structures appearing in the algorithm are:
 
+\begin{description}
+	\item[Routing Table] Collection of all nodes within the network. Entry $i$ in the table represents the node with address $i$ and is a tuple of the next hop MAC address and the outgoing interface protocol used for the next hop 
+	\item[Port Table] Collection of all ports in the system each capable of holding a socket and its state (open or closed)
+	\item[Packet Collection] Collection of packets to be processed. These are inserted from the upper and lower layer adjacent layers
+\end{description}
 
-% \begin{algorithm}[H]
-%  \SetAlgoLined
-%  \KwData{this text}
-%  \KwResult{how to write algorithm with \LaTeX2e }
-%  initialization\;
-%  \While{not at end of this document}{
-%   read current\;
-%   \eIf{understand}{
-%    go to next section\;
-%    current section becomes this one\;
-%    }{
-%    go back to the beginning of current section\;
-%   }
-%  }
-%  \caption{How to write algorithms}
-% \end{algorithm}
+In the algorithm, \textit{this} and \textit{broadcast} refers to the addresses of the node executing the routing logic and the special address, 31, targeted at every network node.
+
+ \begin{algorithm}[!ht]
+ 	\SetAlgoLined
+ 	\KwData{\\
+		$RoutingTable \leftarrow$ Routing Table\\
+		$PortTable \leftarrow$ Port Table\\
+		$Packets \leftarrow$ Packet Collection
+		\BlankLine
+	}
+	\Begin{
+		$Packet \leftarrow$ Get next packet from $Packets$\\
+	 	\If{Packet exists}{
+			$Dest \leftarrow$ Get destination address from header\\
+			\eIf{Dest = this OR broadcast}{
+				$Conn \leftarrow$ Look for existing open connection\\
+				\If{Conn does not exist}{
+					$Port \leftarrow$ Get destination port from $PortTable$\\
+					\If{Port is open}{
+						$Conn \leftarrow$ Create new connection, open it and store it on the port's socket
+					}
+				}
+				\eIf{Conn exists}{ 
+					Deliver $Packet$ to $Conn$
+				}{
+					Drop $Packet$
+				}
+			}{
+				Get network node from $RouteTable$ and send $Packet$ through \\ next hop interface
+			}
+		}
+	}
+	\caption{Routing algorithm.}
+	\label{RoutingAlgo}
+\end{algorithm}
 
 
 % RouteTable = Route table
