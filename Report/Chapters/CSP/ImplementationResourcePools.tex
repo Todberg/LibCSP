@@ -12,6 +12,4 @@ Upon retrieving an object from the pool the field must naturally be assigned val
 \lstinputlisting[label=dispose,caption=Implementing the IDispose interface in ConnectionCore.]
 {Code/Implementation/connectiondispose.java}
 
-We emphasize that the scoped memory model also presents possibilities. To ensure that in this case of using resource pools, that objects are always returned, one could use a technique similar to one often used in C++ --- \textit{Resource Acquisition Is Initialization}~(RAII)\cite{RAII}. While the use of locks is exception-safe in Java, this technique provides other uses. Returning an object to the pool could happen in the \code{finalize()} method of an encapsulating object and thereby always be executed. However, as \code{finalize()} is currently not implemented in the Java version on JOP, this technique has not been applied. Additionally the semantics of this would have to be changed to the memory model.
-
 % subsection resource_pools (end)

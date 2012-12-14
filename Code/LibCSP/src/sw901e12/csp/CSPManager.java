@@ -12,12 +12,18 @@ import javax.safetycritical.annotate.SCJRestricted;
 import sw901e12.csp.core.ConnectionCore;
 import sw901e12.csp.core.Port;
 import sw901e12.csp.core.ResourcePool;
+import sw901e12.csp.core.SocketCore;
 import sw901e12.csp.handlers.RouteHandler;
 import sw901e12.csp.interfaces.IMACProtocol;
+import sw901e12.csp.interfaces.InterfaceI2C;
 import sw901e12.csp.interfaces.InterfaceLoopback;
 import sw901e12.csp.util.Const;
 
 public class CSPManager {
+	
+	/* MAC-layer Protocols */
+	public static final byte INTERFACE_I2C = 1;
+	public static final byte INTERFACE_LOOPBACK = 2;
 	
 	/* Timeouts */
 	public static final byte TIMEOUT_NONE = -1;
@@ -133,6 +139,25 @@ public class CSPManager {
 	}
 	
 	/**
+	 * Retrieves the object implementing a specific MAC-layer protocol.
+	 * @param Identifier for the protocol
+	 * @return A singleton object implementing the protocol
+	 */
+	@SCJAllowed(Level.LEVEL_1)
+	@SCJRestricted(Phase.INITIALIZATION)	
+	public IMACProtocol getIMACProtocol(int type) {
+		switch(type) {
+		case INTERFACE_I2C:
+			return InterfaceI2C.getInterface();			
+			
+		case INTERFACE_LOOPBACK:
+			return InterfaceLoopback.getInterface();
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Creates and binds a socket to a specific port.
 	 * @param port Port number to use
 	 * @param options Socket options
@@ -146,7 +171,7 @@ public class CSPManager {
 			Socket socket = resourcePool.getSocket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			if(socket != null) {
 				p.isOpen = true;
-				p.socket = (sw901e12.csp.core.SocketCore) socket;
+				p.socket = (SocketCore) socket;
 				p.socket.port = (byte)port;				
 				return socket;
 			}
