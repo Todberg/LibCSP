@@ -1,5 +1,5 @@
 \chapter{Watchdog Application}
-\section{Introducton}
+\section{Introduction}
 The watchdog is based on the following problem setting. In a distributed system multiple modules communicate to accomplish a task as seen in Figure \ref{img:Problem.pdf}. In case of failure in one or more modules, the system should take appropriate actions as other modules may be dependent on the failed module(s). The watchdog has the single goal of detecting such failures of any module and take appropriate action.
 
 \img{Problem.pdf}{0.5}{Five separate modules working on a common task in a distributed setting.}
@@ -80,8 +80,8 @@ The following shows the response-times for the modelled tasks in the transformed
     R_{recovery} &=& 210
 \end{eqnarray}
 
-We can here see that the tasks of our model are indeed (very much) schedulable under FPS\footnote{The original task set defined in Table \ref{tab:taskslol} is, however, not!} as the response time for each task is below its deadline. That is: \\ \\
-$R_{pinger} < D_{pinger}$, $R_{checker} < D_{checker}$ and $R_{recovery} < D_{recovery}$.
+We can here see that the tasks of our model are indeed (very much) schedulable under FPS\footnote{The original task set defined in Table \ref{tab:taskslol} is, however, not!} as the response time for each task is below its deadline. That is: \\\\
+$R_{pinger} < D_{pinger}$, $R_{checker} < D_{checker}$ and $R_{recovery} < D_{recovery}$
 
 \section{Design and Implementation}
 The implementation of the watchdog can be found on our GitHub repository~\cite{SW902e12:CSPinSCJ}. In addition to the implementation, additional time has been spent on optimizing the development and analysis process both for this project and long term for future SCJ development. Build and run scripts created are found in Section \ref{cha:build_scripts} and a Python script for performing response-time analysis is found in Secion \ref{cha:rta_calculator}.
@@ -162,8 +162,8 @@ Using the measured WCET we here perform the final response-time analysis of the 
     R_{recovery} &=& 125,8374
 \end{eqnarray}
 
-Again, the fixed-point equations are solved and the provided response-time for each task does not exceed their deadlines, hence schedulability is ensured. In other words the following conditions hold: \\ \\
-$R_{pinger} < D_{pinger}$, $R_{checker} < D_{checker}$ and $R_{recovery} < D_{recovery}$.
+Again, the fixed-point equations are solved and the provided response-time for each task does not exceed their deadlines, hence schedulability is ensured. In other words the following conditions hold: \\\\
+$R_{pinger} < D_{pinger}$, $R_{checker} < D_{checker}$ and $R_{recovery} < D_{recovery}$
 
 
 % section response_time_analysis_of_watchdog (end)
