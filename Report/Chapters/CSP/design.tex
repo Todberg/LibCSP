@@ -12,15 +12,15 @@ The routing component in the C implementation runs in is own thread, however, al
 Option one has the clear advantage of separation as it groups all routing related code to a dedicated place, namely the route handler. Compared with the monolithic approach, this also makes WCET analysis easier as user-defined tasks are not penalised with extra execution time in terms having to run routing code as well. On the downside, by requiring another task to run in conjunction with the other tasks, problems such as priority determination and release frequency arises. By choosing the lowest priority, the routing task only runs when all other tasks are finished with their release and can thus be preempted once another task becomes runnable. This property can have the negative effect of causing a starvation-like effect, making the routing task drop packets due to frequent interruptions. On the other hand, by choosing the highest priority in the system, the routing task can run too often, which can affect the other tasks in terms of interference. The bottom line is that the priority of the routing task heavily depends on the other tasks and must thus be adjusted according to these. Similarly with the release frequency, this must also be adjusted on the basis of the other tasks in the system. Option two removes these scheduling issues to some degree\footnote{Routing code still needs to be executed which can break schedulability in terms of yielding higher WCET values.}, but has the major drawback of mixing application logic together with routing logic, which breaks the original desire of letting each event handler have a single responsibility (an issue threads in RTSJ could suffer from according to the authors of the SCJ specification - Section \ref{sub:concurrency_model} in Appendix \ref{chapter:scheduling} shows the issue with an example). We believe that the benefits of option one surpasses those of option two, and therefore choose to run routing as a separate periodic event handler.
 
 \subsubsection{Routing Algorithm}
-The routing handler must be able to handle various cases during packet processing. Algorithm \ref{RoutingAlgo} presents a pseudo algorithm on how it must handle the different situations for our SCJ implementation. The initial data structures appearing in the algorithm are:
+The routing handler must be able to handle various cases during packet processing. We here present the routing algorithm for our CSP implementation. The initial data structures appearing in the algorithm are:
 
 \begin{description}
 	\item[Routing Table] Collection of all nodes within the network. Entry $i$ in the table represents the node with address $i$ and is a tuple of the next hop MAC address and the outgoing interface protocol used for the next hop 
 	\item[Port Table] Collection of all ports in the system each capable of holding a socket and its state (open or closed)
 	\item[Packet Collection] Collection of packets to be processed. These are inserted from the upper and lower layer adjacent layers
-\end{description}
+\end{description} 
 
-In the algorithm, \textit{this} and \textit{broadcast} refers to the addresses of the node executing the routing logic and the special address, 31, targeted at every network node.
+In the algorithm, which is shown in Algorithm \ref{RoutingAlgo}, \textit{this} and \textit{broadcast} refers to the address of the node executing the routing logic and the special address, 31, targeted at every network node.
 
  \begin{algorithm}[!ht]
  	\SetAlgoLined
