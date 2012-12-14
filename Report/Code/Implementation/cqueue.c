@@ -1,0 +1,19 @@
+int pthread_queue_enqueue(pthread_queue_t* queue, void* val, uint32_t timeout) {
+  ...
+  while (queue->items == queue->size) {
+    ret = pthread_cond_timedwait(&(queue->cond_full), &(queue->mutex), &ts);
+	...
+  }
+  ...
+  pthread_cond_broadcast(&(queue->cond_empty));
+}
+
+int pthread_queue_dequeue(pthread_queue_t* queue, void* buf, uint32_t timeout) {
+  ...
+  while (queue->items == 0) {
+    ret = pthread_cond_timedwait(&(queue->cond_empty), &(queue->mutex), &ts);
+	...
+  }
+  ...
+  pthread_cond_broadcast(&(queue->cond_full));
+}
