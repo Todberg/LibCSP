@@ -37,13 +37,13 @@ public class ServerHandler extends PeriodicEventHandler {
 			char data = (char)p.readContent();
 			
 			Packet response = cspManager.createPacket();
-			
+
 			switch(data) {
 			case 'A':
-				response.setContent((int)'Q');
+				response.setContent((int)'X');
 				break;
 			case 'B':
-				response.setContent((int)'U');
+				response.setContent((int)'Y');
 				break;
 			}
 			

@@ -26,22 +26,16 @@ public class SecondClientHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		System.out.println("Second Client released");
-		
-		char c = 'B';
-		Connection conn = cspManager.createConnection(ClientServerMission.NODE_ADDRESS,
-			12, CSPManager.TIMEOUT_NONE, null);
-		
+		Connection conn = cspManager.createConnection(ClientServerMission.NODE_ADDRESS, 12, CSPManager.TIMEOUT_NONE, null);
+
 		if (conn != null) {	
-			System.out.println("Client 2: Got new connection, gonna send packet");
 			Packet p = cspManager.createPacket();
-			p.setContent((int)c);
+			p.setContent((int)'B');
 			
 			conn.send(p);
 			
-			System.out.println("Client 2: Awaiting response");
-			char r = (char)conn.read(CSPManager.TIMEOUT_NONE).readContent();
-			System.out.println("Client 2: Got " + r);
+			Packet response = conn.read(CSPManager.TIMEOUT_NONE);
+			System.out.println("Response: " + (char)response.readContent());
 			
 			conn.close();
 		}
