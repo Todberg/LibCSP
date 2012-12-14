@@ -1,4 +1,7 @@
 \chapter{Watchdog Application}
+This appendix describes the development of a watchdog application in SCJ. This was done prior to the development of the CSP, and is the initial version made before CSP based edition. The contents of this chapter are therefore not directly related to CSP.
+
+
 \section{Introduction}
 The watchdog is based on the following problem setting. In a distributed system multiple modules communicate to accomplish a task as seen in Figure \ref{img:Problem.pdf}. In case of failure in one or more modules, the system should take appropriate actions as other modules may be dependent on the failed module(s). The watchdog has the single goal of detecting such failures of any module and take appropriate action.
 
