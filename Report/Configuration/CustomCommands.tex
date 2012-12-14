@@ -32,6 +32,15 @@
 	\end{figure} 
 }
 
+\newcommand{\imgRotated}[4]{
+  \begin{figure}[!htp]
+      \centering
+      \includegraphics[width=#2\textwidth, angle=#4]{#1}
+      \caption{#3}
+      \label{img:#1}
+  \end{figure} 
+}
+
 \newcommand{\imghere}[3]{
 	\begin{figure}[H] 
 			\centering
