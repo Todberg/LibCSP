@@ -1,4 +1,5 @@
 \subsection{Resource Pools} % (fold)
 \label{sub:resource_pools}
+The resource pools are managed in an \code{ResourcePool} object. This uses the queue data structure to store unused \code{Socket}, \code{Connection} and \code{Packet} objects. During the \textit{initialization phase} the \code{CSPManager} will initialise the pools with fixed amount of objects.
 
 % subsection resource_pools (end)
