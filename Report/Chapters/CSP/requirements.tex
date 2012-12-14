@@ -9,7 +9,8 @@ Although the current version of CSP supports many features, we choose to impleme
 	\item \iic interface
 \end{itemize}
 
-The selected features are primarily chosen as these constitute substantial parts in each layer. Additional features can then be incorporated (e.g. RDP is implemented using UDP or ICMP in a simple application using the socket API). 
+The selected features are primarily chosen as these constitute substantial parts in each layer. Additional features can then be incorporated (e.g. RDP is implemented using UDP or ICMP in a simple application using the socket API).
+Note that when we refer to thread-safety, this effectively means safe execution by multiple event handlers in the course of SCJ.
 
 We introduced JOP as the underlying JVM with its SCJ implementation as the platform for this project. In addition to the specified features we specify the following non-functional requirements:
 
