@@ -120,17 +120,12 @@
 		<dict>
 			<key>Class</key>
 			<string>LineGraphic</string>
-			<key>Head</key>
-			<dict>
-				<key>ID</key>
-				<integer>284</integer>
-			</dict>
 			<key>ID</key>
 			<integer>289</integer>
 			<key>Points</key>
 			<array>
-				<string>{118, 263.06060606060606}</string>
-				<string>{146, 283}</string>
+				<string>{108, 266}</string>
+				<string>{153, 291}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -143,11 +138,6 @@
 					<key>TailArrow</key>
 					<string>0</string>
 				</dict>
-			</dict>
-			<key>Tail</key>
-			<dict>
-				<key>ID</key>
-				<integer>287</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -615,7 +605,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-14 07:27:12 +0000</string>
+	<string>2012-12-14 08:11:38 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
