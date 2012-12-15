@@ -40,14 +40,13 @@ public class PEHModulePinger extends PeriodicEventHandler {
 		if (Config.DEBUG) {
 			console.println("PEHModulePinger");
 		}
-		
 		for (Module slave : slaves) {	
 			connection = manager.createConnection(slave.getCSPAddress(), slave.getCSPPort(), CSPManager.TIMEOUT_SINGLE_ATTEMPT, null);
 			if(connection != null) {
 				packet = manager.createPacket();
 				packet.setContent(42);
 				connection.send(packet);
-				Packet response = connection.read(25);
+				Packet response = connection.read(10);
 				slave.setResponse(response != null ? true : false);
 				connection.close();
 			}
