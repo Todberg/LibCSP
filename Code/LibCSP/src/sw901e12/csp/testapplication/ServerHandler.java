@@ -43,7 +43,7 @@ public class ServerHandler extends PeriodicEventHandler {
 				response.setContent((int)'X');
 				break;
 			case 'B':
-				response.setContent((int)'Y');
+				response.setContent((int)'Y'); 
 				break;
 			}
 			
