@@ -41,8 +41,14 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 		super.peHandlerCount = 4;
 		
 		manager = new CSPManager();
+			
+		final int ROUTING_HANDLER_RELEASE_PERIOD_IN_MS = 20;
+		final int ROUTING_HANDLER_PRIORITY = 18;
+
+		PriorityParameters routingPriorityParameters = new PriorityParameters(ROUTING_HANDLER_PRIORITY);
+		PeriodicParameters routingPeriodicParameters = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(ROUTING_HANDLER_RELEASE_PERIOD_IN_MS, 0));
 		
-		manager.init((byte)ClientServerMission.NODE_ADDRESS);
+		manager.init((byte)ClientServerMission.NODE_ADDRESS, routingPriorityParameters, routingPeriodicParameters);
 		manager.initPools();
 		
 		initializeFirstClientHandler();
