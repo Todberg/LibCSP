@@ -1,5 +1,4 @@
 @Override
-@SCJAllowed(Level.SUPPORT)
 public void handleAsyncEvent() {
   Connection conn = cspManager.createConnection(ClientServerMission.NODE_ADDRESS, 12, CSPManager.TIMEOUT_NONE, null);
   

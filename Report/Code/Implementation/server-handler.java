@@ -1,5 +1,4 @@
 @Override
-@SCJAllowed(Level.SUPPORT)
 public void handleAsyncEvent() {
   connection = socket.accept(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 

@@ -10,12 +10,12 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 
     manager.init((byte)ClientServerMission.NODE_ADDRESS);
     manager.initPools();
+
+    manager.routeSet(ClientServerMission.NODE_ADDRESS, manager.getIMACProtocol(manager.INTERFACE_LOOPBACK), 0x3C);
     
     initializeFirstClientHandler();
-    manager.routeSet(ClientServerMission.NODE_ADDRESS, manager.getIMACProtocol(manager.INTERFACE_LOOPBACK), 0x71);
     initializeSecondClientHandler();
-    
-    manager.routeSet(ClientServerMission.NODE_ADDRESS, manager.getIMACProtocol(manager.INTERFACE_LOOPBACK), 0x3C);
+  
     initializeServerHandler();
 
     manager.startRouteHandler();
