@@ -26,24 +26,16 @@ public class ClientHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		System.out.println("First Client released");
-		
-		char c = 'A';
-		Connection conn = cspManager.createConnection(ClientServerMission.NODE_ADDRESS,
-			12, CSPManager.TIMEOUT_NONE, null);
-		
-		System.out.println("Client 1: Retrieved conn from pool");
-		
+		Connection conn = cspManager.createConnection(ClientServerMission.NODE_ADDRESS, 12, CSPManager.TIMEOUT_NONE, null);
+
 		if (conn != null) {	
-			System.out.println("Client 1: Got new connection, gonna send packet");
 			Packet p = cspManager.createPacket();
-			p.setContent((int)c);
+			p.setContent((int)'A');
 			
 			conn.send(p);
 			
-			System.out.println("Client 1: Awaiting response");
-			char r = (char)conn.read(CSPManager.TIMEOUT_NONE).readContent();
-			System.out.println("Client 1: Got " + r);
+			Packet response = conn.read(CSPManager.TIMEOUT_NONE);
+			System.out.println("Response: " + (char)response.readContent());
 			
 			conn.close();
 		}
