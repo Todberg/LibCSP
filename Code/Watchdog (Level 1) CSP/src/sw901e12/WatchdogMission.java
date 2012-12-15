@@ -42,14 +42,15 @@ public class WatchdogMission extends Mission {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void initialize() {
+		super.peHandlerCount = 4;
+		
 		initializeConsole();
 		initializeCSP();
 		initializeSlaves();
-
         initializePEHModulePinger();
         if(!Config.MEASURE_WCET) {
         	initializePEHModuleResponseChecker();
-            initializePEHSystemRecovery(); 
+            initializePEHSystemRecovery();
         }
 	}
 	
@@ -68,10 +69,8 @@ public class WatchdogMission extends Mission {
 	@SCJAllowed(Level.SUPPORT)
 	private void initializeSlaves() {
 		slaves = new Module[2];
-		
 		if(isApplicationRunningInSimulator()) {
 			{
-				/* Module 1 */
 				int MACAddress = Config.MAC_ADDRESS;
 				int CSPAddress = Config.CSP_ADDRESS;
 				int CSPPort = 0x01;
@@ -81,7 +80,6 @@ public class WatchdogMission extends Mission {
 				manager.routeSet(CSPAddress, loopbackInterface, MACAddress);
 			}
 			{
-				/* Module 2 */
 				int MACAddress = Config.MAC_ADDRESS;
 				int CSPAddress = Config.CSP_ADDRESS;
 				int CSPPort = 0x02;
@@ -92,7 +90,6 @@ public class WatchdogMission extends Mission {
 			}
 		} else {
 			{
-				/* Module 1 */
 				int MACAddress = 0x01;
 				int CSPAddress = 0x01;
 				int CSPPort = 0x01;
@@ -103,7 +100,6 @@ public class WatchdogMission extends Mission {
 			}
 			
 			{
-				/* Module 2 */
 				int MACAddress = 0x02;
 				int CSPAddress = 0x02;
 				int CSPPort = 0x02;
@@ -111,7 +107,7 @@ public class WatchdogMission extends Mission {
 				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
 				I2CInterface.initialize(MACAddress);
 				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}	
+			}
 		}
 	}
 	
@@ -195,13 +191,15 @@ public class WatchdogMission extends Mission {
 				console,
 				this,
 				recovery);
-		
+
 		systemRecoveryHandler.register();
 	}
 	
 	private void initializeCSP() {
 		manager = new CSPManager();
-		manager.init(Config.CSP_ADDRESS);
+		
+		manager.init(Config.CSP_ADDRESS, new PriorityParameters(50), 
+				new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(20, 0)));
 		manager.initPools();
 		manager.startRouteHandler();
 	}
