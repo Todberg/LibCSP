@@ -161,7 +161,7 @@ public class CSPManager {
 	 * Creates and binds a socket to a specific port.
 	 * @param port Port number to use
 	 * @param options Socket options
-	 * @return Newly created socket
+	 * @return Socket object bound to the port or null if none available
 	 */
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.ALL)

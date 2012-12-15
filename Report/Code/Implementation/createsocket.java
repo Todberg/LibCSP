@@ -2,7 +2,7 @@
  * Creates and binds a socket to a specific port.
  * @param port Port number to use
  * @param options Socket options
- * @return socket object bound to the port or null if none available
+ * @return Socket object bound to the port or null if none available
  */
 @SCJAllowed(Level.LEVEL_1)
 @SCJRestricted(Phase.ALL)

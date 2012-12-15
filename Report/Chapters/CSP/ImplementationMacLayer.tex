@@ -1,10 +1,11 @@
 \subsection{MAC-layer Protocols} % (fold)
 \label{sub:mac_layer_protocols}
-In order to achieve modularity and simplify the implementation of further MAC-layer protocols, the logic for reading a frame in the protocols are not separately implemented as aperiodic event handlers. Instead the interface \code{IMACProtocol} is created which defines the three methods \code{initialize}, \code{transmitPacket} and \code{receiveFrame}. All MAC-layer protocol implementations must implement this interface. For \iic, an extract illustrating this approach is seen in Listing \ref{iicprotocol}. The loopback is implemented by simply placing packets back to the routing handler packet queue upon transmit.
+In order to achieve modularity and simplify the implementation effort of adding more MAC-layer protocols, the logic for reading and writing frames in the protocols are not separately implemented as aperiodic event handlers. Instead the interface \code{IMACProtocol} is created which defines the three methods \code{initialize}, \code{transmitPacket} and \code{receiveFrame}. All MAC-layer protocol implementations must implement this interface. For \iic, an extract illustrating this approach is seen in Listing \ref{iicprotocol}.
+
 \lstinputlisting[label=iicprotocol,caption=Extract of the \iic protocol implementation.]
 {Code/Implementation/interfacei2c.java}
 
-A common aperiodic event handler implementation can then be made that can be used for any protocol. The class \code{ISRHandler} is the implementation for the aperiodic event handlers, and is seen in Listing \ref{isrhandler}.
+The Loopback is implemented by simply placing packets back to the routing handler's packet queue upon transmit. A common aperiodic event handler implementation can then be made that can be used for any protocol. The class \code{ISRHandler} is the implementation for the aperiodic event handler, and is seen in Listing \ref{isrhandler}.
 \lstinputlisting[label=isrhandler,caption=A common aperiodic event handler for all MAC-layer protocols.]
 {Code/Implementation/interfaceisr.java}
 
