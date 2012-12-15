@@ -38,9 +38,7 @@ public class CSPManager {
 	public static ResourcePool resourcePool;
 	public RouteHandler routeHandler;
 	
-	private PeriodicParameters routeHandlerPeriodicParameters;
 	private StorageParameters routeHandlerStorageParameters;
-	private PriorityParameters routeHandlerPriorityParameters;
 	
 	/**
 	 * Initializes CSP
@@ -49,27 +47,23 @@ public class CSPManager {
 	 */
 	@SCJAllowed(Level.LEVEL_1)
 	@SCJRestricted(Phase.INITIALIZATION)
-	public void init(int nodeAddress) {
+	public void init(int nodeAddress, PriorityParameters routingHandlerPriorityParameters, PeriodicParameters routingHandlerPeriodicParameters) {
 		CSPManager.nodeAddress = (byte)nodeAddress;
 		CSPManager.outgoingPorts = 0;
 		
-		initializeRouteHandlerParameters();
+		initializeDefaultRouteHandlerParameters();
 		
-		routeHandler = new RouteHandler(this.routeHandlerPriorityParameters,
-			this.routeHandlerPeriodicParameters, 
+		routeHandler = new RouteHandler(routingHandlerPriorityParameters,
+			routingHandlerPeriodicParameters, 
 			this.routeHandlerStorageParameters, 0);
 
 		routeSet(nodeAddress, InterfaceLoopback.getInterface(), 0x0);
 	}
 	
-	private void initializeRouteHandlerParameters() {
+	private void initializeDefaultRouteHandlerParameters() {
 		final int ROUTE_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
 		final int ROUTE_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
-		final int ROUTE_HANDLER_RELEASE_PERIOD_IN_MS = 20;
-		final int ROUTE_HANDLER_PRIORITY = 18;
 		
-		routeHandlerPriorityParameters = new PriorityParameters(ROUTE_HANDLER_PRIORITY);
-		routeHandlerPeriodicParameters = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(ROUTE_HANDLER_RELEASE_PERIOD_IN_MS, 0));
 		routeHandlerStorageParameters = new StorageParameters(ROUTE_HANDLER_BACKING_STORE_SIZE_IN_BYTES, new long[] { ROUTE_HANDLER_SCOPE_SIZE_IN_BYTES }, 0, 0);
 	}
 	
