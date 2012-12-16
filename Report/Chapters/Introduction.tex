@@ -44,23 +44,22 @@ Having just described some of the current hot topics, we see great opportunity i
 
 \section{Problem Statement} % (fold)
 \label{sec:problem_statement}
-We have described the apparent lack of use cases and real applications of SCJ and briefly introduced the Cubesat Space Protocol. Because this is a central element in their space solutions, we choose to examine this protocol in depth and see how this can be implemented in SCJ. We would like to emphasise the opportunities that arise with the CSP in SCJ. First, the inherent ability to provide the use case for the community, which opens up for the opportunity to continue the work later with more applications by having the ability to communicate with existing modules in a space mission from SCJ applications. Choosing to implement CSP in SCJ may therefore also provide a ground for many other contributions in the community.
+We have described the apparent lack of use cases and real applications of SCJ and briefly introduced the Cubesat Space Protocol. Because this is a central element in their space solutions, we choose to examine this protocol in depth and see how this can be implemented in SCJ. We would like to emphasise the opportunities that arise with the CSP in SCJ. First, the inherent ability to provide the use case for the community, which opens up for the opportunity to continue the work later with more applications by having the ability to communicate with existing modules in a space mission from SCJ applications. Choosing to implement CSP in SCJ may therefore also provide a ground for future works and other contributions in the community.
 
 Based on this, we state the following problem statement for this project:
 \begin{quotation}
 	\textit{Can the network-layer delivery protocol, Cubesat Space Protocol, be designed and implemented using Safety-Critical Java, such that it can be used for applications that communicates with peripheral modules?}
 \end{quotation}
-In addition to the statement of the problem we outline the following subsidiary goals and questions:
+The focus of working with this problem is to gain insight into SCJ and discover opportunities for additional work. Therefore, in addition to the statement of the problem we outline the following subsidiary goals and questions:
 %An additional reason for working with this topic is in relation to our personal backgrounds. We have great interest in software development and believe that with our background in Software Engineering, which includes much experience working with Java and similar platforms, we are able to provide some reflection on applying SCJ from a developer perspective. As previously stated many of the motivations behind bringing Java technology to safety-critical systems is that of programmer productivity, as well as letting many of the Java developers out there develop safety-critical systems. Therefore as a part of the problem, we wish to examine this and in the end reflect upon SCJ from our point of view as a part of the use case. We can outline these additional questions:
 \begin{itemize}
 	\item When working with this use case, to what degree is it possible to apply existing Java experience to the development of safety-critical systems using SCJ?
 	\item Are there elements in the specification that could be changed for the better?
-	\item As CSP is effectively a library, which considerations must one take into account when developing libraries for SCJ in contrast to standard edition Java? Furthermore how can such libraries be made to ease the use for developers with prior Java experience?
 	\item As a result of the use case, are there any topics or encountered issues that are worth examining in depth for future work?
 \end{itemize}
 
-TODO WATCHDOG ELABORATION
-Furthermore, in order to be able to reflect upon these questions and provide a conclusion for the problem statement, we have the goal of building an SCJ application on top of the implemented CSP protocol. This serves the goal of documenting the development of a real-time safety-critical application using the CSP implementation, and how a Java developer would see this task.
+Furthermore, in order to be able to reflect upon these questions and provide a conclusion for the problem statement, we have the goal of building an SCJ application on top of the implemented CSP protocol. Prior to the work started in this project we constructed a watchdog application in SCJ that monitors modules in a distributed system. As this is based on pinging other modules, this is an ideal task to use CSP for. The previously constructed watchdog will be made in a version that utilises the implementation of CSP.
+
 
 % subsection method (end)
 
