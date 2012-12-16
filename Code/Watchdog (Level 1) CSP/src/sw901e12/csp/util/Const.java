@@ -9,12 +9,12 @@ public class Const {
 
 	/* Incoming port range  */
 	public static final byte MAX_SERVICE_PORTS = 8;
-	public static final byte MAX_BIND_PORTS = 39;
-	public static final byte MAX_PORTS = MAX_BIND_PORTS + 1; /* +1 is for PORT_ANY */
+	public static final byte MAX_BIND_PORTS = 40;
 	public static final byte MAX_INCOMING_PORTS = (MAX_SERVICE_PORTS + MAX_BIND_PORTS);
+	public static final byte MAX_PORTS = MAX_BIND_PORTS + 1; /* +1 is for PORT_ANY */
 	
 	/* Outgoing port range */
-	public static final byte MAX_OUTGOING_PORTS = 15;
+	public static final byte MAX_OUTGOING_PORTS = 16;
 	
 	/*
 	 * Default Pool capacities that are used 

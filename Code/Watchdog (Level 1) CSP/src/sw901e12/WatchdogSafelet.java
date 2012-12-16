@@ -12,7 +12,7 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.annotate.SCJRestricted;
 
 public class WatchdogSafelet implements Safelet<Mission> {
-
+	
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	@SCJRestricted(phase = Phase.INITIALIZATION)

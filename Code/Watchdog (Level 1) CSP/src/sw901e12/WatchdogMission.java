@@ -73,16 +73,16 @@ public class WatchdogMission extends Mission {
 			{
 				int MACAddress = Config.MAC_ADDRESS;
 				int CSPAddress = Config.CSP_ADDRESS;
-				int CSPPort = 0x01;
+				int CSPPort = 13;
 				slaves[0] = Module.create("Module 1", MACAddress, CSPAddress, CSPPort);
 				IMACProtocol loopbackInterface = InterfaceLoopback.getInterface();
 				loopbackInterface.initialize(MACAddress);
 				manager.routeSet(CSPAddress, loopbackInterface, MACAddress);
-			}
+			} 
 			{
 				int MACAddress = Config.MAC_ADDRESS;
 				int CSPAddress = Config.CSP_ADDRESS;
-				int CSPPort = 0x02;
+				int CSPPort = 14;
 				slaves[1] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
 				IMACProtocol loopbackInterface = InterfaceLoopback.getInterface();
 				loopbackInterface.initialize(MACAddress);
@@ -90,9 +90,9 @@ public class WatchdogMission extends Mission {
 			}
 		} else {
 			{
-				int MACAddress = 0x01;
-				int CSPAddress = 0x01;
-				int CSPPort = 0x01;
+				int MACAddress = 0xB;
+				int CSPAddress = 0xB;
+				int CSPPort = 13;
 				slaves[0] = Module.create("Module 1", MACAddress, CSPAddress, CSPPort);
 				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
 				I2CInterface.initialize(MACAddress);
@@ -100,9 +100,9 @@ public class WatchdogMission extends Mission {
 			}
 			
 			{
-				int MACAddress = 0x02;
-				int CSPAddress = 0x02;
-				int CSPPort = 0x02;
+				int MACAddress = 0xC;
+				int CSPAddress = 0xC;
+				int CSPPort = 14;
 				slaves[1] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
 				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
 				I2CInterface.initialize(MACAddress);
@@ -199,7 +199,7 @@ public class WatchdogMission extends Mission {
 		manager = new CSPManager();
 		
 		manager.init(Config.CSP_ADDRESS, new PriorityParameters(50), 
-				new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(20, 0)));
+				new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(5, 0)));
 		manager.initPools();
 		manager.startRouteHandler();
 	}
