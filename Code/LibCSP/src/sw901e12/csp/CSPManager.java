@@ -2,7 +2,6 @@ package sw901e12.csp;
 
 import javax.realtime.PeriodicParameters;
 import javax.realtime.PriorityParameters;
-import javax.realtime.RelativeTime;
 import javax.safetycritical.StorageParameters;
 import javax.safetycritical.annotate.Level;
 import javax.safetycritical.annotate.Phase;
@@ -31,7 +30,7 @@ public class CSPManager {
 	
 	/* Special addresses and ports */
 	public static final byte ADDRESS_BROADCAST = 31;
-	public static final byte PORT_ANY = Const.MAX_BIND_PORTS + 1;
+	public static final byte PORT_ANY = Const.MAX_BIND_PORTS;
 	
 	public static byte nodeAddress;
 	public static short outgoingPorts;

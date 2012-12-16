@@ -53,12 +53,12 @@ public class RouteHandler extends PeriodicEventHandler {
 
 	@Override
 	@SCJAllowed(Level.SUPPORT)
-	public void handleAsyncEvent() {		
+	public void handleAsyncEvent() {
 		PacketCore packet = packetsToBeProcessed.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		
 		if (packet != null) {
 			byte packetDST = packet.getDST();
-			
+
 			/* The packet is for me */
 			if (packetDST == CSPManager.nodeAddress || packetDST == CSPManager.ADDRESS_BROADCAST) {
 				
@@ -68,15 +68,16 @@ public class RouteHandler extends PeriodicEventHandler {
 				
 				/* If its the first packet with no existing connection (server) */
 				if (packetConnection == null) {
-					
+
 					/* Extract the port from the packet header */
 					Port packetDPORT = portTable[packet.getDPORT()];
-					if (!packetDPORT.isOpen) {	
+
+					if (!packetDPORT.isOpen) {
 						packetDPORT = portTable[CSPManager.PORT_ANY];
 					}
-					
+
 					/* If a socket listens on the port (server) */
-					if (packetDPORT.isOpen) {						
+					if (packetDPORT.isOpen) {					
 						packetConnection = CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 						if (packetConnection != null) {
 							/* 
@@ -94,7 +95,7 @@ public class RouteHandler extends PeriodicEventHandler {
 						}
 					}
 				}
-				
+
 				/* Check if we have a connection - then deliver or drop the packet */
 				if (packetConnection != null) {
 					ITransportExtension transportExtension = getTransportExtensionForPacket(packet);

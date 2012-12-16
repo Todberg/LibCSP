@@ -71,8 +71,8 @@ public class Queue<T extends IDispose> {
 
 		do {
 			 value = dequeue();
-		} while(((System.currentTimeMillis() < timeout) || waitForever) && (value == null));	
-		
+		} while(((System.currentTimeMillis() < timeout) || waitForever) && (value == null));
+
 		return value;
 	}
 	
