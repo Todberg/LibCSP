@@ -143,7 +143,7 @@ Unfortunately the logic and implementation of the \textit{Pinger} prevents the s
 Alternatively it should be mentioned that the \textit{Pinger} task could be measured using a hybrid of both approaches. To do this, we would place timers around the timeout method, \code{timeoutBasedWaitForModuleResponse}, and use WCA on the remaining code sections. The resulting WCET would then be an aggregation of the WCA and the timing measurements. 
 % section determining_wcet (end)
 
-\section{Response-Time Analysis of Watchdog} % (fold)
+\section{Response-Time Analysis} % (fold)
 \label{sec:response_time_analysis_of_watchdog}
 Using the measured WCET we here perform the final response-time analysis of the concrete implementation. As the WCET for all tasks are way below the specified computation times in our earlier model, it is trivial to verify the schedulability of the implementation. We will, however, provide the calculations below for good measure and proper verification.
 
