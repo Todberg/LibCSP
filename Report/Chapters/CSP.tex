@@ -1,24 +1,24 @@
 \chapter{The Cubesat Space Protocol (CSP)}
 \label{chapter:csp}
-This section will introduce the Cubesat Space Protocol and show an example of a client/server application that uses the protocol. The chapter is based on \cite{GomSpace, GomSpace:CSP} and extensive inspection of the current C implementation~\cite{GomSpace:CSPsrcGit}.
+This chapter introduces the Cubesat Space Protocol, developed by GomSpace introduced in Section \ref{sec:gomspace_and_the_cubesat_space_protocol}, and shows an example of a client/server application that uses the protocol. The chapter is based on \cite{GomSpace, GomSpace:CSP} and extensive inspection of the current C implementation~\cite{GomSpace:CSPsrcGit}.
 
 \section{Mission Scenario}
 The Cubesat Space Protocol is developed with inspiration drawn from the classical TCP/IP protocol stack. It allows different types of devices to form a service oriented network topology. An example of a setup can be seen in Figure \ref{img:network_terminology.pdf}. Here the toplogy is divided into a space and ground segment. For easy addressing, the space and ground segments are typically assigned the address ranges $0-15$ and $16-31$ respectively\footnote{This address range only holds for the newest packet format (1.0+).}. This makes it easy to distinguish between the addresses as every ground module has a binary 1 as its \textit{MSB} and every space module a binary 0. As can be seen, different types of physical connections may be used between individual modules, and not all need to be directly connected. CSP allows application developers to abstract from these details through its protocol stack.
 
-\img{network_terminology.pdf}{0.6}{Example scenario where CSP is used for communicating between modules in a space mission.}
+\img{network_terminology.pdf}{0.6}{Example scenario where CSP is used for communicating between modules in a space mission. Adapted and modified from \cite{GomSpace:CSP}.}
 
 \section{The Protocol Stack}
 CSP is divided into several layers having distinct responsibilities and with communication only between the adjacent layer(s). Figure \ref{img:csp_stack.pdf} shows the protocol stack with the four different layers.
 
-\img{csp_stack.pdf}{0.9}{The CSP protocol stack.}
+\img{csp_stack.pdf}{0.75}{The CSP protocol stack. Adapted and modified from \cite{GomSpace:CSP}.}
 
 The following describes the responsibility of each layer:
 
 \begin{description}
 	\item[1. Driver] The \textit{Driver} layer contains low-level drivers for supported network devices such as I2C and CAN. GomSpace advices the use of DMA and interrupt driven drivers whenever possible, in case of having to write new drivers, as a means of ensuring network stability and high performance.
-	\item[2. Mac Layer Protocols] This layer is responsible for defining a suitable frame format for the packets such that MAC-layer information can be sent along with the packet. Furthermore whenever a new frame arrives on a particular interface, the incoming frame exterior is removed, leaving only the raw packet. This packet is then shipped to the upper layer for delivery. Similarly, whenever a packet arrives from the above layer, the packet is encapsulated in a frame and sent to the right driver.
+	\item[2. MAC-layer Protocols] This layer is responsible for defining a suitable frame format for the packets such that MAC-layer information can be sent along with the packet. Furthermore whenever a new frame arrives on a particular interface, the incoming frame exterior is removed, leaving only the raw packet. This packet is then shipped to the upper layer for delivery. Similarly, whenever a packet arrives from the above layer, the packet is encapsulated in a frame and sent to the right driver.
 	\item[3. Router Core] The \textit{Router Core} layer can be considered the backbone of the protocol, as this layer is responsible for routing packets to the correct destinations. As the network topology is known in advance, each node maintains a complete overview of the network in the internal routing table. The entries in the table are destination addresses and next-hop interfaces. Various fixed-sized buffers are also allocated at this layer for holding packets, sockets, connections etc.
-	\item[4. Transport Extensions] This topmost layer defines one or more delivery methods just like the TCP/IP or the OSI stack does. Two transport extensions are developed by GomSpace, which are the \textit{Unreliable Datagram Protocol}~(UDP) and the \textit{Reliable Datagram Protocol}(RDP). For small satellites, the internal bus is usually very reliable rendering RDP somewhat unnecessary. In order to be absolute certain of a reliable transmission in terms of avoiding packet loss, packet duplication, ordering issues or erroneous data integrity, either RDP or UDP with a user-space application on top, capable of dealing with these issues should be used. Often time sensitive applications such as real-time systems uses UDP because waiting for packets as opposed to just dropping them may not an option. This layer is also the one application developers usually will be interfacing with. It should be noted that UDP is not equivalent to UDP in the Internet protocol suite.
+	\item[4. Transport Extensions] This topmost layer defines one or more delivery methods just like the TCP/IP or the OSI stack does. Two transport extensions are developed by GomSpace, which are the \textit{Unreliable Datagram Protocol}~(UDP) and the \textit{Reliable Datagram Protocol}~(RDP). For small satellites, the internal bus is usually very reliable rendering RDP somewhat unnecessary. In order to be absolutely certain of a reliable transmission in terms of avoiding packet loss, packet duplication, ordering issues or erroneous data integrity, either RDP or UDP with a user-space application on top, capable of dealing with these issues should be used. Often time sensitive applications such as real-time systems uses UDP because waiting for packets as opposed to just dropping them may not be an option. This layer is also the one application developers usually will be interfacing with. It should be noted that UDP is not equivalent to UDP in the Internet protocol suite.
 
 \end{description}
   
@@ -39,12 +39,12 @@ For further details on other features we refer to the listed GitHub repository.
 \section{Packet Format}
 A packet is divided into two parts for the header and the payload respectively. Figure \ref{img:csp_header.pdf} shows the latest packet format, (1.0+).
 
-\img{csp_header.pdf}{1.0}{The header format of a CSP 1.0+ packet.}
+\img{csp_header.pdf}{1.0}{The header format of a CSP 1.0+ packet. Adapted from \cite{CSPWiki}.}
 
 As it can be seen, a total of 32 bits are used for being able to differentiate between packet importance (priority), maintaining routing information (addresses and ports) and enabling other operations to be performed such as encryption/decryption (XTEA) and data integrity checks (CRC). From bit number 32, the actual payload begins.
 
 \section{Client/Server Example}
-In order to show what we wish to accomplish with the SCJ implementation, we here show a little example of its usage. Listing \ref{cspexampleserver} shows a simple server application, which uses the protocol. 
+In order to show what we wish to accomplish with the SCJ implementation, we here show a little example of its usage. The example is based on a provided example from GomSpace\cite{GomSpace:CSP}. Listing \ref{cspexampleserver} shows a simple server application, which uses the protocol.
 
 \lstinputlisting[label=cspexampleserver,caption=Example of a server application.]
 {Code/server.c}

@@ -1,9 +1,9 @@
 \chapter{Java Optimized Processor (JOP)}
 \label{chapter:jop}
-In order to implement the CSP library in SCJ, a virtual machine with an implementation of SCJ is needed. This Chapter will briefly introduce the used JVM and the associated platform for this purpose. The Chapter is based on \cite{Schoeberl_ajava, JOPDesign, jop:handbook}.
+In order to implement the CSP library in SCJ, a virtual machine with an implementation of SCJ is needed. This chapter will briefly introduce the used JVM and the associated platform for this purpose. The chapter is based on \cite{Schoeberl_ajava, JOPDesign, jop:handbook}.
 
 \section{The Java Optimized Processor}
-The Java Optimized Processor (JOP) is a small RISC soft microprocessor core of the Java virtual machine implemented in hardware. What sets this processor aside from other processors, is in its ability to run Java bytecode natively in a time predictable manner. JOP is written in the low-level hardware language, \textit{Very high speed integrated circuit Hardware Description Language}~(VHDL) and is targeted at \textit{Field Programmable Gate Arrays}~(FPGA). Some of the key architectureal features of JOP include:
+The Java Optimized Processor (JOP) is a small RISC soft microprocessor core of the Java virtual machine implemented in hardware. What sets this processor aside from other processors, is in its ability to run Java bytecode natively in a time predictable manner. JOP is written in the low-level hardware language, \textit{Very high speed integrated circuit Hardware Description Language}~(VHDL) and is targeted at \textit{Field Programmable Gate Arrays}~(FPGA). Some of the key architectural features of JOP include:
 
 \begin{itemize}
  	\item Dynamic one cycle translations of CISC Java bytecode instructions to a RISC stack based instruction set (microcode) in a three stage pipeline (a four stage pipeline in total)
@@ -12,13 +12,12 @@ The Java Optimized Processor (JOP) is a small RISC soft microprocessor core of t
  	\item No time dependencies between bytecodes that yields a simpler WCET analysis
  	\item Time predictable instruction cache that caches whole methods such that only invoke and return can cause cache misses
  	\item Time predictable cache that caches local variables and the operand stack such that access to local variable always hits
- 	\item Good average case performance compared to other real-time Java processors.
 \end{itemize}
 One of the most compelling aspects of JOP from a real-time perspective, is that it supports the analysis of Java applications in terms of execution time --- i.e. once the execution time for a given chunk of code is known, it remains the same provided that the execution path also remains the same. 
 
 \section{SCJ Implementation on JOP} % (fold)
 \label{sec:scj_implementation_on_jop}
-In relation to SCJ, JOP supports applications conforming to compliance levels 0 and 1, making it a suitable choice for this project. An \textit{Altera DE2-70}, running at 60 MHz, configured with JOP will be used in the implementation of CSP. The board can be seen in Figure \ref{img:board.pdf}. It is possible to connect external hardware devices to the board and a configuration of JOP is supplied that supports a number of these interfaces.
+In relation to SCJ, JOP supports applications conforming to compliance levels~0~and~1, making it a suitable choice for this project. An \textit{Altera DE2-70}, running at 60 MHz, configured with JOP is used in the implementation of CSP. The board can be seen in Figure \ref{img:board.pdf}. It is possible to connect external hardware devices to the board and a configuration of JOP is supplied that supports a number of these interfaces.
 
 It should be noted that the SCJ implementation deviates from the specification by using \textit{Hardware Objects}\cite{Schoeberl:2011:HAL:2043662.2043666, Schoeberl:2008:HOJ:1371608.1372849} as opposed to the \textit{Raw Memory Access} interface.
 

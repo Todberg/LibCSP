@@ -4,6 +4,25 @@ In this chapter we look at possibilities for future work. These suggestions are 
 
 \section{Safety-Critical Java} % (fold)
 \label{sec:scjfuture}
+For SCJ we propose the following directions and topics for future work.
+
+\subsection{Define Destructors in the Specification}
+While Java does not explicitly define destructors as found in e.g. C++ or C\#, the \code{Object.finalize} method can be considered almost equivalent. Under the scoped memory model the use of destructors can be benefitial. An example is in the use of the resource pool pattern. Because this pattern will likely be used extensively, as handlers often communicate, it would be benefitial to allow the development of encapsulations that makes the use of such a pattern more safe. The \textit{Transparent Use of Resource Pool} technique was invented, but suffers from additional copying. We mentioned the \textit{RAII} C++ idiom as an idea, but was unable to try it due to the absence of destructors in SCJ. The possible benefits of including a destructor-like feature in SCJ should be further investigated, and how this could be defined.
+
+\subsection{Garbage Collection as a Viable Option?} % (fold)
+\label{sub:garbage_collection_as_a_viable_option}
+We stated in Section \ref{sub:interestingresearch} that requirements for the use of garbage collection have been defined in a new version of the DO-178B standard. Existing work in experimenting with garbage collection for SCJ has been done previously\cite{Schoeberl:2007:GCS:1288940.1288953}. Because we found the scoped memory model to be one of the more challenging parts of SCJ and is one of the most significant differences between that and standard Java, the use of garbage collection should be further investigated. This may be based on the existing work. In the cited material a pragmatic approach was taken to implement a garbage collector for SCJ. However, one issue presented., is that of knowing the amount of memory allocation performed in each handler that is needed to verify schedulability. Determining memory allocation is also useful under the scoped memory model. This is discussed in the following.
+
+\subsection{Static Memory Analysis} % (fold)
+\label{sub:memoryanalysis}
+Being able to perform static analysis on memory use is a valuable contribution both for the scoped memory model and possible use of garbage collection. Work has been done in static analysis of memory references to avoid references to shorter lived scopes\cite{Dalsgaard:2012:PMA:2388936.2388939}. We found that another challenge was the need for explicit stating sizes of the memory areas. Doing this properly requires knowledge on the underlying platform in addition to the application itself. Static analysis of memory allocation in SCJ applications should be investigated further. Because this is dependant on the hardware and platform, work in this should be general memory allocation analysis techniques that can be applied for different hardware models.
+
+
+\subsection{Development and Analysis Tools} % (fold)
+\label{sub:development_and_analysis_tools}
+As a result of SCJ not being completed and the implementation we used on JOP being incomplete, tools that support the development are naturally not yet developed. This is both in terms of analysis tools on SCJ applications, but also for supporting the compilation process, debugging and so on. Especially the compilation process is currently troublesome as the written SCJ application goes through several compilations to produce an output for JOP. For debugging one must rely on the infamous tried-and-tested approach of writing to standard out. And considering it takes more than half a minute for transferring an application to the Altera board, this significantly slows down the development. The provided JOP simulator makes the turnaround faster, but as issues were found in certain cases when using this, running on the actual hardware was unavoidable. In order to speed up the development process for this project we developed build scripts for ANT that could be used in the Eclipse environment. These provided features for compiling to JOP format and directly running in simulator or uploading and running on the Altera board. These extensions are appended in Appendix \ref{cha:build_scripts} and may also be found on our GitHub respository\cite{SW902e12:CSPinSCJ}. Any future work in supporting the development process is valuable, as this can be considered essential in order for people to adopt SCJ once its completed.
+
+
 % Udviklingsprocessen - “bærer præg af” det er så nyt - mangler værktøjer. Vi har lavet build scripts til Eclipse, til at bygge og udføre på JOP sim og Altera boardet.
 % Development of new libraries specifically for the scoped memory model/converte existing java ones
 % inalize/”desctructors” meget anvendelige for scoped memory. orsøgt at pakke anvendelsen af scoped memory ind og gøre det mere “sikkert”
@@ -12,10 +31,23 @@ In this chapter we look at possibilities for future work. These suggestions are 
 
 \section{The CSP Implementation} % (fold)
 \label{sec:the_csp_implementation}
-% Færdiggørelse af features, RDP eks.
+In addition to work on SCJ itself, we also propose the following areas in which our current implementation may be improved. These areas are in addition to completing the implementation with the remaining features of CSP that were omitted.
+
+\subsection{Determining Optimal Parameters for Routing Handler Statically} % (fold)
+\label{sub:determining_optimal_parameters_for_routing_handler_statically}
+The choice of creating a separate routing handler requires its periodic and priority parameters to be specified. These are dependant on numerous factors in the application in which it is applied, such as amount of traffic and execution time and priority of other handlers. Through experimentation and extensive testing we found that always assigning the routing handler the highest priority provides the best throughput. This was done through a very pragmatic approach, and determining optimal periodic and priority parameters based on a number of settings should be investigated in more details. The problem could also be generalised, as the routing handler could be considered a type of \textit{service handler}. Work on this problem which may apply to other problems as well, in which SCJ applications make use of one or more handlers dedicated to servicing other handlers.
+
+\subsection{Use of Lock-Free Algorithms} % (fold)
+\label{sub:lock_free_algorithms}
+Currently the implementation of the queue data structure was done using the known synchronisation features in Java. This allowed us to try out the restrictions on these in SCJ. A different implementation would be interesting to examine, with the use of a lock-free queue instead\cite{Valois94implementinglock-free}\cite{Michael:1996:SFP:248052.248106}.
+What we would be particular interested in investigating would be the differences in both performance, but also the difference in analysis complexity. Findings in such an investigation could be transferred to many other data structures and implementing these in SCJ.
+
+% subsection lock_free_algorithms (end)
+
+
 % Automatisk find parametre til routing handleren
 % Fuld analyse og generalisering af analyse der kan anvendes på tværs af applikationer der anvender denne
 % Udforske anvendelse Lock-free algorithms til SCJ istedet for, og hvilken tilgang der er bedst for eks. implementation af køer i forhold til analyse
-
+% exception handling
 
 % section the_csp_implementation (end)
