@@ -36,4 +36,28 @@ The \textit{Checker}, has not changed much apart from going directly to the slav
 This handler did not require any changes and could be used as is.
 
 \section{Determining WCET}
+With the new CSP enabled watchdog, we will now calculate WCET values for the three tasks. As with the original level 1 compliant watchdog, the procedure of determining WCET is identical, namely by using a combination of run-time end-to-end measurements and static analysis (control flow analysis (CFA) using the WCA tool). Refer to Section \ref{sec:determining_wcet} in Appendix \ref{appendix:WD} to read about the rationale and decisions behind choosing the specific measuring techniques for the different tasks. Because the \textit{Recovery} handler remains unchanged, the WCET is also the same:
 
+\begin{itemize}
+	\item \textbf{Recovery:} $32337\ cycles \Rightarrow \frac{32337\ cycles}{60.000.000\ cycles/sec} * 1000 = 0.53895\ ms$
+\end{itemize}
+
+For the \textit{Checker} handler, only small changes were made as a result of deleting the \code{ModulePinger} and transferring the response flag directly onto the \code{Module} itself. To calculate the new WCET value for this task, we used the WCA tool to analyse its \code{handleAsyncEvent} method as before. This yielded the following WCET value:
+
+\begin{itemize}
+	\item \textbf{Checker:} $3889\ cycles \Rightarrow \frac{3889\ cycles}{60.000.000\ cycles/sec} * 1000 = 0.0648\ ms$
+\end{itemize}
+
+As anticipated, the WCET is roughly the same. Next the \textit{Routing} task in CSP was measured. Like with the two previous tasks, control flow analysis is a suitable solution as none of the task functionality is bounded on time (the dequeue operations are only attempted once with \code{TIMEOUT\_SINGLE\_ATTEMP}). To handle the iterations for internally used loops, we added bound annotations for the tool to analyse. In order to verify that the tool was able to reach deeply into all called methods, we inspected the visual output graph and the coverage files. The following WCET was outputted:
+
+\begin{itemize}
+	\item \textbf{Routing:} $81740\ cycles \Rightarrow \frac{81740\ cycles}{60.000.000\ cycles/sec} * 1000 = 1.3623\ ms$
+\end{itemize}
+
+The final \textit{Pinger} handler was measured with end-to-end measurement and with 10 slave modules having \iic interfaces. The timeout upon reading the server response packet was set to 10 ms. Note that the \textit{Pinger} always and immediately is able to acquire the queue lock as all other tasks are disabled including the CSP routing task. When executing the application and waiting for a few minutes, the highest execution time was:
+
+\begin{itemize}
+	\item \textbf{Pinger:} $131000\ \mu s * 1.25 = 163750\ \mu s \Rightarrow \frac{130517.5\ \mu s}{1000\ \mu s /ms} = 163.75\ ms$
+\end{itemize}
+
+\section{Response-Time Analysis}

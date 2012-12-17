@@ -82,7 +82,7 @@ public class InterfaceI2C implements IMACProtocol {
 	public int mergeNextDataBytesReceivedAndInsertIntoInteger() {
 		int result = 0;
 		
-		for (byte b=0; b < 4; b++){
+		for (byte b=0; b < 4; b++){ // @WCA loop<=4
 			result |= I2CPort.rx_fifo_data << position(b);
 		}
 		
@@ -96,7 +96,7 @@ public class InterfaceI2C implements IMACProtocol {
 
 	public void sliceDataIntoBytesAndInsertIntoFrame(int[] frame, int data) {
 		int dataMask;
-		for(byte b = 0 ; b < INT_SIZE_IN_BYTES; b++) {
+		for(byte b = 0 ; b < INT_SIZE_IN_BYTES; b++) { // @WCA loop<=4
 			dataMask = 0xFF000000 >>>  b*8;
 			frame[frameByteIndex] = (data & dataMask) >>> position(b);
 			frameByteIndex++;
