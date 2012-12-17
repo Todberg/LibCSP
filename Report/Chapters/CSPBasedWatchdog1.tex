@@ -33,7 +33,7 @@ The \textit{Checker}, has not changed much apart from going directly to the slav
 
 \lstinputlisting[language=Java,label=recoverynew,caption=The Recovery handler.]{Code/Implementation/recovery.java}
 
-This handler did not require any changes and could be used as is.
+This handler did not require any changes and could be used as is. Finally, it should be noted that in addition to the original three periodic event handlers, the routing handler is now also present. This has a period of $5$ ms, and runs with the highest priority ($20$). Because the routing handler is not a part of the precedence relationship between the original tasks, the deadline of the routing handler is the same as its period.
 
 \section{Determining WCET}
 With the new CSP enabled watchdog, we will now calculate WCET values for the three tasks. As with the original level~1 compliant watchdog, the procedure of determining WCET is identical, namely by using a combination of run-time end-to-end measurements and static analysis (control flow analysis (CFA) using the WCA tool). Refer to Section \ref{sec:determining_wcet} in Appendix \ref{appendix:WD} to read about the rationale and decisions behind choosing the specific measuring techniques for the different tasks. Because the \textit{Recovery} handler remains unchanged, the WCET is also the same:
