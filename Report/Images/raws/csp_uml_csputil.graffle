@@ -14,7 +14,7 @@
 	<key>BackgroundGraphic</key>
 	<dict>
 		<key>Bounds</key>
-		<string>{{0, 0}, {1118, 783}}</string>
+		<string>{{0, 0}, {1117.9999465942383, 783}}</string>
 		<key>Class</key>
 		<string>SolidGraphic</string>
 		<key>ID</key>
@@ -784,7 +784,7 @@ PER_CONNECTION \ulnone : byte\ul \
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\fs24 \cf0 sw902e12.csp.util}</string>
+\f0\fs24 \cf0 sw901e12.csp.util}</string>
 					</dict>
 				</dict>
 			</array>
@@ -839,7 +839,7 @@ PER_CONNECTION \ulnone : byte\ul \
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-13 15:29:51 +0000</string>
+	<string>2012-12-17 09:27:33 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
@@ -870,7 +870,7 @@ PER_CONNECTION \ulnone : byte\ul \
 		<key>NSPaperSize</key>
 		<array>
 			<string>size</string>
-			<string>{595, 842}</string>
+			<string>{594.99997329711914, 842}</string>
 		</array>
 		<key>NSPrintReverseOrientation</key>
 		<array>
@@ -920,7 +920,7 @@ PER_CONNECTION \ulnone : byte\ul \
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{450, 100}, {693, 938}}</string>
+		<string>{{94, 67}, {693, 811}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
@@ -934,7 +934,7 @@ PER_CONNECTION \ulnone : byte\ul \
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{0, 0}, {558, 783}}</string>
+		<string>{{0, 0}, {558, 656}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
