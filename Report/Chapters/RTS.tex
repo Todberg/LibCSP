@@ -101,6 +101,7 @@ The currently executing task is in a \textit{running} state, but can be \textit{
 In many cases it makes sense to interrupt a lower priority task when a task with a higher priority is ready to run --- this is called \textit{preemption}. Sometimes, however, the lower priority task is allowed to continue to complete in case of another higher priority task being in a runnable state --- this is called \textit{non-preemption}. Often a preemptive approach is preferred over a non-preemptive as there are often reasons associated with assigning some tasks high priority, namely that these tasks should always be preferred to lower priority ones - in a non-preemptive solution this requirement is often violated letting the high priority tasks become less active. As two extreme alternatives, it is possible to delay the preemption of a task for some bounded time or simply just let the tasks decide when to release the CPU. These approaches are known as \textit{deferred preemption} and \textit{cooperative dispatching} respectively.
 
 \subsubsection{Simple Task Model}
+\label{subsub:taskmodel}
 Analysis of programs is not an easy task, and when concurrency comes into play with multiple tasks that may use synchronisation mechanisms, this becomes a complex task. Therefore, the schedulability tests presented build upon \textit{the simple task model} that imposes restrictions in concurrent real-time systems. The simple task model makes the following assumptions of a concurrent real-time system:
 
 \begin{itemize}

@@ -1,5 +1,5 @@
 \section{Response-Time Analysis}
-To create a RTA for the new watchdog application, the requirement of task independence from the simple task model in Section \ref{} will have to be loosened. Moreover, some of the tasks share critical sections throughout execution which can infer blocking times that will have be be included in the calculations. To extend the Response-Time Analysis to consider blocking times, we will therefore need to calculate the execution times of the involved shared critical sections (synchronised methods). These are:
+To create a RTA for the new watchdog application, the requirement of task independence from the simple task model in Section \ref{subsub:taskmodel} will have to be loosened. Moreover, some of the tasks share critical sections throughout execution which can infer blocking times that will have be be included in the calculations. To extend the Response-Time Analysis to consider blocking times, we will therefore need to calculate the execution times of the involved shared critical sections (synchronised methods). These are:
 
 \begin{itemize}
 	\item $ sw901e12.csp.core.ConnectionCore.processPacket \approx 0.0247$
@@ -38,7 +38,7 @@ The response time of the task can be seen in Equation \ref{eq:isr}.
       R_{ISR} &=& 0.1342 + 0.0130 = 0.1472
 \end{eqnarray}
 
-The \textit{routing} task is a bit more complicated as it can be interrupted by the aperiodic \textit{ISR} task which have no period defined. First of all the blocking time must be calculated as seen in Equation \ref{routingblock}.
+The \textit{routing} task is a bit more complicated as it can be interrupted by the aperiodic \textit{ISR} task which have no period defined. First of all the blocking time must be calculated as seen in Equation \ref{eq:routingblock}.
 
 \begin{eqnarray}
 \label{eq:routingblock}
@@ -46,20 +46,31 @@ The \textit{routing} task is a bit more complicated as it can be interrupted by 
      B_{Routing} &=& 0.0130
 \end{eqnarray}
 
-To find the response time
+To find the response time, we use can not directly use Equation \ref{eq:rtablock} because of the unknown period, $T_{j}$. However, the expression appearing in the equation; $\ceil{\frac{R_{i}}{T_{j}}}$, states the number of releases of a higher priority task $j$ within the time interval $[0-R_{i}]$. For the \textit{routing} task we know that it can only be interrupted once by the \textit{ISR} task - i.e. in case the \textit{Pinger} task sends a packet but is preempted by the \textit{Routing} task before receiving a response. In this case, the \textit{Routing} task can in the worst-case be preempted a single time if a response packet arrives and is being processed by the \textit{ISR} task. The response time thus becomes as seen in Equation \ref{eq:routing}:
 
-% \nonumber \\
-%       R_{ISR} &=& 0.1342 + 0.0130 &=& 0.1472
+\begin{eqnarray}
+\label{eq:routing}
+      R_{Routing} &=& C_{Routing} + (1 \cdot C_{ISR}) + B_{Routing} \nonumber \\
+      R_{Routing} &=& 1.3623 + 0.1342 + 0.0130 = 1.5095
+\end{eqnarray}
 
-% \begin{eqnarray}
-% 	B_{Routing} &=& max(0 \cdot 0.0247, 0 \cdot 0.0159, 1 \cdot 0.0125, 1 \cdot 0.0130) \nonumber \\
-% 	B_{Routing} &=& 0.0130
-% \end{eqnarray}
+The blocking time for the \textit{Pinger} task can be seen in Equation \ref{eq:pingerblock}.
 
-% \begin{eqnarray}
-% 	w_{Routing}^0 &=& C_{Routing} = 1.3623 \nonumber \\ 
-%     w_{Routing}^1 &=& 1.3623 + 0.0130 + \ceil{\frac{1.3623}{50}} \cdot 0.1342 =  \nonumber \\ 
-%     w_{Routing}^2 &=& 1.3623 + \ceil{\frac{170}{500}}*150 = 170 \nonumber \\
-%     R_{Routing} &=& 170
-% \end{eqnarray}
+\begin{eqnarray}
+\label{eq:pingerblock}
+     B_{Routing} &=& max(0 \cdot 0.0247, 0 \cdot 0.0159, 0 \cdot 0.0125, 0 \cdot 0.0130) \nonumber \\
+     B_{Routing} &=& 0
+\end{eqnarray}
 
+By using Equation \ref{eq:rtablock}, the response-time becomes as seen in Equation \ref{eq:pinger}. In the worst case, the \textit{ISR} can block the \textit{Pinger} 10 times in case of receiving reponse from all 10 modules.
+
+\begin{eqnarray}
+\label{eq:pinger}
+    w_{Pinger}^0 &=& C_{Pinger} = 163.75 \nonumber \\ 
+    w_{Pinger}^1 &=& 163.75 + \ceil{\frac{163.75}{5}} \cdot 1.3623 + (10 \cdot 0.1342) = 210.0479 \nonumber \\ 
+    w_{Pinger}^2 &=& 163.75 + \ceil{\frac{210.0479}{5}} \cdot 1.3623 + (10 \cdot 0.1342) = 223.6709 \nonumber \\
+    w_{Pinger}^3 &=& 163.75 + \ceil{\frac{223.6709}{5}} \cdot 1.3623 + (10 \cdot 0.1342) = 226.3955 \nonumber \\
+    w_{Pinger}^4 &=& 163.75 + \ceil{\frac{226.3955}{5}} \cdot 1.3623 + (10 \cdot 0.1342) = 227.7570 \nonumber \\
+    w_{Pinger}^5 &=& 163.75 + \ceil{\frac{227.7570}{5}} \cdot 1.3623 + (10 \cdot 0.1342) = 227.7570 \nonumber \\
+    R_{Pinger} &=& 227.7570
+\end{eqnarray}
