@@ -11,7 +11,7 @@ Consider the network example illustrated in Figure \ref{img:network_terminology_
 \img{network_terminology_connections.pdf}{0.60}{Example scenario with active connections using CSP. The tuples like (x,~y) and (x,~y,~z,~w) represents (source~address,~source port) and (destination~address,~destination~port,~source~address,~source~port) respectively.}
 
 The relationship between ports, sockets, connections and packets is illustrated in Figure \ref{img:overallflow.pdf}. Note that while source and destination ports occupies 6 bits each in the header, only values $0-47$ are available for incoming connections (of which port 0-8 is reserved for ICMP-like requests). The remaining ports up to 63 are used for outgoing connections.
-\img{overallflow.pdf}{0.6}{Relationship between a socket bound to a port and with a list of connections each having its own list of packets.}
+\img{overallflow.pdf}{0.9}{Relationship between a socket bound to a port and with a list of connections each having its own list of packets.}
 
 As a result of this, we have the following classes to support these concepts:
 \begin{description}

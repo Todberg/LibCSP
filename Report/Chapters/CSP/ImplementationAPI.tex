@@ -1,12 +1,12 @@
 \subsection{Transparent Scoped Memory Handling} % (fold)
 \label{sub:transparent_memory_}
 The use of the resource pools is made transparent by the \code{CSPManager} through which client applications use the implementation. Retrieving a \code{Socket}, \code{Connection} or \code{Packet} is done as seen in Listing \ref{createsocket}.
-\lstinputlisting[label=createsocket,caption=The createSocket method of CSPManager]
+\lstinputlisting[language=Java,label=createsocket,caption=The createSocket method of CSPManager]
 {Code/Implementation/createsocket.java}
 
 Ensuring that \code{Socket} and \code{Connection} objects are put back into the queue, is done by implementing the \code{close} method on \code{SocketCore} and \code{ConnectionCore}, which in turn invokes the \code{dispose} method of the corrosponding element. %\code{Packet} objects, however, does not have a \code{close} method available, thus packets that are not sent, but read through a connection must manually be put back into the pool. 
 \code{Packet} objects are, however, a bit more complicated as these either can be fetched through the pool (in case of constructing a new packet) or read through connections (in case of reading an incoming packet). Furthermore as these do not have a \code{close} method, manually putting them back into the pool after use can become nessesary. In terms of reading a new packet from a connection, we instead take advantage of the scoped memory model in the \code{read} method on \code{ConnectionCore}. Rather than returning the actual \code{PacketCore} object that resides in mission memory, we instantiate a new object during the read, returns this newly allocated \code{PacketCore} object and puts the existing object back into the pool. This is seen in Listing \ref{readpacket}. The new packet object is allocated in a private memory area, in the context of the executing handler, and will be deallocated later according to the memory semantics. We will denote this technique as \textit{Transparent Use of Resource Pool}.
-\lstinputlisting[label=readpacket,caption=The read method on ConnectionCore]
+\lstinputlisting[language=Java,label=readpacket,caption=The read method on ConnectionCore]
 {Code/Implementation/packetread.java}
 
 We emphasize that the scoped memory model presents additional possibilities. To ensure, in this case of using resource pools, that objects are always returned, one could use a technique similar to one often used in C++ --- \textit{Resource Acquisition Is Initialization}~(RAII)\cite{RAII}. While the use of locks is exception-safe in Java, this technique provides other uses. Returning an object to the pool could happen in the \code{finalize()} method of an encapsulating object and thereby always be executed. However, as \code{finalize()} is currently not implemented in the Java version on JOP, this technique has not been applied. Additionally the semantics of this would have to be changed to the memory model.

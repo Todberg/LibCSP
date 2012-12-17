@@ -7,8 +7,6 @@
 \usepackage{lastpage}
 \usepackage{caption}
 \usepackage{lmodern}
-\usepackage{tikz}
-\usetikzlibrary{shapes.callouts,shadows, calc}
 \usepackage{courier}
 \usepackage{mathtools}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
@@ -50,100 +48,40 @@
 	\end{figure} 
 }
 
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\tikzset{note/.style={rectangle callout, rounded corners,fill=gray!20,drop shadow,font=\footnotesize}}    
-
-\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}    
-
-\newcounter{image}
-\setcounter{image}{1}
-
-\makeatletter
-\newenvironment{btHighlight}[1][]
-{\begingroup\tikzset{bt@Highlight@par/.style={#1}}\begin{lrbox}{\@tempboxa}}
-{\end{lrbox}\bt@HL@box[bt@Highlight@par]{\@tempboxa}\endgroup}
-
-\newcommand\btHL[1][]{%
-  \begin{btHighlight}[#1]\bgroup\aftergroup\bt@HL@endenv%
-}
-\def\bt@HL@endenv{%
-  \end{btHighlight}%   
-  \egroup
-}
-\newcommand{\bt@HL@box}[2][]{%
-  \tikz[#1]{%
-    \pgfpathrectangle{\pgfpoint{0pt}{0pt}}{\pgfpoint{\wd #2}{\ht #2}}%
-    \pgfusepath{use as bounding box}%
-    \node[anchor=base west,rounded corners, fill=green!30,outer sep=0pt,inner xsep=0.2em, inner ysep=0.1em,  #1](a\theimage){\usebox{#2}};
-  }%
-   %\tikzmark{a\theimage} <= can be used, but it leads to a spacing problem
-   % the best approach is to name the previous node with (a\theimage)
- \stepcounter{image}
-}
-\makeatother
-
-\lstdefinelanguage{own}
-{
-morecomment = [l]{//},
- morecomment = [l]{///},
- morecomment = [s]{/*}{*/},
- morestring=[b]",
- sensitive = true,
- morekeywords = {abstract,  event,  new,  struct,
-  as,  explicit,  null,  switch,
-  base,  extern,  object,  this,
-  bool,  false,  operator,  throw,
-  break,  finally,  out,  true,
-  byte,  fixed,  override,  try,
-  case,  float,  params,  typeof,
-  catch,  for,  private,  uint,
-  char,  foreach,  protected,  ulong,
-  checked,  goto,  public,  unchecked,
-  class,  if,  readonly,  unsafe,
-  const,  implicit,  ref,  ushort,
-  continue,  in,  return,  using,
-  decimal,  int,  sbyte,  virtual,
-  default,  interface,  sealed,  volatile,
-  delegate,  internal,  short,  void,
-  do,  is,  sizeof,  while,
-  double,  lock,  stackalloc,  
-  else,  long,  static,  
-  enum,  namespace,  string}
-}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
  
 
 \lstset{
-      language=own,
-         basicstyle=\footnotesize\ttfamily,
-         numbers=left,               
-         numberstyle=\tiny,
-         numbersep=5pt, 
-         tabsize=4, 
-         extendedchars=true,
-         breaklines=true, 
-         keywordstyle=\color{red},
-        frame=b,         
- %        keywordstyle=[1]\textbf,    % Stil der Keywords
- %        keywordstyle=[2]\textbf,    %
- %        keywordstyle=[3]\textbf,    %
- %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
-         stringstyle=\color{black}\ttfamily, % Farbe der String
-         showspaces=false,           % Leerzeichen anzeigen ?
-         showtabs=false,             % Tabs anzeigen ?
-         xleftmargin=17pt,
-         framexleftmargin=17pt,
-         framexrightmargin=5pt,
-         framexbottommargin=4pt,
-         %backgroundcolor=\color{lightgray},
-         showstringspaces=false,      % Leerzeichen in Strings anzeigen ?        
-         moredelim=**[is][\btHL]{`}{`},
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\color{javapurple}\bfseries,
+  stringstyle=\color{javared},
+  commentstyle=\color{javagreen},
+  morecomment=[s][\color{javadocblue}]{/**}{*/},
+  numbers=left,               
+  numberstyle=\tiny,
+  numbersep=5pt, 
+  tabsize=4, 
+  extendedchars=true,
+  breaklines=true, 
+  frame=b,         
+  showspaces=false,           
+  showtabs=false,             
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=5pt,
+  framexbottommargin=4pt,
+  showstringspaces=false,
  }
-    %\DeclareCaptionFont{blue}{\color{blue}} 
 
-  %\captionsetup[lstlisting]{singlelinecheck=false, labelfont={blue}, textfont={blue}}
+  \lstloadlanguages{
+         C,
+         Java
+ }
+
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
 \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}

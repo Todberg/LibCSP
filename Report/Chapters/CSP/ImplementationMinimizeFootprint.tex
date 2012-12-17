@@ -2,11 +2,11 @@
 \label{sub:minimizing_memory_footprint}
 From the development standards and guidelines in Section \ref{sec:stdguid}, high performance and a small footprint is usually preferred over object-oriented principles. As a part of integrating these goals in the implementation, consideration when creating variables in relation to memory consumption must be taken. As a consequence, whenever creating some variable of a primitive type, the smallest possible type, in which it is achievable to store the value at hand, is chosen. In the C version, a similar mindset also applied, which can be seen in Listing \ref{spacemin} when defining the packet header.
 
-\lstinputlisting[label=spacemin,caption=Packet header occupying minimal space through the use of low-level language features (bitfields and union).]{Code/Implementation/min.c}
+\lstinputlisting[language=C,label=spacemin,caption=Packet header occupying minimal space through the use of low-level language features (bitfields and union).]{Code/Implementation/min.c}
 
 Similar possibilities for conserving memory are not present in the Java language, however, small data types will be used whenever possible such as \code{byte}. In our implementation we will, amongst other things, compress the \code{data} and \code{header} fields of a \code{Packet} in an \code{integer} each. As the header of a CSP packet occupies 32 bits, an \code{integer} fits the purpose well. Bit masks will be used to interpret the header such that its individual fields can be extracted and inserted when necessary. In order to control this access, \textit{getters} and \textit{setters} are created. Listing \ref{packetfields} shows the header, data, the bit mask for accessing the source port field (SPORT), and its associated \textit{getter} and \textit{setter}.
 
-\lstinputlisting[label=packetfields,caption=Example of minimising the code footprint for a packet.]{Code/Implementation/packet.java}
+\lstinputlisting[language=Java,label=packetfields,caption=Example of minimising the code footprint for a packet.]{Code/Implementation/packet.java}
 
 Note that \textit{getters} and \textit{setters} will be avoided in general and access will in many cases be directly to a \code{public} field. \textit{Getters} and \textit{setters} are implemented when access is non-trivial.
 % subsection minimizing_memory_footprint (end)

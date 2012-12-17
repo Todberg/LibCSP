@@ -2,18 +2,18 @@
 \label{sec:client_server_example}
 With the important features of CSP implemented in SCJ, a simple client/server application that uses the library is illustrated as an example. The application will consist three periodic event handlers for representing two clients and a server. In order to use the library, the package, "\code{sw901e12.csp.*}" is imported. In the missions \code{initialize} method, an instance of the \code{CSPManager} is created and its two initialise methods called (\code{init} and \code{initPools}) - the address of the node is set to 0xA. In this example the Loopback is used as all three handlers will execute in the same application on the specified node address. Therefore a single route is added to the routing table with the Loopback interface. The \code{initialize} method can be seen in Listing \ref{missioninitex}. 
 
-\lstinputlisting[label=missioninitex,caption=CSP initialisation in ClientServerMisson.]{Code/Implementation/mission-init.java}
+\lstinputlisting[language=Java,label=missioninitex,caption=CSP initialisation in ClientServerMisson.]{Code/Implementation/mission-init.java}
 
 For the server handler to be able to accept incoming connections, a \code{Socket} object is retrieved through the manager, in the constructor of the event handler. This is seen in Listing \ref{serversocketex}. The socket is in this case bound to port 12.
 
-\lstinputlisting[label=serversocketex,caption=Socket created and bound to port 12]{Code/Implementation/server-socket.java}
+\lstinputlisting[language=Java,label=serversocketex,caption=Socket created and bound to port 12]{Code/Implementation/server-socket.java}
 
 In the \code{handleAsyncEvent} method of the server, the server checks (once) its connection queue for a pending connection attempt by calling the sockets \code{accept} method. If it successfully fetches a connection from the underlying queue, the content of the received packet is read and acted upon. In case it receives the string 'A', it constructs a new packet and sets its content to 'X'. Similarly if it receives 'B', it sets the content of the response packet to 'Y'. Next the response packet is sent back to the client through the connection. To put the connection back into the resource pool, its \code{close} method must be called. The logic for the server handler can be seen in Listing \ref{handlerserverex}.
 
-\lstinputlisting[label=handlerserverex,caption=Server handler waiting to handle new connections.]{Code/Implementation/server-handler.java}
+\lstinputlisting[language=Java,label=handlerserverex,caption=Server handler waiting to handle new connections.]{Code/Implementation/server-handler.java}
 
 The clients do not need to create a socket in order to send data to some other network node. Instead, a \code{Connection} object can be created through the manager with the server details (address and port). After the connection is fetched in the client handler, a packet is fetched through the manager as well and its content set to 'A'. Next the packet is sent to the server through the connection. The response from the server can be read through a call to the connections \code{read} method. Notice that the client waits infinitely for a response by using the \code{TIMEOUT\_NONE} constant. When a packet arrives to the connection's packet queue, its content is read and printed to the console. Listing \ref{handlerclientex} shows the logic for one of the client handlers. The other handler involved simply sends 'B' instead of 'A'.
 
-\lstinputlisting[label=handlerclientex,caption=One of the client handlers that connects and sends a packet to the server.]{Code/Implementation/handler-client.java}
+\lstinputlisting[language=Java,label=handlerclientex,caption=One of the client handlers that connects and sends a packet to the server.]{Code/Implementation/handler-client.java}
 
 When running the application, the two clients output 'X' and 'Y' respectively.
