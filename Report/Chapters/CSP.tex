@@ -46,14 +46,14 @@ As it can be seen, a total of 32 bits are used for being able to differentiate b
 \section{Client/Server Example}
 In order to show what we wish to accomplish with the SCJ implementation, we here show a little example of its usage. The example is based on a provided example from GomSpace\cite{GomSpace:CSP}. Listing \ref{cspexampleserver} shows a simple server application, which uses the protocol.
 
-\lstinputlisting[label=cspexampleserver,caption=Example of a server application.]
+\lstinputlisting[language=C,label=cspexampleserver,caption=Example of a server application.]
 {Code/server.c}
 
 In line 4-6, pointers for a connection, packet and socket are created. Furthermore, the socket pointer is assigned to a newly allocated socket endpoint. In order to associate the socket with a specific port (7), the port must bind to the socket, which is seen in line 8. Next, raw memory for a queue is allocated for holding future connections in the socket. This happens through a call to \code{csp\_listen}. The \code{csp\_accept} statement within the loop waits 1000 ms for an incoming client connection before trying to read and print the content of the connection packet. Notice that both \code{csp\_accept} and \code{csp\_read} can return \code{null} in case no client contacts the server during the 1000 ms busy wait, which will cause a null pointer during the print operation. Before moving on to the next client, the packet memory area is freed and the connection closed. 
 
 Listing \ref{cspexampleclient} shows a client sending data to the above server.
 
-\lstinputlisting[label=cspexampleclient,caption=Example of a client application.]
+\lstinputlisting[language=C,label=cspexampleclient,caption=Example of a client application.]
 {Code/client.c}
 
 First a connection to the server is established. Then a packet is prepared, which involves setting its payload and payload length\footnote{The length must be set such that the server knows how much of the packet payload to read.}. The \code{csp\_send} operation immediately sends the packet to the server. Finally the connection can be closed.

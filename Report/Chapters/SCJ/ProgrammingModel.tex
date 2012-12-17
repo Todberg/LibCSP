@@ -22,7 +22,7 @@ To create mission class in SCJ it must extend the abstract \code{Mission} class,
 
 Returning back to the rover example, a possible mission for the solar panel functionality, could look like that seen in Listing \ref{missionexample}.
 
-\lstinputlisting[label=missionexample,caption=Example of a mission for the Mars rover.]{Code/mission.java}
+\lstinputlisting[language=Java,label=missionexample,caption=Example of a mission for the Mars rover.]{Code/mission.java}
 
 The reason for explicitly stating the memory consumption is due to the absence of garbage collection, and is a vital part of supporting the memory model, which will be described in Section \ref{section:memoryManagement}.
 
@@ -40,19 +40,19 @@ Upon transitioning from the \textit{initialization phase} to the \textit{executi
 \label{subsection:handlers}
 A mission in itself does not do much apart from creating schedulable objects and allocating shared data structures. The functional behaviour of a mission happens through the schedulable objects, which are basically implemented as threads by the underlying platform, that operate as event handlers. The event handlers can be either periodic or aperiodic (sporadic tasks are not supported in SCJ). In the \code{initialize} method of the solar panel mission for the Mars rover in Listing \ref{handlerIns}, a periodic event handler could be instantiated and registered as shown.
 
-\lstinputlisting[label=handlerIns,caption=Instantiation and registration of a periodic event handler for the Mars rover.]
+\lstinputlisting[language=Java,label=handlerIns,caption=Instantiation and registration of a periodic event handler for the Mars rover.]
 {Code/handlerInstantiated.java}
 
 The supplied arguments denote its priority (\code{PriorityParameters}), release offset and frequency (\code{PeriodicParameters}) and various storage parameters. The handler class itself, being a periodic event handler, must extend the class \code{Periodic\-Event\-Handler}. Aperiodic event handlers similarly extend \code{AperiodicEventhandler}. As a minimum requirement, the handler class must have a constructor accepting the above mentioned parameters that will be passed to its immediate base class, but also override another method called \code{handleAsyncEvent} in which execution logic is located. That is, the \code{handleAsyncEvent} is the method that will be invoked for each release of a handler. The \code{PEHAlignmentHandler} event handler from Listing \ref{handlerIns} could be defined as seen in Listing \ref{handlerDef}.
 
-\lstinputlisting[label=handlerDef,caption=Definition of the periodic event handler for the Mars rover.]
+\lstinputlisting[language=Java,label=handlerDef,caption=Definition of the periodic event handler for the Mars rover.]
 {Code/handlerDefinition.java}
 
 \subsection{Safelet}
 \label{subsection:safelet}
 The application defining class of a SCJ application is represented by a user-defined implementation of the so-called \textit{Safelet} interface, which identifies the outer-most \code{mission sequencer} and also the maximum storage used. The safelet implementation for the Mars rover can be seen in Listing \ref{safeletRover}.
 
-\lstinputlisting[label=safeletRover,caption=Safelet implementation for the Mars rover.]
+\lstinputlisting[language=Java,label=safeletRover,caption=Safelet implementation for the Mars rover.]
 {Code/safelet.java}
 
 In Line 7, an array of missions, initialised with all the missions, is allocated. This array is then given as an actual parameter, together with the priority and storage capacity, to a \code{RepeatingLinearSequencer}, which inherits from \code{MissionSequencer}. The sequencer, then repeatedly loops through the contained missions. In traditional Java programs, execution begins with a call to the mandatory static main method, however, the start-up sequence for SCJ applications is a bit more complicated. According to the SCJ specification, the \code{safelet} instantiation is \textit{implementation defined}. It is thus up to the different vendors to bootstrap the application.

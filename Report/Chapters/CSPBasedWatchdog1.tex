@@ -19,19 +19,19 @@ The tasks runs in sequence in the order: \textit{Pinger}, \textit{Checker} and \
 \section{Modifications for Using CSP}
 To incorporate the CSP library in the watchdog, all communication classes and their respective packages are removed - i.e. \code{sw901e12.comm} and \code{sw901e12.comm.modules}. The field, \code{receivedResponseOnLastPing}, originally located on the now deleted \code{Module\-Pinger} is transferred to the \code{Module} class itself. This class is also extended with fields for \code{CSPAddress}, \code{CSPPort} and \code{MACAddress}. In the mission, an array of modules are created with different properties depending on the execution context (board or simulator). The registration process of a module for the simulator and the board can be seen in Listing \ref{moduleboardsim}.
 
-\lstinputlisting[label=moduleboardsim,caption=Module for the simulator and the board.]{Code/Implementation/moduleEx.java}
+\lstinputlisting[language=Java,label=moduleboardsim,caption=Module for the simulator and the board.]{Code/Implementation/moduleEx.java}
 
 When run in the simulator, the \code{MACAddress} and \code{CSPAddress} values for each module remains the same and are fetched from a \code{Config} class (its source and destination addresses are always the node is itself). The \code{CSPPort} value, however, must vary in order to distinguish between connections. Next the module is created with the mentioned parameters and added to the array of slave modules. The interface is set to Loopback with the same \code{MACAddress} and the node registered in the routing table. When run on the board, the \code{MACAddress} and \code{CSPAddress} must have different addresses than that of the watchdog, as the modules no longer reside within the same application. Now it is also necessary to supply a proper next hop MAC address to the requested interface based on the network topology (in the example, 0xFF). The implementation of the \code{handleAsyncEvent} is changed to use the CSP API. The changed \textit{Pinger} can be seen in Listing \ref{pingernew}.
 
-\lstinputlisting[label=pingernew,caption=The Pinger handler.]{Code/Implementation/pinger.java}
+\lstinputlisting[language=Java,label=pingernew,caption=The Pinger handler.]{Code/Implementation/pinger.java}
 
 In the old implementation of the \textit{Pinger} handler, the \code{ModulePinger} object for each slave was fetched and its \code{ping} method invoked as this would know the correct procedure of how to ping the particular slave device. This is no longer necessary when using CSP, as the protocol handles this internally using various implementations of MAC-layer protocols. The updated \textit{Checker} handler can be seen in Listing \ref{checkernew}.
 
-\lstinputlisting[label=checkernew,caption=The Checker handler.]{Code/Implementation/checker.java}
+\lstinputlisting[language=Java,label=checkernew,caption=The Checker handler.]{Code/Implementation/checker.java}
 
 The \textit{Checker}, has not changed much apart from going directly to the slave module in order to check the response flag. Finally the \textit{Recovery} handler can be seen in Listing \ref{recoverynew}.
 
-\lstinputlisting[label=recoverynew,caption=The Recovery handler.]{Code/Implementation/recovery.java}
+\lstinputlisting[language=Java,label=recoverynew,caption=The Recovery handler.]{Code/Implementation/recovery.java}
 
 This handler did not require any changes and could be used as is.
 
@@ -57,7 +57,7 @@ As anticipated, the WCET is roughly the same. Next the \textit{Routing} task in 
 The aperiodic event handler for receiving packets is measured next. This measuring technique is the same way as the previous tasks due the nature of its internal operations. The WCET for this task was:
 
 \begin{itemize}
-	\item $C_{ISR} = 8052\ cycles \Rightarrow \frac{8052\ cycles}{60.000.000\ cycles/sec} \cdot 1000 = 0.1342\ ms$
+	\item $C_{APEH} = 8052\ cycles \Rightarrow \frac{8052\ cycles}{60.000.000\ cycles/sec} \cdot 1000 = 0.1342\ ms$
 \end{itemize}
 
 The final \textit{Pinger} handler was measured with end-to-end measurement and with 10 slave modules having \iic interfaces. The timeout upon reading the server response packet was set to 10 ms. Note that the \textit{Pinger} always and immediately is able to acquire the queue lock as all other tasks are disabled including the CSP routing task. When executing the application and waiting for a few minutes, the highest execution time was:
