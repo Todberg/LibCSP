@@ -61,7 +61,7 @@ We here provide an initial response-time analysis to ensure the specified tasks 
 As a result we calculate the response-time of tasks using Equation \ref{eq:rta} from Burns and Wellings.
 \begin{equation}
 \label{eq:rta}
-     R_{i} = C_{i} + \sum\limits_{j\in hp(i)} \ceil{\frac{R_{i}}{T_{j}}}*C_{j}
+     R_{i} = C_{i} + \sum\limits_{j\in hp(i)} \ceil{\frac{R_{i}}{T_{j}}} \cdot C_{j}
 \end{equation}
 
 The following shows the response-times for the modelled tasks in the transformed task set (Table \ref{tab:tasks2}):
@@ -72,15 +72,15 @@ The following shows the response-times for the modelled tasks in the transformed
 
 \begin{eqnarray}
     w_{checker}^0 &=& C_{checker} = 20 \nonumber \\ 
-    w_{checker}^1 &=& 20 + \ceil{\frac{20}{500}}*150 = 170 \nonumber \\ 
-    w_{checker}^2 &=& 20 + \ceil{\frac{170}{500}}*150 = 170 \nonumber \\
+    w_{checker}^1 &=& 20 + \ceil{\frac{20}{500}} \cdot 150 = 170 \nonumber \\ 
+    w_{checker}^2 &=& 20 + \ceil{\frac{170}{500}} \cdot 150 = 170 \nonumber \\
     R_{checker} &=& 170
 \end{eqnarray}
 
 \begin{eqnarray}
     w_{recovery}^0 &=& C_{recovery} = 40 \nonumber \\ 
-    w_{recovery}^1 &=& 40 + \ceil{\frac{40}{500}}*20 + \ceil{\frac{40}{500}}*150 = 210 \nonumber \\ 
-    w_{recovery}^2 &=& 40 + \ceil{\frac{210}{500}}*20 + \ceil{\frac{210}{500}}*150 = 210 \nonumber \\
+    w_{recovery}^1 &=& 40 + \ceil{\frac{40}{500}} \cdot 20 + \ceil{\frac{40}{500}} \cdot 150 = 210 \nonumber \\ 
+    w_{recovery}^2 &=& 40 + \ceil{\frac{210}{500}} \cdot 20 + \ceil{\frac{210}{500}} \cdot 150 = 210 \nonumber \\
     R_{recovery} &=& 210
 \end{eqnarray}
 
@@ -130,14 +130,14 @@ To find the worst-case execution time (WCET) for the three tasks, the tasks are 
 
 In the \textit{Checker}, to properly analyse the loop iterating over each module in order to check the response, a bound annotation is set to 10, thereby restricting the application to handle a maximum of 10 module devices. As the WCET for the \textit{Recovery} handler depends on the supplied recovery algorithm, a dummy recovery option is utilised which respectively toggles the LEDs on the Board with busy-wait loops in between for simulating work. These loops are bounded to 1000 iterations using the previously mentioned tool annotations. Running the tool on the two handlers yields to the following WCET results where the cache always misses:
 \begin{itemize}
-    \item \textbf{Checker:} $5832\ cycles \Rightarrow \frac{5832\ cycles}{60.000.000\ cycles/sec} * 1000 = 0.0972\ ms$
-    \item \textbf{Recovery:} $32337\ cycles \Rightarrow \frac{32337\ cycles}{60.000.000\ cycles/sec} * 1000 = 0.53895\ ms$
+    \item $C_{checker} = 5832\ cycles \Rightarrow \frac{5832\ cycles}{60.000.000\ cycles/sec} \cdot 1000 = 0.0972\ ms$
+    \item $C_{recovery} = 32337\ cycles \Rightarrow \frac{32337\ cycles}{60.000.000\ cycles/sec} \cdot 1000 = 0.53895\ ms$
 \end{itemize}
 
 Unfortunately the logic and implementation of the \textit{Pinger} prevents the same static analysis method due to temporal constraints. More specifically, the \textit{Pinger} invokes the \textit{ping} method of each module, which uses the \iic protocol to communicate with the slave module. After requesting a memory address to read from, a timeout mechanism disallows the \textit{Pinger} to continue to the next module as the response (if any) can be somewhat slow due to it being an I/O operation. The timeout is set to 10 ms which should more than enough time to determine whether or not the slave module is alive and talkative. Furthermore as the timeout mechanism is dependent on time, it is not possible to use WCA. Alternatively, this timeout mechanism could be implemented as a blocking operation for a full 10 ms, before checking for a module response, however, this would move the watchdog up to become a compliance level~2 SCJ application, which we want to avoid. To circumvent this issue, dynamic measurements are used through the use of a hardware timer. On the Altera board and in the \iic configuration of JOP, a hardware timer with a resolution down to 1 $\mu$s is available. To avoid polluting the watchdog with measuring code we used inheritance to make a derived WCET-version of the \textit{Pinger}. In its \code{handleAsyncEvent} method we surrounded the call to the handling code contained in the the super class with native reads of the hardware timer (start and stop). The start time is then subtracted from the end time as well as the total time is takes to perform two timer reads\footnote{These two timer reads are measured at run-time in advance and stored in a variable}. Downloading the watchdog application to the FPGA board and running the handler numerous times for about one minute gave the following maximum value, $100161\ \mu s $. As it is impossible to verify, no-matter how long you run the application, that the value indeed is the worst-case execution time, it is common to add another 20\% to the result in order to be on the 'safe side'. This yields the following WCET result:
 
 \begin{itemize}
-    \item \textbf{Pinger:} $100161\ \mu s * 1.25 = 125201.25\ \mu s \Rightarrow \frac{125201.25\ \mu s}{1000\ \mu s /ms} = 125.20125\ ms$
+    \item $C_{pinger} = 100161\ \mu s \cdot 1.25 = 125201.25\ \mu s \Rightarrow \frac{125201.25\ \mu s}{1000\ \mu s /ms} = 125.20125\ ms$
 \end{itemize}
 
 Alternatively it should be mentioned that the \textit{Pinger} task could be measured using a hybrid of both approaches. To do this, we would place timers around the timeout method, \code{timeoutBasedWaitForModuleResponse}, and use WCA on the remaining code sections. The resulting WCET would then be an aggregation of the WCA and the timing measurements. 
@@ -154,15 +154,15 @@ Using the measured WCET we here perform the final response-time analysis of the 
 
 \begin{eqnarray}
     w_{checker}^0 &=& C_{checker} = 0,0972 \nonumber \\ 
-    w_{checker}^1 &=& 0,0972 + \ceil{\frac{0,0972}{500}}*125,20125 = 125,29845 \nonumber \\ 
-    w_{checker}^2 &=& 0,0972 + \ceil{\frac{125,29845}{500}}*125,20125 = 125,29845 \nonumber \\
+    w_{checker}^1 &=& 0,0972 + \ceil{\frac{0,0972}{500}} \cdot 125,20125 = 125,29845 \nonumber \\ 
+    w_{checker}^2 &=& 0,0972 + \ceil{\frac{125,29845}{500}} \cdot 125,20125 = 125,29845 \nonumber \\
     R_{checker} &=& 125,29845
 \end{eqnarray}
 
 \begin{eqnarray}
     w_{recovery}^0 &=& C_{recovery} = 0,53895 \nonumber \\ 
-    w_{recovery}^1 &=& 0,53895 + \ceil{\frac{0,53895}{500}}*0,0972 + \ceil{\frac{0,53895}{500}}*125,20125 = 125,8374 \nonumber \\ 
-    w_{recovery}^2 &=& 0,7226 + \ceil{\frac{126,02105}{500}}*0,0972 + \ceil{\frac{126,02105}{500}}*125,20125 = 125,8374 \nonumber \\
+    w_{recovery}^1 &=& 0,53895 + \ceil{\frac{0,53895}{500}} \cdot 0,0972 + \ceil{\frac{0,53895}{500}} \cdot 125,20125 = 125,8374 \nonumber \\ 
+    w_{recovery}^2 &=& 0,7226 + \ceil{\frac{126,02105}{500}} \cdot 0,0972 + \ceil{\frac{126,02105}{500}} \cdot 125,20125 = 125,8374 \nonumber \\
     R_{recovery} &=& 125,8374
 \end{eqnarray}
 
