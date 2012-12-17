@@ -8,7 +8,7 @@ During the first weeks of the semester we spent time getting acquainted with the
 	\item[Recovery] This task executes a recovery routine taking some user-defined appropriate action if the recovery flag it set. 
 \end{description}
 
-The tasks runs in sequence in the order: \textit{Pinger}, \textit{Checker} and \textit{Recovery} due to their inter-dependence. The FPGA, executing the watchdog, and the externally modules are connected through a bus and with communicating using the \iic protocol. Originally the functionality for \iic communication was integrated into the watchdog, however, this Section will describe how the watchdog was changed into using the developed CSP implementation instead. In total, three watchdog variants have been created that can be found in our GitHub repository~\cite{SW902e12:CSPinSCJ}:
+The tasks runs in sequence in the order: \textit{Pinger}, \textit{Checker} and \textit{Recovery} due to their inter-dependence. The FPGA, executing the watchdog, and the externally modules are connected through a bus and with communicating using the \iic protocol. Originally the functionality for \iic communication was integrated into the watchdog, however, this section will describe how the watchdog was changed into using the developed CSP implementation instead. In total, three watchdog variants have been created that can be found in our GitHub repository~\cite{SW902e12:CSPinSCJ}:
 
 \begin{description}
 	\item[Watchdog (Level~0)] Implementation conforming to compliance level~0 under a cyclic executive scheduler.

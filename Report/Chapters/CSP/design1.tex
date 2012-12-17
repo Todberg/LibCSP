@@ -1,5 +1,5 @@
 \section{Design}
-This Section will elaborate on the most important design decisions. The considerations and decisions are based on the review of the C implementation in conjunction with the SCJ specification.
+This section will elaborate on the most important design decisions. The considerations and decisions are based on the review of the C implementation in conjunction with the SCJ specification.
 
 \subsection{Ports, Sockets, Connections and Packets}
 We begin with some of the basic concepts in CSP, and how the design of sockets must accommodate the available features. A socket entity represents an endpoint. In addition to the socket, a connection can exist between endpoints. We emphasize that this concept of a connection is not related to that of connection-less and connection-oriented sockets.  On the server side, an application will bind a socket to a specified port, and all subsequent communication on that port will end up with a new connection. Therefore, individual packets are also read and sent through connections. A connection is uniquely identified on a host by the 4-tuple:
