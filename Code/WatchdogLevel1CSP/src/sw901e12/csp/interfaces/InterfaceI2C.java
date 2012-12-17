@@ -81,7 +81,6 @@ public class InterfaceI2C implements IMACProtocol {
 	
 	public int mergeNextDataBytesReceivedAndInsertIntoInteger() {
 		int result = 0;
-		
 		for (byte b=0; b < 4; b++){ // @WCA loop<=4
 			result |= I2CPort.rx_fifo_data << position(b);
 		}

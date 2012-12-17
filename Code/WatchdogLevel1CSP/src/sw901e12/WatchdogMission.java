@@ -13,18 +13,17 @@ import javax.safetycritical.annotate.Level;
 import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.io.SimplePrintStream;
 
-import com.jopdesign.sys.Const;
-import com.jopdesign.sys.Native;
-
 import sw901e12.csp.CSPManager;
 import sw901e12.csp.interfaces.IMACProtocol;
 import sw901e12.csp.interfaces.InterfaceI2C;
-import sw901e12.csp.interfaces.InterfaceLoopback;
 import sw901e12.handlers.PEHModulePinger;
 import sw901e12.handlers.PEHModuleResponseChecker;
 import sw901e12.handlers.PEHSystemRecovery;
 import sw901e12.sys.Config;
 import sw901e12.wcet.PEHModulePingerMeasure;
+
+import com.jopdesign.sys.Const;
+import com.jopdesign.sys.Native;
 
 public class WatchdogMission extends Mission {
 
@@ -43,7 +42,7 @@ public class WatchdogMission extends Mission {
 	@SCJAllowed(Level.SUPPORT)
 	public void initialize() {
 		super.peHandlerCount = 1;
-		
+
 		initializeConsole();
 		initializeCSP();
 		initializeSlaves();
@@ -270,10 +269,10 @@ public class WatchdogMission extends Mission {
 	private void initializeCSP() {
 		manager = new CSPManager();
 		
-		manager.init(Config.CSP_ADDRESS, new PriorityParameters(50), 
+		manager.init(Config.CSP_ADDRESS, new PriorityParameters(20), 
 				new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(5, 0)));
 		manager.initPools();
-		//manager.startRouteHandler();
+		manager.startRouteHandler();
 	}
 	
 	@Override

@@ -1,0 +1,65 @@
+\section{Response-Time Analysis}
+To create a RTA for the new watchdog application, the requirement of task independence from the simple task model in Section \ref{} will have to be loosened. Moreover, some of the tasks share critical sections throughout execution which can infer blocking times that will have be be included in the calculations. To extend the Response-Time Analysis to consider blocking times, we will therefore need to calculate the execution times of the involved shared critical sections (synchronised methods). These are:
+
+\begin{itemize}
+	\item $ sw901e12.csp.core.ConnectionCore.processPacket \approx 0.0247$
+	\item $ sw901e12.csp.core.SocketCore.processConnection \approx 0.0159$
+	\item $ sw901e12.csp.util.Queue.enqueue \approx 0.0125$
+	\item $ sw901e12.csp.util.Queue.dequeue \approx 0.0130$
+\end{itemize}
+
+Equation \ref{eq:block} finds the maximum blocking time for a task $i$ where $K=4$. $usage$ is a 0/1 function and will return $1$ if resource $k$ is used by $i$ and there exists at least one task with a higher priority that also uses $k$ and at least one lower priority task that similarly uses $k$.
+
+\begin{equation}
+\label{eq:block}
+     B_{i} = \overset{K}{\underset{k=1}{max}}\ usage(k, i)C(k)
+\end{equation}
+
+From Burns and Wellings, the response-time formula taking blocking into account can be seen in Equation~\ref{eq:rtablock}.
+
+\begin{equation}
+\label{eq:rtablock}
+     R_{i} = C_{i} + B_{i} + \sum\limits_{j\in hp(i)} \ceil{\frac{R_{i}}{T_{j}}}*C_{j}
+\end{equation}
+
+The blocking time of the aperiodic \textit{ISR} task can be seen in Equation \ref{eq:isrblock}. This task has the highest priority and uses the critical sections, \code{enqueue} and \code{dequeue}, which are also used by lower priority tasks (\textit{Routing} and \textit{Pinger}).
+
+\begin{eqnarray}
+\label{eq:isrblock}
+     B_{ISR} &=& max(0 \cdot 0.0247, 0 \cdot 0.0159, 1 \cdot 0.0125, 1 \cdot 0.0130) \nonumber \\
+     B_{ISR} &=& 0.0130
+\end{eqnarray}
+
+The response time of the task can be seen in Equation \ref{eq:isr}.
+
+\begin{eqnarray}
+\label{eq:isr}
+      R_{ISR} &=& C_{ISR} + B_{ISR} \nonumber \\
+      R_{ISR} &=& 0.1342 + 0.0130 = 0.1472
+\end{eqnarray}
+
+The \textit{routing} task is a bit more complicated as it can be interrupted by the aperiodic \textit{ISR} task which have no period defined. First of all the blocking time must be calculated as seen in Equation \ref{routingblock}.
+
+\begin{eqnarray}
+\label{eq:routingblock}
+     B_{Routing} &=& max(0 \cdot 0.0247, 0 \cdot 0.0159, 1 \cdot 0.0125, 1 \cdot 0.0130) \nonumber \\
+     B_{Routing} &=& 0.0130
+\end{eqnarray}
+
+To find the response time
+
+% \nonumber \\
+%       R_{ISR} &=& 0.1342 + 0.0130 &=& 0.1472
+
+% \begin{eqnarray}
+% 	B_{Routing} &=& max(0 \cdot 0.0247, 0 \cdot 0.0159, 1 \cdot 0.0125, 1 \cdot 0.0130) \nonumber \\
+% 	B_{Routing} &=& 0.0130
+% \end{eqnarray}
+
+% \begin{eqnarray}
+% 	w_{Routing}^0 &=& C_{Routing} = 1.3623 \nonumber \\ 
+%     w_{Routing}^1 &=& 1.3623 + 0.0130 + \ceil{\frac{1.3623}{50}} \cdot 0.1342 =  \nonumber \\ 
+%     w_{Routing}^2 &=& 1.3623 + \ceil{\frac{170}{500}}*150 = 170 \nonumber \\
+%     R_{Routing} &=& 170
+% \end{eqnarray}
+
