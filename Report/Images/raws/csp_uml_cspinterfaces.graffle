@@ -14,7 +14,7 @@
 	<key>BackgroundGraphic</key>
 	<dict>
 		<key>Bounds</key>
-		<string>{{0, 0}, {1118, 1566}}</string>
+		<string>{{0, 0}, {1117.9999465942383, 1566}}</string>
 		<key>Class</key>
 		<string>SolidGraphic</string>
 		<key>ID</key>
@@ -67,7 +67,7 @@
 			<array>
 				<string>{478.00000000000011, 662.72448076520664}</string>
 				<string>{478.00000000000011, 642.22448076520664}</string>
-				<string>{168.99936586122075, 641.22448028741201}</string>
+				<string>{168.99997567619809, 641.22448028696863}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -233,8 +233,8 @@
 			<integer>88</integer>
 			<key>Points</key>
 			<array>
-				<string>{168.99983599849548, 662.72446331079129}</string>
-				<string>{168.99872703613326, 612.01018634845173}</string>
+				<string>{168.99999370935805, 662.72446331078118}</string>
+				<string>{168.99995117264223, 612.01018634741968}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -534,7 +534,7 @@ IMACProtocol}</string>
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\fs24 \cf0 sw902e12.csp.interfaces}</string>
+\f0\fs24 \cf0 sw901e12.csp.interfaces}</string>
 					</dict>
 				</dict>
 			</array>
@@ -589,7 +589,7 @@ IMACProtocol}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-12-13 15:29:22 +0000</string>
+	<string>2012-12-17 09:27:41 +0000</string>
 	<key>Modifier</key>
 	<string>Jeppe Andersen</string>
 	<key>NotesVisible</key>
@@ -620,7 +620,7 @@ IMACProtocol}</string>
 		<key>NSPaperSize</key>
 		<array>
 			<string>size</string>
-			<string>{595, 842}</string>
+			<string>{594.99997329711914, 842}</string>
 		</array>
 		<key>NSPrintReverseOrientation</key>
 		<array>
@@ -670,7 +670,7 @@ IMACProtocol}</string>
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{390, 100}, {693, 938}}</string>
+		<string>{{83, 67}, {693, 811}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
@@ -684,7 +684,7 @@ IMACProtocol}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-1, 226}, {558, 783}}</string>
+		<string>{{-22, 226}, {558, 656}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
