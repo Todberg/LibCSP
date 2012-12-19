@@ -169,15 +169,6 @@ Using the measured WCET we here perform the final response-time analysis of the 
 Again, the fixed-point equations are solved and the provided response-time for each task does not exceed their deadlines, hence schedulability is ensured. In other words the following conditions hold: \\\\
 $R_{pinger} < D_{pinger}$, $R_{checker} < D_{checker}$ and $R_{recovery} < D_{recovery}$
 
-
-% section response_time_analysis_of_watchdog (end)
-
-\chapter{Build Scripts} % (fold)
-\label{cha:build_scripts}
-We created the following Ant scripts that allows for compiling to JOP and running directly either using the simulator or downloading the compiled JOP program to the Altera board in Eclipse.
-\lstinputlisting[language=XML]{Files/projectBuilder.xml}
-\lstinputlisting[language=XML]{Files/projectRunner.xml}
-
 % chapter build_scripts (end)
 
 \chapter{RTA Calculator} % (fold)
