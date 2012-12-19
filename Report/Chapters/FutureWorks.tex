@@ -31,7 +31,7 @@ As a result of SCJ not being completed and the implementation we used on JOP bei
 
 \section{The CSP Implementation} % (fold)
 \label{sec:the_csp_implementation}
-In addition to work on SCJ itself, we also propose the following areas in which our current implementation may be improved. These areas are in addition to completing the implementation with the remaining features of CSP that were omitted.
+In addition to work on SCJ itself, we also propose the following areas in which our current implementation may be improved and used. These areas are in addition to completing the implementation with the remaining features of CSP that were omitted.
 
 \subsection{Determining Optimal Parameters for Routing Handler Statically} % (fold)
 \label{sub:determining_optimal_parameters_for_routing_handler_statically}
@@ -40,6 +40,14 @@ The choice of creating a separate routing handler requires its periodic and prio
 \subsection{Use of Lock-Free Algorithms} % (fold)
 \label{sub:lock_free_algorithms}
 Currently the implementation of the queue data structure was done using the known synchronisation features in Java. This allowed us to try out the restrictions on these in SCJ. A different implementation would be interesting to examine, with the use of a \textit{lock-free queue} instead\cite{Valois94implementinglock-free}\cite{Michael:1996:SFP:248052.248106}. What we would be particular interested in would be the differences in performance, but also the difference in analysis complexity. Findings in such an investigation could also be transferred to the implementation of other data structures in SCJ.
+
+\subsection{A CSP Based Watchdog Use Case} % (fold)
+\label{sub:csp_based_watchdog}
+As a part of the work on the CSP implementation, a use case being a watchdog application using the library was also created. Completed work on this includes both the construction of the watchdog and appurtenant analysis.
+
+With the need of use cases in the community, work on this watchdog application should be completed to a format that can be presented. Remaining work includes documentation and verification of the analysis performed.
+
+% subsection csp_based_watchdog (end)
 % subsection lock_free_algorithms (end)
 
 
