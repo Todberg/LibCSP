@@ -1,6 +1,6 @@
 \chapter{A CSP based Watchdog in Safety-Critical Java}
 \label{chapter:watchdogcsp}
-During the first weeks of the semester we spent time getting acquainted with the specification. We created a \textit{watchdog} application which also included an appurtenant analysis. Note that the watchdog is \textit{not} related to CSP in any way whatsoever as this was done before learning about CSP. Moreover the design decisions of the application is solely based on learning experience and experimentation on how to execute SCJ applications on an FPGA that is configured with JOP. A small report was written in conjunction with the application, documenting the entire process and analysis part. The report is included in Appendix \ref{appendix:WD} for reference and we suggest reading it before continuing. To summarise, the watchdog consists of three periodic event handlers performing the following duties:
+This chapter describes the modification of the watchdog application created prior to this project, such that it makes use of the CSP implementation.The original report for the watchdog, including requirements, design, implementation and schedulability analysis, is included in Appendix \ref{appendix:WD}. We suggest reading it before continuing. To summarise, the watchdog consists of three periodic event handlers performing the following duties:
 
 \begin{description}
 	\item[Pinger] This task periodically pings a number of registered modules and stores the response (if any) in a shared data structure.
