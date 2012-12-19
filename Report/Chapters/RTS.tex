@@ -1,15 +1,28 @@
-\chapter{Real-Time, Embedded and Safety-Critical Systems}
+\chapter{Embedded, Real-Time and Safety-Critical Systems}
 \label{chapter:rts}
-This chapter introduces the concepts and definitions of real-time, embedded and safety-critical systems used throughout the report. The following is primarily based on the book, \textit{Real- Time Systems and Programming Languages}\cite{alan2001real}. Additional sources, are referred to as usual.
+This chapter introduces the concepts and definitions of embedded, real-time and safety-critical systems used throughout the report. The following is primarily based on the book, \textit{Real- Time Systems and Programming Languages}\cite{alan2001real}. Additional sources, are referred to as usual.
 
 \section{Definitions and Background} % (fold)
 \label{sec:definitions_and_background}
-In Chapter \ref{chapter:introduction} we presented a definition of real-time systems and briefly introduced the concepts of embedded and safety-critical systems. We will here describe these in more detail.
+%In Chapter \ref{chapter:introduction} we presented a definition of real-time systems and briefly introduced the concepts of embedded and safety-critical systems. We will %here describe these in more detail.
 
-\subsection{Real-Time and Embedded Systems} % (fold)
+\subsection{Embedded and Real-Time Systems} % (fold)
 \label{sub:real_time_and_embedded_systems}
-% subsection real_time_and_embedded_systems (end)
-We defined a real-time system as a system in which correctness was not only dependent on the absence of failure in the generated output response, but also in the timing. Not all timing failures are, however, equally disastrous as the consequences may vary from simple usability annoyances to life threatening conditions. We therefore distinguish between the following types of real-time systems:
+An embedded system can be thought of as a subsystem residing in a larger system such as the ABS braking system in a car. Upon hitting the brake pedal abruptly when driving on a slippery road, the ABS system will adjust the braking force such that the vehicle maintains its tractive contact with the road. We will thus use the following definition of an embedded system:
+
+\begin{quotation}
+``Any information processing activity or system which participates in a larger system and interact directly with the real world.''~\cite{alan2001real}
+\end{quotation}
+
+The example of an ABS braking system contains another important property which in fact also makes it a real-time system. When the driver brakes, the system must register this input and take appropriate action within reasonable time. Systems which also take timing considerations into account can be referred to as real-time systems. Moreover, a real-time system can be defined as:
+
+\begin{quotation}
+``Any information processing activity or system which has to respond to externally generated input stimuli within a finite and specified period.''~\cite{alan2001real}
+\end{quotation}
+%We defined a real-time system as a system in which correctness was not only dependent on the absence of failure in the generated output response, but also in the timing. 
+
+
+Not all timing failures are, however, equally disastrous as the consequences may vary from simple usability annoyances to life threatening conditions as in the car example. We therefore distinguish between the following types of real-time systems:
 \begin{description}
 \item[Hard] Those real-time systems where responses must be generated within the specified deadline. Any miss of deadline results in failure. A pacemaker is one such example of a hard real-time system.
 \item[Soft] Missing a deadline occasionally does not imply failure of the system, and it may continue to function correctly. An example of such a system could be a digital video-phone system in which delays in deliveries of network packets may result in quality degradation.
@@ -26,6 +39,12 @@ Safety-critical systems can be categorised as hard real-time systems, as it is i
 	\item[Safety:] A system property in which failure will not result in endangerment of human life or the environment.
 	\item[Safety-critical system:] A system of high criticality with an extremely high assurance of the safety property.
 \end{description}
+
+It is important to distinguish between \textit{mission-critical} and safety-critical systems as these are very different from each other. In a mission-critical system, failures will only endanger the mission compared to safety-critical systems in which human lives are at stake. In this report we define a safety-critical system as:
+
+\begin{quotation}
+``A real-time system in which the consequence of an incorrect response or timing violation can directly result in significant human loss.''~\cite{alan2001real}
+\end{quotation}
 
 Just as we distinguish between different types of real-time systems, one can also distinguish between different criticality levels in the safety property, which is often done in the context of safety-critical systems. The level naturally depends on the specific application domain and the consequences anomalous behaviour may cast. We previously introduced the DO-178B standard, used by the FAA as a certification for safety-critical systems in the United States. This standard (and the European ED-12B equivalent) defines a total of five levels of software that is related to aircraft safety:
 \begin{description}
