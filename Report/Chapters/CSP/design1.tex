@@ -15,8 +15,8 @@ The relationship between ports, sockets, connections and packets is illustrated 
 
 As a result of this, we have the following classes to support these concepts:
 \begin{description}
-	\item[Port] The port class is used to associate a port with a socket. The routing logic will be able to use objects of these to determine if a given port is open upon receiving new packets and retrieve the associated socket.
-	\item[Socket] The socket class is used to define and end-point that can be bound to a specific port that an application should listen on. Furthermore this will provide the access to accept new incoming connections.
-	\item[Connection] The connection class is used to represent ongoing and ingoing activity between two end-points. Packets are sent and read between end-points through this entity. A connection is always associated with a socket on the initial receiving side.
+	\item[Port] The port class is used to associate a port with a socket. The routing logic will be able to use objects of the port class to determine if a given port is open upon receiving new packets and retrieve the associated socket.
+	\item[Socket] The socket class is used to define an end-point that can be bound to a specific port that an application should listen on. Furthermore this will provide the access to accept new incoming connections.
+	\item[Connection] The connection class is used to represent incoming and outgoing activity between two end-points. Packets are sent and read between end-points through this entity. A connection is always associated with a socket on the initial receiving side.
 	\item[Packet] The packet class represents the CSP entity packet that is sent through connections. This contains the header and payload.
 \end{description}

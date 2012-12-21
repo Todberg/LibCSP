@@ -1,7 +1,7 @@
 public T dequeue(long timeout) {
   T value = null;
 
-  boolean waitForever = (timeout == CSPManager.TIMEOUT_NONE ? true : false);
+  boolean waitForever = (timeout == CSPManager.TIMEOUT_NONE);
   timeout = System.currentTimeMillis() + timeout;
 
   do {
