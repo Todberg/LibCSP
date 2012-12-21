@@ -10,7 +10,7 @@ public class Config {
 	public static final int CSP_ADDRESS = 0xA;
 	public static final int CSP_PORT = 12;
 	
-	public static final boolean MEASURE_WCET = true;
+	public static final boolean MEASURE_WCET = false;
 	
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 }

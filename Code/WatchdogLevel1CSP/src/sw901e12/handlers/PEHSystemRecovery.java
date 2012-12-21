@@ -15,7 +15,7 @@ public class PEHSystemRecovery extends PeriodicEventHandler {
 	protected SimplePrintStream console;
 	protected IRecoveryRoutine recovery;
 	protected WatchdogMission mission;
-	
+
 	public PEHSystemRecovery(PriorityParameters priority,
 			PeriodicParameters release, StorageParameters scp, 
 			long scopeSize,  SimplePrintStream console, WatchdogMission mission, IRecoveryRoutine recovery) {

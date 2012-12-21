@@ -15,7 +15,6 @@ import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.csp.CSPManager;
 import sw901e12.csp.interfaces.IMACProtocol;
-import sw901e12.csp.interfaces.InterfaceI2C;
 import sw901e12.handlers.PEHModulePinger;
 import sw901e12.handlers.PEHModuleResponseChecker;
 import sw901e12.handlers.PEHSystemRecovery;
@@ -41,7 +40,7 @@ public class WatchdogMission extends Mission {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void initialize() {
-		super.peHandlerCount = 1;
+		super.peHandlerCount = 4;
 
 		initializeConsole();
 		initializeCSP();
@@ -67,15 +66,15 @@ public class WatchdogMission extends Mission {
 	
 	@SCJAllowed(Level.SUPPORT)
 	private void initializeSlaves() {
-		slaves = new Module[10];
-		/*
+		slaves = new Module[2];
+		
 		if(isApplicationRunningInSimulator()) {
 			{
 				int MACAddress = Config.MAC_ADDRESS;
 				int CSPAddress = Config.CSP_ADDRESS;
 				int CSPPort = 13;
 				slaves[0] = Module.create("Module 1", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol loopbackInterface = InterfaceLoopback.getInterface();
+				IMACProtocol loopbackInterface = manager.getIMACProtocol(CSPManager.INTERFACE_LOOPBACK);
 				loopbackInterface.initialize(MACAddress);
 				manager.routeSet(CSPAddress, loopbackInterface, MACAddress);
 			}
@@ -84,17 +83,17 @@ public class WatchdogMission extends Mission {
 				int CSPAddress = Config.CSP_ADDRESS;
 				int CSPPort = 14;
 				slaves[1] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol loopbackInterface = InterfaceLoopback.getInterface();
+				IMACProtocol loopbackInterface = manager.getIMACProtocol(CSPManager.INTERFACE_LOOPBACK);
 				loopbackInterface.initialize(MACAddress);
 				manager.routeSet(CSPAddress, loopbackInterface, MACAddress);
 			}
 		} else {
-			*/{ 
+			{ 
 				int MACAddress = 0xB;
 				int CSPAddress = 0xB;
 				int CSPPort = 13;
 				slaves[0] = Module.create("Module 1", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
+				IMACProtocol I2CInterface = manager.getIMACProtocol(CSPManager.INTERFACE_I2C);
 				I2CInterface.initialize(MACAddress);
 				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
 			}
@@ -103,83 +102,11 @@ public class WatchdogMission extends Mission {
 				int CSPAddress = 0xC;
 				int CSPPort = 14;
 				slaves[1] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
+				IMACProtocol I2CInterface = manager.getIMACProtocol(CSPManager.INTERFACE_I2C);
 				I2CInterface.initialize(MACAddress);
 				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
 			}
-			{
-				int MACAddress = 0xD;
-				int CSPAddress = 0xD;
-				int CSPPort = 15;
-				slaves[2] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
-				I2CInterface.initialize(MACAddress);
-				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}
-			{
-				int MACAddress = 0xE;
-				int CSPAddress = 0xE;
-				int CSPPort = 16;
-				slaves[3] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
-				I2CInterface.initialize(MACAddress);
-				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}
-			{
-				int MACAddress = 0xF;
-				int CSPAddress = 0xF;
-				int CSPPort = 17;
-				slaves[4] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
-				I2CInterface.initialize(MACAddress);
-				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}
-			{
-				int MACAddress = 0x10;
-				int CSPAddress = 0x10;
-				int CSPPort = 18;
-				slaves[5] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
-				I2CInterface.initialize(MACAddress);
-				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}
-			{
-				int MACAddress = 0x11;
-				int CSPAddress = 0x11;
-				int CSPPort = 19;
-				slaves[6] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
-				I2CInterface.initialize(MACAddress);
-				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}
-			{
-				int MACAddress = 0x12;
-				int CSPAddress = 0x12;
-				int CSPPort = 20;
-				slaves[7] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
-				I2CInterface.initialize(MACAddress);
-				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}
-			{
-				int MACAddress = 0x13;
-				int CSPAddress = 0x13;
-				int CSPPort = 21;
-				slaves[8] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
-				I2CInterface.initialize(MACAddress);
-				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}
-			{
-				int MACAddress = 0x14;
-				int CSPAddress = 0x14;
-				int CSPPort = 22;
-				slaves[9] = Module.create("Module 2", MACAddress, CSPAddress, CSPPort);
-				IMACProtocol I2CInterface = InterfaceI2C.getInterface();
-				I2CInterface.initialize(MACAddress);
-				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
-			}
-		/*}*/
+		}
 	}
 	
 	private final boolean isApplicationRunningInSimulator() {
