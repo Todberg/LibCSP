@@ -15,7 +15,7 @@ For several years Java has been widely applied in the industry as the programmin
 Safety-Critical Java was initiated in 2006 under JSR-302 as a subset of RTSJ with additional classes\cite{Schoeberl:2012:SCJonJava}. Led by the ``The Open Group'', with involvement from representatives from companies such as Boeing, Oracle and IBM, SCJ is currently being finalised, but requires validation in terms of implementations and use cases, in order to approve its application for safety-critical software.
 
 %An explicitly stated need in the community is that of SCJ implementations and use cases\cite{Schoeberl:2012:SCJonJava} in order to evaluate and refine the specification.
-At the time of writing, a limited open-source prototype implementation supporting non-complex SCJ applications is available under the name, oSCJ\cite{oSCJ}. However, this can be considered to be either in a hibernation state or shelved due to inactivity. Another prototype implementation of SCJ, that offers a larger subset of the specification, is available on the \textit{Java Optimized Processor}~(JOP), a hardware implementation of the JVM\cite{Schoeberl:2012:SCJonJava}. Besides supporting the specification development by providing implementations of the specification, practical use cases of SCJ applications have been developed. In this regard, two public available use cases have been presented, namely a desktop RepRap 3D printer\cite{Schoeberl:2012:RepRap} and a cardiac pacemaker\cite{Singh:2012:CPC:2388936.2388948}\footnote{This use case can, however, be discussed if it can be classified as an SCJ application as they deviate from the specification.}. These use cases have been presented at the \textit{Java Technology for Real-Time and Embedded Systems}~(JTRES) workshop. 
+At the time of writing two public available SCJ implementations are found to be available.First, a limited open-source prototype implementation supporting non-complex SCJ applications is available under the name, oSCJ\cite{oSCJ}. However, this can be considered to be either in a hibernation state or shelved due to inactivity. Another prototype implementation of SCJ, that offers a larger subset of the specification, is available on the \textit{Java Optimized Processor}~(JOP), a hardware implementation of the JVM\cite{Schoeberl:2012:SCJonJava}. Besides supporting the specification development by providing implementations of the specification, practical use cases of SCJ applications have been developed. In this regard, two public available use cases have been presented, namely a desktop RepRap 3D printer\cite{Schoeberl:2012:RepRap} and a cardiac pacemaker\cite{Singh:2012:CPC:2388936.2388948}\footnote{This use case can, however, be discussed if it can be classified as an SCJ application as they deviate from the specification.}. These use cases have been presented at the \textit{Java Technology for Real-Time and Embedded Systems}~(JTRES) workshop.
 
 %The call for implementations and use cases is both present in many research papers covering the area, but also something that has been pointed out several times by our supervisor who has been attending JTRES several times, reinforcing the need.
 
@@ -44,3 +44,18 @@ The focus of working with this problem is to gain insight into SCJ and discover 
 \end{itemize}
 
 Furthermore, we have the goal of building an SCJ application on top of the implemented CSP protocol. Prior to the work started in this project we constructed a watchdog application in SCJ that monitors modules in a distributed system. As this is based on pinging other modules, this is an ideal task to use CSP for. The previously constructed watchdog will be made in a version that utilises the implementation of CSP.
+
+\subsection{Approach} % (fold)
+\label{sub:method}
+As it may be indicated, working on this problem to gain insight in SCJ and finding areas for future works, is primarily based on gaining empirical knowledge. Before beginning the development we will make a survey on related topics to gain fundamental knowledge. In the following we outline the remaining parts of this report that reflects the approach for solving the stated problem:
+\begin{description}
+	\item[Chapter Two and Three] We begin with a literature review on fundamental background theory. This provides definitions on central concepts that are used in terms of embedded, real-time and safety-critical systems. Next we will perform a review of the current draft version of the SCJ specification. We will here describe the major parts of developing SCJ applications and significant differences from standard edition Java.
+	\item[Chapter Four and Five] With the general theory and SCJ described we introduce the JOP platform used and the original CSP used for reference.
+	\item[Chapter Six]  In this chapter we will describe the design and implementation of CSP in SCJ.
+	\item[Chapter Seven and Eight] Having implemented CSP in SCJ we provide reflections, findings and proposals for future work. This will be the presentation of the empirical knowledge gained throughout the project.
+\end{description}
+
+% noget med hvordan vi vil gribe det an
+% noget med det er en empirisk process
+
+
