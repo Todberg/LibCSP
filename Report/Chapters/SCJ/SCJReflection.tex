@@ -16,7 +16,7 @@ A second motivation for an event-based model, is that of binding threads. In RTS
 
 \subsection{Sporadic Tasks} % (fold)
 \label{sub:support_for_sporadic_tasks}
-While RTSJ supports all three types of tasks, SCJ is restricted to periodic and aperiodic tasks. Therefore no enforcement of minimum inter-arrival times between release events is present, and this relies on the application developer. It is not evident why sporadic handlers are not natively supported, however, overhead in run-time timing checks may be an obvious reason. Similarly issues with \textit{jitter} may further the complexity of this task, thus result in less predictability. As a result, one must instead model sporadic tasks as periodic tasks by trivially encoding them as periodic tasks. On the other hand deadline miss detection is facilitated, which can be considered somewhat peculiar as this is concerned with the same mechanics.
+While RTSJ supports all three types of tasks, SCJ is restricted to periodic and aperiodic tasks. Therefore no enforcement of minimum inter-arrival times between release events is present, and this relies on the application developer. As a result, one must instead model sporadic tasks as periodic tasks by trivially encoding them as periodic tasks. On the other hand deadline miss detection is facilitated, which can be considered somewhat peculiar as this is concerned with the same mechanics.
 
 \subsection{Scheduling and Priority Inversion Avoidance} % (fold)
 \label{sub:scheduling_and_priority_inversion_avoidance}
