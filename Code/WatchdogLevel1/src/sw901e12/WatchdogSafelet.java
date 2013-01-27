@@ -20,6 +20,7 @@ public class WatchdogSafelet implements Safelet<Mission> {
 		return new LinearMissionSequencer<Mission>(
 				new PriorityParameters(11),
 				new StorageParameters(1000, null),
+				false,
 				new WatchdogMission());	
 	}
 
@@ -27,5 +28,13 @@ public class WatchdogSafelet implements Safelet<Mission> {
 	@SCJAllowed(Level.SUPPORT)
 	public long immortalMemorySize() {
 		return 100000;
+	}
+
+	@Override
+	@SCJAllowed(Level.SUPPORT)
+	@SCJRestricted(phase = Phase.INITIALIZATION)
+	public void initializeApplication() {
+		// TODO Auto-generated method stub
+		
 	}
 }

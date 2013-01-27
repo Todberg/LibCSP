@@ -29,9 +29,12 @@ public class ServerHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
+		System.out.println("Server");
 		connection = socket.accept(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
+		System.out.println("Done accept");
 		
 		if (connection != null) {
+			System.out.println("Got conn");
 			Packet p = connection.read(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 			
 			char data = (char)p.readContent();

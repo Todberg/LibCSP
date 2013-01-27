@@ -53,7 +53,8 @@ public class RouteHandler extends PeriodicEventHandler {
 
 	@Override
 	@SCJAllowed(Level.SUPPORT)
-	public void handleAsyncEvent() {		
+	public void handleAsyncEvent() {
+		System.out.println("Router");
 		PacketCore packet = packetsToBeProcessed.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		
 		if (packet != null) {

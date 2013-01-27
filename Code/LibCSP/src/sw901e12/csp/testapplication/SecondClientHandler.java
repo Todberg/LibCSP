@@ -26,6 +26,7 @@ public class SecondClientHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
+		System.out.println("Handler 1");
 		Connection conn = cspManager.createConnection(ClientServerMission.NODE_ADDRESS, 12, CSPManager.TIMEOUT_NONE, null);
 
 		if (conn != null) {	
@@ -33,8 +34,10 @@ public class SecondClientHandler extends PeriodicEventHandler {
 			p.setContent((int)'B');
 			
 			conn.send(p);
+			System.out.println("Sent packet");
 			
 			Packet response = conn.read(CSPManager.TIMEOUT_NONE);
+		
 			System.out.println("Response: " + (char)response.readContent());
 			
 			conn.close();

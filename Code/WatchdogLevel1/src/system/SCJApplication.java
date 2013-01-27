@@ -4,7 +4,7 @@ import javax.safetycritical.JopSystem;
 
 import sw901e12.WatchdogSafelet;
 
-public class SCJApplicationMain
+public class SCJApplication
 {
 	public static void main(String[] args) throws InterruptedException
 	{

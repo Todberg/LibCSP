@@ -15,13 +15,11 @@ public interface Socket {
 	 * @return A new established connection upon receiving a new packet, or null on timeout
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.RUN)
 	public Connection accept(int timeout);
 	
 	/**
 	 * Closes the socket an unbinds the used port. 
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.RUN)
 	public void close();
 }

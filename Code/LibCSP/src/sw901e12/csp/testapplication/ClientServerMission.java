@@ -22,28 +22,26 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 	
 	@Override
 	@SCJAllowed(Level.SUPPORT)
-	@SCJRestricted(phase = Phase.INITIALIZATION)
 	public MissionSequencer<Mission> getSequencer() {
 		return new LinearMissionSequencer<Mission>(new PriorityParameters(20), 
-				new StorageParameters(100000, null), 
+				new StorageParameters(8000, null), 
+				false,
 				this);
 	}
 
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public long immortalMemorySize() {
-		return 100000;
+		return 10000;
 	}
 	
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	protected void initialize() {
-		super.peHandlerCount = 4;
-		
 		manager = new CSPManager();
 			
 		final int ROUTING_HANDLER_RELEASE_PERIOD_IN_MS = 20;
-		final int ROUTING_HANDLER_PRIORITY = 18;
+		final int ROUTING_HANDLER_PRIORITY = 6;
 
 		PriorityParameters routingPriorityParameters = new PriorityParameters(ROUTING_HANDLER_PRIORITY);
 		PeriodicParameters routingPeriodicParameters = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(ROUTING_HANDLER_RELEASE_PERIOD_IN_MS, 0));
@@ -64,8 +62,8 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 	
 	
 	private void initializeFirstClientHandler() {
-		final int CLIENT_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 2048;
-		final int CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
+		final int CLIENT_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
+		final int CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES = 800;
 		final int CLIENT_HANDLER_RELEASE_PERIOD_IN_MS = 400;
 		final int CLIENT_HANDLER_PRIORITY = 5;
 		
@@ -76,15 +74,15 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 		ClientHandler client = new ClientHandler(clientHandlerPriorityParameters,
 			clientHandlerPeriodicParameters,
 			clientHandlerStorageParameters,
-			0,
+			CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES,
 			manager);
 		
 		client.register();
 	}
 	
 	private void initializeSecondClientHandler() {
-		final int CLIENT_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 2048;
-		final int CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
+		final int CLIENT_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
+		final int CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES = 800;
 		final int CLIENT_HANDLER_RELEASE_PERIOD_IN_MS = 400;
 		final int CLIENT_HANDLER_PRIORITY = 7;
 		
@@ -95,16 +93,16 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 		SecondClientHandler client = new SecondClientHandler(clientHandlerPriorityParameters,
 			clientHandlerPeriodicParameters,
 			clientHandlerStorageParameters,
-			0,
+			CLIENT_HANDLER_SCOPE_SIZE_IN_BYTES,
 			manager);
 		
 		client.register();
 	}
 	
 	private void initializeServerHandler() {
-		final int SERVER_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 2048;
-		final int SERVER_HANDLER_SCOPE_SIZE_IN_BYTES = 512;
-		final int SERVER_HANDLER_RELEASE_PERIOD_IN_MS = 15;
+		final int SERVER_HANDLER_BACKING_STORE_SIZE_IN_BYTES = 1024;
+		final int SERVER_HANDLER_SCOPE_SIZE_IN_BYTES = 800;
+		final int SERVER_HANDLER_RELEASE_PERIOD_IN_MS = 400;
 		final int SERVER_HANDLER_PRIORITY = 15;
 		
 		PriorityParameters serverHandlerPriorityParameters = new PriorityParameters(SERVER_HANDLER_PRIORITY);
@@ -114,7 +112,7 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 		ServerHandler server = new ServerHandler(serverHandlerPriorityParameters,
 				serverHandlerPeriodicParameters,
 				serverHandlerStorageParameters,
-				0,
+				SERVER_HANDLER_SCOPE_SIZE_IN_BYTES,
 				manager);
 		
 		server.register();
@@ -123,7 +121,14 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 	@Override
 	@SCJAllowed
 	public long missionMemorySize() {
-		return 100000;
+		return 10000;
+	}
+
+	@Override
+	@SCJAllowed(Level.SUPPORT)
+	public void initializeApplication() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

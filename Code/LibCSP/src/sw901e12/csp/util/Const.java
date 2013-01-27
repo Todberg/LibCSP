@@ -20,10 +20,10 @@ public class Const {
 	 * Default Pool capacities that are used 
 	 * if the user does not supply any
 	 */
-	public static final byte DEFAULT_MAX_CONNECTIONS = 8;	
+	public static final byte DEFAULT_MAX_CONNECTIONS = 4;	
 	public static final byte DEFAULT_MAX_CONNECTION_PER_SOCKET = 2;
-	public static final byte DEFAULT_PACKET_QUEUE_SIZE_ROUTING = 32;
+	public static final byte DEFAULT_PACKET_QUEUE_SIZE_ROUTING = 10;
 	public static final byte DEFAULT_PACKET_QUEUE_SIZE_PER_CONNECTION = 4;
-	public static final byte DEFAULT_MAX_SOCKETS = 4;
-	public static final byte DEFAULT_MAX_PACKETS = 64;
+	public static final byte DEFAULT_MAX_SOCKETS = 3;
+	public static final byte DEFAULT_MAX_PACKETS = 15;
 }

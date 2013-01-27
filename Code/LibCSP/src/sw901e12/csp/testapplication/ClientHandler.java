@@ -26,6 +26,7 @@ public class ClientHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
+		System.out.println("Handler 2");
 		Connection conn = cspManager.createConnection(ClientServerMission.NODE_ADDRESS, 12, CSPManager.TIMEOUT_NONE, null);
 
 		if (conn != null) {	

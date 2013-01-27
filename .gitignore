@@ -20,6 +20,7 @@
 *.log
 *.synctex.gz
 *.orig
+*.DS_STORE
 
 
 ## Folders ##
