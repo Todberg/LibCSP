@@ -28,27 +28,27 @@
 		<link>
 			<name>app</name>
 			<type>2</type>
-			<location>Z:/Documents/Uni/JOP/java/target/src/app</location>
+			<locationURI>JOP_HOME/java/target/src/app</locationURI>
 		</link>
 		<link>
 			<name>common</name>
 			<type>2</type>
-			<location>Z:/Documents/Uni/JOP/java/target/src/common</location>
+			<locationURI>JOP_HOME/java/target/src/common</locationURI>
 		</link>
 		<link>
 			<name>jdk11</name>
 			<type>2</type>
-			<location>Z:/Documents/Uni/JOP/java/target/src/jdk11</location>
+			<locationURI>JOP_HOME/java/target/src/jdk11</locationURI>
 		</link>
 		<link>
 			<name>jdk_base</name>
 			<type>2</type>
-			<location>Z:/Documents/Uni/JOP/java/target/src/jdk_base</location>
+			<locationURI>JOP_HOME/java/target/src/jdk_base</locationURI>
 		</link>
 		<link>
 			<name>rtapi</name>
 			<type>2</type>
-			<location>Z:/Documents/Uni/JOP/java/target/src/rtapi</location>
+			<locationURI>JOP_HOME/java/target/src/rtapi</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
