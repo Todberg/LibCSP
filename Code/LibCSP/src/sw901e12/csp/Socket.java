@@ -1,9 +1,7 @@
 package sw901e12.csp;
 
 import javax.safetycritical.annotate.Level;
-import javax.safetycritical.annotate.Phase;
 import javax.safetycritical.annotate.SCJAllowed;
-import javax.safetycritical.annotate.SCJRestricted;
 
 
 public interface Socket {

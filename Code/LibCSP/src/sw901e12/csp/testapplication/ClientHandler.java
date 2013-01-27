@@ -13,7 +13,7 @@ import sw901e12.csp.Packet;
 
 public class ClientHandler extends PeriodicEventHandler {
 
-	private CSPManager cspManager;
+	private CSPManager cspManager;	
 	
 	public ClientHandler(PriorityParameters priority,
 			PeriodicParameters parameters, StorageParameters scp, long scopeSize,

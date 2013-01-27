@@ -34,7 +34,7 @@ public class SocketCore implements IDispose, sw901e12.csp.Socket {
 	
 	@Override
 	public void dispose() {
-		this.port = 0;
+		this.port = -1;
 		this.connections.reset();
 		CSPManager.resourcePool.putSocket(this);
 	}

@@ -4,9 +4,7 @@ import javax.realtime.PeriodicParameters;
 import javax.realtime.PriorityParameters;
 import javax.safetycritical.StorageParameters;
 import javax.safetycritical.annotate.Level;
-import javax.safetycritical.annotate.Phase;
 import javax.safetycritical.annotate.SCJAllowed;
-import javax.safetycritical.annotate.SCJRestricted;
 
 import sw901e12.csp.core.ConnectionCore;
 import sw901e12.csp.core.Port;
@@ -135,7 +133,7 @@ public class CSPManager {
 	public IMACProtocol getIMACProtocol(int type) {
 		switch(type) {
 		case INTERFACE_I2C:
-			return InterfaceI2C.getInterface();		
+			return InterfaceI2C.getInterface();				
 		case INTERFACE_LOOPBACK:
 			return InterfaceLoopback.getInterface();
 		}
