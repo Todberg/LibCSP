@@ -54,7 +54,6 @@ public class RouteHandler extends PeriodicEventHandler {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void handleAsyncEvent() {
-		System.out.println("Router");
 		PacketCore packet = packetsToBeProcessed.dequeue(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 		
 		if (packet != null) {
@@ -77,7 +76,7 @@ public class RouteHandler extends PeriodicEventHandler {
 					}
 					
 					/* If a socket listens on the port (server) */
-					if (packetDPORT.isOpen) {						
+					if (packetDPORT.isOpen) {					
 						packetConnection = CSPManager.resourcePool.getConnection(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 						if (packetConnection != null) {
 							/* 

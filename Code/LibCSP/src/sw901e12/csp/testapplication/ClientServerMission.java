@@ -41,7 +41,7 @@ public class ClientServerMission extends Mission implements Safelet<Mission> {
 		manager = new CSPManager();
 			
 		final int ROUTING_HANDLER_RELEASE_PERIOD_IN_MS = 20;
-		final int ROUTING_HANDLER_PRIORITY = 6;
+		final int ROUTING_HANDLER_PRIORITY = 20;
 
 		PriorityParameters routingPriorityParameters = new PriorityParameters(ROUTING_HANDLER_PRIORITY);
 		PeriodicParameters routingPeriodicParameters = new PeriodicParameters(new RelativeTime(0, 0), new RelativeTime(ROUTING_HANDLER_RELEASE_PERIOD_IN_MS, 0));

@@ -135,8 +135,7 @@ public class CSPManager {
 	public IMACProtocol getIMACProtocol(int type) {
 		switch(type) {
 		case INTERFACE_I2C:
-			return InterfaceI2C.getInterface();			
-			
+			return InterfaceI2C.getInterface();		
 		case INTERFACE_LOOPBACK:
 			return InterfaceLoopback.getInterface();
 		}
