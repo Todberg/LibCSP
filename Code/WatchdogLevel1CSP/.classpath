@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="csp/scj/|minepump/" kind="src" path="app"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="common"/>
-	<classpathentry excluding="javax/safetycritical/test/" including="javax/|org/" kind="src" path="rtapi"/>
+	<classpathentry excluding="scjtck/|javax/safetycritical/test/|edu/purdue/scjtck/tck/|examples/scopes/|edu/purdue/scjtck/|test/scj/" kind="src" path="rtapi"/>
 	<classpathentry kind="src" path="jdk11"/>
 	<classpathentry kind="src" path="jdk_base"/>
+	<classpathentry kind="src" path="common"/>
+	<classpathentry excluding="csp/test/|minepump/" kind="src" path="app"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

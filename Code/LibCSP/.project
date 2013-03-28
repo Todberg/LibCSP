@@ -20,6 +20,16 @@
 				</dictionary>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/New_Builder.launch</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
@@ -28,27 +38,27 @@
 		<link>
 			<name>app</name>
 			<type>2</type>
-			<locationURI>JOP_HOME/java/target/src/app</locationURI>
+			<location>Z:/Documents/Uni/JOP/java/target/src/app</location>
 		</link>
 		<link>
 			<name>common</name>
 			<type>2</type>
-			<locationURI>JOP_HOME/java/target/src/common</locationURI>
+			<location>Z:/Documents/Uni/JOP/java/target/src/common</location>
 		</link>
 		<link>
 			<name>jdk11</name>
 			<type>2</type>
-			<locationURI>JOP_HOME/java/target/src/jdk11</locationURI>
+			<location>Z:/Documents/Uni/JOP/java/target/src/jdk11</location>
 		</link>
 		<link>
 			<name>jdk_base</name>
 			<type>2</type>
-			<locationURI>JOP_HOME/java/target/src/jdk_base</locationURI>
+			<location>Z:/Documents/Uni/JOP/java/target/src/jdk_base</location>
 		</link>
 		<link>
 			<name>rtapi</name>
 			<type>2</type>
-			<locationURI>JOP_HOME/java/target/src/rtapi</locationURI>
+			<location>Z:/Documents/Uni/JOP/java/target/src/rtapi</location>
 		</link>
 	</linkedResources>
 </projectDescription>

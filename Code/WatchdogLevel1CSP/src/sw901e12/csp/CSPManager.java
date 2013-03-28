@@ -45,7 +45,6 @@ public class CSPManager {
 	 * @param nodeAddress The specified address of the host (must be in the range 0-30)
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.INITIALIZATION)
 	public void init(int nodeAddress, PriorityParameters routingHandlerPriorityParameters, PeriodicParameters routingHandlerPeriodicParameters) {
 		CSPManager.nodeAddress = (byte)nodeAddress;
 		CSPManager.outgoingPorts = 0;
@@ -73,7 +72,6 @@ public class CSPManager {
 	 * concurrently with other event handlers.
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.INITIALIZATION)
 	public void startRouteHandler() {
 		routeHandler.register();
 	}
@@ -83,7 +81,6 @@ public class CSPManager {
 	 * These sizes cannot be changed at run-time.
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.INITIALIZATION)
 	public void initPools() {
 		initPools(Const.DEFAULT_MAX_SOCKETS,
 			Const.DEFAULT_MAX_CONNECTION_PER_SOCKET,
@@ -102,7 +99,6 @@ public class CSPManager {
 	 * @param packetsCapacity Maximum amount of packets
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.INITIALIZATION)
 	public void initPools(int socketsCapacity,
 			int connectionsPerSocketCapacity,
 			int connectionsCapacity,
@@ -125,7 +121,6 @@ public class CSPManager {
 	 * @param nextHopMacAddress Next hop mac address for the interface protocol
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.INITIALIZATION)
 	public void routeSet(int nodeAddress, IMACProtocol protocol, int nextHopMacAddress) {		
 		RouteHandler.routeTable[nodeAddress].nextHopMacAddress = (byte)nextHopMacAddress;
 		RouteHandler.routeTable[nodeAddress].protocolInterface = protocol;
@@ -136,8 +131,7 @@ public class CSPManager {
 	 * @param Identifier for the protocol
 	 * @return A singleton object implementing the protocol
 	 */
-	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.INITIALIZATION)	
+	@SCJAllowed(Level.LEVEL_1)	
 	public IMACProtocol getIMACProtocol(int type) {
 		switch(type) {
 		case INTERFACE_I2C:
@@ -157,7 +151,6 @@ public class CSPManager {
 	 * @return Socket object bound to the port or null if none available
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.ALL)
 	public synchronized Socket createSocket(int port, Object options) {		
 		Port p = RouteHandler.portTable[port];
 		if(!p.isOpen) {
@@ -182,7 +175,6 @@ public class CSPManager {
 	 * @return Newly created connection
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.ALL)
 	public Connection createConnection(int address, int port, int timeout, Object options) {
 		ConnectionCore connection = resourcePool.getConnection(timeout);
 		
@@ -200,7 +192,7 @@ public class CSPManager {
 	
 	private synchronized byte findUnusedOutgoingPort() {
 		short mask;
-		for(short index = 0; index < 15; index++) {
+		for(short index = 0; index < 15; index++) { //@WCA loop = 15
 			mask = (short) (1 << index);
 			if((outgoingPorts & mask) == 0) {
 				outgoingPorts |= mask;
@@ -215,7 +207,6 @@ public class CSPManager {
 	 * @return Empty packet
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.ALL)
 	public Packet createPacket() {
 		return CSPManager.resourcePool.getPacket(CSPManager.TIMEOUT_SINGLE_ATTEMPT);
 	}

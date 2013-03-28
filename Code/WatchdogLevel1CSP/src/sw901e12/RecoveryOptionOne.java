@@ -19,10 +19,10 @@ public class RecoveryOptionOne implements IRecoveryRoutine {
 	public void executeRecovery() {
 		// Simulate recovery computations
 		ledSwitch.ledSwitch = Integer.MAX_VALUE;
-		for(int i = 0; i < 1000; i++); // @WCA loop=1000
+		for(int i = 0; i < 1000; i++); //@WCA loop = 1000
 		ledSwitch.ledSwitch = 0;
 		sysDevice.wd = Integer.MAX_VALUE;
-		for(int i = 0; i < 1000; i++); // @WCA loop=1000
+		for(int i = 0; i < 1000; i++); //@WCA loop = 1000
 		sysDevice.wd = 0;
 	}
 }

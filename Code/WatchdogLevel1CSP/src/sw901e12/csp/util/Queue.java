@@ -69,7 +69,7 @@ public class Queue<T extends IDispose> {
 		boolean waitForever = (timeout == CSPManager.TIMEOUT_NONE ? true : false);
 		timeout = System.currentTimeMillis() + timeout;
 		
-		do { // @WCA loop<=1
+		do { //@WCA loop = 1
 			 value = dequeue();
 		} while(((System.currentTimeMillis() < timeout) || waitForever) && (value == null)); // @WCA loop<=1
 
@@ -107,7 +107,7 @@ public class Queue<T extends IDispose> {
 	/* Clears all values and resets the queue */
 	public synchronized void reset() {
 		Element element = null;
-		for(byte i = 0; i < count; i++) { // @WCA loop<=64
+		for(byte i = 0; i < count; i++) { //@WCA loop = 64
 			if(i == 0) {
 				element = head;
 			}

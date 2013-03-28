@@ -13,7 +13,7 @@ public class ISRHandler extends AperiodicEventHandler {
 
 	public ISRHandler(PriorityParameters priority, AperiodicParameters release,
 			StorageParameters scp, IMACProtocol protocolInterface) {
-		super(priority, release, scp);
+		super(priority, release, scp, 512);
 		
 		this.protocolInterface = protocolInterface;
 		this.register();

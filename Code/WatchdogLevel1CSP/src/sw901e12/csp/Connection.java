@@ -13,7 +13,6 @@ public interface Connection {
 	 * @return Next packet received on the connection or null if none
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.RUN)
 	public Packet read(int timeout);
 	
 	/**
@@ -21,13 +20,11 @@ public interface Connection {
 	 * @param packet The packet with specified data to be sent
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.RUN)
 	public void send(Packet packet);
 	
 	/**
 	 * Closes the connection if open
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.RUN)
 	public void close();
 }

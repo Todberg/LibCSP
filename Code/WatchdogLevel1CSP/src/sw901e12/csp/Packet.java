@@ -12,7 +12,6 @@ public interface Packet {
 	 * @param data Payload data
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.RUN)
 	public void setContent(int data);
 	
 	/**
@@ -20,6 +19,5 @@ public interface Packet {
 	 * @return Payload data
 	 */
 	@SCJAllowed(Level.LEVEL_1)
-	@SCJRestricted(Phase.RUN)
 	public int readContent();
 }

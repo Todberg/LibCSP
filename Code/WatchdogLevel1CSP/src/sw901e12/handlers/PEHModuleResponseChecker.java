@@ -37,7 +37,7 @@ public class PEHModuleResponseChecker extends PeriodicEventHandler {
 			console.println("PEHModuleResponseChecker");
 		}
 		
-		for (Module slave : slaves) { // @WCA loop<=10
+		for (Module slave : slaves) { //@WCA loop = 10
 			if(slave.getResponse() == true) {
 				slave.resetResponse();
 			} else {

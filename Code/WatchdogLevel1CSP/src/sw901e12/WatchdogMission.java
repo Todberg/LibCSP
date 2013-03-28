@@ -40,7 +40,7 @@ public class WatchdogMission extends Mission {
 	@Override
 	@SCJAllowed(Level.SUPPORT)
 	public void initialize() {
-		super.peHandlerCount = 4;
+		//super.peHandlerCount = 4;
 
 		initializeConsole();
 		initializeCSP();

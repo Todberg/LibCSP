@@ -81,7 +81,7 @@ public class ResourcePool {
 	}
 	
 	public ConnectionCore getGlobalConnection(int id) {
-		for(ConnectionCore connection : globalConnections) {
+		for(ConnectionCore connection : globalConnections) { //@WCA loop = 8
 			if(connection.id == id && connection.isOpen) {
 				return connection;
 			}

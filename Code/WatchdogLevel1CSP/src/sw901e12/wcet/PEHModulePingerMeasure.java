@@ -15,6 +15,17 @@ import com.jopdesign.sys.Native;
 
 public class PEHModulePingerMeasure extends PEHModulePinger {
 
+	public PEHModulePingerMeasure(PriorityParameters priority,
+			PeriodicParameters parameters, StorageParameters scp,
+			long scopeSize, SimplePrintStream console, Module[] slaves,
+			CSPManager manager) {
+		super(priority, parameters, scp, scopeSize, console, slaves, manager);
+	}
+	
+}
+/*
+public class PEHModulePingerMeasure extends PEHModulePinger {
+
 	private int timeUsBegin;
 	private int timeUsEnd;
 	private int timeUsForNativeReads;
@@ -46,3 +57,4 @@ public class PEHModulePingerMeasure extends PEHModulePinger {
 		console.println("US: " + timeUsResultForHandler);
 	}
 }
+*/
