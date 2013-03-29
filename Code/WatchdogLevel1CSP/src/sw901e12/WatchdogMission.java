@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.microedition.io.Connector;
+import javax.realtime.AperiodicParameters;
 import javax.realtime.PeriodicParameters;
 import javax.realtime.PriorityParameters;
 import javax.realtime.RelativeTime;
@@ -14,6 +15,7 @@ import javax.safetycritical.annotate.SCJAllowed;
 import javax.safetycritical.io.SimplePrintStream;
 
 import sw901e12.csp.CSPManager;
+import sw901e12.csp.handlers.ISRHandler;
 import sw901e12.csp.interfaces.IMACProtocol;
 import sw901e12.handlers.PEHModulePinger;
 import sw901e12.handlers.PEHModuleResponseChecker;
@@ -106,6 +108,10 @@ public class WatchdogMission extends Mission {
 				I2CInterface.initialize(MACAddress);
 				manager.routeSet(CSPAddress, I2CInterface, 0xFF); // last param is determined by topological network ordering (atm unknown)
 			}
+			
+			ISRHandler handler = new ISRHandler(new PriorityParameters(50), new AperiodicParameters(), new StorageParameters(500,  new long[] { 500 } ), manager.getIMACProtocol(CSPManager.INTERFACE_I2C));
+			handler.register();
+			handler.handleAsyncEvent();
 		}
 	}
 	
