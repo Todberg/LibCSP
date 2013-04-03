@@ -47,7 +47,7 @@ public class InterfaceI2C implements IMACProtocol {
 	 */
 	@Override
 	public void transmitPacket(PacketCore packet) {
-		int[] frame = new int[FRAME_SIZE_IN_BYTES];
+		int[] frame = new int[FRAME_SIZE_IN_BYTES]; //@ maxsize = 9
 		
 		Node packetDSTNode = RouteHandler.routeTable[packet.getDST()];
 		
